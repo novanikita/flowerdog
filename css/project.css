@@ -1,0 +1,478 @@
+header {
+    padding: 1em;
+    display: flex;
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+        padding: 0.5em;
+        margin-bottom: 2em;
+    }
+    
+    & .logo {
+        font-size: 1.4em;
+        line-height: 1.2;
+        margin-right: 1em;
+
+            @media screen and (max-width: 768px) {
+                width: 50%;
+                font-size: 1em;
+        }
+    }
+
+    & .nav {
+        display: flex;
+        font-size: 1.4em;
+        line-height: 1.2;
+
+        @media screen and (max-width: 768px) {
+            width: 50%;
+            font-size: 1em;
+            flex-direction: column;
+
+        }
+
+        & .nav-item {
+            margin-right: 1em;
+                @media screen and (max-width: 768px) {
+                margin-right: 0;
+                margin-bottom: 0.5em;
+                
+            }
+        }
+    }
+}
+
+/* Main page header: two containers, refined alignment */
+.main-header {
+    font-size: 1em;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.main-header__left {
+    display: flex;
+    align-items: flex-end;
+    gap: 3em;
+}
+
+.main-header__left .logo {
+    margin-right: 0;
+}
+
+.main-header__left .logo img {
+    height: 1em;
+    width: auto;
+    display: block;
+}
+
+.main-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 3em;
+}
+
+.main-header__link,
+.main-header a,
+.main-header a:hover,
+.main-header a:visited,
+.main-header a:focus-visible {
+    color: #000;
+    text-decoration: none;
+}
+
+.main-header__right {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Language switcher: both options visible, active has border */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0em;
+}
+
+.lang-switcher__btn {
+    min-width: 2em;
+    min-height: 1.4em;
+    padding: 0.2em;
+    background: transparent;
+    border: 0.05em solid transparent;
+    border-radius: 0.2em;
+    font-size: inherit;
+    font-family: inherit;
+    color: #000;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.lang-switcher__btn.is-active {
+    border-color: #000;
+}
+
+/* MAIN PAGE */
+
+.main-page-header {
+    width: 70%;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.main-page-header__cta,
+.main-page-header__cta:hover,
+.main-page-header__cta:visited,
+.main-page-header__cta:focus-visible {
+    color: #000;
+    text-decoration: none;
+}
+
+.main-page-header__cta {
+    display: inline-block;
+    margin-left: 0.3em;
+    padding: 0em 0.25em 0.03em 0.25em;
+    background: transparent;
+    border: 0.05em solid #000;
+    border-radius: 0.2em;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    white-space: nowrap;
+}
+
+.main-page-header__cta:hover {
+    background: #EAFF02;
+}
+
+.ids .main-page-header__cta:hover {
+    color: #000;
+}
+
+/* Perspective overlapping card gallery */
+.card-stack {
+    display: flex;
+    align-items: flex-end;
+    padding: 4em 0;
+    list-style: none;
+    margin: 0;
+    position: relative;
+}
+
+/* Hover zones sit above all cards and stay interactive regardless of stacking */
+.card-stack__hover-zones {
+    position: absolute;
+    left: 0;
+    top: 4em;
+    height: 17em;
+    display: flex;
+    flex-direction: row;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.card-stack__hover-zone {
+    width: 2em;
+    height: 17em;
+    flex-shrink: 0;
+    pointer-events: auto;
+}
+
+.card-stack__link {
+    flex: 0 0 auto;
+    display: block;
+    padding-right: 0;
+    margin-right: -10em;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+.card-stack__link:last-child {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.card-stack__card {
+    display: block;
+    width: 12em;
+    height: 17em;
+    overflow: hidden;
+    border-radius: 0.5em;
+    transform: skewY(-10deg) scaleY(1.1);
+    transform-origin: bottom center;
+    transition: filter 2s ease;
+    position: relative;
+}
+
+.card-stack__link:hover .card-stack__card,
+.card-stack__link.is-raised .card-stack__card {
+    filter: brightness(120%);
+}
+
+.card-stack__card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* PORTFOLIO PAGE */
+
+.projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    --gap: 1em;
+    gap: var(--gap);
+
+    @media screen and (max-width: 768px) {
+        --gap: 0.3em;
+    }
+
+    & .projects-grid-item {
+        --columns: 4;
+        width: calc((100% - var(--gap) * (var(--columns) - 1)) / var(--columns));
+
+        height: 33em;
+
+        @media screen and (max-width: 768px) {
+            --columns: 2;
+            height: 18em;
+        }
+
+        &.L {
+            --columns: 2;
+            @media screen and (max-width: 768px) {
+                --columns: 1;
+            }
+        }
+        &.XL {
+            --columns: 1;
+        }
+    }
+}
+
+a.project-promo-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: filter 0.5s ease;
+    border-bottom: 0;
+    text-decoration: none;
+
+    & h2 {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.15em;
+        text-decoration-color: rgba(255, 255, 255, 0.3);
+        transition: text-decoration 0.5s ease;
+        @media screen and (max-width: 768px) {
+            font-size: 1.1em;
+            }
+    }
+
+    &:hover {
+        transition: filter 0s ease;
+        filter: brightness(110%);
+
+        & h2 {
+            text-decoration-color: rgba(255, 255, 255, 0.7);
+            transition: text-decoration 0s ease;
+        }
+    }
+}
+
+.project-promo,
+.video-promo {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.5em;
+    padding: 0.5em 0.8em;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.project-promo h2 {
+    color: white;
+    font-size: 1.4em;
+    width: 17em;
+    margin-bottom: 0.2em;
+}
+
+.video-promo h2 {
+    color: white;
+    font-size: 1.4em;
+    width: 20em;
+}
+
+/* Project Page */
+
+/* Additional information tags (e.g. №98, date): match project tag border, transparent bg, black text */
+main:has(.project-header-tags) code {
+  background: transparent;
+  color: #000;
+  border: 0.05em solid #000;
+  border-radius: 0.2em;
+}
+
+.project-page-wrapper {
+    display: flex;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    }
+
+    & .project-about {
+        width: 35%;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+
+        & .sticky-project-info {
+            padding: 0em 2em 0.5em 0em;
+            position: sticky;
+            top: 1em;
+            @media screen and (max-width: 768px) {
+                padding: 0;
+            }
+        }
+    }
+
+    & .project-gallery {
+        width: 65%;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+    }
+}
+
+.main-page {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-page footer div {
+    text-align: left;
+}
+
+footer {
+    margin: 5em 1em;
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5em;
+        margin: 7em 0;
+    }
+}
+
+.caption {
+    font-size: 0.9em;
+}
+
+.main-page-nav {
+    width: 12em;
+}
+
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1em;
+}
+
+/* Заголовок */
+.custom-table thead th {
+  text-align: left;
+  padding: 0.75em 1em;
+  position: sticky;
+  top: 0;
+  background: #ffffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+/* Строки */
+.custom-table tbody tr {
+  transition: background-color 1.5s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* линия-разделитель */
+}
+
+/* Hover эффект без белых полос */
+.custom-table tbody tr:hover {
+  background-color: #edededff;
+  transition: background-color 0s ease;
+}
+
+/* Ячейки */
+.custom-table td {
+  padding: 0.75em 1em;
+  vertical-align: top;
+}
+
+
+.card
+  {
+    background-color:rgba(228, 246, 255, 1);
+    border-radius: 1em;
+    padding: 1.5em 1.5em 1em 1.5em;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+
+}
+
+.portreit {
+    width: 5em;
+    height: 5em;
+    margin-right: -2em;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.portreit img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hr.default,
+hr.default {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+  }
+
+/* Project-blank page: 0.5em thick black divider */
+main:has(.project-gallery) hr.default {
+  border: 0;
+  border-top: 0.05em solid #000;
+}
+
+.project-date {
+  font-size: 0.7em;
+  color:rgb(169, 169, 169);
+  font-weight: 400;
+}
+
+/* Override general code styling: higher specificity so it wins on project pages */
+main:has(.project-header-tags) code.project-number {
+  margin-right: 0.1em;
+  border: none;
+  background: rgb(241, 241, 241);
+}

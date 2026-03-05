@@ -1,0 +1,103 @@
+/* Tag system: project type and client tags */
+
+.tag {
+  display: inline-block;
+  background: #fff;
+  border: 0.05em solid #000;
+  border-radius: 0.2em;
+  padding: 0.15em 0.4em;
+  margin: 0 0.15em 0.15em 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: nowrap;
+}
+
+.tag:last-child {
+  margin-right: 0;
+}
+
+/* Tags inside headings (inline with text) */
+.heading-tags .tag {
+  margin-right: 0.1em;
+  padding: 0.1em 0.3em;
+  border-radius: 0.2em;
+  border: 0.05em solid #000;
+}
+
+/* Clickable heading tags: filter state */
+.heading-tags .tag[data-tag] {
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.heading-tags .tag[data-tag]:hover {
+  background-color: #eaff02;
+}
+
+.heading-tags .tag[data-tag].is-active {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Tags on project cards: top-left corner, single row with wrap */
+.project-promo-link .project-tags {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 0.25em;
+  padding: 0.5em 0.5em;
+  align-items: flex-start;
+}
+
+.project-promo-link .project-tags .tag {
+  font-size: 0.8em;
+  padding: 0.1em 0.3em;
+  color: #fff;
+  background-color: transparent;
+  border: 0.05em solid #fff;
+}
+
+/* Tags on individual project page (before h1) */
+.project-header-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  margin-bottom: 0.5em;
+}
+
+.project-header-tags .tag {
+  font-size: 0.9em;
+}
+
+/* Gallery filter: hidden cards and zones (unfiltered: keep layout, no jump) */
+.card-stack__link.is-hidden,
+.card-stack__hover-zone.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Gallery filter active: reflow visible cards (card size 12em × 17em, padding 4em) */
+.card-stack.card-stack--filtered {
+  min-height: 25em;
+}
+
+.card-stack.card-stack--filtered .card-stack__link {
+  position: absolute;
+  bottom: 4em;
+  margin-right: 0;
+  margin-left: 0;
+  transition: left 0.25s ease;
+}
+
+.card-stack.card-stack--filtered .card-stack__hover-zone {
+  position: absolute;
+  top: 0;
+  transition: left 0.25s ease;
+}

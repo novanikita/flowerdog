@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Портфолио — CMND</title>
+    <link rel="icon" href="images/icon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/colors.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/settings.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/ids.css" />
+    <link rel="stylesheet" href="css/gallery.css" />
+    <link rel="stylesheet" href="css/project.css" />
+    <link rel="stylesheet" href="css/tags.css" />
+  </head>
+
+  <body class="ids">
+    <div class="main-page">
+      <header class="main-header">
+        <div class="main-header__left">
+          <div class="logo">
+            <a href="index.html"><img src="images/logo.svg" alt="CMND" /></a>
+          </div>
+          <nav class="main-header__nav">
+            <a class="main-header__link" data-i18n data-ru="О нас" data-en="About" href="about.html">О нас</a>
+            <a class="main-header__link" data-i18n data-ru="Проекты" data-en="Projects" href="portfolio.html">Проекты</a>
+          </nav>
+        </div>
+        <div class="main-header__right">
+          <div class="lang-switcher" aria-label="Language switcher" role="group">
+            <button type="button" class="lang-switcher__btn is-active" data-lang-switch="ru" aria-pressed="true">РУ</button>
+            <button type="button" class="lang-switcher__btn" data-lang-switch="en" aria-pressed="false">EN</button>
+          </div>
+        </div>
+      </header>
+    </div>
+    <main>
+      <div class="ids__wrapper L">
+      
+      <!-- Site-wide projects list for tag counts (one entry per project) -->
+      <div id="site-projects-data" hidden aria-hidden="true">
+        <span data-type-tags="website branding" data-client-tag="yandex"></span>
+        <span data-type-tags="website branding" data-client-tag="lavatop"></span>
+        <span data-type-tags="branding events" data-client-tag="sber"></span>
+        <span data-type-tags="branding" data-client-tag="startup"></span>
+        <span data-type-tags="website" data-client-tag="startup"></span>
+        <span data-type-tags="website branding" data-client-tag="lavatop"></span>
+        <span data-type-tags="branding events" data-client-tag="sber"></span>
+        <span data-type-tags="branding" data-client-tag="rangos"></span>
+        <span data-type-tags="website branding" data-client-tag="yandex"></span>
+        <span data-type-tags="website" data-client-tag="vse-instrumenty"></span>
+        <span data-type-tags="branding" data-client-tag="pmk-park"></span>
+        <span data-type-tags="website" data-client-tag="sporos"></span>
+        <span data-type-tags="branding" data-client-tag="dodo-pizza"></span>
+      </div>
+      <!--Описание страницы-->
+      <div class="ids__space L"></div>
+      <div class="main-page-header">
+        <h1 class="XS">
+          <span class="heading-tags" id="heading-type-tags" aria-live="polite"></span>
+          <span class="heading-tags" id="heading-client-tags" aria-live="polite"></span>
+        </h1>
+        <h1 class="XS">
+          <span data-i18n data-ru="Работаем с корпорациями, стартапами и молодыми бизнесами. Наша экспертиза сконцентрирована вокруг проектов с едой, сервисами и промышленностью " data-en="We work with corporations, startups and young businesses. Our expertise is concentrated around projects involving food, services, and industry ">Работаем с корпорациями, стартапами и молодыми бизнесами. Наша экспертиза сконцентрирована вокруг проектов с едой, сервисами и промышленностью </span><a href="about.html" class="main-page-header__cta" data-i18n data-ru="о нас" data-en="About us">о нас</a>
+        </h1>
+      </div>
+      <div class="ids__space L"></div>
+
+      <!--Галерея с проектами-->
+        <div class="projects-grid">
+
+          <div class="projects-grid-item">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="website branding" data-client-tag="lavatop">
+              <div class="project-promo" style="background-image: url('images/projects-promo/commo-cover.jpg');">
+                <h2
+                  data-i18n
+                  data-ru="Lavatop"
+                  data-en="Lavatop"
+                >Lavatop</h2>
+                <div class="project-tags" aria-label="Project tags"></div>
+              </div>
+            </a>
+          </div>
+
+          <div class="projects-grid-item L">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="branding events" data-client-tag="sber">
+              <div class="project-promo" style="background-image: url('images/projects-promo/dodo-interior-cover.jpg');">
+                <h2
+                data-i18n
+                data-ru="Сбер Демодень"
+                data-en="Sber Demoday"
+              >Sber Demoday</h2>
+                <div class="project-tags" aria-label="Project tags"></div>
+              </div>
+            </a>
+          </div>
+          
+          <div class="projects-grid-item">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="branding" data-client-tag="rangos">
+              <div class="project-promo" style="background-image: url('images/projects-promo/commo-cover.jpg');">
+                <h2
+                data-i18n
+                data-ru="Rangos"
+                data-en="Rangos"
+              >Rangos</h2>
+                <div class="project-tags" aria-label="Project tags"></div>
+              </div>
+            </a>
+          </div>
+          <div class="projects-grid-item XL">
+            <a class="project-promo-link" href="yandex.html" data-type-tags="website branding" data-client-tag="yandex">
+              <div class="project-promo" style="background-image: url('images/projects-promo/commo-cover.jpg');">
+                <h2
+                data-i18n
+                data-ru="Яндекс"
+                data-en="Yandex"
+              >Яндекс</h2>
+                <div class="project-tags" aria-label="Project tags"></div>
+              </div>
+            </a>
+          </div>
+          <div class="projects-grid-item">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="website" data-client-tag="vse-instrumenty">
+              <div class="project-promo" style="background-image: url('images/projects-promo/commo-cover.jpg');">
+                <h2>Все Инструменты</h2>
+                <div class="project-tags" aria-label="Project tags"></div>
+              </div>
+            </a>
+          </div>
+          <div class="projects-grid-item L">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="branding" data-client-tag="pmk-park">
+              <div class="project-promo" style="background-image: url('images/projects-promo/commo-cover.jpg');">
+                <h2>ПМК Парк</h2>
+                <div class="project-tags" aria-label="Project tags"></div>
+              </div>
+            </a>
+          </div>
+          <div class="projects-grid-item">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="website" data-client-tag="sporos">
+              <div class="project-promo" style="background-image: url('images/projects-promo/commo-cover.jpg');">
+                <h2>Sporos</h2>
+                <div class="project-tags" aria-label="Project tags"></div>
+              </div>
+            </a>
+          </div>
+          <div class="projects-grid-item XL">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="branding" data-client-tag="dodo-pizza">
+              <div class="project-promo" style="background-image: url('images/projects-promo/commo-cover.jpg');">
+                <h2>Додо Пицца</h2>
+                <div class="project-tags" aria-label="Project tags"></div>
+              </div>
+            </a>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- <div class="ids__wrapper wide">
+        <div class="section">
+          <ids-gallery>
+            <figure>
+              <a href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.avif">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.avif" alt="bulbasaur">
+              </a>
+            </figure>
+            <figure>
+              <a href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.avif"
+                 data-pswp-width="960"
+                 data-pswp-height="960"
+              >
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.avif" alt="ivysaur">
+              </a>
+            </figure>
+
+          </ids-gallery>
+        </div>
+        <div class="ids__space XL"></div>
+      </div> -->
+
+    </main>
+
+    <script>
+      let observer = new IntersectionObserver((elements)=>{
+        elements.forEach((el) => {
+          if(el.intersectionRatio > .3) {
+            el.target.classList.remove("sleep");
+          } else {
+            el.target.classList.add("sleep");
+          }
+        })
+      }, {threshold: [0, .5]});
+
+      document.querySelectorAll('.awake').forEach(el => {
+        observer.observe(el);
+      })
+    </script>
+    <footer>
+      <p class="caption">CMND© 2024 → 2026 <br> сайт задизайнила Никита Нова</p>
+      <div><a href="https://t.me/nikita_nova">Написать</a></div>
+      <div><a href="mailto:i@nikitanova.ru">cmnd@studio.ru</a></div>
+    </footer>
+    <script src="js/language.js"></script>
+    <script src="js/tags.js"></script>
+  </body>
+
+</html>

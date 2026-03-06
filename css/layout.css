@@ -1,6 +1,9 @@
 .ids__space {
   height: calc(var(--ids__density) * 0.7em);
 
+  &.XS {
+    height: calc(var(--ids__density) * 0.2em);
+  }
   &.M {
     height: calc(var(--ids__density) * 1.4em);
   }
@@ -10,6 +13,7 @@
   &.XL {
     height: calc(var(--ids__density) * 4em);
   }
+  
 }
 
 .ids__wrapper {

@@ -31,13 +31,14 @@
           <div class="logo">
             <a href="index.html"><img src="images/logo.svg" alt="CMND" /></a>
           </div>
+          <p class="main-header__descriptor" data-i18n data-ru="Дизайн студия. Читается как [кóманд].&#10;А переводится как «команда»." data-en="Design studio. Pronounced as [kómand].&#10;Translates to 'team'.">Дизайн студия. Читается как [кóманд]. А переводится как «команда».</p>
+        </div>
+
+        <div class="main-header__right">
           <nav class="main-header__nav">
             <a class="main-header__link" data-i18n data-ru="О нас" data-en="About" href="about.html">О нас</a>
             <a class="main-header__link" data-i18n data-ru="Проекты" data-en="Projects" href="portfolio.html">Проекты</a>
           </nav>
-        </div>
-
-        <div class="main-header__right">
           <div class="lang-switcher" aria-label="Language switcher" role="group">
             <button type="button" class="lang-switcher__btn is-active" data-lang-switch="ru" aria-pressed="true">РУ</button>
             <button type="button" class="lang-switcher__btn" data-lang-switch="en" aria-pressed="false">EN</button>
@@ -49,8 +50,7 @@
     <main>
       <div class="ids__wrapper L">
         <!-- Site-wide projects list for tag counts (one entry per project) -->
-        <div class="ids__space M"></div>
-        <div id="site-projects-data" hidden aria-hidden="true">
+        <!--<div id="site-projects-data" hidden aria-hidden="true">
           <span data-type-tags="website branding" data-client-tag="yandex"></span>
           <span data-type-tags="website branding" data-client-tag="lavatop"></span>
           <span data-type-tags="branding events" data-client-tag="sber"></span>
@@ -65,21 +65,17 @@
           <span data-type-tags="website" data-client-tag="sporos"></span>
           <span data-type-tags="branding" data-client-tag="dodo-pizza"></span>
         </div>
-        <div class="main-page-header">
-        <h1 class="XS">
-          <span data-i18n data-ru="Мы дизайн-студия сmnd читается как [кóманд]. А переводится как «команда»." data-en="Design studio that works systematically and passionately with ">Мы дизайн-студия сmnd читается как [кóманд]. А переводится как «команда».</span>
-        </h1>
-        <h1 class="XS">
-          <span data-i18n data-ru="Круто работаем с едой и коммуникационкой. У нас сильный корпоративный опыт, мы системные и вовлеченные, с нами кайфово." data-en="Design studio that works systematically and passionately with ">Круто работаем с едой и коммуникационкой. У нас сильный корпоративный опыт, мы системные и вовлеченные, с нами кайфово.</span>
-        </h1>
-        <h1 class="XS">
+        <div class="main-page-header">-->
+
+
+        <!--<h1 class="XS">
           <span data-i18n data-ru="Делаем" data-en="Create">Делаем </span>
           <span class="heading-tags" id="heading-type-tags" aria-live="polite"></span>
         </h1>
-        </div>
+        </div>--> 
         
+        <div class="ids__space L"></div>
         <div class="card-stack" role="list">
-
           <a class="card-stack__link" href="project-blanck.html" role="listitem" data-type-tags="website branding" data-client-tag="yandex">
             <span class="card-stack__card"><img src="images/main-page-gallery/main-page-gallery-1.jpg" alt=""></span>
           </a>
@@ -108,13 +104,7 @@
             <span class="card-stack__card"><img src="images/main-page-gallery/main-page-gallery-9.jpg" alt=""></span>
           </a>
           <a class="card-stack__link" href="project-blanck.html" role="listitem" data-type-tags="website branding" data-client-tag="yandex">
-            <span class="card-stack__card"><img src="images/main-page-gallery/main-page-gallery-10.jpg" alt=""></span>
-          </a>
-          <a class="card-stack__link" href="project-blanck.html" role="listitem" data-type-tags="website branding" data-client-tag="yandex">
             <span class="card-stack__card"><img src="images/main-page-gallery/main-page-gallery-11.jpg" alt=""></span>
-          </a>
-          <a class="card-stack__link" href="project-blanck.html" role="listitem" data-type-tags="website branding" data-client-tag="yandex">
-            <span class="card-stack__card"><img src="images/main-page-gallery/main-page-gallery-12.jpg" alt=""></span>
           </a>
           <a class="card-stack__link" href="project-blanck.html" role="listitem" data-type-tags="website branding" data-client-tag="yandex">
             <span class="card-stack__card"><img src="images/main-page-gallery/main-page-gallery-13.jpg" alt=""></span>
@@ -122,20 +112,30 @@
           <a class="card-stack__link" href="project-blanck.html" role="listitem" data-type-tags="website branding" data-client-tag="yandex">
             <span class="card-stack__card"><img src="images/main-page-gallery/main-page-gallery-14.jpg" alt=""></span>
           </a>
-          <a class="card-stack__link" href="project-blanck.html" role="listitem" data-type-tags="website branding" data-client-tag="yandex">
-            <span class="card-stack__card"><img src="images/main-page-gallery/main-page-gallery-15.png" alt=""></span>
-          </a>
-
-
-
         </div>
-        <div class="main-page-header">
+
+        <p>Делаем кей-виджуалы, айдентику, упаковку, озвучку <br>
+          для Яндекс Go, Yango, Додо Пиццы, Все Инструменты, Сбера и других ребят</p>
+
+        <div class="ids__space XL"></div>
+        <div class="ids__wrapper ids__text-width">
+          <p class="quote" id="interactive-quote">
+            <span class="quote-word" data-quote-key="cool">Круто</span> работаем с <span class="quote-word" data-quote-key="food">едой</span> и <span class="quote-word" data-quote-key="communications">коммуникационкой</span>.<br>
+            У нас сильный <span class="quote-word" data-quote-key="corporateExperience">корпоративный опыт</span>, мы <span class="quote-word" data-quote-key="systematic">системные</span> и <span class="quote-word" data-quote-key="involved">вовлеченные</span>, с нами <span class="quote-word" data-quote-key="vibe">кайфово</span>.
+          </p>
+          <div class="quote-tooltip" id="quote-tooltip" role="tooltip" aria-hidden="true">
+            <p class="quote-tooltip__text"></p>
+          </div>
+        </div>
+        <div class="ids__space XL"></div>
+
+        <!--<div class="main-page-header">
           <h1 class="XS">
             <span data-i18n data-ru="Для" data-en="For">Для</span>
             <span class="heading-tags" id="heading-client-tags" aria-live="polite"></span>
           </h1>
         </div>
-        <div class="ids__space L"></div>
+        <div class="ids__space L"></div>-->
         
         <!--Тут начинается блок с проектами-->
 
@@ -194,7 +194,7 @@
 
         <!--Тут начинается блок с командой-->
 
-        <div class="ids__space XL"></div>
+        <!--<div class="ids__space XL"></div>
 
         <div class="main-page-header">
           <h1 class="XS">
@@ -214,7 +214,7 @@
             <img src="images/portrait/portrait-1.jpg">
           </div>
         </div>
-        <div class="ids__space XL"></div>
+        <div class="ids__space XL"></div>-->
 
 
 
@@ -235,13 +235,16 @@
       </div>
     </main>
     <footer> 
-      <p class="caption">CMND© 2024 → 2026 <br> сайт задизайнила Никита Нова</p>
-      <div><a href="https://t.me/nikita_nova">Написать</a></div>
-      <div><a href="mailto:i@nikitanova.ru">cmnd@studio.ru</a></div>
+      <p>CMND© 2024 → 2026 <br> сайт задизайнила Никита Нова</p>
+      <div class="footer__right">
+        <div><a href="https://t.me/nikita_nova">Написать Диме в личку</a></div>
+        <div><a href="mailto:i@nikitanova.ru">cmnd@studio.ru</a></div>
+      </div>
     </footer>
     <script src="js/language.js"></script>
     <script src="js/tags.js"></script>
     <script src="js/card-stack.js"></script>
+    <script src="js/quote-tooltip.js"></script>
   </body>
 
 </html>

@@ -47,15 +47,15 @@ header {
     font-size: 1em;
     font-weight: 300;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: flex-end;
     width: 100%;
 }
 
 .main-header__left {
     display: flex;
     align-items: flex-end;
-    gap: 3em;
+    gap: 1em;
 }
 
 .main-header__left .logo {
@@ -63,7 +63,7 @@ header {
 }
 
 .main-header__left .logo img {
-    height: 1em;
+    height: 1.5em;
     width: auto;
     display: block;
 }
@@ -72,6 +72,13 @@ header {
     display: flex;
     align-items: center;
     gap: 3em;
+}
+
+.main-header__descriptor {
+    margin: 0;
+    white-space: pre-line;
+    font-size: 1em;
+    line-height: 1;
 }
 
 .main-header__link,
@@ -85,6 +92,9 @@ header {
 
 .main-header__right {
     display: flex;
+    align-items: center;
+    gap: 3em;
+    margin-left: auto;
     justify-content: flex-start;
 }
 
@@ -152,11 +162,52 @@ header {
     color: #000;
 }
 
+/* Quote tooltip interaction */
+.ids__wrapper.ids__text-width {
+    position: relative;
+}
+
+.quote-word {
+    transition: color 0.15s ease;
+}
+
+.quote-word:hover,
+.quote-word.is-active {
+    color: #EAFF02;
+}
+
+.quote-tooltip {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25em;
+    height: 18em;
+    background: #EAFF02;
+    border-radius: 0.5em;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.16s ease, visibility 0.16s ease;
+    padding: 0.6em;
+    z-index: 2;
+}
+
+.quote-tooltip.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.quote-tooltip__text {
+    margin: 0;
+    max-width: 80%;
+    text-align: left;
+}
+
 /* Perspective overlapping card gallery */
 .card-stack {
     display: flex;
     align-items: flex-end;
-    padding: 4em 0;
+    padding: 4em 0 2em 0;
     list-style: none;
     margin: 0;
     position: relative;
@@ -175,7 +226,7 @@ header {
 }
 
 .card-stack__hover-zone {
-    width: 2em;
+    width: 5em;
     height: 17em;
     flex-shrink: 0;
     pointer-events: auto;
@@ -185,7 +236,7 @@ header {
     flex: 0 0 auto;
     display: block;
     padding-right: 0;
-    margin-right: -10em;
+    margin-right: -7em;
     text-decoration: none;
     color: inherit;
     position: relative;
@@ -360,10 +411,13 @@ main:has(.project-header-tags) code {
 }
 
 .main-page footer div {
-    text-align: left;
+    text-align: right;
 }
 
 footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 5em 1em;
     @media screen and (max-width: 768px) {
         flex-direction: column;
@@ -371,6 +425,13 @@ footer {
         gap: 1.5em;
         margin: 7em 0;
     }
+}
+
+.footer__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
 }
 
 .caption {
@@ -475,4 +536,11 @@ main:has(.project-header-tags) code.project-number {
   margin-right: 0.1em;
   border: none;
   background: rgb(241, 241, 241);
+}
+
+main:has(.project-header-tags) code.project-type {
+  margin-right: 0.1em;
+  background: none;
+  stroke: rgb(198, 198, 198);
+  stroke-width: 0.05em;
 }

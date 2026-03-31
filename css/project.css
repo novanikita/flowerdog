@@ -48,13 +48,13 @@ header {
     font-weight: 300;
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: center;
     width: 100%;
 }
 
 .main-header__left {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: 1em;
 }
 
@@ -75,10 +75,35 @@ header {
 }
 
 .main-header__descriptor {
-    margin: 0;
     white-space: pre-line;
     font-size: 1em;
-    line-height: 1;
+    line-height: 1.1;
+}
+
+/* Global link style */
+a,
+a:hover,
+a:visited,
+a:focus-visible,
+.ids a,
+.ids a:hover,
+.ids a:visited,
+.ids a:focus-visible {
+    color: var(--color-black);
+    text-decoration: underline;
+    text-decoration-color: var(--color-black);
+    text-decoration-thickness: 0.005em;
+    background-color: var(--color-black-0);
+    transition: background-color 0.5s ease;
+}
+
+a:hover,
+a:focus-visible,
+.ids a:hover,
+.ids a:focus-visible {
+    background-color: var(--color-accent);
+    border-radius: 0;
+    transition: background-color 0s linear;
 }
 
 .main-header__link,
@@ -86,8 +111,9 @@ header {
 .main-header a:hover,
 .main-header a:visited,
 .main-header a:focus-visible {
-    color: #000;
-    text-decoration: none;
+    color: var(--color-black);
+    text-decoration: underline;
+    text-decoration-thickness: 0.01em;
 }
 
 .main-header__right {
@@ -109,18 +135,19 @@ header {
     min-width: 2em;
     min-height: 1.4em;
     padding: 0.2em;
-    background: transparent;
-    border: 0.05em solid transparent;
-    border-radius: 0.2em;
+    background: var(--color-bg);
+    border: none;
+    border-radius: 0;
     font-size: inherit;
     font-family: inherit;
-    color: #000;
+    color: var(--color-black);
     cursor: pointer;
     transition: border-color 0.2s ease;
 }
 
 .lang-switcher__btn.is-active {
-    border-color: #000;
+    background: var(--color-accent);
+    color: var(--color-black);
 }
 
 /* MAIN PAGE */
@@ -137,17 +164,17 @@ header {
 .main-page-header__cta:hover,
 .main-page-header__cta:visited,
 .main-page-header__cta:focus-visible {
-    color: #000;
-    text-decoration: none;
+    color: var(--color-black);
+    text-decoration: underline;
 }
 
 .main-page-header__cta {
     display: inline-block;
     margin-left: 0.3em;
-    padding: 0em 0.25em 0.03em 0.25em;
-    background: transparent;
-    border: 0.05em solid #000;
-    border-radius: 0.2em;
+    padding: 0;
+    background: var(--color-black-0);
+    border: none;
+    border-radius: 0;
     font-size: inherit;
     font-family: inherit;
     font-weight: inherit;
@@ -155,11 +182,11 @@ header {
 }
 
 .main-page-header__cta:hover {
-    background: #EAFF02;
+    background: var(--color-accent);
 }
 
 .ids .main-page-header__cta:hover {
-    color: #000;
+    color: var(--color-black);
 }
 
 /* Quote tooltip interaction */
@@ -168,26 +195,35 @@ header {
 }
 
 .quote-word {
-    transition: color 0.15s ease;
+    color: var(--color-black);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-color: var(--color-black);
+    text-decoration-thickness: 0.01em;
+    background-color: var(--color-black-0);
+    border-radius: 0;
+    transition: background-color 0.5s ease;
 }
 
 .quote-word:hover,
 .quote-word.is-active {
-    color: #EAFF02;
+    color: var(--color-black);
+    background-color: var(--color-accent);
+    transition: background-color 0s linear;
 }
 
 .quote-tooltip {
     position: absolute;
-    right: 0;
+    right: 1em;
     top: 0;
-    width: 25em;
-    height: 18em;
-    background: #EAFF02;
-    border-radius: 0.5em;
+    width: 21em;
+    height: 21em;
+    background: var(--color-accent);
+    
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.16s ease, visibility 0.16s ease;
+    transition: opacity 0.5s ease, visibility 0s linear 0.5s;
     padding: 0.6em;
     z-index: 2;
 }
@@ -195,6 +231,7 @@ header {
 .quote-tooltip.is-visible {
     opacity: 1;
     visibility: visible;
+    transition: opacity 0s linear, visibility 0s linear;
 }
 
 .quote-tooltip__text {
@@ -318,7 +355,7 @@ a.project-promo-link {
         text-decoration: underline;
         text-decoration-thickness: 1px;
         text-underline-offset: 0.15em;
-        text-decoration-color: rgba(255, 255, 255, 0.3);
+        text-decoration-color: var(--color-white-30);
         transition: text-decoration 0.5s ease;
         @media screen and (max-width: 768px) {
             font-size: 1.1em;
@@ -330,7 +367,7 @@ a.project-promo-link {
         filter: brightness(110%);
 
         & h2 {
-            text-decoration-color: rgba(255, 255, 255, 0.7);
+            text-decoration-color: var(--color-white-70);
             transition: text-decoration 0s ease;
         }
     }
@@ -346,18 +383,18 @@ a.project-promo-link {
     background-position: center;
     border-radius: 0.5em;
     padding: 0.5em 0.8em;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--color-black-10);
 }
 
 .project-promo h2 {
-    color: white;
+    color: var(--color-white);
     font-size: 1.4em;
     width: 17em;
     margin-bottom: 0.2em;
 }
 
 .video-promo h2 {
-    color: white;
+    color: var(--color-white);
     font-size: 1.4em;
     width: 20em;
 }
@@ -366,9 +403,9 @@ a.project-promo-link {
 
 /* Additional information tags (e.g. №98, date): match project tag border, transparent bg, black text */
 main:has(.project-header-tags) code {
-  background: transparent;
-  color: #000;
-  border: 0.05em solid #000;
+  background: var(--color-black-0);
+  color: var(--color-black);
+  border: 0.05em solid var(--color-black);
   border-radius: 0.2em;
 }
 
@@ -460,19 +497,19 @@ footer {
   padding: 0.75em 1em;
   position: sticky;
   top: 0;
-  background: #ffffffff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-black-50);
 }
 
 /* Строки */
 .custom-table tbody tr {
   transition: background-color 1.5s ease;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* линия-разделитель */
+  border-bottom: 1px solid var(--color-black-10); /* линия-разделитель */
 }
 
 /* Hover эффект без белых полос */
 .custom-table tbody tr:hover {
-  background-color: #edededff;
+  background-color: var(--color-gray-237);
   transition: background-color 0s ease;
 }
 
@@ -485,10 +522,10 @@ footer {
 
 .card
   {
-    background-color:rgba(228, 246, 255, 1);
+    background-color: var(--color-card-bg);
     border-radius: 1em;
     padding: 1.5em 1.5em 1em 1.5em;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px var(--color-black-05);
 
 }
 
@@ -522,12 +559,12 @@ hr.default {
 /* Project-blank page: 0.5em thick black divider */
 main:has(.project-gallery) hr.default {
   border: 0;
-  border-top: 0.05em solid #000;
+  border-top: 0.05em solid var(--color-black);
 }
 
 .project-date {
   font-size: 0.7em;
-  color:rgb(169, 169, 169);
+  color: var(--color-gray-169);
   font-weight: 400;
 }
 
@@ -535,12 +572,12 @@ main:has(.project-gallery) hr.default {
 main:has(.project-header-tags) code.project-number {
   margin-right: 0.1em;
   border: none;
-  background: rgb(241, 241, 241);
+  background: var(--color-gray-241);
 }
 
 main:has(.project-header-tags) code.project-type {
   margin-right: 0.1em;
   background: none;
-  stroke: rgb(198, 198, 198);
+  stroke: var(--color-gray-198);
   stroke-width: 0.05em;
 }

@@ -19,7 +19,7 @@
 .ids__wrapper {
   position: relative;
   width: 70%;
-  margin: 0 1em;
+  margin: 0;
 
   @media (width < 767px) {
     width: 100%;
@@ -63,6 +63,10 @@
       width: 100%;
     }
   }
+}
+
+body {
+  overflow-x: hidden;
 }
 
 .ids__sequence {

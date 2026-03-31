@@ -2,8 +2,8 @@
 
 .tag {
   display: inline-block;
-  background: #fff;
-  border: 0.05em solid #000;
+  background: var(--color-white);
+  border: 0.05em solid var(--color-black);
   border-radius: 0.2em;
   padding: 0.15em 0.4em;
   margin: 0 0.15em 0.15em 0;
@@ -22,7 +22,7 @@
   margin-right: 0.1em;
   padding: 0.1em 0.3em;
   border-radius: 0.2em;
-  border: 0.05em solid #000;
+  border: 0.05em solid var(--color-black);
 }
 
 /* Clickable heading tags: filter state */
@@ -32,13 +32,13 @@
 }
 
 .heading-tags .tag[data-tag]:hover {
-  background-color: #eaff02;
+  background-color: var(--color-accent);
 }
 
 .heading-tags .tag[data-tag].is-active {
-  background-color: #000;
-  color: #fff;
-  border-color: #000;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
 }
 
 /* Tags on project cards: top-left corner, single row with wrap */
@@ -57,9 +57,9 @@
 .project-promo-link .project-tags .tag {
   font-size: 0.8em;
   padding: 0.1em 0.3em;
-  color: #fff;
-  background-color: transparent;
-  border: 0.05em solid #fff;
+  color: var(--color-white);
+  background-color: var(--color-black-0);
+  border: 0.05em solid var(--color-white);
 }
 
 /* Tags on individual project page (before h1) */

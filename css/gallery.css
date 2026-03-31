@@ -25,7 +25,7 @@ ids-gallery, .ids__gallery {
         overflow: hidden;
 
         &:focus-within:has(a:focus-visible) {
-            outline: 2px solid rgb(var(--ids__link-RGB));
+            outline: 2px solid var(--color-link);
             outline-offset: 2px;
         }
         a:hover, a:focus-visible {

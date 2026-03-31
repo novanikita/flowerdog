@@ -1,16 +1,16 @@
 .ids {
   & a {
-    color: rgb(var(--ids__link-RGB));
+    color: var(--color-link);
     text-decoration: underline;
     will-change: color;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
-    text-decoration-color: rgba(var(--ids__link-RGB), 0.2);
+    text-decoration-color: rgba(var(--color-link-rgb), 0.2);
     transition: color 0.5s ease, text-decoration 0.5s ease;
 
     &:hover {
-      color: rgb(var(--ids__hover-RGB));
-      text-decoration-color: rgba(var(--ids__hover-RGB), 0.2);
+      color: var(--color-link-hover);
+      text-decoration-color: rgba(var(--color-link-hover-rgb), 0.2);
       transition: color 0s ease, text-decoration 0s ease;
     }
   }
@@ -101,8 +101,8 @@
   }
 
   & mark {
-    color: rgb(var(--ids__text-RGB));
-    background-color: rgb(var(--ids__mark-RGB));
+    color: var(--color-text);
+    background-color: var(--color-mark);
   }
 
   & ul,
@@ -146,7 +146,7 @@
   & aside {
     margin: 0;
     margin-bottom: calc(var(--ids__density) * 0.5em);
-    background: rgb(var(--ids__surface-RGB));
+    background: var(--color-surface);
     padding-top: calc(var(--ids__density) * 0.4em);
     padding-right: calc(var(--ids__density) * 1.5em);
     padding-bottom: calc(var(--ids__density) * 0.4em);
@@ -170,8 +170,8 @@
     font-weight: 400;
     padding: 0.1em 0.25em;
     border-radius: 0.2em;
-    color: rgba(var(--ids__text-RGB), 0.7);
-    background: rgba(var(--ids__text-RGB), 0.05);
+    color: rgba(var(--color-text-rgb), 0.7);
+    background: rgba(var(--color-text-rgb), 0.05);
   }
 
   & figure {
@@ -209,7 +209,7 @@
   }
 
   & hr {
-    border-top-color: rgba(var(--ids__text-RGB), 0.2);
+    border-top-color: rgba(var(--color-text-rgb), 0.2);
     border-bottom: 0;
   }
 }

@@ -37,13 +37,16 @@
 
     tooltipText.textContent = content;
 
+    var container = tooltip.offsetParent || document.body;
+    var containerRect = container.getBoundingClientRect();
     var quoteRect = quote.getBoundingClientRect();
     var wordRect = wordEl.getBoundingClientRect();
     var tooltipHeight = tooltip.offsetHeight || 0;
-    var centerY = (wordRect.top + wordRect.bottom) / 2 - quoteRect.top;
+    var centerY = (wordRect.top + wordRect.bottom) / 2 - containerRect.top;
     var top = centerY - tooltipHeight / 2;
-    var maxTop = Math.max(0, quoteRect.height - tooltipHeight);
-    if (top < 0) top = 0;
+    var minTop = quoteRect.top - containerRect.top;
+    var maxTop = Math.max(minTop, quoteRect.bottom - containerRect.top - tooltipHeight);
+    if (top < minTop) top = minTop;
     if (top > maxTop) top = maxTop;
 
     tooltip.style.top = top + 'px';

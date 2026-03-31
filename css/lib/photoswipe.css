@@ -1,21 +1,21 @@
 /*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */
 
 .pswp {
-  --pswp-bg: #000;
-  --pswp-placeholder-bg: #222;
+  --pswp-bg: var(--color-black);
+  --pswp-placeholder-bg: var(--color-pswp-placeholder);
   
 
   --pswp-root-z-index: 100000;
   
-  --pswp-preloader-color: rgba(79, 79, 79, 0.4);
-  --pswp-preloader-color-secondary: rgba(255, 255, 255, 0.9);
+  --pswp-preloader-color: var(--color-pswp-preloader);
+  --pswp-preloader-color-secondary: var(--color-pswp-preloader-secondary);
   
   /* defined via js:
   --pswp-transition-duration: 333ms; */
   
-  --pswp-icon-color: #fff;
-  --pswp-icon-color-secondary: #4f4f4f;
-  --pswp-icon-stroke-color: #4f4f4f;
+  --pswp-icon-color: var(--color-white);
+  --pswp-icon-color-secondary: var(--color-pswp-gray);
+  --pswp-icon-stroke-color: var(--color-pswp-gray);
   --pswp-icon-stroke-width: 2px;
 
   --pswp-error-text-color: var(--pswp-icon-color);
@@ -38,7 +38,7 @@
 	outline: 0;
 	opacity: 0.003;
 	contain: layout style size;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-tap-highlight-color: var(--color-black-0);
 }
 
 /* Prevents focus outline on the root element,

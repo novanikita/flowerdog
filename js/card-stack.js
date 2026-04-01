@@ -3,6 +3,7 @@
   if (!stack) return;
 
   const links = stack.querySelectorAll('.card-stack__link');
+  if (!links.length) return;
   const baseZ = 1;
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
@@ -28,6 +29,7 @@
 
   function initMobileScrollBehavior() {
     let rafId = null;
+    let currentRaised = null;
 
     function raiseClosestToCenter() {
       const stackRect = stack.getBoundingClientRect();
@@ -45,8 +47,9 @@
         }
       });
 
-      if (closest) {
+      if (closest && closest !== currentRaised) {
         raise(closest);
+        currentRaised = closest;
       }
     }
 

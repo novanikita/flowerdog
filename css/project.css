@@ -225,6 +225,21 @@ a:focus-visible,
     position: relative;
 }
 
+.ids__wrapper.S[data-client-tag="yandex"] {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ids__wrapper.S[data-client-tag="yandex"] .card-stack {
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: 1em;
+    padding-right: 1em;
+    box-sizing: border-box;
+}
+
 /* Hover zones sit above all cards and stay interactive regardless of stacking */
 .card-stack__hover-zones {
     position: absolute;

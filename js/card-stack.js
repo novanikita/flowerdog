@@ -4,6 +4,7 @@
 
   const links = stack.querySelectorAll('.card-stack__link');
   const baseZ = 1;
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
   function lowerAll() {
     links.forEach(function (link, index) {
@@ -24,6 +25,45 @@
   links.forEach(function (link, index) {
     link.style.zIndex = baseZ + index;
   });
+
+  function initMobileScrollBehavior() {
+    let rafId = null;
+
+    function raiseClosestToCenter() {
+      const stackRect = stack.getBoundingClientRect();
+      const centerX = stackRect.left + stackRect.width / 2;
+      let closest = null;
+      let minDist = Infinity;
+
+      links.forEach(function (link) {
+        const rect = link.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const dist = Math.abs(cardCenter - centerX);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = link;
+        }
+      });
+
+      if (closest) {
+        raise(closest);
+      }
+    }
+
+    function onScrollOrResize() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(raiseClosestToCenter);
+    }
+
+    stack.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize);
+    onScrollOrResize();
+  }
+
+  if (isMobile) {
+    initMobileScrollBehavior();
+    return;
+  }
 
   /* Hover zones: independent layer above cards so every card stays hoverable */
   const hoverZones = document.createElement('div');

@@ -38,7 +38,7 @@ header {
 
 .main-header__descriptor {
     white-space: pre-line;
-    font-size: 1em;
+    font-size: 0.8em;
     line-height: 1.1;
 }
 
@@ -81,7 +81,7 @@ a:focus-visible,
 .main-header__right {
     display: flex;
     align-items: center;
-    gap: 3em;
+    gap: 2em;
     margin-left: auto;
     justify-content: flex-start;
 }
@@ -108,14 +108,22 @@ a:focus-visible,
 }
 
 .lang-switcher__btn.is-active {
-    background: var(--color-accent);
+    background: var(--color-gray-bg);
     color: var(--color-black);
+    border-radius: 0.4em;
 }
 
 /* MAIN PAGE */
 
 .main-page-header {
     width: 70%;
+}
+
+/* Main page fixed-width text blocks */
+.main-page-text-fixed {
+    width: 50em;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 768px) {
@@ -126,6 +134,12 @@ a:focus-visible,
 
     .main-page-header {
         width: 100%;
+    }
+
+    .main-page-header--fixed,
+    .main-page-text-fixed {
+        width: 100%;
+        max-width: 100%;
     }
 
     .desktop-only-break {
@@ -187,18 +201,20 @@ a:focus-visible,
 
 .quote-tooltip {
     position: absolute;
-    right: 1em;
+    left: 0;
     top: 0;
-    width: 21em;
-    height: 21em;
-    background: var(--color-accent);
-    
+    width: auto;
+    height: auto;
+    background: var(--color-gray-bg);
+    padding: 0;
+    box-sizing: border-box;
+
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transition: opacity 0.5s ease, visibility 0s linear 0.5s;
-    padding: 0.6em;
-    z-index: 2;
+    z-index: 1000; 
+    border-radius: 0.4em 0.4em 0.4em 0;
 }
 
 .quote-tooltip.is-visible {
@@ -209,8 +225,13 @@ a:focus-visible,
 
 .quote-tooltip__text {
     margin: 0;
-    max-width: 80%;
+    display: block;
+    width: auto;
+    max-width: 45em;
     text-align: left;
+    padding: 1em 6em 0.5em 1em;
+    box-sizing: border-box;
+    font-size: 0.8em;;
 }
 
 
@@ -286,7 +307,7 @@ a:focus-visible,
     width: 12em;
     height: 17em;
     overflow: hidden;
-    /* border-radius intentionally disabled */
+    border-radius: 0.4em;
     transform: skewY(-10deg) scaleY(1.1);
     transform-origin: bottom center;
     transition: filter 2s ease;
@@ -312,7 +333,8 @@ a:focus-visible,
         overflow-y: visible;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        touch-action: pan-x;
+        /* Allow vertical page scrolling while keeping horizontal swipe for the gallery. */
+        touch-action: pan-x pan-y;
         width: 100vw;
         max-width: none;
         box-sizing: border-box;
@@ -348,7 +370,7 @@ a:focus-visible,
 .projects-grid {
     display: flex;
     flex-wrap: wrap;
-    --gap: 1em;
+    --gap: 0.5em;
     gap: var(--gap);
 
     @media screen and (max-width: 768px) {
@@ -378,6 +400,23 @@ a:focus-visible,
     }
 }
 
+.projects-more-btn {
+    display: block;
+    width: 100%;
+    color: var(--color-black);
+    text-decoration: none;
+    padding: 2em;
+    border-radius: 0.4em;
+    text-align: center;
+    box-sizing: border-box;
+    transition: filter 0.2s ease;
+}
+
+.projects-more-btn:hover {
+    filter: brightness(1.05);
+    border-radius: 0.4em;
+}
+
 a.project-promo-link {
     display: block;
     width: 100%;
@@ -387,11 +426,7 @@ a.project-promo-link {
     text-decoration: none;
 
     & h2 {
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 0.15em;
-        text-decoration-color: var(--color-white-30);
-        transition: text-decoration 0.5s ease;
+        text-decoration: none;
         @media screen and (max-width: 768px) {
             font-size: 1.1em;
             }
@@ -402,30 +437,48 @@ a.project-promo-link {
         filter: brightness(110%);
 
         & h2 {
-            text-decoration-color: var(--color-white-70);
-            transition: text-decoration 0s ease;
+            text-decoration: none;
         }
     }
+}
+
+/* Projects grid: remove all underlines inside cards */
+.projects-grid .projects-grid-item,
+.projects-grid .projects-grid-item a,
+.projects-grid .projects-grid-item a:hover,
+.projects-grid .projects-grid-item a:visited,
+.projects-grid .projects-grid-item a:focus-visible,
+.projects-grid .projects-grid-item h2,
+.projects-grid .projects-grid-item .tag {
+    text-decoration: none;
 }
 
 .project-promo,
 .video-promo {
     position: relative;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
     height: 100%;
     background-size: cover;
     background-position: center;
-    /* border-radius intentionally disabled */
+    border-radius: 0.4em;
     padding: 0.5em 0.8em;
     background-color: var(--color-black-10);
 }
 
+.project-promo .project-tags {
+    order: 1;
+    margin: 0 0 0.2em 0;
+}
+
 .project-promo h2 {
+    order: 2;
     color: var(--color-white);
     font-size: 1.4em;
     width: 17em;
-    margin-bottom: 0.2em;
+    margin: 0;
 }
 
 .video-promo h2 {
@@ -630,7 +683,7 @@ footer {
 
 /* Hover эффект без белых полос */
 .custom-table tbody tr:hover {
-  background-color: var(--color-gray-237);
+  background-color: var(--color-gray-bg);
   transition: background-color 0s ease;
 }
 
@@ -651,9 +704,10 @@ footer {
 }
 
 .portreit {
-    width: 5em;
-    height: 5em;
-    margin-right: -2em;
+    width: 1em;
+    height: 1em;
+    margin-right: -0.2em;
+    
     border-radius: 50%;
     overflow: hidden;
     display: inline-block;
@@ -663,6 +717,17 @@ footer {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+}
+
+/* Inline portraits after "кайфово": align with text bottom */
+.portraits-inline {
+    display: inline-flex;
+    align-items: flex-end;
+    vertical-align: text-bottom;
+}
+
+.portraits-inline .portreit {
     display: block;
 }
 
@@ -685,7 +750,7 @@ main:has(.project-gallery) hr.default {
 
 .project-date {
   font-size: 0.7em;
-  color: var(--color-gray-169);
+  color: var(--color-gray-bg);
   font-weight: 400;
 }
 
@@ -693,12 +758,12 @@ main:has(.project-gallery) hr.default {
 main:has(.project-header-tags) code.project-number {
   margin-right: 0.1em;
   border: none;
-  background: var(--color-gray-241);
+  background: var(--color-gray-bg);
 }
 
 main:has(.project-header-tags) code.project-type {
   margin-right: 0.1em;
   background: none;
-  stroke: var(--color-gray-198);
+  stroke: var(--color-gray-bg);
   stroke-width: 0.05em;
 }

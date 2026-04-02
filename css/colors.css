@@ -4,7 +4,8 @@
   --color-link-rgb: 100, 150, 250;
   --color-link-hover-rgb: 62, 168, 255;
   --color-mark-rgb: 255, 225, 0;
-  --color-surface-rgb: 245, 245, 245;
+  --color-surface-rgb: 240, 240, 240;
+  --color-gray-bg: rgb(240, 240, 240);
 
   --color-black: #000;
   --color-white: #fff;
@@ -25,10 +26,6 @@
   --color-black-0: rgba(0, 0, 0, 0);
 
   --color-card-bg: rgba(228, 246, 255, 1);
-  --color-gray-237: #edededff;
-  --color-gray-169: rgb(169, 169, 169);
-  --color-gray-241: rgb(241, 241, 241);
-  --color-gray-198: rgb(198, 198, 198);
 
   --color-pswp-placeholder: #222;
   --color-pswp-gray: #4f4f4f;

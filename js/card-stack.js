@@ -31,6 +31,19 @@
     let rafId = null;
     let currentRaised = null;
 
+    // On mobile we want to start from the right-most card.
+    // `scrollWidth/clientWidth` are reliable only after layout, so we do it in RAF.
+    requestAnimationFrame(() => {
+      // Avoid overriding a restored scroll position (e.g. back/forward cache).
+      if (Math.abs(stack.scrollLeft) > 1) return;
+      const maxScrollLeft = stack.scrollWidth - stack.clientWidth;
+      if (maxScrollLeft > 0) {
+        stack.scrollLeft = maxScrollLeft;
+      }
+      // Ensure the raised card matches the initial scroll position.
+      onScrollOrResize();
+    });
+
     function raiseClosestToCenter() {
       const stackRect = stack.getBoundingClientRect();
       const centerX = stackRect.left + stackRect.width / 2;

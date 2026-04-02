@@ -41,16 +41,14 @@
   border-color: var(--color-black);
 }
 
-/* Tags on project cards: top-left corner, single row with wrap */
+/* Tags on project cards: placed above title at the bottom */
 .project-promo-link .project-tags {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: static;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   gap: 0.25em;
-  padding: 0.5em 0.5em;
+  padding: 0;
   align-items: flex-start;
 }
 

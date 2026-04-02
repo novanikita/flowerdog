@@ -42,13 +42,22 @@
     var quoteRect = quote.getBoundingClientRect();
     var wordRect = wordEl.getBoundingClientRect();
     var tooltipHeight = tooltip.offsetHeight || 0;
-    var centerY = (wordRect.top + wordRect.bottom) / 2 - containerRect.top;
-    var top = centerY - tooltipHeight / 2;
-    var minTop = quoteRect.top - containerRect.top;
-    var maxTop = Math.max(minTop, quoteRect.bottom - containerRect.top - tooltipHeight);
-    if (top < minTop) top = minTop;
-    if (top > maxTop) top = maxTop;
+    var tooltipWidth = tooltip.offsetWidth || 0;
 
+    // Place tooltip above the hovered word.
+    // Align tooltip bottom close to the word top so it visually sits “over” the word.
+    var gapPx = (parseFloat(getComputedStyle(tooltipText).fontSize) || 16) * 0.06;
+    var top = wordRect.top - containerRect.top - tooltipHeight - gapPx;
+    // No need to clamp `top` to quote boundaries: keeping it above the word is priority.
+
+    // Align tooltip from the left edge of the word (not centered).
+    var left = wordRect.left - containerRect.left;
+    var minLeft = quoteRect.left - containerRect.left;
+    var maxLeft = quoteRect.right - containerRect.left - tooltipWidth;
+    if (left < minLeft) left = minLeft;
+    if (left > maxLeft) left = maxLeft;
+
+    tooltip.style.left = left + 'px';
     tooltip.style.top = top + 'px';
     tooltip.classList.add('is-visible');
     tooltip.setAttribute('aria-hidden', 'false');

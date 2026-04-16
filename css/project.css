@@ -146,6 +146,16 @@ ids-gallery,
     display: none !important;
 }
 
+/* Keep project media galleries visible on the Yandex page */
+.ids__wrapper[data-client-tag="yandex"] .project-gallery {
+    display: block !important;
+}
+
+.ids__wrapper[data-client-tag="yandex"] ids-gallery,
+.ids__wrapper[data-client-tag="yandex"] .ids__gallery {
+    display: flex !important;
+}
+
 .main-page-header {
     width: 70%;
 }
@@ -796,7 +806,7 @@ main:has(.project-gallery) hr.default {
   font-weight: 400;
   color: var(--color-accent);
   display: inline-flex;
-  gap: 1em;
+  gap: 0.6em;
   align-items: baseline;
   margin: 0;
   padding: 0;
@@ -813,6 +823,10 @@ main:has(.project-gallery) hr.default {
   padding: 0;
   overflow-x: hidden;
   white-space: nowrap;
+}
+
+.project-tag-row:empty {
+  display: none;
 }
 
 .project-tag-chip {

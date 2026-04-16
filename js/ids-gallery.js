@@ -9,6 +9,15 @@ const photoSwipeSize = (node) => {
     return;
   }
 
+  /** @type {HTMLIFrameElement | null} */
+  const iframe = node.querySelector('iframe');
+  if (iframe) {
+    // Provide deterministic fallback size for iframe-based slides.
+    node.setAttribute('data-pswp-width', '1280');
+    node.setAttribute('data-pswp-height', '720');
+    return;
+  }
+
   /** @type {HTMLImageElement | null} */
   const img = node.querySelector('img');
   if (!img) {
@@ -23,6 +32,31 @@ const photoSwipeSize = (node) => {
   probe.src = img.src;
 };
 
+/**
+ * Normalize iframe-only figures to clickable <a> items for PhotoSwipe.
+ * @param {HTMLElement} gallery
+ */
+const normalizeIframeItems = (gallery) => {
+  gallery.querySelectorAll('figure iframe').forEach((iframe) => {
+    const figure = iframe.closest('figure');
+    if (!figure) return;
+    if (iframe.closest('a')) return;
+
+    const src = iframe.getAttribute('src');
+    if (!src) return;
+
+    const link = document.createElement('a');
+    link.setAttribute('href', src);
+    link.setAttribute('data-pswp-type', 'iframe');
+    link.setAttribute('data-pswp-width', '1280');
+    link.setAttribute('data-pswp-height', '720');
+    link.className = 'ids-gallery__iframe-link';
+
+    figure.insertBefore(link, iframe);
+    link.appendChild(iframe);
+  });
+};
+
 class IdsGallery extends HTMLElement {
   constructor() {
     super();
@@ -30,6 +64,8 @@ class IdsGallery extends HTMLElement {
   }
 
   connectedCallback() {
+    normalizeIframeItems(this);
+
     this.lightbox = new PhotoSwipeLightbox({
       gallery: this,
       children: 'a',

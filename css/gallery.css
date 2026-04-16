@@ -31,10 +31,19 @@ ids-gallery, .ids__gallery {
         a:hover, a:focus-visible {
             opacity: 0.9;
         }
+        a {
+            display: block;
+        }
         img {
             object-fit: contain;
             max-height: 100%;
             max-width: 100%;
+        }
+        iframe {
+            width: 100%;
+            min-height: 24em;
+            border: 0;
+            display: block;
         }
 
         &.L {

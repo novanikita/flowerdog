@@ -17,30 +17,6 @@
   margin-right: 0;
 }
 
-/* Tags inside headings (inline with text) */
-.heading-tags .tag {
-  margin-right: 0.1em;
-  padding: 0.1em 0.3em;
-  border-radius: 0.2em;
-  border: 0.05em solid var(--color-black);
-}
-
-/* Clickable heading tags: filter state */
-.heading-tags .tag[data-tag] {
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.heading-tags .tag[data-tag]:hover {
-  background-color: var(--color-accent);
-}
-
-.heading-tags .tag[data-tag].is-active {
-  background-color: var(--color-black);
-  color: var(--color-white);
-  border-color: var(--color-black);
-}
-
 /* Tags on project cards: placed above title at the bottom */
 .project-promo-link .project-tags {
   position: static;
@@ -70,32 +46,4 @@
 
 .project-header-tags .tag {
   font-size: 0.9em;
-}
-
-/* Gallery filter: hidden cards and zones (unfiltered: keep layout, no jump) */
-.card-stack__link.is-hidden,
-.card-stack__hover-zone.is-hidden {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-}
-
-/* Gallery filter active: reflow visible cards (card size 12em × 17em, padding 4em) */
-.card-stack.card-stack--filtered {
-  min-height: 25em;
-}
-
-.card-stack.card-stack--filtered .card-stack__link {
-  position: absolute;
-  bottom: 4em;
-  margin-right: 0;
-  margin-left: 0;
-  transition: left 0.25s ease;
-}
-
-.card-stack.card-stack--filtered .card-stack__hover-zone {
-  position: absolute;
-  top: 0;
-  transition: left 0.25s ease;
 }

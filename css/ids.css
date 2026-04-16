@@ -25,7 +25,7 @@
     }
     
     &.quote {
-      font-size: 3.5em;
+      font-size: 3em;
       line-height: 1;
 
       @media screen and (max-width: 768px) {
@@ -41,7 +41,7 @@
   & h5,
   & h6 {
     margin: 0;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   & h1 {
@@ -57,7 +57,7 @@
 
     &.XS {
       font-size: 1.2em;
-      font-weight: 300;
+      font-weight: 400;
     }
   }
 
@@ -69,7 +69,7 @@
 
     &.XS {
       font-size: 1.5em;
-      font-weight: 600;
+      font-weight: 400;
     }
   }
 
@@ -101,7 +101,7 @@
 
   & strong,
   & b {
-    font-weight: 600;
+    font-weight: 400;
   }
 
   & mark {
@@ -169,7 +169,7 @@
 
   & code {
     font-size: 0.9em;
-    font-family: "Arial";
+    font-family: inherit;
     letter-spacing: 0.02em;
     font-weight: 400;
     padding: 0.1em 0.25em;

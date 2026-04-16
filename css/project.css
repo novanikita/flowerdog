@@ -2,26 +2,39 @@ header {
     padding: 1em;
     display: flex;
     width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    background: var(--color-bg);
+    transition: transform 0.25s ease;
+    will-change: transform;
 }
 
 /* Main page header: two containers, refined alignment */
 .main-header {
     font-size: 1em;
-    font-weight: 300;
+    font-weight: 400;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 100%;
 }
 
+header.is-hidden {
+    transform: translateY(calc(-100% - 0.5em));
+}
+
 .main-header__left {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 1em;
 }
 
 .main-header__left .logo {
     margin-right: 0;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 0.15em;
 }
 
 .main-header__left .logo img {
@@ -40,6 +53,14 @@ header {
     white-space: pre-line;
     font-size: 0.8em;
     line-height: 1.1;
+    margin: 0;
+    padding: 0;
+}
+
+/* Override global `.ids p { margin-bottom: ... }` for header descriptor */
+.ids .main-header__descriptor {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
 }
 
 /* Global link style */
@@ -74,8 +95,7 @@ a:focus-visible,
 .main-header a:visited,
 .main-header a:focus-visible {
     color: var(--color-black);
-    text-decoration: underline;
-    text-decoration-thickness: 0.01em;
+    text-decoration: none !important;
 }
 
 .main-header__right {
@@ -103,17 +123,28 @@ a:focus-visible,
     font-size: inherit;
     font-family: inherit;
     color: var(--color-black);
+    font-weight: 400;
     cursor: pointer;
     transition: border-color 0.2s ease;
 }
 
 .lang-switcher__btn.is-active {
-    background: var(--color-gray-bg);
+    background: transparent;
     color: var(--color-black);
-    border-radius: 0.4em;
+    border-radius: 0;
+    font-weight: 700;
 }
 
 /* MAIN PAGE */
+
+/* Gallery is removed site-wide */
+.card-stack,
+.card-stack__hover-zones,
+.project-gallery,
+ids-gallery,
+.ids__gallery {
+    display: none !important;
+}
 
 .main-page-header {
     width: 70%;
@@ -194,9 +225,10 @@ a:focus-visible,
 
 .quote-word:hover,
 .quote-word.is-active {
-    color: var(--color-black);
-    background-color: var(--color-accent);
-    transition: background-color 0s linear;
+    color: var(--color-accent);
+    background-color: var(--color-black-0);
+    text-decoration-color: var(--color-accent);
+    transition: background-color 0s linear, color 0s linear, text-decoration-color 0s linear;
 }
 
 .quote-tooltip {
@@ -205,7 +237,7 @@ a:focus-visible,
     top: 0;
     width: auto;
     height: auto;
-    background: var(--color-gray-bg);
+    background: var(--color-accent);
     padding: 0;
     box-sizing: border-box;
 
@@ -214,7 +246,7 @@ a:focus-visible,
     pointer-events: none;
     transition: opacity 0.5s ease, visibility 0s linear 0.5s;
     z-index: 1000; 
-    border-radius: 0.4em 0.4em 0.4em 0;
+    border-radius: 0 1em 1em 1em;
 }
 
 .quote-tooltip.is-visible {
@@ -227,11 +259,13 @@ a:focus-visible,
     margin: 0;
     display: block;
     width: auto;
-    max-width: 45em;
+    width: 40em;
+    max-width: 40em;
     text-align: left;
-    padding: 1em 6em 0.5em 1em;
+    padding: 1em 5em 0.6em 1em;
     box-sizing: border-box;
-    font-size: 0.8em;;
+    font-size: 0.8em;
+    color: var(--color-white);
 }
 
 
@@ -433,8 +467,8 @@ a.project-promo-link {
     }
 
     &:hover {
-        transition: filter 0s ease;
-        filter: brightness(110%);
+        transition: none;
+        filter: none;
 
         & h2 {
             text-decoration: none;
@@ -571,7 +605,7 @@ footer {
     .main-header__left {
         width: 100%;
         display: flex;
-        align-items: flex-start;
+        align-items: flex-end;
         justify-content: flex-start;
         flex-wrap: nowrap;
         gap: 0.5em;
@@ -580,6 +614,7 @@ footer {
     .main-header__left .logo {
         margin-right: 0;
         width: auto;
+        margin-bottom: 0.15em;
     }
 
     .main-header__left .logo img {
@@ -752,6 +787,45 @@ main:has(.project-gallery) hr.default {
   font-size: 0.7em;
   color: var(--color-gray-bg);
   font-weight: 400;
+}
+
+
+/* Project meta line: № + date + country */
+.project-meta {
+  font-size: 0.7em;
+  font-weight: 400;
+  color: var(--color-accent);
+  display: inline-flex;
+  gap: 1em;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+/* Project tags as single-line chips */
+.project-tag-row {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 0.6em;
+  margin: 0;
+  margin-left: 0.6em;
+  padding: 0;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.project-tag-chip {
+  display: inline-block;
+  background-color: rgba(0, 63, 255, 0.1);
+  color: var(--color-accent);
+  border-radius: 1em;
+  padding: 0.15em 0.6em;
+  font-size: 0.7em;
+  font-weight: 400;
+  line-height: 1.1;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 /* Override general code styling: higher specificity so it wins on project pages */

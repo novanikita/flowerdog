@@ -5,15 +5,15 @@
 /* Fonts */
 
 @font-face {
-  font-family: "Arial";
-  font-weight: 400;
+  font-family: "ABC Diatype";
   font-style: normal;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('fonts/Arial.woff2') format("woff2");
+  src: url("../fonts/ABCDiatypeCyrillicVariable-Trial.woff2") format("woff2");
 }
 
 body {
-  font-family: "Arial";
+  font-family: "ABC Diatype", sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
 }

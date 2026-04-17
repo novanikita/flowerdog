@@ -8,16 +8,31 @@
   var tooltipText = tooltip.querySelector('.quote-tooltip__text');
   if (!tooltipText) return;
 
-  // Text values are centralized here for easy updates.
-  var tooltipByKey = {
-    cool: 'У нас сильный артдирекшен и уровень в дизайне, ниже которого мы никогда не позволяем себе опускаться даже в рутинных задачах.',
-    food: 'Знаем как показать продукт вкусно, на чём сделать акценты. Начали работать с едой в Додо Пицце в 2020 году. Снимали сцены для кей-вижуалов для промо новых пицц и других продуктов. Сейчас работаем с продуктовыми брендами, Яндекс Едой и Yango, делаем концепции, кей-вижи, видео-ролики и наружку с KFC, I’m, Subway, Papa Jones, Pizza Hut и другими крутыми ребятами.',
-    communications: 'Разрабатывали кейвижуалы для флагманских продуктов в Додо Пицце и федеральным промо компаниям. За 2025 год сделали 92 проекта для межнара Яндекса. Можем принести концепцию кей-вижуала за 1 день. За неделю собираем доох и олв рекламные компании с озвучкой на 8 языках и тиражом на 200+ ресайзов.',
-    corporateExperience: 'За плечами фаундеров 4 года в инхаусе Dodo Brands в роли дизайнера, артдира и продакта. Сейчас плотно работаем с Яндексом и Yango. Знаем как устроенны процессы внутри корпораций и как с ними взаимодействовать из вне.',
-    systematic: 'На старте составляем понимание задачи, чтобы свериться и начать делать именно то что нужно делать. В начале проекта составляем план и держим в курсе статусов по ходу проекта. Если не успеваем, пишем как есть и передоговариваемся.',
-    involved: 'Относимся к проектам так, как относились бы к ним работая в инхаусе. Нам важно чтобы результат соответствовал уровню дизайна в бренде или двигал его вперёд. Всегда выбираем заморочиться над деталями, когда есть возможность. Когда важно успеть в моменте, можем залипнуть до 10 вечера или на выходных.',
-    vibe: 'Клиенты говорят, что с нами хорошо. Мы всегда на связи, делаем быстро и аккуратно, не пропадаем. Держим в курсе статусов по проектам, делаем быстро. Вовлекаемся в процесс, предлагаем варианты, делаем с душой.'
+  // Tooltip text values per language.
+  var tooltipByLang = {
+    ru: {
+      cool: 'У нас сильный артдирекшен и уровень в дизайне, ниже которого мы никогда не позволяем себе опускаться даже в рутинных задачах.',
+      food: 'Делаем визуалы с KFC, I’m, Subway, Papa Jones, Pizza Hut для межнара Яндекс Еды и Yango. До этого 3 года запускали новинки в Додо Пицце. Всё снимали вживую, ещё до нейронок. Сейчас можем сочно показать еду и на съемке и в генерации.',
+      communications: 'Сделали 114 проектов для Яндекса, 6 айдентик, 2 сайта, 2 упаковки и 2 аудита для других наших клиентов.',
+      corporateExperience: 'За плечами фаундеров 4 года в инхаусе Dodo Brands и год студийной работы с Яндексом. Знаем как устроены корпоративные процессы, чувствуем гайды, предлагаем улучшения, быстро попадаем в результат.',
+      systematicInvolved: 'Заморачиваемся. Отвечаем в пятницу вечером. Соблюдаем тайминги, быстро отвечаем. Чётко расписываем проект по этапам и держим в курсе статусов. Если выбиваемся, предупреждаем и предлагаем решения.',
+      vibe: 'Всё это мы слышим от наших клиентов: оунеров, продюсеров и артдиров с которыми мы работали и работаем.'
+    },
+    en: {
+      cool: 'We have strong art direction and design quality standards that we never let slip, even on routine tasks.',
+      food: 'We create visuals with KFC, I’m, Subway, Papa Jones, and Pizza Hut for Yandex Eats and Yango international markets. Before that, we spent 3 years launching new products at Dodo Pizza. We shot everything live, even before neural tools. Now we can make food look delicious both in production shoots and in generative workflows.',
+      communications: 'We delivered 114 projects for Yandex, plus 6 brand identities, 2 websites, 2 packaging projects, and 2 audits for our other clients.',
+      corporateExperience: 'The founders have 4 years of in-house experience at Dodo Brands and one year of studio work with Yandex. We understand corporate processes, feel comfortable with brand guidelines, suggest improvements, and get to strong results quickly.',
+      systematicInvolved: 'We care about details. We reply on Friday evenings. We meet deadlines and respond quickly. We break projects down into clear stages and keep everyone updated on statuses. If something shifts, we warn early and offer solutions.',
+      vibe: 'This is exactly what we hear from our clients: owners, producers, and art directors we have worked and continue to work with.'
+    }
   };
+
+  function getCurrentLang() {
+    var attrLang = document.documentElement.getAttribute('data-lang');
+    if (attrLang === 'en' || attrLang === 'ru') return attrLang;
+    return 'ru';
+  }
 
   function hideTooltip() {
     var active = quote.querySelector('.quote-word.is-active');
@@ -28,7 +43,9 @@
 
   function showTooltip(wordEl) {
     var key = wordEl.getAttribute('data-quote-key');
-    var content = tooltipByKey[key];
+    var lang = getCurrentLang();
+    var dict = tooltipByLang[lang] || tooltipByLang.ru;
+    var content = dict[key];
     if (!content) return;
 
     var prev = quote.querySelector('.quote-word.is-active');

@@ -23,25 +23,8 @@
   <!--Тут блок с шапкой страницы-->
 
   <body class="ids">
-    <div class="main-page">   
-      <header class="main-header">
-
-        <div class="main-header__left">
-          <div class="logo">
-            <a href="index.html"><img src="images/logo.svg" alt="CMND" /></a>
-          </div>
-          <p class="main-header__descriptor" data-i18n data-ru="Дизайн студия. Читается как [кóманд].&#10;А переводится как «команда»." data-en="Design studio. Pronounced as [kómand].&#10;Translates to 'team'.">Дизайн студия. Читается как [кóманд]. А переводится как «команда».</p>
-        </div>
-
-        <div class="main-header__right">
-          <a class="main-header__link" data-i18n data-ru="О нас" data-en="About" href="about.html">О нас</a>
-          <a class="main-header__link" data-i18n data-ru="Проекты" data-en="Projects" href="portfolio.html">Проекты</a>
-          <div class="lang-switcher" aria-label="Language switcher" role="group">
-            <button type="button" class="lang-switcher__btn is-active" data-lang-switch="ru" aria-pressed="true">РУ</button>
-            <button type="button" class="lang-switcher__btn" data-lang-switch="en" aria-pressed="false">EN</button>
-          </div>
-        </div>
-      </header>
+    <div class="main-page">
+      <div data-site-header></div>
     </div>
 
     <main>
@@ -64,8 +47,8 @@
         <div class="ids__space XL"></div>
 
         <p class="quote" id="interactive-quote">
-          <span class="quote-word" data-quote-key="cool">Круто</span> работаем с <span class="quote-word" data-quote-key="food">едой</span><br> и <span class="quote-word" data-quote-key="communications">коммуникационкой</span>.<br>
-          У нас сильный <span class="quote-word" data-quote-key="corporateExperience">корпоративный опыт</span>,<br> мы <span class="quote-word" data-quote-key="systematic">системные</span> и <span class="quote-word" data-quote-key="involved">вовлеченные</span>,<br> с нами <span class="quote-word" data-quote-key="vibe">кайфово</span><span class="portraits-inline" aria-hidden="true"><span class="portreit"><img src="images/portrait/portrait-1.jpg" alt=""></span><span class="portreit"><img src="images/portrait/portrait-2.jpg" alt=""></span><span class="portreit"><img src="images/portrait/portrait-3.jpg" alt=""></span></span>
+          <span class="quote-word" data-quote-key="cool" data-i18n data-ru="Круто" data-en="Great">Круто</span> <span data-i18n data-ru="работаем с" data-en="at working with">работаем с</span> <span class="quote-word" data-quote-key="food" data-i18n data-ru="едой" data-en="food">едой</span><br> <span data-i18n data-ru="и" data-en="and">и</span> <span class="quote-word" data-quote-key="communications" data-i18n data-ru="коммуникационкой" data-en="communications">коммуникационкой</span>.<br>
+          <span data-i18n data-ru="У нас сильный" data-en="We have strong">У нас сильный</span> <span class="quote-word" data-quote-key="corporateExperience" data-i18n data-ru="корпоративный опыт" data-en="corporate experience">корпоративный опыт</span>,<br> <span data-i18n data-ru="мы" data-en="we are">мы</span> <span class="quote-word" data-quote-key="systematicInvolved" data-i18n data-ru="системные и вовлеченные" data-en="systematic and involved">системные и вовлеченные</span>,<br> <span data-i18n data-ru="с нами" data-en="and with us it is">с нами</span> <span class="quote-word" data-quote-key="vibe" data-i18n data-ru="кайфово" data-en="a pleasure">кайфово</span><span class="portraits-inline" aria-hidden="true"><span class="portreit"><img src="images/portrait/portrait-1.jpg" alt=""></span><span class="portreit"><img src="images/portrait/portrait-2.jpg" alt=""></span><span class="portreit"><img src="images/portrait/portrait-3.jpg" alt=""></span></span>
         </p>
         <div class="quote-tooltip" id="quote-tooltip" role="tooltip" aria-hidden="true">
           <p class="quote-tooltip__text"></p>
@@ -76,16 +59,16 @@
 
         <div class="projects-grid">
           <div class="projects-grid-item L">
-            <a class="project-promo-link" href="yandex.html">
-              <div class="project-promo" style="background-image: url('images/projects-cover/yandex-cover.jpg');">
+            <a class="project-promo-link" href="yandex.html" data-cover-images="images/projects-cover/yandex-cover.jpg">
+              <div class="project-promo">
                 <h2>92 проекта для Яндекса</h2>
                 <div class="project-tags" aria-label="Project tags"></div>
               </div>
             </a>
           </div>
           <div class="projects-grid-item">
-            <a class="project-promo-link" href="project-blanck.html" data-type-tags="website branding">
-              <div class="project-promo" style="background-image: url('images/projects-cover/lavatop-cover.jpg');">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="website branding" data-cover-images="images/projects-cover/lavatop-cover-1.jpg|images/projects-cover/lavatop-cover-2.jpg|images/projects-cover/lavatop-cover-3.jpg">
+              <div class="project-promo">
                 <h2>Lavatop</h2>
                 <div class="project-tags" aria-label="Project tags"></div>
               </div>
@@ -93,43 +76,47 @@
           </div>
           <div class="projects-grid-item">
             <a class="project-promo-link" href="project-blanck.html" data-type-tags="branding" data-cover-images="images/projects-cover/rangos-cover-1.jpg|images/projects-cover/rangos-cover-2.jpg|images/projects-cover/rangos-cover-3.jpg">
-              <div class="project-promo" style="background-image: url('images/projects-cover/rangos-cover-1.jpg');">
+              <div class="project-promo">
                 <h2>Rangos</h2>
                 <div class="project-tags" aria-label="Project tags"></div>
               </div>
             </a>
           </div>
           <div class="projects-grid-item">
-            <a class="project-promo-link" href="project-blanck.html" data-type-tags="branding events">
-              <div class="project-promo" style="background-image: url('images/projects-cover/sber-cover.jpg');">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="branding events" data-cover-images="images/projects-cover/sber-cover-1.jpg|images/projects-cover/sber-cover-2.jpg|images/projects-cover/sber-cover-3.jpg">
+              <div class="project-promo">
                 <h2>Sber Demoday</h2>
                 <div class="project-tags" aria-label="Project tags"></div>
               </div>
             </a>
           </div>
           <div class="projects-grid-item">
-            <a class="project-promo-link" href="portfolio.html" data-type-tags="branding">
-              <div class="project-promo" style="background-image: url('images/projects-cover/sporos-cover.jpg');">
+            <a class="project-promo-link" href="portfolio.html" data-type-tags="branding" data-cover-images="images/projects-cover/sporos-cover-1.jpg|images/projects-cover/sporos-cover-2.jpg|images/projects-cover/sporos-cover-3.jpg|images/projects-cover/sporos-cover-4.jpg|images/projects-cover/sporos-cover-5.jpg">
+              <div class="project-promo">
                 <h2>Sporos</h2>
               </div>
             </a>
           </div>
           <div class="projects-grid-item L">
-            <a class="project-promo-link" href="project-blanck.html" data-type-tags="website">
-              <div class="project-promo" style="background-image: url('images/projects-cover/dodo-cover.jpg');">
+            <a class="project-promo-link" href="project-blanck.html" data-type-tags="website" data-cover-images="images/projects-cover/dodo-cover.jpg">
+              <div class="project-promo">
                 <h2>4 года в Додо Пицце</h2>
                 <div class="project-tags" aria-label="Project tags"></div>
               </div>
             </a>
           </div>
-          <a class="projects-more-btn" href="portfolio.html">ещё проекты</a>
+          <a class="projects-more-btn" href="portfolio.html">Ещё проекты</a>
         </div>
 
         <div class="ids__space XL"></div>
         <div class="main-page-text-fixed">
-          <h1 class="XS">Начинаем с встречи-знакомства, узнаем контекст и определяем первые шаги. 
-            После составляем смету, брифуемся и приступаем к работе. Обычно подключаемся проектно или как внешняя дизайн-команда. Для того, чтобы начать проект достаточно<a href="https://t.me/dmitry2man" class="main-page-header__cta" data-i18n data-ru="написать" data-en="text us">написать</a>
-          </h2>
+          <h1>Стартуем с аудита</h1>
+          <p>В процессе можно понять на сколько с нами будет комфортно, не рискуя большими деньгами. И получить ценные рекомендации основанные на нашем опыте.</p>
+          <p>Аудит проходит так. Мы погружаемся в ситуацию и запрос, анализируем  дизайн который уже есть сейчас и возвращаемся с пониманием что уже хорошо, а что можно улучшить.</p>
+          <p>В результате получается дорожная карта проекта и список комментариев и рекомендаций. Дальше можно составить план, выбрать с чего начать в первую очередь, а что взять следующими шагами.</p>
+          <p>На всё про всё обычно уходит пару недель.<br> По стоимости обычно от 100 000 ₽.</p>
+          <div class="ids__space S"></div>
+          Нам можно написать на <a href="https://t.me/dmitry2man" class="main-page-header__cta" data-i18n data-ru="почту" data-en="email">почту</a> или в <a href="https://t.me/dmitry2man" class="main-page-header__cta" data-i18n data-ru="телеграм" data-en="telegram">телеграм</a>
         </div>
 
       </div>
@@ -137,6 +124,8 @@
     <footer> 
       <p class="caption">CMND© 2024 → 2026</p>
     </footer>
+    <script src="js/site-dictionary.js"></script>
+    <script src="js/header-include.js"></script>
     <script src="js/language.js"></script>
     <script src="js/tags.js"></script>
     <script src="js/quote-tooltip.js"></script>

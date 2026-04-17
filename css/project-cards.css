@@ -1,0 +1,126 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--project-gap);
+}
+
+.projects-grid .projects-grid-item {
+  box-sizing: border-box;
+  min-width: 0;
+  grid-column: span 1;
+  height: 33em;
+}
+
+.projects-grid .projects-grid-item.L {
+  grid-column: span 2;
+}
+
+.projects-grid .projects-grid-item.XL {
+  grid-column: span 4;
+}
+
+.project-promo-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.projects-grid .project-promo-link,
+.projects-grid .project-promo-link:hover,
+.projects-grid .project-promo-link:visited,
+.projects-grid .project-promo-link:focus-visible,
+.projects-grid .project-promo-link .tag {
+  color: inherit;
+  text-decoration: none;
+  background: transparent;
+}
+
+.project-promo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  min-width: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--project-radius);
+  padding: var(--project-card-padding);
+  background-color: var(--color-black-10);
+}
+
+.project-promo .project-tags {
+  order: 1;
+  margin: 0 0 0.2em 0;
+}
+
+.project-promo h2 {
+  order: 2;
+  color: var(--color-white);
+  width: min(17em, 100%);
+  font-size: 1.4em;
+  line-height: 1.12;
+  margin: 0;
+}
+
+.projects-grid > a.projects-more-btn {
+  grid-column: 1 / -1;
+  box-sizing: border-box;
+}
+
+a.projects-more-btn,
+a.projects-more-btn:hover,
+a.projects-more-btn:visited,
+a.projects-more-btn:active,
+a.projects-more-btn:focus-visible {
+  display: block;
+  width: 100%;
+  color: var(--color-accent);
+  text-decoration: none;
+  padding: 2em;
+  border-radius: var(--project-radius);
+  background-color: rgba(0, 63, 255, 0.1);
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .projects-grid {
+    gap: 0.35em;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projects-grid .projects-grid-item {
+    grid-column: span 1;
+    height: 18em;
+  }
+
+  .projects-grid .projects-grid-item.L,
+  .projects-grid .projects-grid-item.XL {
+    grid-column: span 2;
+  }
+
+  .project-promo {
+    padding: 0.6em;
+    border-radius: 0.8em;
+  }
+
+  .project-promo h2 {
+    font-size: 1.05em;
+    width: 100%;
+  }
+
+  .project-promo .project-tags {
+    margin-bottom: 0.15em;
+  }
+
+  a.projects-more-btn,
+  a.projects-more-btn:hover,
+  a.projects-more-btn:visited,
+  a.projects-more-btn:active,
+  a.projects-more-btn:focus-visible {
+    padding: 1.2em 0.9em;
+    font-size: 0.95em;
+  }
+}

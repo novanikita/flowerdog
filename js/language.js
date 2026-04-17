@@ -18,7 +18,10 @@
     document.documentElement.setAttribute('data-lang', lang);
 
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      var text = el.getAttribute('data-' + lang);
+      var key = el.getAttribute('data-key');
+      var dictionary = window.SiteDictionary && window.SiteDictionary.i18n;
+      var fromDictionary = key && dictionary && dictionary[key] ? dictionary[key][lang] : null;
+      var text = fromDictionary != null ? fromDictionary : el.getAttribute('data-' + lang);
       if (text != null) el.textContent = text;
     });
 
@@ -46,6 +49,10 @@
       if (!target || SUPPORTED.indexOf(target.getAttribute('data-lang-switch')) === -1) return;
       e.preventDefault();
       setLang(target.getAttribute('data-lang-switch'));
+    });
+
+    document.addEventListener('site:header-ready', function () {
+      applyLang(getSavedLang());
     });
   }
 

@@ -18,24 +18,7 @@
 
   <body class="ids">
     <div class="main-page">
-      <header class="main-header">
-        <div class="main-header__left">
-          <div class="logo">
-            <a href="index.html"><img src="images/logo.svg" alt="CMND" /></a>
-          </div>
-          <p class="main-header__descriptor" data-i18n data-ru="Дизайн студия. Читается как [кóманд].&#10;А переводится как «команда»." data-en="Design studio. Pronounced as [kómand].&#10;Translates to 'team'.">Дизайн студия. Читается как [кóманд]. А переводится как «команда».</p>
-        </div>
-        <div class="main-header__right">
-          <nav class="main-header__nav">
-            <a class="main-header__link" data-i18n data-ru="О нас" data-en="About" href="about.html">О нас</a>
-            <a class="main-header__link" data-i18n data-ru="Проекты" data-en="Projects" href="portfolio.html">Проекты</a>
-          </nav>
-          <div class="lang-switcher" aria-label="Language switcher" role="group">
-            <button type="button" class="lang-switcher__btn is-active" data-lang-switch="ru" aria-pressed="true">РУ</button>
-            <button type="button" class="lang-switcher__btn" data-lang-switch="en" aria-pressed="false">EN</button>
-          </div>
-        </div>
-      </header>
+      <div data-site-header></div>
     </div>
     <main>
       <!--Это шапка проекта-->
@@ -98,6 +81,8 @@
     <footer>
       <p class="caption">CMND© 2024 → 2026</p>
     </footer>
+    <script src="js/site-dictionary.js"></script>
+    <script src="js/header-include.js"></script>
     <script src="js/language.js"></script>
     <script src="js/tags.js"></script>
     <script src="js/header-scroll.js"></script>

@@ -1,0 +1,19 @@
+.u-link-reset,
+.u-link-reset:hover,
+.u-link-reset:visited,
+.u-link-reset:focus-visible {
+  text-decoration: none;
+  background: transparent;
+}
+
+.u-stack-xs > * + * {
+  margin-top: 0.3em;
+}
+
+.u-stack-s > * + * {
+  margin-top: 0.6em;
+}
+
+.u-transition-bg {
+  transition: var(--project-link-transition);
+}

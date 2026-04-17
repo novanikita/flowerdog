@@ -1,50 +1,62 @@
 (function () {
   'use strict';
 
-  var header = document.querySelector('header');
-  if (!header) return;
+  function initHeaderScroll() {
+    var header = document.querySelector('header');
+    if (!header || header.dataset.scrollInit === 'true') return;
+    header.dataset.scrollInit = 'true';
 
-  var lastScrollY = window.scrollY || 0;
-  var ticking = false;
-  var hideAfter = 24;
-  var accumulatedDelta = 0;
-  var lastDirection = 0;
-  var triggerDistance = 18;
+    var lastScrollY = window.scrollY || 0;
+    var ticking = false;
+    var hideAfter = 24;
+    var triggerDistance = 12;
+    var downDistance = 0;
+    var upDistance = 0;
 
-  function updateHeader() {
-    var currentScrollY = window.scrollY || 0;
-    var delta = currentScrollY - lastScrollY;
-    var direction = delta === 0 ? 0 : (delta > 0 ? 1 : -1);
+    function updateHeader() {
+      var currentScrollY = window.scrollY || 0;
+      var delta = currentScrollY - lastScrollY;
 
-    if (currentScrollY <= hideAfter) {
-      header.classList.remove('is-hidden');
-      accumulatedDelta = 0;
-      lastDirection = 0;
-    } else {
-      if (direction !== 0) {
-        if (direction !== lastDirection) {
-          accumulatedDelta = 0;
-          lastDirection = direction;
-        }
-        accumulatedDelta += delta;
-      }
+      /* Touch / restored scroll: avoid leaving header stuck off-screen at first paint */
+      if (currentScrollY < 0) currentScrollY = 0;
 
-      if (accumulatedDelta >= triggerDistance) {
-        header.classList.add('is-hidden');
-        accumulatedDelta = 0;
-      } else if (accumulatedDelta <= -triggerDistance) {
+      if (currentScrollY <= hideAfter) {
         header.classList.remove('is-hidden');
-        accumulatedDelta = 0;
+        downDistance = 0;
+        upDistance = 0;
+      } else {
+        if (delta > 0) {
+          downDistance += delta;
+          upDistance = 0;
+        } else if (delta < 0) {
+          upDistance += Math.abs(delta);
+          downDistance = 0;
+        }
+
+        if (downDistance >= triggerDistance) {
+          header.classList.add('is-hidden');
+          downDistance = 0;
+        } else if (upDistance >= triggerDistance) {
+          header.classList.remove('is-hidden');
+          upDistance = 0;
+        }
       }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
     }
 
-    lastScrollY = currentScrollY;
-    ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateHeader);
+    }, { passive: true });
+
+    header.classList.remove('is-hidden');
+    lastScrollY = window.scrollY || 0;
+    requestAnimationFrame(updateHeader);
   }
 
-  window.addEventListener('scroll', function () {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(updateHeader);
-  }, { passive: true });
+  initHeaderScroll();
+  document.addEventListener('site:header-ready', initHeaderScroll);
 })();

@@ -18,21 +18,7 @@
     return str.trim().split(/\s+/).map(function (s) { return s.trim(); }).filter(Boolean);
   }
 
-  /** Tag label translations: slug -> { en, ru } (type and client tags) */
-  var TAG_LABELS = {
-    branding: { en: 'Branding', ru: 'брендинг' },
-    events: { en: 'Events', ru: 'мероприятие' },
-    website: { en: 'Website', ru: 'сайт' },
-    yandex: { en: 'Yandex', ru: 'Яндекс' },
-    lavatop: { en: 'Lavatop', ru: 'Лаватоп' },
-    sber: { en: 'Sber', ru: 'Сбер' },
-    startup: { en: 'Startup', ru: 'стартап' },
-    rangos: { en: 'Rangos', ru: 'Рангос' },
-    'vse-instrumenty': { en: 'Vse Instrumenty', ru: 'Все Инструменты' },
-    'pmk-park': { en: 'PMK Park', ru: 'ПМК Парк' },
-    sporos: { en: 'Sporos', ru: 'Спорос' },
-    'dodo-pizza': { en: 'Dodo Pizza', ru: 'Додо Пицца' }
-  };
+  var TAG_LABELS = (window.SiteDictionary && window.SiteDictionary.tags) || {};
 
   /**
    * Format tag for display: capitalize first letter, replace hyphens with spaces

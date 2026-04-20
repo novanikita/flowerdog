@@ -1,8 +1,8 @@
 
 :root {
   --color-text-rgb: 5, 5, 5;
-  --color-link-rgb: 100, 150, 250;
-  --color-link-hover-rgb: 62, 168, 255;
+  --color-link-rgb: 0, 63, 255;
+  --color-link-hover-rgb: 0, 63, 255;
   --color-mark-rgb: 0, 63, 255;
   --color-surface-rgb: 240, 240, 240;
   --color-gray-bg: rgb(240, 240, 240);

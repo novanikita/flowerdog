@@ -42,6 +42,7 @@ header.is-hidden {
 .main-header__left .logo img {
   height: 1.5em;
   width: auto;
+  margin-bottom: 0.1em;
   display: block;
 }
 
@@ -74,18 +75,25 @@ header.is-hidden {
 .main-header__link:hover,
 .main-header__link:visited,
 .main-header__link:focus-visible,
+.main-header a,
+.main-header a:hover,
+.main-header a:visited,
+.main-header a:focus-visible,
 .main-header .logo a,
 .main-header .logo a:hover,
 .main-header .logo a:visited,
 .main-header .logo a:focus-visible {
   color: var(--color-black);
-  text-decoration: none;
+  text-decoration: none !important;
   background: transparent;
 }
 
 .main-header__link:hover,
-.main-header__link:focus-visible {
+.main-header__link:focus-visible,
+.main-header a:hover,
+.main-header a:focus-visible {
   color: var(--color-accent);
+  text-decoration: none !important;
 }
 
 .lang-switcher {

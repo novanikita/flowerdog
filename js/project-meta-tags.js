@@ -16,6 +16,109 @@
     { re: /Болив/i, value: 'Боливия' }
   ];
 
+  // CSV-backed data for remaining Yandex projects.
+  // Used to convert old split-format blocks (date + <code>№..</code> text) into new structure.
+  var PROJECT_DATA_BY_NUMBER = {
+    '98': { date: '02.2026', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '97': { date: '02.2026', country: 'Кыргызстан', tags: ['OOH', 'Генерация', 'Кей-вижуал', 'Концепция'], title: 'Промо доставки еды на автобусных остановках.', description: 'Дизайн для промо доставки из ресторанов и магазинов на остановках в Кыргызстане. Сгенерили 3 сцены в нейронках для Еды, Продуктов и Плюса и растиражировали на 2 города.' },
+    '96': { date: '02.2026', country: 'Казахстан', tags: ['OOH', 'Генерация', 'Концепция'], title: 'Брендирование машин Еды.', description: 'Задизайнили концепции оформления курьерских машин для доставки Едыв Казахстане.' },
+    '95': { date: '02.2026', country: 'Беларусь', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо на первый заказа в Евроопт.' },
+    '94': { date: '02.2026', country: 'Замбия', tags: ['Digital', 'InApp', 'OLV', 'Генерация', 'Кей-вижуал', 'Концепция'], title: 'Промо-кампания с розыгрышем iPhone для Yango.', description: 'Разработали концепцию кей-вижуала, сгенерили ai-сцену, разложили на in-app форматы и собрали анимацию для партнерской трансляции.' },
+    '93': { date: '01.2026', country: 'Узбекистан', tags: ['OOH', 'Генерация', 'Ивент', 'Кей-вижуал'], title: 'Кей-вижуал и носители для ивента в пиццерии Belissimo Pizza.' },
+    '92': { date: '01.2026', country: 'Узбекистан', tags: ['DOOH', 'Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо для прерамадана с EVOS.', description: 'Занимировали olv и dooh ролик. Перегенерили партнерский фуд и заанимировали его в нейронках.' },
+    '91': { date: '12.2025', country: 'Узбекистан', tags: [], title: '*NDA*', description: 'Промо ролик в зону выдачи багажа в Ташкентский аэропорт.' },
+    '90': { date: '12.2025', country: 'Беларусь', tags: ['3D', 'Digital', 'InApp', 'Генерация', 'Кей-вижуал', 'Концепция'], title: 'Бургер-фест.', description: 'Разработали кей-вижуал для Бургер-феста в Беларуси. Придумали визуальное направление, сгенерили фуд, леттеринг и 3д-персонажа. Растиражили все на форматы in-app и SMM.' },
+    '89': { date: '12.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'OLV и кей-вижуал для промо Новичкового оффера Bahandi.' },
+    '88': { date: '11.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Генерация'], title: 'Апдейт новогодней промо-кампании.' },
+    '87': { date: '12.2025', country: 'Беларусь', tags: [], title: '*NDA*' },
+    '86': { date: '11.2025', country: 'Беларусь', tags: [], title: '*NDA*' },
+    '85': { date: '12.2025', country: 'Кыргызстан', tags: ['DOOH', 'Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Новогоднее промо для Азии Ритейл в Кыргызстане.' },
+    '84': { date: '12.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '83': { date: '11.2025', country: 'Казахстан', tags: ['DOOH', 'Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Новогодняя промо-кампания.', description: 'Подготовили материалы для новогодней промо-кампании Яндекса в Казахстане.Сгенерили партнерские и дженерик фуды в новогодней атмосфере, собрали olv и dooh анимацию и растиражировали на 300+ роликов.' },
+    '82': { date: '12.2025', country: 'Узбекистан', tags: ['DOOH', 'Генерация', 'Кей-вижуал'], title: 'Промо доставки из аптек.', description: 'Разработали визуал для промо доставки из аптек в Узбекистане и заанимировали dooh-ролик.' },
+    '81': { date: '12.2025', country: 'Узбекистан', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо с Oqtepa Lavach.' },
+    '80': { date: '11.2025', country: 'Узбекистан', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Кейвижуал для новогодней промо-кампании.' },
+    '79': { date: '11.2025', country: 'Узбекистан', tags: [], title: '*NDA*' },
+    '78': { date: '12.2025', country: 'Узбекистан', tags: ['DOOH'], title: 'Наружка для партнеров в ритейле.' },
+    '77': { date: '11.2025', country: 'Армения', tags: [], title: '*NDA*' },
+    '76': { date: '11.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '75': { date: '11.2025', country: 'Казахстан', tags: ['OLV', 'Озвучка'], title: 'Ролик в курьерский хаб.' },
+    '74': { date: '09.2025', country: 'Узбекистан', tags: ['DOOH', 'Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо-кампания Черной пятницы.', description: 'Один из самых объемных проектов. Тут делали раскатку креативной рамки Черной пятницы на нескольких партнеров. Собрали мастера раскадрвок, сгенериили фуды и растиражили на сотни носителей в наружке и диджитале.' },
+    '73': { date: '09.2025', country: 'Беларусь', tags: ['DOOH', 'OLV'], title: 'Промо доставки продуктов из супермаркетов.' },
+    '72': { date: '10.2025', country: 'Беларусь', tags: ['Digital', 'InApp', 'Генерация', 'Иллюстрация', 'Кей-вижуал', 'Концепция'], title: 'Пицца-фест.', description: 'Разработали кей-визуал для промо в приложении. Сгенерили сцену и нарисовали стикеры.' },
+    '71': { date: '09.2025', country: 'Казахстан', tags: ['DOOH', 'Генерация', 'Кей-вижуал'], title: 'Промо-кампания «Уютный октябрь» с Okadzaki.' },
+    '70': { date: '10.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо первого заказа из I\'m.' },
+    '69': { date: '09.2025', country: 'Узбекистан', tags: [], title: '*NDA*' },
+    '68': { date: '10.2025', country: 'Узбекистан', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо доставки еды из супермаркетов.' },
+    '67': { date: '09.2025', country: 'Казахстан, Узбекистан', tags: ['OOH'], title: 'Статичная наружка для промо в регионах.' },
+    '66': { date: '07.2025', country: 'Беларусь, Казахстан, Кыргызстан, Узбекистан', tags: ['3D', 'OLV'], title: 'Обновление 3D телефончика для OLV роликов.' },
+    '65': { date: '09.2025', country: 'Беларусь', tags: ['DOOH', 'Озвучка'], title: 'Ролик на Минский полумарафон.' },
+    '64': { date: '07.2025', country: 'Беларусь', tags: ['DOOH', 'Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо доставки продуктов из супермаркетов.', description: 'Собрали OLV и DOOH ролики для промо доставки из магазинов в Беларуси. Сгенерили и заанимировали корзины с фудами.' },
+    '63': { date: '09.2025', country: 'Кыргызстан', tags: ['Озвучка'], title: 'ГЗК для промо компании.' },
+    '62': { date: '08.2025', country: 'Грузия', tags: ['DOOH', 'OOH'], title: 'Наружка для большой охватка «Скидки больше и больше».' },
+    '61': { date: '09.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '60': { date: '09.2025', country: 'Беларусь, Казахстан, Кыргызстан, Узбекистан', tags: [], title: 'Онбординг письма.' },
+    '59': { date: '08.2025', country: 'Узбекистан', tags: ['OOH', 'Генерация', 'Кей-вижуал'], title: 'Промо-кампейн «Марафон Еды» в метро.' },
+    '58': { date: '09.2025', country: 'Узбекистан', tags: [], title: '*NDA*' },
+    '57': { date: '09.2025', country: 'Узбекистан', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Партнерское промо с Yaponamama.' },
+    '56': { date: '09.2025', country: 'Узбекистан', tags: [], title: '*NDA*' },
+    '55': { date: '08.2025', country: 'Грузия', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо для подключения ресторанов к доставке.', description: 'Разработали кей-вижуал для b2b рекламной кампании, нацеленной на подключение новых ресторанов в Грузии. Сгенерили сцену и заанимировали OLV ролик на английском и грузинском с озвучкой.' },
+    '54': { date: '07.2025', country: 'Кыргызстан', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо доставки из супермаркетов.' },
+    '53': { date: '07.2025', country: 'Казахстан', tags: [], title: 'Рассылка для проекта с эквайрингом + баннер в вендор кабинет.' },
+    '52': { date: '07.2025', country: 'Грузия', tags: ['OOH', 'Кей-вижуал'], title: 'Концепция билборда для партнерки с Pizza Hut.' },
+    '51': { date: '07.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '50': { date: '07.2025', country: 'Грузия', tags: ['DOOH', 'Digital', 'OLV', 'OOH', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Рекламная кампания «Скидки больше и больше».', description: 'Один из самых объемных проектов. Сделали рекламную кампанию с 8 партнерами в Грузии. Заанимировали DOOH и OLV ролики, отретушировали партнерские фуды и сделали тираж на сотни носителей: анимированная наружка, автобусы, остановки, метро и диджитал.' },
+    '49': { date: '08.2025', country: 'Казахстан', tags: ['OOH'], title: 'Оформление промо-зоны для проекта «Раздача воды курьерам».' },
+    '48': { date: '07.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '47': { date: '07.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо первого заказа в Lavash Food.' },
+    '46': { date: '07.2025', country: 'Казахстан', tags: [], title: 'Шапки для рассылок о СРА.' },
+    '45': { date: '07.2025', country: 'Беларусь', tags: [], title: '*NDA*' },
+    '44': { date: '07.2025', country: 'Казахстан', tags: ['DOOH', 'Генерация'], title: 'Наружка «Жара из-за скидок».' },
+    '43': { date: '07.2025', country: 'Армения', tags: [], title: '*NDA*' },
+    '42': { date: '06.2025', country: 'Казахстан', tags: ['3D', 'Digital', 'OLV', 'Генерация', 'Кей-вижуал', 'Озвучка'], title: 'Промо Плюса через доставку «Еда в Плюсе».' },
+    '41': { date: '06.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '40': { date: '07.2025', country: 'Казахстан', tags: ['DOOH', 'OOH'], title: 'Наружка для промо-кампании «Вкусно быть собой».' },
+    '39': { date: '07.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '38': { date: '06.2025', country: 'Беларусь', tags: ['OLV', 'Иллюстрация'], title: 'Ролики в курьерский хаб.' },
+    '37': { date: '07.2025', country: 'Беларусь', tags: [], title: '*NDA*' },
+    '36': { date: '06.2025', country: 'Беларусь', tags: [], title: '*NDA*' },
+    '35': { date: '04.2025', country: 'Узбекистан', tags: ['Digital', 'OLV', 'Озвучка'], title: 'Промо для Korzinka Go.' },
+    '34': { date: '05.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Кей-вижуал', 'Озвучка'], title: 'Партнерское промо «до -50% на пиццы» с Papa John\'s.' },
+    '33': { date: '03.2026', country: 'Казахстан', tags: ['DOOH'], title: 'Наружка для промо «-15% на новые блюда».' },
+    '32': { date: '05.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Кей-вижуал', 'Озвучка'], title: 'Партнерское промо с PikaPika.' },
+    '31': { date: '05.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Озвучка'], title: 'Промо вело-курьеров.' },
+    '30': { date: '06.2025', country: 'Грузия', tags: ['Digital', 'OLV', 'Озвучка'], title: 'Промо вело-курьеров.' },
+    '29': { date: '05.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Кей-вижуал', 'Озвучка'], title: 'Партнерское промо на первый заказ в Doner na Satpaeva.' },
+    '28': { date: '05.2025', country: 'Казахстан, Кыргызстан, Узбекистан', tags: ['Digital', 'OLV', 'Озвучка'], title: 'Промо для велосипедизации курьеров.' },
+    '27': { date: '06.2025', country: 'Беларусь', tags: [], title: '*NDA*' },
+    '26': { date: '05.2025', country: 'Узбекистан', tags: [], title: '*NDA*' },
+    '25': { date: '04.2025', country: 'Армения', tags: ['OLV', 'Озвучка'], title: 'Апдейт видео-ролика про доставку Еды.' },
+    '24': { date: '05.2025', country: 'Беларусь', tags: ['OLV', 'Озвучка'], title: 'Промо для велосипедизации курьеров.' },
+    '23': { date: '04.2025', country: 'Узбекистан', tags: ['Ивент', 'Озвучка'], title: 'Ролик на фестиваль.' },
+    '22': { date: '05.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Озвучка'], title: 'Промо бесплатной доставки из I\'m.' },
+    '21': { date: '05.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '20': { date: '05.2025', country: 'Беларусь', tags: [], title: '*NDA*' },
+    '19': { date: '04.2025', country: 'Боливия', tags: ['OOH', 'Генерация'], title: 'Билборд с El Solar для Yango.', description: 'Сгенерили 3D биллборд для партнерки Yango и местного ресторана в Боливии.' },
+    '18': { date: '05.2025', country: 'Казахстан', tags: ['DOOH'], title: 'Анимация диджитал наружки с KFC.' },
+    '17': { date: '06.2025', country: 'Казахстан, Кыргызстан, Узбекистан', tags: ['Digital', 'OLV', 'Озвучка'], title: 'Курьерские креативы про доход.' },
+    '16': { date: '04.2025', country: 'Казахстан', tags: ['DOOH'], title: 'Диджитал наружка с Burger King для промо «Пост-Рамадан».' },
+    '15': { date: '05.2025', country: 'Армения', tags: ['OLV'], title: 'Дизайн и анимация лайнов в промо-видео для Kinodaran.' },
+    '14': { date: '04.2025', country: 'Казахстан', tags: ['DOOH'], title: 'Диджитал наружка с CoffeeBoom для промо «Пост-Рамадан».' },
+    '13': { date: '03.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Озвучка'], title: 'Дополнительный тираж для промо I\'m.' },
+    '12': { date: '04.2025', country: 'Узбекистан', tags: ['Digital', 'OLV', 'Генерация', 'Озвучка'], title: 'Промо для Korzinka Go в Самарканде.' },
+    '11': { date: '04.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Кей-вижуал', 'Озвучка'], title: 'Продвижение бесплатной доставки из I\'m.' },
+    '10': { date: '04.2025', country: 'Казахстан', tags: [], title: '*NDA*' },
+    '9': { date: '04.2025', country: 'Узбекистан', tags: [], title: '*NDA*' },
+    '8': { date: '04.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Озвучка'], title: 'Промо доставки из «Плов в коробочке».' },
+    '7': { date: '04.2025', country: 'Казахстан', tags: ['DOOH', 'Кей-вижуал'], title: 'Диджитал наружка с Okadzaki для промо «Пост-Рамадан».' },
+    '6': { date: '03.2025', country: 'Казахстан', tags: ['DOOH', 'Кей-вижуал'], title: 'Промо i\'m в Рамадан.' },
+    '5': { date: '04.2025', country: 'Армения', tags: [], title: 'Стикеры для Армении.' },
+    '4': { date: '04.2025', country: 'Казахстан', tags: ['Генерация'], title: '*NDA* для Ultima.' },
+    '3': { date: '04.2025', country: 'Казахстан', tags: ['Генерация'], title: '*NDA*' },
+    '2': { date: '04.2025', country: 'Узбекистан', tags: ['DOOH'], title: 'Анимация банера в торговый центр Seoul Mun.' },
+    '1': { date: '03.2025', country: 'Казахстан', tags: ['Digital', 'OLV', 'Кей-вижуал', 'Озвучка'], title: 'Промо первого заказа из I\'m.' }
+  };
+
   function buildMetaParagraph(tokens) {
     var p = document.createElement('p');
     p.className = 'project-meta';
@@ -53,6 +156,44 @@
     return '';
   }
 
+  function toMonthYear(dateText) {
+    var m = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec((dateText || '').trim());
+    if (!m) return dateText;
+    return m[2] + '.' + m[3];
+  }
+
+  function buildTitleParagraph(title) {
+    var p = document.createElement('p');
+    var span = document.createElement('span');
+    span.className = 'project-text-emphasis';
+    span.textContent = title;
+    p.appendChild(span);
+    return p;
+  }
+
+  function buildTitleWithDescriptionParagraph(title, description) {
+    var p = document.createElement('p');
+    var span = document.createElement('span');
+    span.className = 'project-text-emphasis';
+    span.textContent = title;
+    p.appendChild(span);
+    if (description) {
+      p.appendChild(document.createTextNode(' ' + description));
+    }
+    return p;
+  }
+
+  function splitTitleAndDescription(text) {
+    var clean = (text || '').replace(/\s+/g, ' ').trim();
+    if (!clean) return { title: '', description: '' };
+    var dotIdx = clean.indexOf('. ');
+    if (dotIdx === -1) return { title: clean, description: '' };
+    return {
+      title: clean.slice(0, dotIdx + 1).trim(),
+      description: clean.slice(dotIdx + 2).trim()
+    };
+  }
+
   function transformCombinedFormat(dateEl) {
     // Transform p.project-date when it already contains:
     // "№xx, дата, страна, тег1, тег2, ..."
@@ -68,7 +209,8 @@
       })
       .filter(Boolean);
 
-    if (parts.length < 4) return false;
+    // Need at least number + date + country.
+    if (parts.length < 3) return false;
 
     var metaTokens = parts.slice(0, 3);
     var tagTokens = parts.slice(3);
@@ -78,10 +220,13 @@
     if (!parent) return false;
 
     var metaEl = buildMetaParagraph(metaTokens);
-    var tagRowEl = buildTagRow(tagTokens);
 
     parent.insertBefore(metaEl, dateEl);
-    parent.insertBefore(tagRowEl, dateEl);
+    // Render chip row only when extra tags exist (4th token and beyond).
+    if (tagTokens.length) {
+      var tagRowEl = buildTagRow(tagTokens);
+      parent.insertBefore(tagRowEl, dateEl);
+    }
     dateEl.remove();
     return true;
   }
@@ -115,22 +260,27 @@
     var parent = dateEl.parentNode;
     if (!parent) return false;
 
-    // Remove number from the description paragraph (since it becomes part of project-meta).
+    // Remove number from source text (it becomes part of project-meta).
     codeEl.remove();
-    // Important: do not reassign `textContent` here.
-    // The `<p>` may contain additional markup (links/media/etc.) and `textContent`
-    // would strip it. We only remove the `<code>` number element.
+    var sourceText = (nextP.textContent || '').replace(/\s+/g, ' ').trim();
+    var numberOnly = numberText.replace(/[^\d]/g, '');
+    var csvData = PROJECT_DATA_BY_NUMBER[numberOnly];
+    var parsed = splitTitleAndDescription(sourceText);
 
-    var metaTokens = [numberText, raw];
-    if (country) metaTokens.push(country);
-    else metaTokens.push('—'); // Keep 3-token layout for consistent spacing.
+    var metaDate = csvData && csvData.date ? csvData.date : toMonthYear(raw);
+    var metaCountry = csvData && csvData.country ? csvData.country : (country || '—');
+    var metaTokens = [numberText, metaDate, metaCountry];
+    var tags = (csvData && csvData.tags) ? csvData.tags : [];
+    var title = (csvData && csvData.title) ? csvData.title : (parsed.title || sourceText);
+    var description = (csvData && csvData.description) ? csvData.description : parsed.description;
 
     var metaEl = buildMetaParagraph(metaTokens);
-    // Tags are not present in the split format yet; render empty row as a base.
-    var tagRowEl = buildTagRow([]);
+    var titleEl = buildTitleWithDescriptionParagraph(title, description);
 
     parent.insertBefore(metaEl, dateEl);
-    parent.insertBefore(tagRowEl, dateEl);
+    if (tags.length) parent.insertBefore(buildTagRow(tags), dateEl);
+    parent.insertBefore(titleEl, dateEl);
+    nextP.remove();
     dateEl.remove();
     return true;
   }

@@ -83,6 +83,13 @@ a.projects-more-btn:focus-visible {
   border-radius: var(--project-radius);
   background-color: rgba(0, 63, 255, 0.1);
   text-align: center;
+  transition: background-color 0.5s ease;
+}
+
+a.projects-more-btn:hover,
+a.projects-more-btn:focus-visible {
+  background-color: rgba(0, 63, 255, 0.3);
+  transition-duration: 0s;
 }
 
 @media screen and (max-width: 768px) {
@@ -103,7 +110,7 @@ a.projects-more-btn:focus-visible {
 
   .project-promo {
     padding: 0.6em;
-    border-radius: 0.8em;
+    border-radius: 1em;
   }
 
   .project-promo h2 {

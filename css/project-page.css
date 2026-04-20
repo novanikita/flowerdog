@@ -15,12 +15,24 @@
   color: var(--color-black);
   text-decoration: underline;
   text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
   background: transparent;
+  transition: color 0.2s ease;
 }
 
 .main-page-header__cta:hover,
 .main-page-header__cta:focus-visible {
   color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.ids .main-page-header__cta:hover,
+.ids .main-page-header__cta:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
 }
 
 .ids__wrapper {
@@ -72,7 +84,7 @@ main {
   width: 41em;
   max-width: 41em;
   padding: 1em 5em 0.6em 1em;
-  font-size: 0.8em;
+  font-size: 1em;
   color: var(--color-white);
 }
 
@@ -100,8 +112,12 @@ main {
   background-color: rgba(0, 63, 255, 0.1);
   color: var(--color-accent);
   border-radius: 1em;
-  padding: 0.15em 0.6em;
+  padding: 0.1em 0.6em;
   font-size: 0.7em;
+}
+
+.project-text-emphasis {
+  font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {

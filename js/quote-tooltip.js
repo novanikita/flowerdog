@@ -11,7 +11,6 @@
   // Tooltip text values per language.
   var tooltipByLang = {
     ru: {
-      cool: 'У нас сильный артдирекшен и уровень в дизайне, ниже которого мы никогда не позволяем себе опускаться даже в рутинных задачах.',
       food: 'Делаем визуалы с KFC, I’m, Subway, Papa Jones, Pizza Hut для межнара Яндекс Еды и Yango. До этого 3 года запускали новинки в Додо Пицце. Всё снимали вживую, ещё до нейронок. Сейчас можем сочно показать еду и на съемке и в генерации.',
       communications: 'Сделали 114 проектов для Яндекса, 6 айдентик, 2 сайта, 2 упаковки и 2 аудита для других наших клиентов.',
       corporateExperience: 'За плечами фаундеров 4 года в инхаусе Dodo Brands и год студийной работы с Яндексом. Знаем как устроены корпоративные процессы, чувствуем гайды, предлагаем улучшения, быстро попадаем в результат.',
@@ -19,7 +18,6 @@
       vibe: 'Всё это мы слышим от наших клиентов: оунеров, продюсеров и артдиров с которыми мы работали и работаем.'
     },
     en: {
-      cool: 'We have strong art direction and design quality standards that we never let slip, even on routine tasks.',
       food: 'We create visuals with KFC, I’m, Subway, Papa Jones, and Pizza Hut for Yandex Eats and Yango international markets. Before that, we spent 3 years launching new products at Dodo Pizza. We shot everything live, even before neural tools. Now we can make food look delicious both in production shoots and in generative workflows.',
       communications: 'We delivered 114 projects for Yandex, plus 6 brand identities, 2 websites, 2 packaging projects, and 2 audits for our other clients.',
       corporateExperience: 'The founders have 4 years of in-house experience at Dodo Brands and one year of studio work with Yandex. We understand corporate processes, feel comfortable with brand guidelines, suggest improvements, and get to strong results quickly.',

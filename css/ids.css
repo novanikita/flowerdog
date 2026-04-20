@@ -1,17 +1,20 @@
 .ids {
   & a {
-    color: var(--color-link);
+    color: var(--color-accent);
     text-decoration: underline;
     will-change: color;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
-    text-decoration-color: rgba(var(--color-link-rgb), 0.2);
-    transition: color 0.5s ease, text-decoration 0.5s ease;
+    text-decoration-color: rgba(0, 63, 255, 0.2);
+    transition: color 0.2s ease;
 
-    &:hover {
-      color: var(--color-link-hover);
-      text-decoration-color: rgba(var(--color-link-hover-rgb), 0.2);
-      transition: color 0s ease, text-decoration 0s ease;
+    &:hover,
+    &:focus-visible {
+      color: var(--color-accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.25em;
+      text-decoration-color: rgba(0, 63, 255, 0.2);
+      transition: color 0s ease;
     }
   }
 
@@ -30,6 +33,15 @@
 
       @media screen and (max-width: 768px) {
         font-size: 2em;
+      }
+    }
+
+    &.about {
+      font-size: 1.5em;
+      line-height: 1;
+
+      @media screen and (max-width: 768px) {
+        font-size: 1em;
       }
     }
   }

@@ -7,20 +7,18 @@ header {
   top: 0;
   z-index: 1100;
   background: var(--color-bg);
-  transition: transform 0.25s ease;
-  will-change: transform;
 }
 
 header.is-hidden {
-  transform: translateY(calc(-100% - 0.5em));
+  transform: none;
 }
 
 .main-header {
   font-size: 1em;
-  font-weight: 400;
+  font-weight: 600;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   max-width: 100%;
 }
@@ -39,11 +37,11 @@ header.is-hidden {
   gap: 1em;
 }
 
-.main-header__left .logo img {
-  height: 1.5em;
-  width: auto;
-  margin-bottom: 0.1em;
+.main-header__left .logo a {
   display: block;
+  font-size: 10em;
+  line-height: 1;
+  font-weight: 900;
 }
 
 .main-header__descriptor {
@@ -63,6 +61,7 @@ header.is-hidden {
   align-items: center;
   gap: 2.5em;
   margin-left: auto;
+  margin-top: 2.5em;
 }
 
 .main-header__nav {
@@ -88,11 +87,15 @@ header.is-hidden {
   background: transparent;
 }
 
-.main-header__link:hover,
-.main-header__link:focus-visible,
-.main-header a:hover,
-.main-header a:focus-visible {
-  color: var(--color-accent);
+.main-header__right .main-header__link,
+.main-header__right .lang-switcher__btn {
+  font-size: 1.5em;
+  font-weight: 800;
+}
+
+.main-header__nav .main-header__link:hover,
+.main-header__nav .main-header__link:focus-visible {
+  color: #ff6900;
   text-decoration: none !important;
 }
 
@@ -111,18 +114,15 @@ header.is-hidden {
   font-family: inherit;
   color: var(--color-black);
   cursor: pointer;
+  opacity: 0.5;
 }
 
 .lang-switcher__btn.is-active {
   color: var(--color-accent);
+  opacity: 1;
 }
 
 @media screen and (max-width: 768px) {
-  /* Narrow viewports: do not slide header off-screen (sticky + touch scroll quirks) */
-  header.is-hidden {
-    transform: none;
-  }
-
   header {
     padding: 0.5em;
     margin-bottom: 1.2em;
@@ -151,8 +151,8 @@ header.is-hidden {
     gap: 0.5em;
   }
 
-  .main-header__left .logo img {
-    height: clamp(1.8em, 5.6vw, 2.25em);
+  .main-header__left .logo a {
+    font-size: 2em;
   }
 
   .main-header__descriptor {

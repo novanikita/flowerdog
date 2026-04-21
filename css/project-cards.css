@@ -1,14 +1,13 @@
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--project-gap);
+  gap: 0;
 }
 
 .projects-grid .projects-grid-item {
   box-sizing: border-box;
   min-width: 0;
   grid-column: span 1;
-  height: 33em;
 }
 
 .projects-grid .projects-grid-item.L {
@@ -22,7 +21,6 @@
 .project-promo-link {
   display: block;
   width: 100%;
-  height: 100%;
   text-decoration: none;
 }
 
@@ -38,29 +36,41 @@
 
 .project-promo {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
   min-width: 0;
-  height: 100%;
+  min-height: 29em;
   background-size: cover;
   background-position: center;
   border-radius: var(--project-radius);
-  padding: var(--project-card-padding);
   background-color: var(--color-black-10);
 }
 
-.project-promo .project-tags {
-  order: 1;
-  margin: 0 0 0.2em 0;
+.project-promo.project-promo-hard {
+  border-radius: 0;
 }
 
-.project-promo h2 {
-  order: 2;
-  color: var(--color-white);
-  width: min(17em, 100%);
-  font-size: 1.4em;
+.project-promo.project-promo-soft {
+  border-radius: 2em;
+}
+
+.project-promo.project-promo-round {
+  border-radius: 50em;
+}
+
+.project-promo-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  margin-top: 0.5em;
+  margin-bottom: 3em;
+}
+
+.project-promo-meta .project-tags {
+  margin: 0;
+}
+
+.project-promo-meta h2 {
+  color: var(--color-accent);
+  font-size: 2em;
   line-height: 1.12;
   margin: 0;
 }
@@ -80,15 +90,15 @@ a.projects-more-btn:focus-visible {
   color: var(--color-accent);
   text-decoration: none;
   padding: 2em;
-  border-radius: var(--project-radius);
-  background-color: rgba(0, 63, 255, 0.1);
+  border-radius: 50em;
+  background-color: rgba(0, 86, 211, 0.1);
   text-align: center;
   transition: background-color 0.5s ease;
 }
 
 a.projects-more-btn:hover,
 a.projects-more-btn:focus-visible {
-  background-color: rgba(0, 63, 255, 0.3);
+  background-color: rgba(0, 86, 211, 0.3);
   transition-duration: 0s;
 }
 
@@ -100,7 +110,6 @@ a.projects-more-btn:focus-visible {
 
   .projects-grid .projects-grid-item {
     grid-column: span 1;
-    height: 18em;
   }
 
   .projects-grid .projects-grid-item.L,
@@ -109,17 +118,28 @@ a.projects-more-btn:focus-visible {
   }
 
   .project-promo {
-    padding: 0.6em;
-    border-radius: 1em;
+    min-height: 18em;
   }
 
-  .project-promo h2 {
+  .project-promo.project-promo-hard {
+    min-height: 18em;
+  }
+
+  .project-promo.project-promo-soft {
+    min-height: 18em;
+  }
+
+  .project-promo.project-promo-round {
+    min-height: 18em;
+  }
+
+  .project-promo-meta h2 {
     font-size: 1.05em;
-    width: 100%;
+    width: auto;
   }
 
-  .project-promo .project-tags {
-    margin-bottom: 0.15em;
+  .project-promo-meta .project-tags {
+    margin: 0;
   }
 
   a.projects-more-btn,

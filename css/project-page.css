@@ -3,7 +3,7 @@
 }
 
 .main-page-text-fixed {
-  width: 50em;
+  width: 50%;
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -56,8 +56,8 @@ main {
 
 .quote-word:hover,
 .quote-word.is-active {
-  color: var(--color-accent);
-  text-decoration-color: var(--color-accent);
+  color: #ff6900;
+  text-decoration-color: #ff6900;
 }
 
 .quote-tooltip {
@@ -81,9 +81,9 @@ main {
 
 .quote-tooltip__text {
   margin: 0;
-  width: 41em;
+  width: 20em;
   max-width: 41em;
-  padding: 1em 5em 0.6em 1em;
+  padding: 1em 1em 3em 1em;
   font-size: 1em;
   color: var(--color-white);
 }
@@ -109,7 +109,7 @@ main {
 
 .project-tag-chip {
   display: inline-block;
-  background-color: rgba(0, 63, 255, 0.1);
+  background-color: rgba(0, 86, 211, 0.1);
   color: var(--color-accent);
   border-radius: 1em;
   padding: 0.1em 0.6em;

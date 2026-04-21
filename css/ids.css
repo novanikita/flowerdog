@@ -5,7 +5,7 @@
     will-change: color;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
-    text-decoration-color: rgba(0, 63, 255, 0.2);
+    text-decoration-color: rgba(0, 86, 211, 0.2);
     transition: color 0.2s ease;
 
     &:hover,
@@ -13,7 +13,7 @@
       color: var(--color-accent);
       text-decoration-thickness: 1px;
       text-underline-offset: 0.25em;
-      text-decoration-color: rgba(0, 63, 255, 0.2);
+      text-decoration-color: rgba(0, 86, 211, 0.2);
       transition: color 0s ease;
     }
   }
@@ -28,8 +28,9 @@
     }
     
     &.quote {
-      font-size: 3.5em;
+      font-size: 3em;
       line-height: 1;
+      font-weight: 500;
 
       @media screen and (max-width: 768px) {
         font-size: 2em;
@@ -39,6 +40,7 @@
     &.about {
       font-size: 1.5em;
       line-height: 1;
+      font-weight: 500;
 
       @media screen and (max-width: 768px) {
         font-size: 1em;
@@ -58,8 +60,8 @@
 
   & h1 {
     font-size: 2em;
-    font-weight: 400;
-    line-height: 1.2;
+    font-weight: 700;
+    line-height: 0.9;
     margin-bottom: 0.4em;
 
     &.S {
@@ -74,8 +76,8 @@
   }
 
   & h2 {
-    font-size: 1.5em;
-    font-weight: 400;
+    font-size: 2em;
+    font-weight: 700;
     line-height: calc(var(--ids__density) / 1.2);
     margin-bottom: 0.5em;
 
@@ -88,7 +90,8 @@
   & h3 {
     font-size: 1.5em;
     line-height: calc(var(--ids__density) / 1.1);
-    margin-bottom: 0.6em;
+    margin-bottom: 0.3em;
+    font-weight: 700;
   }
 
   & h4 {

@@ -65,8 +65,25 @@
   }
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+[data-site-footer],
+footer {
+  margin-top: auto;
 }
 
 .ids__sequence {

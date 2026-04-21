@@ -24,16 +24,17 @@
   flex-wrap: wrap;
   flex-direction: row;
   gap: 0.25em;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .project-promo-link .project-tags .tag {
   font-size: 0.7em;
   padding: 0.1em 0.5em;
-  color: var(--color-white);
-  background-color: var(--color-black-0);
-  border: 0.05em solid var(--color-white);
+  color: var(--color-accent);
+  background-color: rgba(0, 86, 211, 0.1);
+  border: 0;
   border-radius: 1em;
+  margin: 0;
 }
 
 /* Tags on individual project page (before h1) */

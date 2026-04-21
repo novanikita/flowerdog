@@ -162,13 +162,19 @@
     return m[2] + '.' + m[3];
   }
 
-  function buildTitleParagraph(title) {
-    var p = document.createElement('p');
-    var span = document.createElement('span');
-    span.className = 'project-text-emphasis';
-    span.textContent = title;
-    p.appendChild(span);
-    return p;
+  function buildTitleAndDescriptionBlock(title, description) {
+    var fragment = document.createDocumentFragment();
+    var h3 = document.createElement('h3');
+    h3.textContent = title || '';
+    fragment.appendChild(h3);
+
+    if (description) {
+      var p = document.createElement('p');
+      p.textContent = description;
+      fragment.appendChild(p);
+    }
+
+    return fragment;
   }
 
   function buildTitleWithDescriptionParagraph(title, description) {
@@ -275,11 +281,14 @@
     var description = (csvData && csvData.description) ? csvData.description : parsed.description;
 
     var metaEl = buildMetaParagraph(metaTokens);
-    var titleEl = buildTitleWithDescriptionParagraph(title, description);
+    var useHeadingLayout = ['97', '96', '94', '92', '83'].indexOf(numberOnly) !== -1;
+    var titleBlock = useHeadingLayout
+      ? buildTitleAndDescriptionBlock(title, description)
+      : buildTitleWithDescriptionParagraph(title, description);
 
     parent.insertBefore(metaEl, dateEl);
     if (tags.length) parent.insertBefore(buildTagRow(tags), dateEl);
-    parent.insertBefore(titleEl, dateEl);
+    parent.insertBefore(titleBlock, dateEl);
     nextP.remove();
     dateEl.remove();
     return true;

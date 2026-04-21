@@ -17,8 +17,9 @@ header.is-hidden {
   font-size: 1em;
   font-weight: 600;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: flex-start;
+  gap: 1.2em;
   width: 100%;
   max-width: 100%;
 }
@@ -35,13 +36,16 @@ header.is-hidden {
   display: flex;
   align-items: flex-end;
   gap: 1em;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .main-header__left .logo a {
   display: block;
-  font-size: 10em;
-  line-height: 1;
+  font-size: clamp(3.4em, 13.2vw, 10em);
+  line-height: 0.9;
   font-weight: 900;
+  white-space: nowrap;
 }
 
 .main-header__descriptor {
@@ -59,15 +63,19 @@ header.is-hidden {
 .main-header__right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 2.5em;
-  margin-left: auto;
-  margin-top: 2.5em;
+  margin-top: clamp(0.4em, 2.6vw, 2.5em);
+  min-width: max-content;
 }
 
 .main-header__nav {
   display: flex;
   align-items: center;
   gap: 3em;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .main-header__link,
@@ -91,6 +99,7 @@ header.is-hidden {
 .main-header__right .lang-switcher__btn {
   font-size: 1.5em;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .main-header__nav .main-header__link:hover,

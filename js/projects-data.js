@@ -6,8 +6,6 @@
       {
         itemClass: 'L',
         href: 'yandex.html',
-        typeTags: 'website branding',
-        clientTag: 'yandex',
         coverImages: 'images/projects-cover/yandex-cover.jpg',
         promoClass: 'project-promo-hard',
         titleRu: '92 проекта для Яндекса',

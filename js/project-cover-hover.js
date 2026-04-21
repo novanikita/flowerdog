@@ -74,6 +74,7 @@
   }
 
   initProjectCovers();
+  document.addEventListener('site:projects-rendered', initProjectCovers);
   document.addEventListener('site:header-ready', initProjectCovers);
 })();
 

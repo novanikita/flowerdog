@@ -73,6 +73,12 @@
   font-size: 2em;
   line-height: 1.12;
   margin: 0;
+  transition: none;
+}
+
+.project-promo-link:hover .project-promo-meta h2,
+.project-promo-link:focus-visible .project-promo-meta h2 {
+  color: #ff6900;
 }
 
 .projects-grid > a.projects-more-btn {
@@ -89,17 +95,20 @@ a.projects-more-btn:focus-visible {
   width: 100%;
   color: var(--color-accent);
   text-decoration: none;
+  font-size: 1.5em;
+  line-height: 1.2;
+  font-weight: 500;
   padding: 2em;
   border-radius: 50em;
   background-color: rgba(0, 86, 211, 0.1);
   text-align: center;
-  transition: background-color 0.5s ease;
+  transition: none;
 }
 
 a.projects-more-btn:hover,
 a.projects-more-btn:focus-visible {
-  background-color: rgba(0, 86, 211, 0.3);
-  transition-duration: 0s;
+  background-color: rgba(255, 105, 0, 0.1);
+  color: #ff6900;
 }
 
 @media screen and (max-width: 768px) {

@@ -13,8 +13,6 @@
     var link = document.createElement('a');
     link.className = 'project-promo-link';
     link.href = project.href || 'soon.html';
-    if (project.typeTags) link.setAttribute('data-type-tags', project.typeTags);
-    if (project.clientTag) link.setAttribute('data-client-tag', project.clientTag);
     if (project.coverImages) link.setAttribute('data-cover-images', project.coverImages);
 
     var promo = document.createElement('div');
@@ -33,12 +31,7 @@
     title.setAttribute('data-en', project.titleEn || project.titleRu || '');
     title.textContent = project.titleRu || '';
 
-    var tags = document.createElement('div');
-    tags.className = 'project-tags';
-    tags.setAttribute('aria-label', 'Project tags');
-
     meta.appendChild(title);
-    meta.appendChild(tags);
     link.appendChild(promo);
     link.appendChild(meta);
     item.appendChild(link);
@@ -59,7 +52,7 @@
     if (pageKey === 'index') {
       var more = document.createElement('a');
       more.className = 'projects-more-btn';
-      more.href = 'portfolio.html';
+      more.href = 'soon.html';
       more.textContent = 'Ещё проекты';
       grid.appendChild(more);
     }

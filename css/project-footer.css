@@ -8,7 +8,19 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 7em 1em 0 1em;
+  width: 100%;
+  margin: 7em 0 0 0;
+  padding: 0 1em;
+}
+
+.ids footer h1 {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  font-size: calc((100vw - 2em) / 13.5);
+  line-height: 0.9;
+  white-space: nowrap;
+  font-weight: 700;
 }
 
 .caption {
@@ -21,6 +33,7 @@ footer {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5em;
-    margin: 4em 0.5em 1.2em 0.5em;
+    margin: 4em 0 1.2em 0;
+    padding: 0 0.5em;
   }
 }

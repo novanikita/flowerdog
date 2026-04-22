@@ -7,16 +7,16 @@
         itemClass: 'L',
         href: 'yandex.html',
         coverImages: 'images/projects-cover/yandex-cover.jpg',
-        promoClass: 'project-promo-hard',
-        titleRu: '92 проекта для Яндекса',
-        titleEn: '92 projects for Yandex'
+        promoClass: 'project-promo-soft',
+        titleRu: '114 проектов для Яндекса',
+        titleEn: '114 projects for Yandex'
       },
       {
         href: 'soon.html',
         typeTags: 'website',
         coverImages:
           'images/projects-cover/lavatop-cover-1.jpg|images/projects-cover/lavatop-cover-2.jpg|images/projects-cover/lavatop-cover-3.jpg',
-        promoClass: 'project-promo-soft',
+        promoClass: 'project-promo-hard',
         titleRu: 'Lavatop',
         titleEn: 'Lavatop'
       },
@@ -35,14 +35,14 @@
         coverImages:
           'images/projects-cover/sber-cover-1.jpg|images/projects-cover/sber-cover-2.jpg|images/projects-cover/sber-cover-3.jpg',
         promoClass: 'project-promo-hard',
-        titleRu: 'Sber Demoday',
-        titleEn: 'Sber Demoday'
+        titleRu: 'Sber500',
+        titleEn: 'Sber500'
       },
       {
         href: 'soon.html',
         typeTags: 'branding',
         coverImages:
-          'images/projects-cover/sporos-cover-1.jpg|images/projects-cover/sporos-cover-2.jpg|images/projects-cover/sporos-cover-3.jpg|images/projects-cover/sporos-cover-4.jpg|images/projects-cover/sporos-cover-5.jpg',
+          'images/projects-cover/sporos-cover-2.jpg|images/projects-cover/sporos-cover-3.jpg|images/projects-cover/sporos-cover-4.jpg|images/projects-cover/sporos-cover-5.jpg',
         promoClass: 'project-promo-round',
         titleRu: 'Sporos',
         titleEn: 'Sporos'
@@ -93,7 +93,7 @@
         href: 'soon.html',
         typeTags: 'website',
         coverImages: 'images/projects-cover/vi-cover.jpg',
-        titleRu: 'Все Инструменты',
+        titleRu: 'Ви.ру',
         titleEn: 'Vse Instrumenty'
       },
       {

@@ -14,25 +14,32 @@
 .main-page-header__cta:focus-visible {
   color: var(--color-black);
   text-decoration: underline;
-  text-decoration-color: currentColor;
+  text-decoration-color: rgba(0, 86, 211, 1);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
   background: transparent;
-  transition: color 0.2s ease;
+  transition: none;
+}
+
+.ids .main-page-header__cta,
+.ids .main-page-header__cta:hover,
+.ids .main-page-header__cta:visited,
+.ids .main-page-header__cta:focus-visible {
+  text-decoration-color: rgba(0, 86, 211, 1);
 }
 
 .main-page-header__cta:hover,
 .main-page-header__cta:focus-visible {
-  color: var(--color-accent);
-  text-decoration-color: var(--color-accent);
+  color: #ff6900;
+  text-decoration-color: #ff6900;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
 .ids .main-page-header__cta:hover,
 .ids .main-page-header__cta:focus-visible {
-  color: var(--color-accent);
-  text-decoration-color: var(--color-accent);
+  color: #ff6900;
+  text-decoration-color: #ff6900;
 }
 
 .ids__wrapper {
@@ -51,7 +58,7 @@ main {
   text-decoration-color: var(--color-black);
   text-decoration-thickness: 0.01em;
   background-color: var(--color-black-0);
-  transition: var(--project-link-transition);
+  transition: none;
 }
 
 .quote-word:hover,
@@ -70,7 +77,7 @@ main {
   pointer-events: none;
   transition: opacity 0.5s ease, visibility 0s linear 0.5s;
   z-index: 1000;
-  border-radius: 0 1em 1em 1em;
+  border-radius: 1em 1em 1em 1em;
 }
 
 .quote-tooltip.is-visible {
@@ -81,7 +88,7 @@ main {
 
 .quote-tooltip__text {
   margin: 0;
-  width: 20em;
+  width: 23em;
   max-width: 41em;
   padding: 1em 1em 3em 1em;
   font-size: 1em;

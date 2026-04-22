@@ -6,7 +6,7 @@
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
     text-decoration-color: rgba(0, 86, 211, 0.2);
-    transition: color 0.2s ease;
+    transition: color 0s ease;
 
     &:hover,
     &:focus-visible {
@@ -39,7 +39,7 @@
 
     &.about {
       font-size: 1.5em;
-      line-height: 1;
+      line-height: 1.2;
       font-weight: 500;
 
       @media screen and (max-width: 768px) {

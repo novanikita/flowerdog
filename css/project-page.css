@@ -88,8 +88,8 @@ main {
 
 .quote-tooltip__text {
   margin: 0;
-  width: 23em;
-  max-width: 41em;
+  width: 17em;
+  max-width: 17em;
   padding: 1em 1em 3em 1em;
   font-size: 1em;
   color: var(--color-white);
@@ -147,13 +147,9 @@ main {
     white-space: normal;
   }
 
-  .quote-tooltip {
-    max-width: calc(100vw - 1.5em);
-  }
-
   .quote-tooltip__text {
-    width: auto;
-    max-width: calc(100vw - 1.5em);
+    width: 17em;
+    max-width: 17em;
     padding: 0.8em 0.9em 0.7em 0.9em;
     font-size: 0.86em;
     line-height: 1.2;

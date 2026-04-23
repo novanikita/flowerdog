@@ -7,15 +7,16 @@
 
   var tooltipText = tooltip.querySelector('.quote-tooltip__text');
   if (!tooltipText) return;
+  var suppressHideUntil = 0;
 
   // Tooltip text values per language.
   var tooltipByLang = {
     ru: {
-      food: 'Делаем визуалы с KFC, I’m, Subway, Papa Jones, Pizza Hut для межнара Яндекс Еды и Yango. До этого 3 года запускали новинки в Додо Пицце. Всё снимали вживую, ещё до нейронок. Сейчас можем сочно показать еду и на съемке и в генерации.',
+      food: 'Делаем визуалы с KFC, I’m, Subway, Papa Jones, Pizza Hut для межнара Яндекс Еды и Yango. До этого 3 года запускали новинки в Додо Пицце — всё снимали вживую, ещё до нейронок. Сейчас можем сочно показать еду и на съемке и в генерации.',
       communications: 'Сделали 114 проектов для Яндекса, 6 айдентик, 2 сайта, 2 упаковки и 2 аудита для других наших клиентов.',
-      corporateExperience: 'За плечами фаундеров 4 года в инхаусе Dodo Brands и год студийной работы с Яндексом. Знаем как устроены корпоративные процессы, чувствуем гайды, предлагаем улучшения, быстро попадаем в результат.',
-      systematicInvolved: 'Заморачиваемся. Отвечаем в пятницу вечером. Соблюдаем тайминги, быстро отвечаем. Чётко расписываем проект по этапам и держим в курсе статусов. Если выбиваемся, предупреждаем и предлагаем решения.',
-      vibe: 'Всё это мы слышим от наших клиентов: оунеров, продюсеров и артдиров с которыми мы работали и работаем.'
+      corporateExperience: 'За плечами фаундеров 4 года в инхаусе Dodo Brands и год студийной работы с Яндексом. Понимаем корпоративные процессы, чувствуем гайды, предлагаем улучшения, быстро попадаем в результат.',
+      systematicInvolved: 'Заморачиваемся над результатом. Отвечаем в пятницу вечером. Чётко расписываем проект по этапам и держим в курсе статусов. Если выбиваемся, предупреждаем и предлагаем решения.',
+      vibe: 'Всё это мы слышим от наших клиентов: оунеров, продюсеров и артдиров, с которыми мы работали и работаем.'
     },
     en: {
       food: 'We create visuals with KFC, I’m, Subway, Papa Jones, and Pizza Hut for Yandex Eats and Yango international markets. Before that, we spent 3 years launching new products at Dodo Pizza. We shot everything live, even before neural tools. Now we can make food look delicious both in production shoots and in generative workflows.',
@@ -33,6 +34,7 @@
   }
 
   function hideTooltip() {
+    if (Date.now() < suppressHideUntil) return;
     var active = quote.querySelector('.quote-word.is-active');
     if (active) active.classList.remove('is-active');
     tooltip.classList.remove('is-visible');
@@ -54,9 +56,7 @@
 
     var container = tooltip.offsetParent || document.body;
     var containerRect = container.getBoundingClientRect();
-    var quoteRect = quote.getBoundingClientRect();
     var wordRect = wordEl.getBoundingClientRect();
-    var tooltipHeight = tooltip.offsetHeight || 0;
     var tooltipWidth = tooltip.offsetWidth || 0;
 
     // Place tooltip below the hovered word.
@@ -66,6 +66,18 @@
 
     // Align tooltip from the left edge of the word (not centered).
     var left = wordRect.left - containerRect.left;
+    var containerStyle = getComputedStyle(container);
+    var containerPadLeft = parseFloat(containerStyle.paddingLeft) || 0;
+    var containerPadRight = parseFloat(containerStyle.paddingRight) || 0;
+    var minLeft = containerPadLeft;
+    var maxLeft = containerRect.width - containerPadRight - tooltipWidth;
+
+    if (maxLeft < minLeft) {
+      maxLeft = minLeft;
+    }
+
+    if (left < minLeft) left = minLeft;
+    if (left > maxLeft) left = maxLeft;
 
     tooltip.style.left = left + 'px';
     tooltip.style.top = top + 'px';
@@ -81,7 +93,28 @@
     wordEl.addEventListener('mouseleave', function () {
       hideTooltip();
     });
+
+    wordEl.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      suppressHideUntil = Date.now() + 250;
+      var isSameActive = wordEl.classList.contains('is-active') && tooltip.classList.contains('is-visible');
+      if (isSameActive) {
+        suppressHideUntil = 0;
+        hideTooltip();
+        return;
+      }
+      showTooltip(wordEl);
+    });
   });
 
   quote.addEventListener('mouseleave', hideTooltip);
+
+  document.addEventListener('click', function (event) {
+    if (!tooltip.classList.contains('is-visible')) return;
+    var clickedWord = event.target && event.target.closest && event.target.closest('.quote-word');
+    var clickedTooltip = event.target && event.target.closest && event.target.closest('#quote-tooltip');
+    if (clickedWord || clickedTooltip) return;
+    hideTooltip();
+  });
 })();

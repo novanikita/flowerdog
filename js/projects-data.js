@@ -31,6 +31,7 @@
       },
       {
         href: 'soon.html',
+        id: 'sber500',
         typeTags: 'events',
         coverImages:
           'images/projects-cover/sber-cover-1.jpg|images/projects-cover/sber-cover-2.jpg|images/projects-cover/sber-cover-3.jpg',
@@ -40,6 +41,7 @@
       },
       {
         href: 'soon.html',
+        id: 'sporos',
         typeTags: 'branding',
         coverImages:
           'images/projects-cover/sporos-cover-2.jpg|images/projects-cover/sporos-cover-3.jpg|images/projects-cover/sporos-cover-4.jpg|images/projects-cover/sporos-cover-5.jpg',
@@ -48,6 +50,7 @@
         titleEn: 'Sporos'
       },
       {
+        id: 'dodo',
         itemClass: 'L',
         href: 'soon.html',
         typeTags: 'website',

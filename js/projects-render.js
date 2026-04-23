@@ -9,6 +9,7 @@
   function createCard(project) {
     var item = document.createElement('div');
     item.className = 'projects-grid-item' + (project.itemClass ? ' ' + project.itemClass : '');
+    if (project.id) item.setAttribute('data-project-id', project.id);
 
     var link = document.createElement('a');
     link.className = 'project-promo-link';

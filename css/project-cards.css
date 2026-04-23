@@ -113,7 +113,7 @@ a.projects-more-btn:focus-visible {
 
 @media screen and (max-width: 768px) {
   .projects-grid {
-    gap: 0.35em;
+    column-gap: 0;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -124,6 +124,22 @@ a.projects-more-btn:focus-visible {
   .projects-grid .projects-grid-item.L,
   .projects-grid .projects-grid-item.XL {
     grid-column: span 2;
+  }
+
+  .projects-grid[data-projects-page="index"] .projects-grid-item[data-project-id="dodo"] {
+    order: 4;
+  }
+
+  .projects-grid[data-projects-page="index"] .projects-grid-item[data-project-id="sber500"] {
+    order: 5;
+  }
+
+  .projects-grid[data-projects-page="index"] .projects-grid-item[data-project-id="sporos"] {
+    order: 6;
+  }
+
+  .projects-grid[data-projects-page="index"] > a.projects-more-btn {
+    order: 999;
   }
 
   .project-promo {
@@ -143,8 +159,12 @@ a.projects-more-btn:focus-visible {
   }
 
   .project-promo-meta h2 {
-    font-size: 1.05em;
+    font-size: 1.8em;
     width: auto;
+  }
+
+  .project-promo-meta {
+    margin-bottom: 2em;
   }
 
   .project-promo-meta .project-tags {
@@ -157,6 +177,6 @@ a.projects-more-btn:focus-visible {
   a.projects-more-btn:active,
   a.projects-more-btn:focus-visible {
     padding: 1.2em 0.9em;
-    font-size: 0.95em;
+    font-size: 1.2em;
   }
 }

@@ -12,6 +12,19 @@
     promoEl.style.backgroundImage = "url('" + imageUrl + "')";
   }
 
+  function preloadCoverImages(images) {
+    if (!images || images.length < 2) return;
+
+    // First frame is already displayed; warm up the rest to avoid first-hover lag.
+    for (var i = 1; i < images.length; i += 1) {
+      var src = images[i];
+      if (!src) continue;
+      var img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+    }
+  }
+
   function initProjectCovers() {
     var cards = document.querySelectorAll('.project-promo-link[data-cover-images]');
     if (!cards || !cards.length) return;
@@ -22,6 +35,7 @@
 
       var images = parseCoverImages(link.getAttribute('data-cover-images'));
       if (!images.length) return;
+      preloadCoverImages(images);
 
       var promo = link.querySelector('.project-promo');
       if (!promo) return;

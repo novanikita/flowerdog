@@ -8,7 +8,7 @@
   var FALLBACK =
     '<header class="main-header">' +
     '<div class="main-header__left">' +
-    '<div class="logo"><a href="index.html">flowerdog</a></div>' +
+    '<div class="logo"><a href="index.html" aria-label="flowerdog"><img src="images/logo.svg" alt="flowerdog" class="main-header__logo-image"></a></div>' +
     '</div>' +
     '<div class="main-header__right">' +
     '<button type="button" class="main-header__menu-toggle" aria-label="Open menu" aria-expanded="false">' +
@@ -24,27 +24,6 @@
     '</div>' +
     '</nav>' +
     '</div></div></header>';
-
-  function enhanceLogoLetters(root) {
-    var logoLinks = root.querySelectorAll('.logo a');
-    logoLinks.forEach(function (logoLink) {
-      if (logoLink.dataset.logoEnhanced === 'true') return;
-
-      var logoText = (logoLink.textContent || '').trim();
-      if (!logoText) return;
-
-      logoLink.textContent = '';
-      logoLink.setAttribute('aria-label', logoText);
-      logoLink.dataset.logoEnhanced = 'true';
-
-      logoText.split('').forEach(function (char) {
-        var letter = document.createElement('span');
-        letter.className = 'logo-letter';
-        letter.textContent = char;
-        logoLink.appendChild(letter);
-      });
-    });
-  }
 
   function initMobileMenu(root) {
     var header = root.querySelector('.main-header');
@@ -82,7 +61,6 @@
   function inject(markup) {
     slots.forEach(function (slot) {
       slot.innerHTML = markup;
-      enhanceLogoLetters(slot);
       initMobileMenu(slot);
     });
     document.dispatchEvent(new CustomEvent('site:header-ready'));

@@ -23,6 +23,18 @@ footer {
   font-weight: 700;
 }
 
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18em;
+}
+
+.footer-brand__logo {
+  display: block;
+  width: auto;
+  height: 1em;
+}
+
 .caption {
   font-size: 0.9em;
   font-weight: 800;

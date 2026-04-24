@@ -133,6 +133,14 @@ main {
     width: 100%;
   }
 
+  .main-page-text-fixed h1:last-child {
+    margin-top: 1em;
+  }
+
+  .main-page-text-fixed {
+    margin-bottom: 3em;
+  }
+
   .ids__wrapper,
   .ids__wrapper.L,
   .ids__wrapper.S,

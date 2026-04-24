@@ -48,14 +48,10 @@ header.is-hidden {
   white-space: nowrap;
 }
 
-.main-header__left .logo .logo-letter {
-  display: inline-block;
-  color: var(--color-black);
-  transition: none;
-}
-
-.main-header__left .logo .logo-letter:hover {
-  color: #ff6900;
+.main-header__logo-image {
+  display: block;
+  width: auto;
+  height: 1em;
 }
 
 .main-header__descriptor {
@@ -297,6 +293,10 @@ header.is-hidden {
   .main-header.is-menu-open .main-header__link:visited,
   .main-header.is-menu-open .lang-switcher__btn {
     color: var(--color-white);
+  }
+
+  .main-header.is-menu-open .main-header__logo-image {
+    filter: brightness(0) invert(1);
   }
 
   .main-header.is-menu-open .lang-switcher__btn {

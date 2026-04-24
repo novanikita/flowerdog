@@ -12,7 +12,7 @@
 .main-page-header__cta:hover,
 .main-page-header__cta:visited,
 .main-page-header__cta:focus-visible {
-  color: var(--color-black);
+  color: var(--color-blue);
   text-decoration: underline;
   text-decoration-color: rgba(0, 86, 211, 1);
   text-decoration-thickness: 1px;
@@ -52,10 +52,10 @@ main {
 }
 
 .quote-word {
-  color: var(--color-black);
+  color: var(--color-blue);
   text-decoration: underline;
   text-underline-offset: 0.15em;
-  text-decoration-color: var(--color-black);
+  text-decoration-color: var(--color-blue);
   text-decoration-thickness: 0.01em;
   background-color: var(--color-black-0);
   transition: none;
@@ -71,7 +71,7 @@ main {
   position: absolute;
   left: 0;
   top: 0;
-  background: var(--color-accent);
+  background: var(--color-blue);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -97,13 +97,13 @@ main {
 
 .project-date {
   font-size: 0.7em;
-  color: var(--color-gray-bg);
+  color: var(--color-gray);
   font-weight: 400;
 }
 
 .project-meta {
   font-size: 0.7em;
-  color: var(--color-accent);
+  color: var(--color-blue);
   display: inline-flex;
   gap: 0.6em;
 }
@@ -117,7 +117,7 @@ main {
 .project-tag-chip {
   display: inline-block;
   background-color: rgba(0, 86, 211, 0.1);
-  color: var(--color-accent);
+  color: var(--color-blue);
   border-radius: 1em;
   padding: 0.1em 0.6em;
   font-size: 0.7em;

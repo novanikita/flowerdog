@@ -1,40 +1,21 @@
 
 :root {
-  --color-text-rgb: 0, 86, 211;
-  --color-link-rgb: 0, 86, 211;
-  --color-link-hover-rgb: 0, 86, 211;
-  --color-mark-rgb: 0, 86, 211;
-  --color-surface-rgb: 240, 240, 240;
-  --color-gray-bg: rgb(240, 240, 240);
+  //main colors
+  --color-gray: rgb(240, 240, 240);
+  --color-blue: #0056d3;
+  --color-white: #ffffff;
+  --color-orange: #ff6900;
 
-  --color-black: #0056d3;
-  --color-white: #fff;
-  --color-text: rgb(var(--color-text-rgb));
-  --color-bg: #fff;
-  --color-accent: #0056d3;
-
-  --color-link: rgb(var(--color-link-rgb));
-  --color-link-hover: rgb(var(--color-link-hover-rgb));
-  --color-surface: rgb(var(--color-surface-rgb));
-  --color-mark: rgb(var(--color-mark-rgb));
-
+  //opasity
   --color-white-30: rgba(255, 255, 255, 0.3);
   --color-white-70: rgba(255, 255, 255, 0.7);
-  --color-black-10: rgba(0, 86, 211, 0.1);
-  --color-black-50: rgba(0, 86, 211, 0.5);
-  --color-black-05: rgba(0, 86, 211, 0.05);
+  --color-blue-10: rgba(0, 86, 211, 0.1);
+  --color-blue-50: rgba(0, 86, 211, 0.5);
+  --color-blue-05: rgba(0, 86, 211, 0.05);
   --color-black-0: rgba(0, 86, 211, 0);
-
-  --color-card-bg: rgba(228, 246, 255, 1);
-
-  --color-pswp-placeholder: #222;
-  --color-pswp-gray: #4f4f4f;
-  --color-pswp-preloader: rgba(79, 79, 79, 0.4);
-  --color-pswp-preloader-secondary: rgba(255, 255, 255, 0.9);
-
 }
 
 body {
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  color: var(--color-blue);
+  background-color: var(--color-white);
 }

@@ -1,6 +1,6 @@
 .ids {
   & a {
-    color: var(--color-accent);
+    color: var(--color-blue);
     text-decoration: underline;
     will-change: color;
     text-decoration-thickness: 1px;
@@ -10,7 +10,7 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--color-accent);
+      color: var(--color-blue);
       text-decoration-thickness: 1px;
       text-underline-offset: 0.25em;
       text-decoration-color: rgba(0, 86, 211, 0.2);
@@ -120,8 +120,8 @@
   }
 
   & mark {
-    color: var(--color-text);
-    background-color: var(--color-mark);
+    color: var(--color-blue);
+    background-color: var(--color-blue);
   }
 
   & ul,
@@ -165,7 +165,7 @@
   & aside {
     margin: 0;
     margin-bottom: calc(var(--ids__density) * 0.5em);
-    background: var(--color-surface);
+    background: var(--color-gray);
     padding-top: calc(var(--ids__density) * 0.4em);
     padding-right: calc(var(--ids__density) * 1.5em);
     padding-bottom: calc(var(--ids__density) * 0.4em);
@@ -189,8 +189,8 @@
     font-weight: 400;
     padding: 0.1em 0.25em;
     border-radius: 0.2em;
-    color: rgba(var(--color-text-rgb), 0.7);
-    background: rgba(var(--color-text-rgb), 0.05);
+    color: rgba(0, 86, 211, 0.7);
+    background: rgba(0, 86, 211, 0.05);
   }
 
   & figure {
@@ -228,7 +228,7 @@
   }
 
   & hr {
-    border-top-color: rgba(var(--color-text-rgb), 0.2);
+    border-top-color: rgba(0, 86, 211, 0.2);
     border-bottom: 0;
   }
 }

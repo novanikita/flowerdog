@@ -6,7 +6,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 1100;
-  background: var(--color-bg);
+  background: var(--color-white);
 }
 
 header.is-hidden {
@@ -60,6 +60,11 @@ header.is-hidden {
   user-select: none;
 }
 
+.main-header:not(.is-menu-open) .main-header__left .logo a:hover .main-header__logo-image,
+.main-header:not(.is-menu-open) .main-header__left .logo a:focus-visible .main-header__logo-image {
+  filter: brightness(0) saturate(100%) invert(58%) sepia(93%) saturate(3082%) hue-rotate(3deg) brightness(101%) contrast(102%);
+}
+
 .main-header__descriptor {
   white-space: pre-line;
   font-size: 0.8em;
@@ -85,7 +90,7 @@ header.is-hidden {
 .main-header__nav {
   display: flex;
   align-items: center;
-  gap: 3em;
+  gap: 2em;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
@@ -102,7 +107,7 @@ header.is-hidden {
 .main-header .logo a:hover,
 .main-header .logo a:visited,
 .main-header .logo a:focus-visible {
-  color: var(--color-black);
+  color: var(--color-blue);
   text-decoration: none !important;
   background: transparent;
   transition: none;
@@ -131,21 +136,21 @@ header.is-hidden {
 }
 
 .lang-switcher__btn {
-  min-width: 2em;
+  min-width: 1.4em;
   min-height: 1.4em;
-  padding: 0.2em;
-  background: var(--color-bg);
+  //padding: 0.2em;
+  background: var(--color-white);
   border: none;
   font-size: inherit;
   font-family: inherit;
-  color: var(--color-black);
+  color: var(--color-blue);
   cursor: pointer;
   opacity: 0.5;
   transition: none;
 }
 
 .lang-switcher__btn.is-active {
-  color: var(--color-accent);
+  color: var(--color-blue);
   opacity: 1;
 }
 
@@ -206,8 +211,8 @@ header.is-hidden {
 
   .main-header__menu-line {
     width: 2em;
-    height: 0.45em;
-    background: var(--color-black);
+    height: 0.4em;
+    background: var(--color-blue);
     display: block;
   }
 
@@ -232,7 +237,7 @@ header.is-hidden {
     align-items: flex-start;
     justify-content: flex-start;
     padding: max(0.5em, env(safe-area-inset-top)) 0.5em max(0.5em, env(safe-area-inset-bottom));
-    background: var(--color-accent);
+    background: var(--color-blue);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -285,7 +290,7 @@ header.is-hidden {
 
   .main-header.is-menu-open .main-header__nav .main-header__link,
   .main-header.is-menu-open .lang-switcher__btn {
-    font-size: 3em;
+    font-size: 2.5em;
   }
 
   .main-header.is-menu-open .main-header__menu-line {

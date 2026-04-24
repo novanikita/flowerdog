@@ -41,7 +41,7 @@
   background-size: cover;
   background-position: center;
   border-radius: var(--project-radius);
-  background-color: var(--color-black-10);
+  background-color: var(--color-blue-10);
 }
 
 .project-promo.project-promo-hard {
@@ -69,7 +69,7 @@
 }
 
 .project-promo-meta h2 {
-  color: var(--color-accent);
+  color: var(--color-blue);
   font-size: 2em;
   line-height: 1.12;
   margin: 0;
@@ -93,7 +93,7 @@ a.projects-more-btn:active,
 a.projects-more-btn:focus-visible {
   display: block;
   width: 100%;
-  color: var(--color-accent);
+  color: var(--color-blue);
   text-decoration: none;
   font-size: 1.5em;
   line-height: 1.2;

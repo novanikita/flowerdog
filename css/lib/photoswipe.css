@@ -1,21 +1,21 @@
 /*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */
 
 .pswp {
-  --pswp-bg: var(--color-black);
-  --pswp-placeholder-bg: var(--color-pswp-placeholder);
+  --pswp-bg: var(--color-blue);
+  --pswp-placeholder-bg: var(--color-blue);
   
 
   --pswp-root-z-index: 100000;
   
-  --pswp-preloader-color: var(--color-pswp-preloader);
-  --pswp-preloader-color-secondary: var(--color-pswp-preloader-secondary);
+  --pswp-preloader-color: var(--color-blue-50);
+  --pswp-preloader-color-secondary: var(--color-white-70);
   
   /* defined via js:
   --pswp-transition-duration: 333ms; */
   
   --pswp-icon-color: var(--color-white);
-  --pswp-icon-color-secondary: var(--color-pswp-gray);
-  --pswp-icon-stroke-color: var(--color-pswp-gray);
+  --pswp-icon-color-secondary: var(--color-blue);
+  --pswp-icon-stroke-color: var(--color-blue);
   --pswp-icon-stroke-width: 2px;
 
   --pswp-error-text-color: var(--pswp-icon-color);

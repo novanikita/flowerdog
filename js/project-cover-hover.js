@@ -32,6 +32,9 @@
 
       var rafId = null;
       var lastClientX = null;
+      var isTouchTracking = false;
+      var touchStartX = 0;
+      var touchStartY = 0;
 
       function updateByClientX(clientX) {
         if (clientX == null) return;
@@ -69,6 +72,44 @@
         currentIndex = 0;
         setPromoBackground(promo, images[0]);
       });
+
+      link.addEventListener('touchstart', function (e) {
+        var touch = e.touches && e.touches[0];
+        if (!touch) return;
+        isTouchTracking = true;
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        lastClientX = touch.clientX;
+        updateByClientX(lastClientX);
+      }, { passive: true });
+
+      link.addEventListener('touchmove', function (e) {
+        if (!isTouchTracking) return;
+        var touch = e.touches && e.touches[0];
+        if (!touch) return;
+
+        var deltaX = touch.clientX - touchStartX;
+        var deltaY = touch.clientY - touchStartY;
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          e.preventDefault();
+        }
+
+        lastClientX = touch.clientX;
+        if (rafId) return;
+        rafId = requestAnimationFrame(function () {
+          rafId = null;
+          updateByClientX(lastClientX);
+        });
+      }, { passive: false });
+
+      function stopTouchTracking() {
+        isTouchTracking = false;
+        touchStartX = 0;
+        touchStartY = 0;
+      }
+
+      link.addEventListener('touchend', stopTouchTracking, { passive: true });
+      link.addEventListener('touchcancel', stopTouchTracking, { passive: true });
     });
 
   }

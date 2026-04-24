@@ -188,7 +188,7 @@ header.is-hidden {
   .main-header__menu-toggle {
     width: 2em;
     height: 2em;
-    margin-top: 0;
+    margin-top: 0.6em;
     padding: 0;
     border: 0;
     background: transparent;
@@ -196,7 +196,7 @@ header.is-hidden {
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
-    gap: 0.28em;
+    gap: 0.45em;
     cursor: pointer;
     z-index: 1300;
     position: relative;
@@ -204,7 +204,7 @@ header.is-hidden {
 
   .main-header__menu-line {
     width: 2em;
-    height: 0.5em;
+    height: 0.45em;
     background: var(--color-black);
     display: block;
   }
@@ -216,15 +216,21 @@ header.is-hidden {
 
   .main-header.is-menu-open .main-header__right {
     position: fixed;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100dvh;
     margin: 0;
     z-index: 1200;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 0.5em;
-    background: var(--color-bg);
+    padding: max(0.5em, env(safe-area-inset-top)) 0.5em max(0.5em, env(safe-area-inset-bottom));
+    background: var(--color-accent);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -234,9 +240,17 @@ header.is-hidden {
 
   .main-header.is-menu-open .main-header__left {
     position: fixed;
-    top: 0.5em;
+    top: max(0.5em, env(safe-area-inset-top));
     left: 0.5em;
     z-index: 1300;
+  }
+
+  .main-header.is-menu-open .main-header__menu-toggle {
+    position: fixed;
+    top: max(0.5em, env(safe-area-inset-top));
+    right: 0.5em;
+    z-index: 1301;
+    align-items: flex-end;
   }
 
   .main-header.is-menu-open .main-header__nav,
@@ -270,6 +284,28 @@ header.is-hidden {
   .main-header.is-menu-open .main-header__nav .main-header__link,
   .main-header.is-menu-open .lang-switcher__btn {
     font-size: 3em;
+  }
+
+  .main-header.is-menu-open .main-header__menu-line {
+    background: var(--color-white);
+  }
+
+  .main-header.is-menu-open .logo a,
+  .main-header.is-menu-open .logo .logo-letter,
+  .main-header.is-menu-open .main-header__link,
+  .main-header.is-menu-open .main-header__link:hover,
+  .main-header.is-menu-open .main-header__link:visited,
+  .main-header.is-menu-open .lang-switcher__btn {
+    color: var(--color-white);
+  }
+
+  .main-header.is-menu-open .lang-switcher__btn {
+    background: transparent;
+    opacity: 0.7;
+  }
+
+  .main-header.is-menu-open .lang-switcher__btn.is-active {
+    opacity: 1;
   }
 
   .lang-switcher__btn {

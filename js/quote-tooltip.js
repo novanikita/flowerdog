@@ -8,20 +8,21 @@
   var tooltipText = tooltip.querySelector('.quote-tooltip__text');
   if (!tooltipText) return;
   var suppressHideUntil = 0;
+  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // Tooltip text values per language.
   var tooltipByLang = {
     ru: {
-      food: 'Делаем визуалы с KFC, I’m, Subway, Papa Jones, Pizza Hut для межнара Яндекс Еды и Yango. До этого 3 года запускали новинки в Додо Пицце — всё снимали вживую, ещё до нейронок. Сейчас можем сочно показать еду и на съемке и в генерации.',
-      communications: 'Сделали 114 проектов для Яндекса, 6 айдентик, 2 сайта, 2 упаковки и 2 аудита для других наших клиентов.',
-      corporateExperience: 'За плечами фаундеров 4 года в инхаусе Dodo Brands и год студийной работы с Яндексом. Понимаем корпоративные процессы, чувствуем гайды, предлагаем улучшения, быстро попадаем в результат.',
+      food: 'Делаем визуалы с KFC, I’m, Subway, Papa Jones, Pizza Hut для межнара Яндекс Еды и Yango. До этого 3 года запускали новинки в Додо Пицце — всё снимали вживую, ещё до нейронок. Сейчас можем сочно показать еду и на съемке и в генерации.',
+      communications: 'Сделали 114 проектов для Яндекса, 6 айдентик, 2 сайта, 2 упаковки и 2 аудита для других наших клиентов.',
+      corporateExperience: 'За плечами фаундеров 4 года в инхаусе Dodo Brands и год студийной работы с Яндексом. Понимаем корпоративные процессы, чувствуем гайды, предлагаем улучшения, быстро попадаем в результат.',
       systematicInvolved: 'Заморачиваемся над результатом. Отвечаем в пятницу вечером. Чётко расписываем проект по этапам и держим в курсе статусов. Если выбиваемся, предупреждаем и предлагаем решения.',
       vibe: 'Всё это мы слышим от наших клиентов: оунеров, продюсеров и артдиров, с которыми мы работали и работаем.'
     },
     en: {
-      food: 'We create visuals with KFC, I’m, Subway, Papa Jones, and Pizza Hut for Yandex Eats and Yango international markets. Before that, we spent 3 years launching new products at Dodo Pizza. We shot everything live, even before neural tools. Now we can make food look delicious both in production shoots and in generative workflows.',
-      communications: 'We delivered 114 projects for Yandex, plus 6 brand identities, 2 websites, 2 packaging projects, and 2 audits for our other clients.',
-      corporateExperience: 'The founders have 4 years of in-house experience at Dodo Brands and one year of studio work with Yandex. We understand corporate processes, feel comfortable with brand guidelines, suggest improvements, and get to strong results quickly.',
+      food: 'We create visuals with KFC, I’m, Subway, Papa Jones, and Pizza Hut for Yandex Eats and Yango international markets. Before that, we spent 3 years launching new products at Dodo Pizza. We shot everything live, even before neural tools. Now we can make food look delicious both in production shoots and in generative workflows.',
+      communications: 'We delivered 114 projects for Yandex, plus 6 brand identities, 2 websites, 2 packaging projects, and 2 audits for our other clients.',
+      corporateExperience: 'The founders have 4 years of in-house experience at Dodo Brands and one year of studio work with Yandex. We understand corporate processes, feel comfortable with brand guidelines, suggest improvements, and get to strong results quickly.',
       systematicInvolved: 'We care about details. We reply on Friday evenings. We meet deadlines and respond quickly. We break projects down into clear stages and keep everyone updated on statuses. If something shifts, we warn early and offer solutions.',
       vibe: 'This is exactly what we hear from our clients: owners, producers, and art directors we have worked and continue to work with.'
     }
@@ -86,18 +87,22 @@
   }
 
   quote.querySelectorAll('.quote-word').forEach(function (wordEl) {
-    wordEl.addEventListener('mouseenter', function () {
-      showTooltip(wordEl);
-    });
+    if (supportsHover) {
+      wordEl.addEventListener('mouseenter', function () {
+        showTooltip(wordEl);
+      });
 
-    wordEl.addEventListener('mouseleave', function () {
-      hideTooltip();
-    });
+      wordEl.addEventListener('mouseleave', function () {
+        hideTooltip();
+      });
+    }
 
     wordEl.addEventListener('click', function (event) {
       event.preventDefault();
       event.stopPropagation();
-      suppressHideUntil = Date.now() + 250;
+      // On mobile browsers, synthetic/cascading click events can arrive later
+      // than the word click itself and immediately close the tooltip.
+      suppressHideUntil = Date.now() + 800;
       var isSameActive = wordEl.classList.contains('is-active') && tooltip.classList.contains('is-visible');
       if (isSameActive) {
         suppressHideUntil = 0;
@@ -108,12 +113,15 @@
     });
   });
 
-  quote.addEventListener('mouseleave', hideTooltip);
+  if (supportsHover) {
+    quote.addEventListener('mouseleave', hideTooltip);
+  }
 
   document.addEventListener('click', function (event) {
     if (!tooltip.classList.contains('is-visible')) return;
-    var clickedWord = event.target && event.target.closest && event.target.closest('.quote-word');
-    var clickedTooltip = event.target && event.target.closest && event.target.closest('#quote-tooltip');
+    var target = event.target && event.target.nodeType === 3 ? event.target.parentElement : event.target;
+    var clickedWord = target && target.closest && target.closest('.quote-word');
+    var clickedTooltip = target && target.closest && target.closest('#quote-tooltip');
     if (clickedWord || clickedTooltip) return;
     hideTooltip();
   });

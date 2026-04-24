@@ -7,7 +7,7 @@
         itemClass: 'L',
         href: 'yandex.html',
         coverImages:
-          'images/projects-cover/yandex-cover-1.jpg|images/projects-cover/yandex-cover-2.jpg|images/projects-cover/yandex-cover-3.jpg|images/projects-cover/yandex-cover-4.jpg|images/projects-cover/yandex-cover-5.jpg|images/projects-cover/yandex-cover-6.jpg',
+          'images/projects-cover/yandex-cover-1.avif|images/projects-cover/yandex-cover-2.avif|images/projects-cover/yandex-cover-3.avif|images/projects-cover/yandex-cover-4.avif|images/projects-cover/yandex-cover-5.avif|images/projects-cover/yandex-cover-6.avif',
         promoClass: 'project-promo-soft',
         titleRu: '114 проектов для Яндекса',
         titleEn: '114 projects for Yandex'
@@ -16,7 +16,7 @@
         href: 'soon.html',
         typeTags: 'website',
         coverImages:
-          'images/projects-cover/lavatop-cover-1.jpg|images/projects-cover/lavatop-cover-2.jpg|images/projects-cover/lavatop-cover-3.jpg',
+          'images/projects-cover/lavatop-cover-1.avif|images/projects-cover/lavatop-cover-2.avif|images/projects-cover/lavatop-cover-3.avif',
         promoClass: 'project-promo-hard',
         titleRu: 'Lavatop',
         titleEn: 'Lavatop'
@@ -25,7 +25,7 @@
         href: 'soon.html',
         typeTags: 'branding',
         coverImages:
-          'images/projects-cover/rangos-cover-1.jpg|images/projects-cover/rangos-cover-2.jpg|images/projects-cover/rangos-cover-3.jpg|images/projects-cover/rangos-cover-4.jpg',
+          'images/projects-cover/rangos-cover-1.avif|images/projects-cover/rangos-cover-2.avif|images/projects-cover/rangos-cover-3.avif|images/projects-cover/rangos-cover-4.avif',
         promoClass: 'project-promo-round',
         titleRu: 'Rangos',
         titleEn: 'Rangos'
@@ -35,7 +35,7 @@
         id: 'sber500',
         typeTags: 'events',
         coverImages:
-          'images/projects-cover/sber500-cover-1.jpg|images/projects-cover/sber500-cover-2.jpg|images/projects-cover/sber500-cover-3.jpg|images/projects-cover/sber500-cover-4.jpg',
+          'images/projects-cover/sber500-cover-1.avif|images/projects-cover/sber500-cover-2.avif|images/projects-cover/sber500-cover-3.avif|images/projects-cover/sber500-cover-4.avif',
         promoClass: 'project-promo-hard',
         titleRu: 'Sber500',
         titleEn: 'Sber500'
@@ -45,7 +45,7 @@
         id: 'sporos',
         typeTags: 'branding',
         coverImages:
-          'images/projects-cover/sporos-cover-1.jpg|images/projects-cover/sporos-cover-2.jpg|images/projects-cover/sporos-cover-3.jpg',
+          'images/projects-cover/sporos-cover-1.avif|images/projects-cover/sporos-cover-2.avif|images/projects-cover/sporos-cover-3.avif',
         promoClass: 'project-promo-round',
         titleRu: 'Sporos',
         titleEn: 'Sporos'
@@ -56,7 +56,7 @@
         href: 'soon.html',
         typeTags: 'website',
         coverImages:
-          'images/projects-cover/dodo-cover-1.jpg|images/projects-cover/dodo-cover-2.jpg|images/projects-cover/dodo-cover-3.jpg|images/projects-cover/dodo-cover-4.jpg|images/projects-cover/dodo-cover-5.jpg',
+          'images/projects-cover/dodo-cover-1.avif|images/projects-cover/dodo-cover-2.avif|images/projects-cover/dodo-cover-3.avif|images/projects-cover/dodo-cover-4.avif|images/projects-cover/dodo-cover-5.avif',
         titleRu: '4 года в Додо Пицце',
         titleEn: '4 years at Dodo Pizza'
       }

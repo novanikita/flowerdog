@@ -5,7 +5,7 @@
   if (!slots.length) return;
 
   /* Inline fallback when fetch fails (file://, offline, wrong base path on mobile). */
-  var FALLBACK = '<footer><h1 class="footer-brand"><img src="images/logo.svg" alt="flowerdog" class="footer-brand__logo" draggable="false"> <span class="footer-brand__copyright" aria-hidden="true">©</span> 2024 → 2026</h1></footer>';
+  var FALLBACK = '<footer><h1 class="footer-brand"><img src="images/logo.svg" alt="flowerdog" class="footer-brand__logo" draggable="false"> 2024 → 2026</h1></footer>';
 
   function inject(markup) {
     slots.forEach(function (slot) {

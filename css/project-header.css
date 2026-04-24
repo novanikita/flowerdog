@@ -46,12 +46,18 @@ header.is-hidden {
   line-height: 0.9;
   font-weight: 900;
   white-space: nowrap;
+  margin-top: 0.05em;
 }
 
 .main-header__logo-image {
   display: block;
   width: auto;
   height: 1em;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .main-header__descriptor {

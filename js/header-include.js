@@ -8,7 +8,7 @@
   var FALLBACK =
     '<header class="main-header">' +
     '<div class="main-header__left">' +
-    '<div class="logo"><a href="index.html" aria-label="flowerdog"><img src="images/logo.svg" alt="flowerdog" class="main-header__logo-image"></a></div>' +
+    '<div class="logo"><a href="index.html" aria-label="flowerdog"><img src="images/logo.svg" alt="flowerdog" class="main-header__logo-image" draggable="false"></a></div>' +
     '</div>' +
     '<div class="main-header__right">' +
     '<button type="button" class="main-header__menu-toggle" aria-label="Open menu" aria-expanded="false">' +

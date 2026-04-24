@@ -12,17 +12,75 @@
     promoEl.style.backgroundImage = "url('" + imageUrl + "')";
   }
 
+  function preloadImage(src) {
+    if (!src) return;
+    var img = new Image();
+    img.decoding = 'async';
+    img.fetchPriority = 'low';
+    img.src = src;
+  }
+
   function preloadCoverImages(images) {
     if (!images || images.length < 2) return;
-
-    // First frame is already displayed; warm up the rest to avoid first-hover lag.
     for (var i = 1; i < images.length; i += 1) {
       var src = images[i];
       if (!src) continue;
-      var img = new Image();
-      img.decoding = 'async';
-      img.src = src;
+      preloadImage(src);
     }
+  }
+
+  function runWhenIdle(task) {
+    if (typeof task !== 'function') return;
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(task, { timeout: 1500 });
+      return;
+    }
+    window.setTimeout(task, 500);
+  }
+
+  function afterInitialLoad(task) {
+    if (document.readyState === 'complete') {
+      runWhenIdle(task);
+      return;
+    }
+    window.addEventListener('load', function onLoad() {
+      runWhenIdle(task);
+    }, { once: true });
+  }
+
+  function setupDeferredPreload(link, images) {
+    if (!link || !images || images.length < 2) return;
+
+    var started = false;
+
+    function startPreload() {
+      if (started) return;
+      started = true;
+      afterInitialLoad(function () {
+        preloadCoverImages(images);
+      });
+    }
+
+    // If user starts interaction, warm up frames immediately.
+    link.addEventListener('mouseenter', startPreload, { once: true, passive: true });
+    link.addEventListener('touchstart', startPreload, { once: true, passive: true });
+
+    // Otherwise preload only when card is near viewport.
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i += 1) {
+          if (!entries[i].isIntersecting) continue;
+          startPreload();
+          observer.disconnect();
+          break;
+        }
+      }, { rootMargin: '300px 0px' });
+      observer.observe(link);
+      return;
+    }
+
+    // Older browsers: fallback to delayed preload after onload.
+    afterInitialLoad(startPreload);
   }
 
   function initProjectCovers() {
@@ -35,7 +93,6 @@
 
       var images = parseCoverImages(link.getAttribute('data-cover-images'));
       if (!images.length) return;
-      preloadCoverImages(images);
 
       var promo = link.querySelector('.project-promo');
       if (!promo) return;
@@ -43,6 +100,7 @@
       var currentIndex = -1;
       setPromoBackground(promo, images[0]);
       currentIndex = 0;
+      setupDeferredPreload(link, images);
 
       var rafId = null;
       var lastClientX = null;
@@ -120,6 +178,11 @@
         isTouchTracking = false;
         touchStartX = 0;
         touchStartY = 0;
+        lastClientX = null;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = null;
+        currentIndex = 0;
+        setPromoBackground(promo, images[0]);
       }
 
       link.addEventListener('touchend', stopTouchTracking, { passive: true });

@@ -1,1 +1,3 @@
-flowerdog.studio
+Type: CNAME Record
+Host: www
+Value: username.github.io

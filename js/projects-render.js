@@ -1,5 +1,7 @@
 (function () {
   'use strict';
+  var LAST_INDEX_SCROLL_KEY = 'site:last-index-scroll-y';
+  var hasRestoredScrollPosition = false;
 
   function getFirstCoverImage(value) {
     if (!value) return '';
@@ -39,6 +41,42 @@
     return item;
   }
 
+  function rememberCurrentScrollPosition() {
+    try {
+      sessionStorage.setItem(LAST_INDEX_SCROLL_KEY, String(window.scrollY || window.pageYOffset || 0));
+    } catch (error) {
+      // Ignore storage errors in private mode or blocked storage.
+    }
+  }
+
+  function restoreScrollPosition() {
+    if (hasRestoredScrollPosition) return;
+    var rawValue;
+    try {
+      rawValue = sessionStorage.getItem(LAST_INDEX_SCROLL_KEY);
+    } catch (error) {
+      return;
+    }
+    if (rawValue === null) return;
+    var targetScrollY = Number(rawValue);
+    if (!isFinite(targetScrollY)) targetScrollY = 0;
+
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        var maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        if (targetScrollY < 0) targetScrollY = 0;
+        if (targetScrollY > maxScrollY) targetScrollY = maxScrollY;
+        window.scrollTo(0, targetScrollY);
+        hasRestoredScrollPosition = true;
+        try {
+          sessionStorage.removeItem(LAST_INDEX_SCROLL_KEY);
+        } catch (error) {
+          // Ignore storage cleanup errors.
+        }
+      });
+    });
+  }
+
   function renderGrid(grid) {
     if (grid.dataset.projectsRendered === 'true') return;
     var pageKey = grid.getAttribute('data-projects-page');
@@ -51,6 +89,11 @@
     });
 
     if (pageKey === 'index') {
+      grid.addEventListener('click', function (event) {
+        var link = event.target && event.target.closest('a');
+        if (!link) return;
+        rememberCurrentScrollPosition();
+      });
       var more = document.createElement('a');
       more.className = 'projects-more-btn';
       more.href = 'soon.html';
@@ -64,9 +107,12 @@
   function init() {
     var grids = document.querySelectorAll('.projects-grid[data-projects-page]');
     grids.forEach(renderGrid);
+    restoreScrollPosition();
     document.dispatchEvent(new CustomEvent('site:projects-rendered'));
   }
 
   init();
   document.addEventListener('DOMContentLoaded', init);
+  window.addEventListener('pageshow', restoreScrollPosition);
+  window.addEventListener('beforeunload', rememberCurrentScrollPosition);
 })();

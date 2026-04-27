@@ -16,8 +16,8 @@ ids-gallery,
 }
 
 .portreit {
-  width: 1em;
-  height: 1em;
+  width: 0.9em;
+  height: 0.9em;
   border-radius: 50%;
   overflow: hidden;
   display: inline-block;
@@ -34,7 +34,7 @@ ids-gallery,
   display: inline-flex;
   align-items: flex-end;
   vertical-align: text-bottom;
-  margin-left: 0.5em;
+  margin-left: 0.2em;
 }
 
 .portraits-inline .portreit + .portreit {
@@ -73,8 +73,8 @@ hr.default {
   }
 
   .portreit {
-    width: 2em;
-    height: 2em;
+    width: 1.3em;
+    height: 1.3em;
   }
 
   .custom-table {

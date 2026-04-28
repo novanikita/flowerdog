@@ -6,11 +6,11 @@
 
 footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
   margin: 7em 0 0 0;
-  padding: 0 1em;
+  padding: 0 1em calc(0.75em + env(safe-area-inset-bottom, 0px));
 }
 
 .ids footer h1 {
@@ -45,13 +45,32 @@ footer {
   font-weight: 800;
 }
 
+.footer-legal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5em;
+  margin-top: 1.5em;
+  text-align: left;
+}
+
+.footer-legal__item {
+  margin: 0;
+  font-weight: 400;
+}
+
 @media screen and (max-width: 768px) {
   footer {
-    flex-direction: column;
     align-items: flex-start;
-    gap: 0.5em;
+    gap: 0.1em;
     margin: 4em 0 1.2em 0;
-    padding: 0 0.5em;
+    padding: 0 0.5em calc(0.75em + env(safe-area-inset-bottom, 0px));
+  }
+
+  .footer-legal {
+    flex-direction: column;
+    gap: 0.2em;
+    margin-top: 1em;
   }
 
   .footer-brand__copyright {

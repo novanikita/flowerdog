@@ -248,4 +248,8 @@ video{
   html[data-lang="en"] .ids p .quote-break-desktop-only {
     display: none;
   }
+
+  .audit-break-desktop-only {
+    display: none;
+  }
 }

@@ -47,8 +47,7 @@ ids-gallery, .ids__gallery {
         }
 
         &.L {
-            --module-width: calc((100% - var(--gap) * (var(--columns) - 1)) / var(--columns));
-            flex: 0 0 calc((var(--module-width) * 2) + var(--gap));
+            flex: 0 0 calc((100% - var(--gap)) / 2);
         }
         &.XL {
             

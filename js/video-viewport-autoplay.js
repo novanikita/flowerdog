@@ -1,10 +1,20 @@
 (function () {
   'use strict';
 
-  var videos = Array.prototype.slice.call(
-    document.querySelectorAll('video[autoplay][muted]')
-  );
+  var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
   if (!videos.length) return;
+
+  videos.forEach(function (video) {
+    // Keep behavior consistent for all project videos.
+    video.muted = true;
+    video.autoplay = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('loop', '');
+    video.setAttribute('playsinline', '');
+  });
 
   function playVideo(video) {
     var promise = video.play();

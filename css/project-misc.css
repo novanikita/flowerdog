@@ -15,6 +15,21 @@ ids-gallery,
   display: flex;
 }
 
+.project-gallery--rangos {
+  display: block;
+}
+
+.project-gallery--rangos ids-gallery,
+.project-gallery--rangos .ids__gallery {
+  display: flex;
+}
+
+.project-gallery--rangos figure img,
+.project-gallery--rangos figure video {
+  width: 100%;
+  display: block;
+}
+
 .portreit {
   width: 0.9em;
   height: 0.9em;

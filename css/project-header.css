@@ -9,6 +9,26 @@ header {
   background: var(--color-white);
 }
 
+header.is-fixed-on-case {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+header.is-fixed-on-case .main-header {
+  align-items: center;
+}
+
+header.is-fixed-on-case .main-header__left {
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+header.is-fixed-on-case .main-header__right {
+  margin-top: 0;
+}
+
 header.is-hidden {
   transform: none;
 }
@@ -47,6 +67,7 @@ header.is-hidden {
   font-weight: 900;
   white-space: nowrap;
   margin-top: 0.05em;
+  transition: none;
 }
 
 .main-header__logo-image {
@@ -85,6 +106,7 @@ header.is-hidden {
   gap: 2.5em;
   margin-top: clamp(0.4em, 2.6vw, 2.5em);
   min-width: max-content;
+  transition: none;
 }
 
 .main-header__nav {

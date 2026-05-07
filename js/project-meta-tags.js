@@ -181,10 +181,14 @@
     return m[2] + '.' + m[3];
   }
 
+  function normalizeNdaTitle(title) {
+    return (title || '').replace(/\*+\s*NDA\s*\*+/gi, 'NDA').trim();
+  }
+
   function buildTitleAndDescriptionBlock(title, description) {
     var fragment = document.createDocumentFragment();
     var h3 = document.createElement('h3');
-    h3.textContent = title || '';
+    h3.textContent = normalizeNdaTitle(title);
     fragment.appendChild(h3);
 
     if (description) {
@@ -200,7 +204,7 @@
     var p = document.createElement('p');
     var span = document.createElement('span');
     span.className = 'project-text-emphasis';
-    span.textContent = title;
+    span.textContent = normalizeNdaTitle(title);
     p.appendChild(span);
     if (description) {
       p.appendChild(document.createTextNode(' ' + description));

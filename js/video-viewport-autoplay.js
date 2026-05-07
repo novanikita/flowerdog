@@ -1,8 +1,46 @@
 (function () {
   'use strict';
 
+  var isYandexCasePage = Boolean(document.querySelector('.ids__wrapper[data-client-tag="yandex"]'));
   var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
   if (!videos.length) return;
+
+  function upsertSoundToggle(video) {
+    if (!isYandexCasePage) return;
+    if (!video || !video.parentElement) return;
+
+    var host = video.closest('figure') || video.parentElement;
+    if (!host) return;
+
+    host.style.position = host.style.position || 'relative';
+
+    var existing = host.querySelector('.video-sound-toggle');
+    if (existing) return;
+
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'video-sound-toggle';
+    button.textContent = '🎵';
+    button.setAttribute('aria-label', 'Включить звук');
+    button.setAttribute('aria-pressed', 'false');
+
+    button.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      var nextMuted = !video.muted;
+      video.muted = nextMuted;
+      if (nextMuted) {
+        video.setAttribute('muted', '');
+      } else {
+        video.removeAttribute('muted');
+      }
+      button.classList.toggle('is-on', !nextMuted);
+      button.setAttribute('aria-label', nextMuted ? 'Включить звук' : 'Выключить звук');
+      button.setAttribute('aria-pressed', String(!nextMuted));
+    });
+
+    host.appendChild(button);
+  }
 
   videos.forEach(function (video) {
     // Keep behavior consistent for all project videos.
@@ -14,6 +52,7 @@
     video.setAttribute('autoplay', '');
     video.setAttribute('loop', '');
     video.setAttribute('playsinline', '');
+    upsertSoundToggle(video);
   });
 
   function playVideo(video) {

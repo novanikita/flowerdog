@@ -127,6 +127,11 @@ main {
   font-weight: 600;
 }
 
+.ids p.project-case-text {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 @media screen and (max-width: 768px) {
   .main-page-header,
   .main-page-text-fixed {

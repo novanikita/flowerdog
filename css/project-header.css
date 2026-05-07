@@ -16,19 +16,6 @@ header.is-fixed-on-case {
   top: 0;
 }
 
-header.is-fixed-on-case .main-header {
-  align-items: center;
-}
-
-header.is-fixed-on-case .main-header__left {
-  flex: 0 0 auto;
-  align-items: center;
-}
-
-header.is-fixed-on-case .main-header__right {
-  margin-top: 0;
-}
-
 header.is-hidden {
   transform: none;
 }

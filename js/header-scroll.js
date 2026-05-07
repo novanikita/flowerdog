@@ -19,6 +19,7 @@
   function syncHeaderLogoScale(header) {
     if (!header || !isCasePage()) return;
     var logoLink = header.querySelector('.main-header__left .logo a');
+    var rightBlock = header.querySelector('.main-header__right');
     if (!logoLink) return;
 
     if (!header.__logoExpandedPx || header.__logoExpandedPx <= 0) {
@@ -33,6 +34,14 @@
     var currentPx = expandedPx - (expandedPx - minPx) * progress;
 
     logoLink.style.fontSize = currentPx + 'px';
+
+    if (rightBlock) {
+      if (!header.__rightMarginTopExpandedPx || header.__rightMarginTopExpandedPx < 0) {
+        header.__rightMarginTopExpandedPx = parseFloat(window.getComputedStyle(rightBlock).marginTop) || 0;
+      }
+      var currentRightMarginTopPx = header.__rightMarginTopExpandedPx * (1 - progress);
+      rightBlock.style.marginTop = currentRightMarginTopPx + 'px';
+    }
   }
 
   function reserveHeaderSpace(header) {
@@ -52,6 +61,7 @@
       header.classList.add('is-fixed-on-case');
       reserveHeaderSpace(header);
       header.__logoExpandedPx = 0;
+      header.__rightMarginTopExpandedPx = -1;
       syncHeaderLogoScale(header);
     }
     if (!header.__compactScrollBound) {
@@ -60,6 +70,7 @@
       }, { passive: true });
       window.addEventListener('resize', function () {
         header.__logoExpandedPx = 0;
+        header.__rightMarginTopExpandedPx = -1;
         reserveHeaderSpace(header);
         syncHeaderLogoScale(header);
       });

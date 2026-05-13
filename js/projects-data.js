@@ -5,12 +5,12 @@
     index: [
       {
         itemClass: 'L',
-        href: 'soon.html',
+        href: 'yandex.html',
         coverImages:
           'images/projects-cover/yandex-cover-1.avif|images/projects-cover/yandex-cover-2.avif|images/projects-cover/yandex-cover-3.avif|images/projects-cover/yandex-cover-4.avif|images/projects-cover/yandex-cover-5.avif|images/projects-cover/yandex-cover-6.avif',
         promoClass: 'project-promo-soft',
-        titleRu: '114 проектов для Яндекса',
-        titleEn: '114 projects for Yandex'
+        titleRu: '117 проектов для Яндекса',
+        titleEn: '117 projects for Yandex'
       },
       {
         href: 'soon.html',

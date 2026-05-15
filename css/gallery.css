@@ -76,22 +76,39 @@ ids-gallery, .ids__gallery {
     position: absolute;
     top: 1em;
     right: 1em;
-    width: 2.2em;
-    height: 2.2em;
     border: 0;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.85);
-    color: var(--color-blue);
+    background: rgba(255, 255, 255, 0.7);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 3;
-    line-height: 1;
+    line-height: 0;
+    padding: 0.2em;
+    box-sizing: border-box;
+}
+
+.video-sound-toggle__icon {
+    width: 1.5em;
+    height: 1.5em;
+    display: block;
+    flex-shrink: 0;
+    background-color: var(--color-blue);
+    mask: url('/images/icon/sound-1.svg') center / contain no-repeat;
+    -webkit-mask: url('/images/icon/sound-1.svg') center / contain no-repeat;
+}
+
+.video-sound-toggle:not(.is-on):hover,
+.video-sound-toggle:not(.is-on):focus-visible {
+    background: var(--color-white);
 }
 
 .video-sound-toggle.is-on {
     background: rgba(0, 86, 211, 0.9);
-    color: var(--color-white);
+}
+
+.video-sound-toggle.is-on .video-sound-toggle__icon {
+    background-color: var(--color-white);
 }
 

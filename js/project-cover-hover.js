@@ -12,6 +12,15 @@
     promoEl.style.backgroundImage = "url('" + imageUrl + "')";
   }
 
+  function updateCoverStrip(link, activeIndex) {
+    var strip = link.querySelector('.project-cover-strip');
+    if (!strip) return;
+    var segments = strip.querySelectorAll('.project-cover-strip__segment');
+    for (var i = 0; i < segments.length; i += 1) {
+      segments[i].classList.toggle('is-active', i === activeIndex);
+    }
+  }
+
   function preloadImage(src) {
     if (!src) return;
     var img = new Image();
@@ -100,6 +109,7 @@
       var currentIndex = -1;
       setPromoBackground(promo, images[0]);
       currentIndex = 0;
+      updateCoverStrip(link, 0);
       setupDeferredPreload(link, images);
 
       var rafId = null;
@@ -120,6 +130,7 @@
         if (idx !== currentIndex) {
           currentIndex = idx;
           setPromoBackground(promo, images[idx]);
+          updateCoverStrip(link, idx);
         }
       }
 
@@ -143,6 +154,7 @@
         rafId = null;
         currentIndex = 0;
         setPromoBackground(promo, images[0]);
+        updateCoverStrip(link, 0);
       });
 
       link.addEventListener('touchstart', function (e) {
@@ -183,6 +195,7 @@
         rafId = null;
         currentIndex = 0;
         setPromoBackground(promo, images[0]);
+        updateCoverStrip(link, 0);
       }
 
       link.addEventListener('touchend', stopTouchTracking, { passive: true });

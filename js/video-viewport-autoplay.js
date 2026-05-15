@@ -5,9 +5,21 @@
   var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
   if (!videos.length) return;
 
+  function isSoundToggleDisabled(video) {
+    if (!video) return false;
+    // Two video types:
+    // - default: show "Включить звук" toggle
+    // - data-sound-toggle="off": no toggle (animation-only clips)
+    var attr = video.getAttribute('data-sound-toggle');
+    if (attr == null) return false;
+    var value = String(attr).trim().toLowerCase();
+    return value === 'off' || value === 'false' || value === '0' || value === 'no' || value === 'hide';
+  }
+
   function upsertSoundToggle(video) {
     if (!isYandexCasePage) return;
     if (!video || !video.parentElement) return;
+    if (isSoundToggleDisabled(video)) return;
 
     var host = video.closest('figure') || video.parentElement;
     if (!host) return;
@@ -20,7 +32,10 @@
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'video-sound-toggle';
-    button.textContent = '🎵';
+    var icon = document.createElement('span');
+    icon.className = 'video-sound-toggle__icon';
+    icon.setAttribute('aria-hidden', 'true');
+    button.appendChild(icon);
     button.setAttribute('aria-label', 'Включить звук');
     button.setAttribute('aria-pressed', 'false');
 

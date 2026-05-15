@@ -1,9 +1,26 @@
 (function () {
   'use strict';
 
+  function parseCoverImages(value) {
+    if (!value) return [];
+    return String(value).split('|').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+
   function getFirstCoverImage(value) {
-    if (!value) return '';
-    return String(value).split('|')[0].trim();
+    var images = parseCoverImages(value);
+    return images[0] || '';
+  }
+
+  function createCoverStrip(count) {
+    var strip = document.createElement('div');
+    strip.className = 'project-cover-strip';
+    strip.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < count; i += 1) {
+      var segment = document.createElement('span');
+      segment.className = 'project-cover-strip__segment' + (i === 0 ? ' is-active' : '');
+      strip.appendChild(segment);
+    }
+    return strip;
   }
 
   function createCard(project) {
@@ -34,6 +51,10 @@
 
     meta.appendChild(title);
     link.appendChild(promo);
+    var coverImages = parseCoverImages(project.coverImages);
+    if (coverImages.length > 1) {
+      link.appendChild(createCoverStrip(coverImages.length));
+    }
     link.appendChild(meta);
     item.appendChild(link);
     return item;

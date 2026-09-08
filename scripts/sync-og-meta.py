@@ -34,6 +34,19 @@ SITE_META_PAGES = {
     "audit.html",
 }
 
+# Case pages with a hand-picked og:image (images/og/<stem>.jpg) — never
+# overwrite these from the gallery, even on re-runs.
+MANUAL_OG_IMAGES = {
+    "dodo",
+    "kim-chips",
+    "lavatop",
+    "rangos",
+    "sber500",
+    "sporos",
+    "toolpar",
+    "yandex",
+}
+
 PAGE_DESCRIPTION_OVERRIDES = {
     "portfolio.html": "Все проекты студии Flowerdog — айдентика, сайты, упаковка и коммуникационный дизайн.",
     "soon.html": "Скоро покажем новый проект Flowerdog.",
@@ -342,7 +355,15 @@ def process_page(path: pathlib.Path) -> None:
     image_rel = DEFAULT_IMAGE
     image_type = "image/png"
 
-    if path.name not in SITE_META_PAGES:
+    if path.stem in MANUAL_OG_IMAGES:
+        manual = OG_DIR / f"{path.stem}.jpg"
+        if manual.is_file():
+            image_rel = f"images/og/{path.stem}.jpg"
+            image_type = "image/jpeg"
+            print(f"  manual og:image → {image_rel}")
+        else:
+            print(f"  ! manual og:image missing on disk: {manual}", file=sys.stderr)
+    elif path.name not in SITE_META_PAGES:
         media = first_gallery_media(html)
         if media:
             kind, src = media

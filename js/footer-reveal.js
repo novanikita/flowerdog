@@ -3,10 +3,14 @@
 
   var SLIDE_INTERVAL_MS = 230;
   var AUTO_HIDE_MS = 2000;
+  /* Hard ceiling on how long the curtain can stay open, no matter how much
+     interaction keeps bumping the auto-hide timer (e.g. a long trackpad
+     inertia tail) — scroll must never stay locked indefinitely. */
+  var MAX_OPEN_MS = 4000;
   /* Noise filter only — not a pull-distance threshold. */
   var INTENT_PX = 10;
   var REARM_COOLDOWN_MS = 320;
-  var IMAGE_COUNT = 14;
+  var IMAGE_COUNT = 13;
   var IMAGE_PATH = 'images/footer-animation/footer-';
   var IDLE = 'idle';
   var ARMED = 'armed';
@@ -65,9 +69,9 @@
     var lastTick = null;
     var slideRaf = null;
     var hideTimer = null;
+    var openWatchdogTimer = null;
     var closeFallbackTimer = null;
     var cooldownUntil = 0;
-    var lockedScrollY = 0;
     var touchStartY = null;
     var touchFromArmed = false;
     var html = document.documentElement;
@@ -108,22 +112,72 @@
       if (state === OPEN) startHideTimer();
     }
 
+    function clearOpenWatchdog() {
+      if (!openWatchdogTimer) return;
+      window.clearTimeout(openWatchdogTimer);
+      openWatchdogTimer = null;
+    }
+
+    function startOpenWatchdog() {
+      clearOpenWatchdog();
+      openWatchdogTimer = window.setTimeout(function () {
+        openWatchdogTimer = null;
+        closeReveal();
+      }, MAX_OPEN_MS);
+    }
+
+    /*
+     * Freeze scroll by disabling it at the source (overflow hidden on the
+     * root), not by taking the body out of flow with position: fixed. The
+     * old position: fixed + negative-top trick made window.scrollY read 0
+     * for the whole time the curtain was open (a fixed body has nothing to
+     * scroll), which meant the real scroll position had to be captured
+     * before locking and re-applied on unlock — and that restore fought
+     * with the site's global `scroll-behavior: smooth` (css/settings.css),
+     * animating a fast scroll through the entire page. Locking this way
+     * never touches window.scrollY at all, so there is nothing to restore.
+     *
+     * Both axes must be set explicitly, not just overflow-y: css/layout.css
+     * only sets `overflow-x: hidden` on <body>, relying on the CSS overflow
+     * propagation rule (the root element with `overflow: visible` in both
+     * axes inherits the *body's* overflow for the viewport). The moment
+     * html gets any explicit, non-visible overflow-y of its own, that
+     * propagation stops — and per the CSS Overflow spec, a lone
+     * overflow-y then forces the *other* axis's computed overflow-x to
+     * `auto` instead of `visible`. That silently undid body's
+     * overflow-x: hidden protection for as long as the curtain was open,
+     * letting a sliver of horizontally-overflowing content peek in on the
+     * right edge — the "strip" bug. Setting overflow-x here too keeps the
+     * clipping explicit instead of depending on propagation.
+     */
     function lockScroll() {
-      lockedScrollY = window.scrollY || window.pageYOffset || 0;
-      document.body.style.position = 'fixed';
-      document.body.style.top = '-' + lockedScrollY + 'px';
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
+      var scrollbarWidth = window.innerWidth - html.clientWidth;
+      html.style.overflowY = 'hidden';
+      html.style.overflowX = 'hidden';
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = scrollbarWidth + 'px';
+        /*
+         * The panel is position: fixed, so its `right: 0` is relative to
+         * the viewport, not to body — it does not inherit body's
+         * padding-right compensation above. Hiding the scrollbar widens the
+         * viewport by scrollbarWidth, so without this the panel silently
+         * grows that much wider than the (compensated, same-width-as-before)
+         * body content. During the ~0.5s closing slide, .lift is a normal
+         * in-flow child of body and stays at the compensated width, so it
+         * does not cover that extra sliver of panel as it slides down —
+         * the panel peeks out on the right edge the whole time it's
+         * fading. Keeping the panel's right edge pinned to the same
+         * compensated boundary as the body content removes the gap.
+         */
+        panel.style.right = scrollbarWidth + 'px';
+      }
     }
 
     function unlockScroll() {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.width = '';
-      window.scrollTo(0, lockedScrollY);
+      html.style.overflowY = '';
+      html.style.overflowX = '';
+      document.body.style.paddingRight = '';
+      panel.style.right = '';
     }
 
     function stopSlideshow() {
@@ -218,7 +272,16 @@
     }
 
     function openReveal() {
-      if (state === OPEN || state === CLOSING) return;
+      /*
+       * Require ARMED specifically, not just "not already open/closing":
+       * the pending-frames branch below can call this again later, after
+       * ensureFrames() finishes loading — by then the user may have
+       * scrolled away and evaluateArm() already reverted state to IDLE.
+       * Without this check, a late image-load completion would still
+       * force the curtain open and lock scroll while the user is reading
+       * somewhere else on the page, well after they abandoned the gesture.
+       */
+      if (state !== ARMED) return;
       if (!framesReady) {
         pendingOpen = true;
         ensureFrames();
@@ -236,6 +299,7 @@
       panel.setAttribute('aria-hidden', 'false');
 
       startHideTimer();
+      startOpenWatchdog();
       startSlideshow();
     }
 
@@ -243,6 +307,7 @@
       if (state !== CLOSING) return;
 
       clearCloseFallback();
+      clearOpenWatchdog();
       panel.classList.remove('is-ready');
       panel.setAttribute('aria-hidden', 'true');
       liftRoot.classList.remove('is-closing');
@@ -264,6 +329,7 @@
       if (state !== OPEN) return;
 
       clearHideTimer();
+      clearOpenWatchdog();
       stopSlideshow();
       clearCloseFallback();
 
@@ -277,6 +343,30 @@
         closeFallbackTimer = null;
         finishClose();
       }, 700);
+    }
+
+    /*
+     * Instant, no-animation unlock used when timers cannot be trusted to
+     * fire promptly (a backgrounded tab throttles setTimeout/rAF, which
+     * would otherwise leave the page scroll-locked for a long time).
+     */
+    function hardClose() {
+      if (state === IDLE) return;
+
+      clearHideTimer();
+      clearOpenWatchdog();
+      clearCloseFallback();
+      stopSlideshow();
+
+      panel.classList.remove('is-ready');
+      panel.setAttribute('aria-hidden', 'true');
+      liftRoot.classList.remove('is-open');
+      liftRoot.classList.remove('is-closing');
+
+      unlockScroll();
+      cooldownUntil = Date.now() + REARM_COOLDOWN_MS;
+      state = IDLE;
+      syncHtmlFlags();
     }
 
     function onLiftTransitionEnd(event) {
@@ -323,7 +413,13 @@
 
     window.addEventListener('wheel', function (event) {
       if (state === OPEN) {
-        bumpHideTimer();
+        /* Scrolling back up is an explicit close intent — do not make the
+           user wait out the auto-hide timer. */
+        if (event.deltaY < 0) {
+          closeReveal();
+        } else {
+          bumpHideTimer();
+        }
         return;
       }
       if (state === CLOSING) return;
@@ -363,16 +459,50 @@
       var delta = touchStartY - touch.clientY;
 
       if (state === OPEN) {
-        bumpHideTimer();
+        /* The lock is overflow-y: hidden, not a position: fixed body — belt
+           and suspenders against any browser that still lets a touchmove
+           leak through and nudge the frozen scroll position. */
+        event.preventDefault();
+        /* Swipe back down is an explicit close intent, same as wheel-up. */
+        if (delta < -INTENT_PX) {
+          closeReveal();
+        } else {
+          bumpHideTimer();
+        }
         return;
       }
       if (state === CLOSING) return;
 
-      if (touchFromArmed && state === ARMED && delta > INTENT_PX) {
-        touchFromArmed = false;
-        requestOpenFromGesture();
+      if (touchFromArmed && state === ARMED) {
+        /*
+         * Take the gesture over from the browser: at this point we are
+         * already at the document boundary, so any native handling of this
+         * touchmove would only be an overscroll/pull-to-refresh gesture —
+         * exactly what the curtain is replacing. Suppressing it here (not
+         * only after the intent threshold) is what actually fixes the
+         * "footer reload" bug; the touchmove listener must be non-passive
+         * for preventDefault to have any effect.
+         */
+        event.preventDefault();
+        if (delta > INTENT_PX) {
+          touchFromArmed = false;
+          requestOpenFromGesture();
+        }
       }
-    }, { passive: true });
+    }, { passive: false });
+
+    window.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && state === OPEN) closeReveal();
+    });
+
+    panel.addEventListener('click', function () {
+      if (state === OPEN) closeReveal();
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) hardClose();
+    });
+    window.addEventListener('pagehide', hardClose);
 
     function endTouch() {
       touchStartY = null;

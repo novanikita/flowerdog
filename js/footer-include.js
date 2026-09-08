@@ -3,8 +3,7 @@
 
   /* Master switch for the site footer. */
   var FOOTER_ENABLED = true;
-  /* Set to true locally while polishing the footer reveal animation. */
-  var FOOTER_REVEAL_ENABLED = false;
+  var FOOTER_REVEAL_ENABLED = true;
 
   var slots = document.querySelectorAll('[data-site-footer]');
   if (!slots.length) return;

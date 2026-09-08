@@ -38,9 +38,17 @@ html.is-footer-reveal-closing .site-footer-reveal__lift {
   will-change: transform;
 }
 
-html.is-footer-reveal-armed,
-html.is-footer-reveal-open,
-html.is-footer-reveal-closing {
+/*
+ * Permanent, not state-gated: the browser's native pull-to-refresh /
+ * rubber-band overscroll must never fire at the document boundary, because
+ * the curtain reveal owns that gesture instead. Gating this behind the
+ * is-footer-reveal-* classes (added reactively from a scroll/wheel handler)
+ * left a race where the native gesture could already be committed before
+ * the class landed — that raced refresh was the "footer reloads the page"
+ * bug.
+ */
+html,
+body {
   overscroll-behavior-y: none;
 }
 

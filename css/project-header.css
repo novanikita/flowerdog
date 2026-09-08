@@ -82,18 +82,6 @@ header.is-hidden {
   filter: brightness(0) saturate(100%) invert(58%) sepia(93%) saturate(3082%) hue-rotate(3deg) brightness(101%) contrast(102%);
 }
 
-.main-header__descriptor {
-  white-space: pre-line;
-  font-size: 0.8em;
-  line-height: 1.1;
-  margin: 0;
-  padding: 0;
-}
-
-.ids p.main-header__descriptor {
-  margin: 0;
-}
-
 .main-header__right {
   display: flex;
   align-items: center;
@@ -325,7 +313,6 @@ header.is-hidden {
   }
 
   .main-header.is-menu-open .logo a,
-  .main-header.is-menu-open .logo .logo-letter,
   .main-header.is-menu-open .main-header__link,
   .main-header.is-menu-open .main-header__link:hover,
   .main-header.is-menu-open .main-header__link:visited,

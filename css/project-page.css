@@ -238,19 +238,6 @@ main {
   font-weight: 600;
 }
 
-.project-footnote-ref {
-  color: var(--color-blue);
-  font-size: 0.7em;
-  vertical-align: super;
-  line-height: 0;
-}
-
-.ids p.project-footnote {
-  font-size: 0.7em;
-  color: var(--color-gray);
-  margin-top: 0;
-}
-
 .ids p.project-list {
   margin-bottom: 0;
   line-height: 1.5;

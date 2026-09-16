@@ -18,10 +18,12 @@
  * same time, and on Safari the first event of a trackpad gesture carries
  * no delta at all, so the page cannot even tell yet whether to claim the
  * gesture. With the bounce off, the sheet is the only thing that moves,
- * whichever browser is handling the gesture.
+ * whichever browser is handling the gesture. Scoped to the class the
+ * script sets, so with the reveal switched off (js/footer-include.js)
+ * the page keeps its native bounce.
  */
-html,
-body {
+html.has-footer-reveal,
+html.has-footer-reveal body {
   overscroll-behavior-y: none;
 }
 
@@ -36,7 +38,8 @@ body {
  * plus negative spread outruns the blur, so nothing bleeds above), which
  * is below the fold at rest and never counts toward scroll height. It
  * only shows once the sheet is lifted — the paper's edge over the
- * pictures.
+ * pictures. Without the reveal it would only ever surface in a native
+ * overscroll bounce, as a stray grey band, so it is scoped too.
  */
 .site-footer {
   display: flex;
@@ -46,6 +49,9 @@ body {
   margin: 0;
   padding: 0;
   color: var(--color-blue);
+}
+
+html.has-footer-reveal .site-footer {
   box-shadow: 0 2em 2em -0.5em rgb(0 0 0 / 0.16);
 }
 

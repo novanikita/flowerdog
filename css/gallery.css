@@ -109,8 +109,8 @@ video.has-sound-toggle {
     display: block;
     flex-shrink: 0;
     background-color: var(--color-blue);
-    mask: url('/images/icon/sound-1.svg') center / contain no-repeat;
-    -webkit-mask: url('/images/icon/sound-1.svg') center / contain no-repeat;
+    mask: url('/images/icon/speaker.svg') center / contain no-repeat;
+    -webkit-mask: url('/images/icon/speaker.svg') center / contain no-repeat;
 }
 
 .video-sound-toggle:not(.is-on):hover,
@@ -124,5 +124,7 @@ video.has-sound-toggle {
 
 .video-sound-toggle.is-on .video-sound-toggle__icon {
     background-color: var(--color-white);
+    mask-image: url('/images/icon/speaker-mute.svg');
+    -webkit-mask-image: url('/images/icon/speaker-mute.svg');
 }
 

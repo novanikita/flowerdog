@@ -81,9 +81,9 @@
       host.appendChild(button);
     }
 
-    // Desktop: clicking anywhere on the video itself toggles sound instead of the button.
+    // Clicking or tapping anywhere on the video toggles sound. The button
+    // (mobile only) stops propagation, so a tap on it doesn't toggle twice.
     video.addEventListener('click', function (event) {
-      if (!desktopSoundClickMql.matches) return;
       event.preventDefault();
       setVideoMuted(video, button, !video.muted);
     });

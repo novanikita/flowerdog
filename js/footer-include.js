@@ -3,7 +3,7 @@
 
   /* Master switch for the site footer. */
   var FOOTER_ENABLED = true;
-  var FOOTER_REVEAL_ENABLED = true;
+  var FOOTER_REVEAL_ENABLED = false;
 
   var slots = document.querySelectorAll('[data-site-footer]');
   if (!slots.length) return;

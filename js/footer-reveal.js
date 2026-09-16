@@ -105,6 +105,7 @@
 
     html.dataset.footerRevealInit = 'true';
     if (prefersReducedMotion()) return;
+    html.classList.add('has-footer-reveal');
 
     var panel = document.createElement('div');
     panel.className = 'site-footer-reveal__panel';

@@ -350,21 +350,12 @@ main {
   }
 }
 
-/* How we work — page title like index quote; sections like index audit block */
+/* How we work — text sized and centered like the vacancies page */
 .ids.page-how-we-work h1.how-we-work__title {
-  margin: 0;
-  font-size: 3em;
-  font-weight: 500;
-  line-height: 1;
   color: var(--color-blue);
 }
 
-.ids.page-how-we-work h2.how-we-work__title {
-  /* same as .ids h1 on index (“Стартуем с аудита”) */
-  margin: 0 0 0.4em;
-  font-size: 2em;
-  font-weight: 700;
-  line-height: 0.9;
+.ids.page-how-we-work h3.how-we-work__title {
   color: var(--color-blue);
 }
 
@@ -372,25 +363,10 @@ main {
   scroll-margin-top: 3em;
 }
 
-.ids.page-how-we-work a.how-we-work__jump {
-  color: inherit;
-  font-weight: inherit;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.12em;
-  text-decoration-color: currentColor;
-}
-
-.ids.page-how-we-work a.how-we-work__jump:hover,
-.ids.page-how-we-work a.how-we-work__jump:focus-visible {
-  color: var(--color-orange);
-  text-decoration-color: var(--color-orange);
-}
-
-@media screen and (max-width: 768px) {
-  .ids.page-how-we-work h1.how-we-work__title {
-    font-size: 2em;
-  }
+.ids.page-how-we-work .how-we-work__figure {
+  margin: 0;
+  border-radius: 1.4em;
+  overflow: hidden;
 }
 
 /* Vacancies */

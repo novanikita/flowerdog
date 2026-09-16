@@ -5,6 +5,33 @@
   var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
   if (!videos.length) return;
 
+  var desktopSoundClickMql = window.matchMedia('(min-width: 769px)');
+
+  function setVideoMuted(video, button, muted) {
+    video.muted = muted;
+    if (muted) {
+      video.setAttribute('muted', '');
+    } else {
+      video.removeAttribute('muted');
+    }
+    video.classList.toggle('has-sound-on', !muted);
+    if (button) {
+      button.classList.toggle('is-on', !muted);
+      button.setAttribute('aria-label', muted ? 'Включить звук' : 'Выключить звук');
+      button.setAttribute('aria-pressed', String(!muted));
+    }
+
+    // Chromium/WebKit sometimes fail to repaint a custom CSS cursor right after a
+    // click, leaving the default arrow until the mouse physically moves. Forcing an
+    // inline cursor change nudges the browser to redraw it immediately.
+    if (desktopSoundClickMql.matches) {
+      video.style.cursor = 'none';
+      requestAnimationFrame(function () {
+        video.style.cursor = '';
+      });
+    }
+  }
+
   function isSoundToggleDisabled(video) {
     if (!video) return false;
     // Two video types:
@@ -29,36 +56,37 @@
     if (!host) return;
 
     host.style.position = host.style.position || 'relative';
+    video.classList.add('has-sound-toggle');
 
     var existing = host.querySelector('.video-sound-toggle');
-    if (existing) return;
+    var button = existing;
 
-    var button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'video-sound-toggle';
-    var icon = document.createElement('span');
-    icon.className = 'video-sound-toggle__icon';
-    icon.setAttribute('aria-hidden', 'true');
-    button.appendChild(icon);
-    button.setAttribute('aria-label', 'Включить звук');
-    button.setAttribute('aria-pressed', 'false');
+    if (!button) {
+      button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'video-sound-toggle';
+      var icon = document.createElement('span');
+      icon.className = 'video-sound-toggle__icon';
+      icon.setAttribute('aria-hidden', 'true');
+      button.appendChild(icon);
+      button.setAttribute('aria-label', 'Включить звук');
+      button.setAttribute('aria-pressed', 'false');
 
-    button.addEventListener('click', function (event) {
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        setVideoMuted(video, button, !video.muted);
+      });
+
+      host.appendChild(button);
+    }
+
+    // Desktop: clicking anywhere on the video itself toggles sound instead of the button.
+    video.addEventListener('click', function (event) {
+      if (!desktopSoundClickMql.matches) return;
       event.preventDefault();
-      event.stopPropagation();
-      var nextMuted = !video.muted;
-      video.muted = nextMuted;
-      if (nextMuted) {
-        video.setAttribute('muted', '');
-      } else {
-        video.removeAttribute('muted');
-      }
-      button.classList.toggle('is-on', !nextMuted);
-      button.setAttribute('aria-label', nextMuted ? 'Включить звук' : 'Выключить звук');
-      button.setAttribute('aria-pressed', String(!nextMuted));
+      setVideoMuted(video, button, !video.muted);
     });
-
-    host.appendChild(button);
   }
 
   videos.forEach(function (video) {

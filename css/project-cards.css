@@ -345,11 +345,35 @@ a.projects-more-btn:focus-visible {
   pointer-events: none;
 }
 
+.process-card__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
 .ids .process-card__label {
   margin: 0;
   font-size: 0.95em;
   line-height: 1.2;
   font-weight: 500;
+}
+
+.process-card__illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5em;
+}
+
+.process-card__illustration--offset {
+  margin-top: 2.5em;
+}
+
+.process-card__illustration img {
+  height: 8em;
+  width: auto;
+  display: block;
 }
 
 .ids .process-card__title {
@@ -375,11 +399,13 @@ a.projects-more-btn:focus-visible {
 }
 
 .ids .process-card__duration {
-  margin: auto 0 0;
-  padding-top: 1.5em;
-  font-size: 1em;
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 0.95em;
   line-height: 1.2;
   font-weight: 500;
+  white-space: nowrap;
+  opacity: 1;
 }
 
 .ids .team-grid {

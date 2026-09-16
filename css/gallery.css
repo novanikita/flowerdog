@@ -79,7 +79,7 @@ ids-gallery, .ids__gallery {
     border: 0;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.7);
-    display: inline-flex;
+    display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -87,6 +87,20 @@ ids-gallery, .ids__gallery {
     line-height: 0;
     padding: 0.2em;
     box-sizing: border-box;
+
+    @media screen and (max-width: 768px) {
+        display: inline-flex;
+    }
+}
+
+video.has-sound-toggle {
+    @media screen and (min-width: 769px) {
+        cursor: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxOSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjkyKSIgc3Ryb2tlPSJyZ2JhKDAsMCwwLDAuMDgpIi8+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOSw5KSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDA1NmQzIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CiAgICA8cG9seWdvbiBwb2ludHM9IjExIDUgNiA5IDIgOSAyIDE1IDYgMTUgMTEgMTkgMTEgNSIgZmlsbD0iIzAwNTZkMyIgc3Ryb2tlPSIjMDA1NmQzIi8+CiAgICA8cGF0aCBkPSJNMTkuMDcgNC45M2ExMCAxMCAwIDAgMSAwIDE0LjE0Ii8+CiAgICA8cGF0aCBkPSJNMTUuNTQgOC40NmE1IDUgMCAwIDEgMCA3LjA3Ii8+CiAgPC9nPgo8L3N2Zz4K') 20 20, pointer;
+
+        &.has-sound-on {
+            cursor: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxOSIgZmlsbD0iIzAwNTZkMyIgc3Ryb2tlPSJyZ2JhKDAsMCwwLDAuMDgpIi8+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOSw5KSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CiAgICA8cG9seWdvbiBwb2ludHM9IjExIDUgNiA5IDIgOSAyIDE1IDYgMTUgMTEgMTkgMTEgNSIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjZmZmZmZmIi8+CiAgICA8bGluZSB4MT0iMjMiIHkxPSI5IiB4Mj0iMTciIHkyPSIxNSIvPgogICAgPGxpbmUgeDE9IjE3IiB5MT0iOSIgeDI9IjIzIiB5Mj0iMTUiLz4KICA8L2c+Cjwvc3ZnPgo=') 20 20, pointer;
+        }
+    }
 }
 
 .video-sound-toggle__icon {

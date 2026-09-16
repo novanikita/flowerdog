@@ -1,5 +1,8 @@
 :root {
-  --footer-reveal-height: clamp(320px, 42vw, 520px);
+  --footer-gallery-height: clamp(220px, 28vw, 380px);
+  /* Extra panel height hidden under the sheet, so a spring overshoot or a
+     stretch past fully-open shows more picture instead of a white gap. */
+  --footer-gallery-overshoot: calc(var(--footer-gallery-height) * 0.3);
 }
 
 .main-page {
@@ -8,81 +11,69 @@
   max-width: 100%;
 }
 
-.site-footer-reveal__lift {
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  background-color: var(--color-white);
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.site-footer-reveal__lift.is-open {
-  transform: translate3d(0, calc(-1 * var(--footer-reveal-height)), 0);
-  transition-duration: 0.48s;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.site-footer-reveal__lift.is-closing {
-  transform: translate3d(0, 0, 0);
-  transition-duration: 0.55s;
-  transition-timing-function: cubic-bezier(0.33, 0, 0.2, 1);
-}
-
-html.is-footer-reveal-armed .site-footer-reveal__lift,
-html.is-footer-reveal-open .site-footer-reveal__lift,
-html.is-footer-reveal-closing .site-footer-reveal__lift {
-  will-change: transform;
-}
-
 /*
- * Permanent, not state-gated: the browser's native pull-to-refresh /
- * rubber-band overscroll must never fire at the document boundary, because
- * the curtain reveal owns that gesture instead. Gating this behind the
- * is-footer-reveal-* classes (added reactively from a scroll/wheel handler)
- * left a race where the native gesture could already be committed before
- * the class landed — that raced refresh was the "footer reloads the page"
- * bug.
+ * No rubber-band at the page ends. The sheet is lifted by wheel/touch
+ * input that arrives while the page already sits at its end; without
+ * this, Safari (and Chrome on macOS) would bounce the whole page at the
+ * same time, and on Safari the first event of a trackpad gesture carries
+ * no delta at all, so the page cannot even tell yet whether to claim the
+ * gesture. With the bounce off, the sheet is the only thing that moves,
+ * whichever browser is handling the gesture.
  */
 html,
 body {
   overscroll-behavior-y: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .site-footer-reveal__lift,
-  .site-footer-reveal__lift.is-open,
-  .site-footer-reveal__lift.is-closing {
-    transition: none;
-  }
-}
-
-.site-footer-reveal__lift > main {
-  flex: 1 0 auto;
-}
-
-.site-footer-reveal__lift > .site-footer {
-  margin-top: auto;
-}
-
+/*
+ * No bottom padding: the page ends exactly at the bottom of
+ * .site-footer__brand, so native scrolling stops on the flowerdog
+ * wordmark. The picture gallery is not part of the document at all — it
+ * is only uncovered when js/footer-reveal.js lifts the whole sheet (main
+ * + this footer) past that end.
+ *
+ * The shadow sits entirely below the footer's bottom edge (its y-offset
+ * plus negative spread outruns the blur, so nothing bleeds above), which
+ * is below the fold at rest and never counts toward scroll height. It
+ * only shows once the sheet is lifted — the paper's edge over the
+ * pictures.
+ */
 .site-footer {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   width: 100%;
   margin: 0;
-  padding: 7em 1em calc(1em + env(safe-area-inset-bottom, 0px));
+  padding: 0;
   color: var(--color-blue);
+  box-shadow: 0 2em 2em -0.5em rgb(0 0 0 / 0.16);
 }
 
+html.is-sheet-moving main,
+html.is-sheet-moving [data-site-footer] {
+  will-change: transform;
+}
+
+/*
+ * .site-footer__top and .site-footer__brand carry their own opaque
+ * background plus all of the padding that would otherwise live on
+ * .site-footer (top/side padding) or as margin between them —
+ * deliberately, not for looks. The picture panel is pinned to the bottom
+ * of the viewport for the whole page, underneath everything; any
+ * transparent gap in the footer — outer padding, the space between the
+ * nav grid and the brand block — would leak those pictures through as it
+ * scrolls across that band (a background-color on a *child* never blocks
+ * what's behind an ancestor that has none of its own). Padding stays
+ * covered because it is inside the opaque element's own painted box;
+ * margin would not, since a margin is blank space nothing paints.
+ */
 .site-footer__top {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   align-items: start;
+  padding: 7em 1em 0;
+  background-color: var(--color-white);
 }
 
 .site-footer__contact {
@@ -178,7 +169,8 @@ body {
 .site-footer__brand {
   position: relative;
   width: 100%;
-  margin-top: 2em;
+  padding: 2em 1em 1.2em;
+  background-color: var(--color-white);
 }
 
 .site-footer__flower {
@@ -206,25 +198,36 @@ body {
   height: auto;
 }
 
+/*
+ * The secret layer. Pinned to the viewport bottom for the whole page and
+ * painted behind everything (z-index: -1); main and the footer are opaque
+ * and cover it completely at rest. js/footer-reveal.js uncovers it by
+ * translating main + [data-site-footer] up past the end of the page — the
+ * pictures never move, the sheet slides off them. The sheet normally
+ * stops at exactly --footer-gallery-height; the panel is taller by the
+ * overshoot allowance.
+ */
 .site-footer-reveal__panel {
   position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 0;
-  height: var(--footer-reveal-height);
+  z-index: -1;
+  height: calc(var(--footer-gallery-height) + var(--footer-gallery-overshoot));
   overflow: hidden;
-  visibility: hidden;
-  opacity: 0;
   background-color: var(--color-blue-10);
   contain: layout paint;
   pointer-events: none;
-  transition: opacity 0.28s ease;
 }
 
-.site-footer-reveal__panel.is-ready {
-  visibility: visible;
-  opacity: 1;
+/* Lets the script read --footer-gallery-height in px. */
+.site-footer-reveal__measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: var(--footer-gallery-height);
+  visibility: hidden;
 }
 
 .site-footer-reveal__panel img {
@@ -234,28 +237,26 @@ body {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  visibility: hidden;
 }
 
 .site-footer-reveal__panel img.is-active {
   opacity: 1;
-  visibility: visible;
 }
 
 @media screen and (max-width: 768px) {
   :root {
-    /* Lift distance on mobile — matches the open animation travel. */
-    --footer-reveal-height: 15em;
+    --footer-gallery-height: 14em;
   }
 
   .site-footer {
     margin: 0;
-    padding: 4em 0.5em calc(0.5em + env(safe-area-inset-bottom, 0px));
+    padding: 0;
   }
 
   .site-footer__top {
     grid-template-columns: 1fr;
     gap: 2em;
+    padding: 4em 0.5em 0;
   }
 
   .site-footer__contact,
@@ -295,7 +296,7 @@ body {
   }
 
   .site-footer__brand {
-    margin-top: 1em;
+    padding: 1em 0.5em 1.5em;
   }
 
   .site-footer__flower {

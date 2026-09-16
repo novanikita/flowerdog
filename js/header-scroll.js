@@ -91,13 +91,6 @@
 
     var lastScrollY = window.scrollY || 0;
 
-    function isFooterRevealActive() {
-      var root = document.documentElement;
-      return root.classList.contains('is-footer-reveal-armed') ||
-        root.classList.contains('is-footer-reveal-open') ||
-        root.classList.contains('is-footer-reveal-closing');
-    }
-
     function isFooterVisible() {
       var footer = document.querySelector('.site-footer');
       if (!footer) return false;
@@ -116,7 +109,7 @@
       var goingUp = y < lastScrollY - 1;
       lastScrollY = y;
 
-      if (isFooterRevealActive() || (isFooterVisible() && !goingUp)) {
+      if (isFooterVisible() && !goingUp) {
         header.classList.add('is-hidden');
         return;
       }
@@ -131,9 +124,6 @@
 
     if (!header.__compactScrollBound) {
       window.addEventListener('scroll', onScroll, { passive: true });
-      document.addEventListener('site:footer-reveal-state', function () {
-        syncHeaderVisibility(header);
-      });
       window.addEventListener('resize', function () {
         header.__logoExpandedPx = 0;
         header.__rightMarginTopExpandedPx = -1;

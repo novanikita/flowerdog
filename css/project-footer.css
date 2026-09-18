@@ -148,6 +148,11 @@ html.is-sheet-moving [data-site-footer] {
   text-decoration: none;
 }
 
+.ids .site-footer__nav-link:hover,
+.ids .site-footer__nav-link:focus-visible {
+  color: var(--color-orange);
+}
+
 .site-footer__legal {
   grid-column: 4;
   display: flex;

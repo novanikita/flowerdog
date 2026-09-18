@@ -32,7 +32,7 @@
     '<a class="site-footer__nav-link" href="audit.html" data-i18n data-ru="Аудит" data-en="Audit">Аудит</a>' +
     '<a class="site-footer__nav-link" href="soon.html" data-i18n data-ru="Как мы работаем" data-en="How we work">Как мы работаем</a>' +
     '<a class="site-footer__nav-link" href="about.html" data-i18n data-ru="О нас" data-en="About">О нас</a>' +
-    '<a class="site-footer__nav-link" href="https://t.me/dmitry2man" data-i18n data-ru="Канал студии" data-en="Studio channel">Канал студии</a>' +
+    '<a class="site-footer__nav-link" href="https://t.me/flowerdog_studio" data-i18n data-ru="Канал студии" data-en="Studio channel">Канал студии</a>' +
     '</nav>' +
     '<div class="site-footer__legal">' +
     '<p class="site-footer__legal-item"><span data-i18n data-ru="ИП Туманов Дмитрий Олегович," data-en="IE Dmitry Olegovich Tumanov,">ИП Туманов Дмитрий Олегович,</span><br class="site-footer__legal-break"> <span data-i18n data-ru="ИНН 272198797725, Россия, Москва." data-en="TIN 272198797725, Russian Federation, Moscow.">ИНН 272198797725, Россия, Москва.</span></p>' +

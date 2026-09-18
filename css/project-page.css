@@ -248,6 +248,20 @@ main {
   margin-bottom: 0;
 }
 
+.ids a.project-case-link {
+  color: var(--color-blue);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: rgba(0, 86, 211, 0.2);
+}
+
+.ids a.project-case-link:hover,
+.ids a.project-case-link:focus-visible {
+  color: var(--color-orange);
+  text-decoration-color: var(--color-orange);
+}
+
 @media screen and (max-width: 768px) {
   .main-page-header,
   .main-page-text-fixed {

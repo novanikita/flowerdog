@@ -1,8 +1,5 @@
 :root {
   --footer-gallery-height: clamp(220px, 28vw, 380px);
-  /* Extra panel height hidden under the sheet, so a spring overshoot or a
-     stretch past fully-open shows more picture instead of a white gap. */
-  --footer-gallery-overshoot: calc(var(--footer-gallery-height) * 0.3);
 }
 
 .main-page {
@@ -12,18 +9,18 @@
 }
 
 /*
- * No rubber-band at the page ends. The sheet is lifted by wheel/touch
- * input that arrives while the page already sits at its end; without
- * this, Safari (and Chrome on macOS) would bounce the whole page at the
- * same time, and on Safari the first event of a trackpad gesture carries
- * no delta at all, so the page cannot even tell yet whether to claim the
- * gesture. With the bounce off, the sheet is the only thing that moves,
- * whichever browser is handling the gesture. Scoped to the class the
- * script sets, so with the reveal switched off (js/footer-include.js)
- * the page keeps its native bounce.
+ * No rubber-band at the page end. The sheet is lifted by wheel/touch
+ * input that arrives while the page already sits at its end, and it does
+ * its own bounce there (js/footer-reveal.js); without this, Safari (and
+ * Chrome on macOS) would bounce the whole page at the same time, and on
+ * Safari the first event of a trackpad gesture carries no delta at all,
+ * so the page cannot even tell yet whether to claim the gesture. Only
+ * while the footer is near the screen (the script sets the class well
+ * before the end is reached): everywhere else — pull-to-refresh at the
+ * top included — the browser keeps its own behavior.
  */
-html.has-footer-reveal,
-html.has-footer-reveal body {
+html.is-footer-near,
+html.is-footer-near body {
   overscroll-behavior-y: none;
 }
 
@@ -210,38 +207,49 @@ html.is-sheet-moving [data-site-footer] {
 }
 
 /*
- * The secret layer. Pinned to the viewport bottom for the whole page and
- * painted behind everything (z-index: -1); main and the footer are opaque
- * and cover it completely at rest. js/footer-reveal.js uncovers it by
- * translating main + [data-site-footer] up past the end of the page — the
- * pictures never move, the sheet slides off them. The sheet normally
- * stops at exactly --footer-gallery-height; the panel is taller by the
- * overshoot allowance.
+ * The secret layer. Fixed behind everything (z-index: -1); main and the
+ * footer are opaque and cover it completely. js/footer-reveal.js uncovers
+ * it by translating main + [data-site-footer] up past the end of the
+ * page — the pictures never move, the sheet slides off them.
+ *
+ * The panel spans the viewport so the stage has room to grow, but paints
+ * nothing itself, and is only visible while the sheet moves: at rest
+ * there is nothing that could ever show through the page.
+ *
+ * The stage holds the pictures at the gallery height, pinned to the
+ * bottom. Pulled past fully open, the script scales it from its bottom
+ * edge, so the pictures fill the extra room instead of leaving a gap.
  */
 .site-footer-reveal__panel {
   position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   z-index: -1;
-  height: calc(var(--footer-gallery-height) + var(--footer-gallery-overshoot));
   overflow: hidden;
-  background-color: var(--color-blue-10);
-  contain: layout paint;
+  contain: strict;
   pointer-events: none;
-}
-
-/* Lets the script read --footer-gallery-height in px. */
-.site-footer-reveal__measure {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: var(--footer-gallery-height);
   visibility: hidden;
 }
 
-.site-footer-reveal__panel img {
+html.is-sheet-moving .site-footer-reveal__panel {
+  visibility: visible;
+}
+
+.site-footer-reveal__stage {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: var(--footer-gallery-height);
+  overflow: hidden;
+  background-color: var(--color-blue-10);
+  transform-origin: 50% 100%;
+}
+
+html.is-sheet-moving .site-footer-reveal__stage {
+  will-change: transform;
+}
+
+.site-footer-reveal__stage img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -250,7 +258,7 @@ html.is-sheet-moving [data-site-footer] {
   opacity: 0;
 }
 
-.site-footer-reveal__panel img.is-active {
+.site-footer-reveal__stage img.is-active {
   opacity: 1;
 }
 

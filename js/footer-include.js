@@ -5,6 +5,28 @@
   var FOOTER_ENABLED = true;
   var FOOTER_REVEAL_ENABLED = false;
 
+  /*
+   * Test switches for the reveal while it is off for everyone: ?footer=test,
+   * or the secret copy of the home page (scripts/make-footer-preview.py),
+   * which sets FOOTER_REVEAL_FORCE. Either turns it on for this browser tab
+   * and keeps it on across pages until the tab closes; ?footer=off ends it.
+   */
+  (function () {
+    var KEY = 'fd-footer-reveal-test';
+    var match = /[?&]footer=(test|off)\b/.exec(window.location.search);
+    var wanted = window.FOOTER_REVEAL_FORCE === true || (match && match[1] === 'test');
+    try {
+      if (match && match[1] === 'off') {
+        sessionStorage.removeItem(KEY);
+        return;
+      }
+      if (wanted) sessionStorage.setItem(KEY, '1');
+      if (sessionStorage.getItem(KEY) === '1') FOOTER_REVEAL_ENABLED = true;
+    } catch (error) {
+      if (wanted) FOOTER_REVEAL_ENABLED = true;
+    }
+  })();
+
   var slots = document.querySelectorAll('[data-site-footer]');
   if (!slots.length) return;
 

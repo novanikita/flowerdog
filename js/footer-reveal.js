@@ -16,6 +16,14 @@
     wheelOpenPull: 170,
     wheelIsolatedGapMs: 30,
     wheelKickPull: 50,
+    // Browsers scale wheel deltas very differently for the same gesture —
+    // Safari's run several times Chromium's, and a hard swipe there
+    // delivers over 100px in a single 8ms event — so the sheet is pulled
+    // by a rate-limited step instead of the raw delta. Without it the same
+    // flick opens instantly in one browser and gently in another.
+    wheelPullRatePxPerS: 1400,
+    wheelNotchMinPx: 4,
+    wheelFreshMinPx: 12,
     wheelPushesToOpen: 2,
     wheelPushWindowMs: 700,
     pullHoldMs: 280,
@@ -23,16 +31,26 @@
     catchFallingAt: 0.15,
 
     // Touch. Ratios are fractions of the gallery height.
-    touchResistance: 0.55,
-    touchPeekMax: 0.9,
+    touchNearEndPx: 140, // a swipe up that starts this close to the end is the sheet's
     touchOpenAt: 0.3,
     touchCloseAt: 0.85,
     touchFlingPxPerS: 550, // finger speed, not sheet speed
+    touchFlingMinLiftPx: 12,
 
-    // Finger dragging past fully open. stretchMax is a fraction of the
-    // overshoot allowance.
-    stretchMax: 0.8,
-    stretchResistance: 0.5,
+    // Pulling past the page end or past fully open: UIScrollView's rubber
+    // band, (1 - 1 / (x * c / d + 1)) * d, with d = viewport height.
+    rubberC: 0.55,
+    maxLiftRatio: 0.9, // of the viewport height
+    stretchHoldMs: 120, // wheel/trackpad stretch springs back after this pause
+
+    // The bump on arriving at the end with momentum: a critically damped
+    // spring kicked upward, height proportional to the arrival speed.
+    hint: {
+      perSpeed: 0.012, // px of bump per px/s of arrival speed
+      minSpeed: 350, // px/s; slower arrivals get no bump
+      maxDesktopPx: 28,
+      maxTouchPx: 40 // taller, so it clears the iOS toolbar's edge fade
+    },
 
     // response ≈ seconds per oscillation; damping 1 = no overshoot; kick =
     // starting speed, as a multiple of the remaining distance per second,
@@ -42,7 +60,8 @@
       open: { response: 0.46, damping: 0.78, kick: 0 },
       cancel: { response: 0.4, damping: 1, kick: 0 },
       close: { response: 0.7, damping: 0.82, kick: 2.5 },
-      autoClose: { response: 0.85, damping: 0.8, kick: 2.2 }
+      autoClose: { response: 0.85, damping: 0.8, kick: 2.2 },
+      hint: { response: 0.5, damping: 1, kick: 0 }
     }
   };
 
@@ -63,12 +82,36 @@
     return -max * Math.log(1 - ratio) / slope;
   }
 
+  function appleRubber(x) {
+    if (x <= 0) return 0;
+    var d = window.innerHeight;
+    return (1 - 1 / (x * CONFIG.rubberC / d + 1)) * d;
+  }
+
+  function appleUnrubber(value) {
+    if (value <= 0) return 0;
+    var d = window.innerHeight;
+    var ratio = Math.min(value / d, 0.999);
+    return (1 / (1 - ratio) - 1) * d / CONFIG.rubberC;
+  }
+
   function maxScrollY() {
     return Math.max(0, html.scrollHeight - window.innerHeight);
   }
 
+  function gapToEnd() {
+    return maxScrollY() - window.scrollY;
+  }
+
+  // Pinch-zoomed in, a swipe pans the zoomed view first; the end of the
+  // page is not the end of what the user can move.
+  function pinchZoomed() {
+    var viewport = window.visualViewport;
+    return !!viewport && viewport.scale > 1.01;
+  }
+
   function atEnd() {
-    return window.scrollY >= maxScrollY() - CONFIG.endTolerancePx;
+    return !pinchZoomed() && gapToEnd() <= CONFIG.endTolerancePx;
   }
 
   function wheelDeltaPx(event) {
@@ -107,23 +150,31 @@
     if (prefersReducedMotion()) return;
     html.classList.add('has-footer-reveal');
 
+    var coarsePointer = window.matchMedia('(pointer: coarse)');
+
     var panel = document.createElement('div');
     panel.className = 'site-footer-reveal__panel';
     panel.setAttribute('aria-hidden', 'true');
-    var measure = document.createElement('div');
-    measure.className = 'site-footer-reveal__measure';
-    panel.appendChild(measure);
+    var stage = document.createElement('div');
+    stage.className = 'site-footer-reveal__stage';
+    panel.appendChild(stage);
     document.body.appendChild(panel);
 
     var galleryHeight = 0;
-    var overshoot = 0;
 
     function measureSizes() {
-      galleryHeight = measure.offsetHeight;
-      overshoot = Math.max(0, panel.offsetHeight - galleryHeight);
+      galleryHeight = stage.offsetHeight;
     }
 
     measureSizes();
+
+    function maxLift() {
+      return Math.max(galleryHeight, window.innerHeight * CONFIG.maxLiftRatio);
+    }
+
+    function hintMax() {
+      return coarsePointer.matches ? CONFIG.hint.maxTouchPx : CONFIG.hint.maxDesktopPx;
+    }
 
     // ---- pictures ----------------------------------------------------------
 
@@ -142,7 +193,7 @@
         img.draggable = false;
         if (i === 1) img.className = 'is-active';
         img.src = CONFIG.imagePath + (i < 10 ? '0' + i : String(i)) + '.avif';
-        panel.appendChild(img);
+        stage.appendChild(img);
         images.push(img);
         if (img.decode) img.decode().catch(function () {});
       }
@@ -171,10 +222,15 @@
 
     var y = 0; // px the sheet is lifted; drawn as |y|
     var v = 0;
-    var phase = 'idle'; // idle | peek | open | closing
+    var phase = 'idle'; // idle | hint | peek | open | closing
     var springName = 'cancel';
-    var pulling = false; // wheel input is holding the sheet in a peek
+
+    // Input-driven targets; at most one is active at a time.
+    var pulling = false; // wheel push holding a peek
     var pull = 0;
+    var stretching = false; // wheel push past fully open
+    var stretch = 0;
+
     var isolatedPushes = 0;
     var lastPushAt = -Infinity;
     var lastInputAt = 0;
@@ -186,19 +242,31 @@
     var autoCloseScheduled = false;
     var stream = null;
     var lastWheelAt = -Infinity;
+    var wheelTrain = false; // the last wheel event came right after another
     var wheelEndTimer = 0;
     var touch = null;
+    var lastScroll = null;
 
     var armed = false;
     var nearEnd = false;
+    var shownScale = 1;
 
     function render() {
       // A fall onto the closed position is drawn mirrored (|y|), so an
       // underdamped spring toward 0 reads as the sheet bouncing off the end
       // of the page instead of sinking below it.
-      var shown = Math.min(Math.abs(y), galleryHeight + overshoot);
+      var shown = Math.min(Math.abs(y), maxLift());
       var dpr = window.devicePixelRatio || 1;
       shown = Math.round(shown * dpr) / dpr;
+
+      // Past fully open, the pictures grow from their bottom edge to fill
+      // the extra room instead of leaving a gap above them.
+      var scale = shown > galleryHeight && galleryHeight > 0 ? shown / galleryHeight : 1;
+      if (scale !== shownScale) {
+        shownScale = scale;
+        stage.style.transform = scale > 1 ? 'scale(' + scale + ')' : '';
+      }
+
       if (shown === 0) {
         main.style.transform = '';
         slot.style.transform = '';
@@ -241,6 +309,12 @@
       raf = 0;
     }
 
+    function currentTarget() {
+      if (pulling) return rubber(pull, galleryHeight * CONFIG.peekMax, 1);
+      if (stretching) return galleryHeight + appleRubber(stretch);
+      return phase === 'open' ? galleryHeight : 0;
+    }
+
     function frame(now) {
       raf = 0;
       var dt = Math.min(0.064, Math.max(0, (now - lastFrameAt) / 1000));
@@ -248,26 +322,26 @@
 
       if (touch && touch.owned) return;
 
-      // An unfinished push holds for a beat, then springs back.
+      // Input that stops arriving holds for a beat, then springs back.
       if (pulling && now - lastInputAt > CONFIG.pullHoldMs) {
         pulling = false;
         pull = 0;
         phase = 'closing';
         springName = 'cancel';
       }
+      if (stretching && now - lastInputAt > CONFIG.stretchHoldMs) releaseStretch();
 
-      var target = pulling
-        ? rubber(pull, galleryHeight * CONFIG.peekMax, 1)
-        : (phase === 'open' ? galleryHeight : 0);
-      integrate(dt, target, pulling ? CONFIG.springs.follow : CONFIG.springs[springName]);
+      var held = pulling || stretching;
+      var target = currentTarget();
+      integrate(dt, target, held ? CONFIG.springs.follow : CONFIG.springs[springName]);
 
-      // The open timer runs from the moment the pictures are fully in view,
-      // not from when the spring has finished settling.
-      if (phase === 'open' && !autoCloseScheduled && Math.abs(y) >= galleryHeight - 4) {
+      // The open timer runs from the moment the pictures are fully in view
+      // (or back in view after a stretch), not from full settling.
+      if (phase === 'open' && !stretching && !autoCloseScheduled && Math.abs(Math.abs(y) - galleryHeight) <= 4) {
         scheduleAutoClose();
       }
 
-      if (!pulling && Math.abs(Math.abs(y) - target) < 0.5 && Math.abs(v) < 10) {
+      if (!held && Math.abs(Math.abs(y) - target) < 0.5 && Math.abs(v) < 10) {
         y = target;
         v = 0;
         render();
@@ -290,11 +364,17 @@
       startSlides();
     }
 
+    function resetDrives() {
+      pulling = false;
+      pull = 0;
+      stretching = false;
+      stretch = 0;
+    }
+
     function toIdle() {
       phase = 'idle';
       springName = 'cancel';
-      pulling = false;
-      pull = 0;
+      resetDrives();
       y = 0;
       v = 0;
       clearAutoClose();
@@ -317,8 +397,7 @@
       catchSheet();
       phase = 'open';
       springName = 'open';
-      pulling = false;
-      pull = 0;
+      resetDrives();
       isolatedPushes = 0;
       clearAutoClose();
       autoCloseScheduled = false;
@@ -326,12 +405,11 @@
     }
 
     function close(name) {
-      if (phase === 'idle' || (phase === 'closing' && springName === name)) return;
+      if (phase === 'idle' || phase === 'hint' || (phase === 'closing' && springName === name)) return;
       catchSheet();
       phase = 'closing';
       springName = name;
-      pulling = false;
-      pull = 0;
+      resetDrives();
       var kick = CONFIG.springs[name].kick;
       if (kick) v = Math.min(v, -kick * y);
       clearAutoClose();
@@ -344,8 +422,9 @@
       autoCloseTimer = window.setTimeout(function () {
         autoCloseTimer = 0;
         if (phase !== 'open') return;
-        // A finger is on the screen: re-armed once it lifts.
-        if (touch) {
+        // A finger is on the screen, or the sheet is being stretched: re-armed
+        // once that input ends.
+        if (touch || stretching) {
           autoCloseScheduled = false;
           return;
         }
@@ -359,21 +438,60 @@
       autoCloseTimer = 0;
     }
 
+    // ---- the arrival bump --------------------------------------------------
+
+    /*
+     * Arriving at the end with speed nudges the sheet up a little and lets
+     * it settle back — UIScrollView's bounce at its edge, scaled way down —
+     * so there is a hint that something lies under the page. One kick per
+     * arrival, sized by how fast the page was moving; whatever momentum is
+     * left is spent against the end. It can never open the gallery; that
+     * takes a new, deliberate push.
+     */
+    function startHint(speed) {
+      if (phase !== 'idle' || speed < CONFIG.hint.minSpeed) return;
+      var peak = Math.min(hintMax(), speed * CONFIG.hint.perSpeed);
+      beginMotion();
+      phase = 'hint';
+      springName = 'hint';
+      // A critically damped spring kicked from rest peaks at v0 / (ω·e).
+      v = peak * (2 * Math.PI / CONFIG.springs.hint.response) * Math.E;
+      wake();
+    }
+
     // ---- wheel & trackpad --------------------------------------------------
 
     /*
      * Momentum that carried the page to its end must not open anything —
-     * that is the "you reached the end" moment. So a wheel stream only
-     * pulls the sheet if it began while already at the end, or if a new
-     * swipe clearly accelerates on top of a decaying momentum tail (macOS
-     * cancels momentum the instant fingers touch the pad again, without a
-     * gap in events).
+     * that is the "you reached the end" moment; it only bumps the sheet
+     * (the hint above). So a wheel stream only pulls the sheet open if it
+     * began while already at the end, or if a new swipe clearly
+     * accelerates on top of a decaying momentum tail (macOS cancels
+     * momentum the instant fingers touch the pad again, without a gap in
+     * events). The same test tells a deliberate push past fully open from
+     * the momentum tail of the push that opened the sheet.
      */
     function isFreshSwipe(recent, magnitude) {
-      if (recent.length < 2 || magnitude < 6) return false;
-      var a = recent[recent.length - 2];
-      var b = recent[recent.length - 1];
-      return b > a && magnitude > b && magnitude >= a * 1.8;
+      if (recent.length < 3 || magnitude < CONFIG.wheelFreshMinPx) return false;
+      var a = recent[recent.length - 3];
+      var b = recent[recent.length - 2];
+      var c = recent[recent.length - 1];
+      // Three steps of real acceleration, not one spike: a dying tail is
+      // noisy (Safari's last events jitter between 1 and 10px), and any
+      // single jump in it would otherwise read as a new swipe.
+      return a < b && b < c && magnitude > c && magnitude >= a * 1.8;
+    }
+
+    // Once the fingers leave the pad, a trackpad keeps sending the swipe's
+    // momentum: a run of shrinking deltas. (A finger slowing down before it
+    // lifts looks the same, and ends the same way.)
+    function isDying(recent) {
+      var n = recent.length;
+      if (n < 4) return false;
+      for (var i = n - 3; i < n; i += 1) {
+        if (recent[i] > recent[i - 1]) return false;
+      }
+      return recent[n - 1] <= recent[n - 4] * 0.85;
     }
 
     function beginPull() {
@@ -387,6 +505,7 @@
         open();
         return false;
       }
+      resetDrives();
       pull = unrubber(y, max, 1);
       phase = 'peek';
       pulling = true;
@@ -396,16 +515,20 @@
     /*
      * A trackpad sends a continuous train of events (one per frame), a
      * wheel mouse one event per notch — and a notch can be as small as a
-     * few px on macOS. So an event with a pause before it counts as a
-     * discrete push: it gets a minimum visible peek, and two of them within
-     * wheelPushWindowMs open the gallery, whatever their delta. Only the
-     * first event of a trackpad train is isolated, so trackpads open on
-     * distance instead.
+     * few px on macOS. So an event that opens a stream after a pause counts
+     * as a discrete push: it gets a minimum visible peek, and two of them
+     * within wheelPushWindowMs open the gallery, whatever their delta. A
+     * trackpad train only ever opens one stream, so it opens on distance
+     * instead — and the stutters inside that train (Safari drops out for up
+     * to ~120ms at a time) are not pushes of their own.
      */
-    function applyPush(delta, isolated, now) {
-      if (!pulling && !beginPull()) return;
+    function applyPush(delta, notch, now) {
+      if (!pulling && !beginPull()) {
+        if (stream) stream.spent = true;
+        return;
+      }
       pull += delta;
-      if (isolated && delta >= 2) {
+      if (notch && delta >= 2) {
         if (pull < CONFIG.wheelKickPull) pull = CONFIG.wheelKickPull;
         if (now - lastPushAt > CONFIG.wheelPushWindowMs) isolatedPushes = 0;
         isolatedPushes += 1;
@@ -413,9 +536,31 @@
       }
       lastInputAt = now;
       if (pull >= CONFIG.wheelOpenPull || isolatedPushes >= CONFIG.wheelPushesToOpen) {
+        if (stream) stream.spent = true;
         open();
         return;
       }
+      wake();
+    }
+
+    function applyStretch(delta, now) {
+      if (!stretching) {
+        catchSheet();
+        stretch = appleUnrubber(Math.max(0, y - galleryHeight));
+        stretching = true;
+        clearAutoClose();
+        autoCloseScheduled = false;
+      }
+      stretch = Math.max(0, stretch + delta);
+      lastInputAt = now;
+      wake();
+    }
+
+    function releaseStretch() {
+      if (!stretching) return;
+      stretching = false;
+      stretch = 0;
+      springName = 'open';
       wake();
     }
 
@@ -446,24 +591,40 @@
       var delta = wheelDeltaPx(event);
       if (Math.abs(event.deltaX) > Math.abs(delta)) delta = 0;
       var magnitude = Math.abs(delta);
-      var isolated = now - lastWheelAt >= CONFIG.wheelIsolatedGapMs;
+      var sinceLast = now - lastWheelAt;
+      var isolated = sinceLast >= CONFIG.wheelIsolatedGapMs;
       var end = atEnd();
+      var fresh = false;
 
-      if (!stream || now - lastWheelAt > CONFIG.streamGapMs) {
-        stream = { fromEnd: end, recent: [], claimed: false };
+      // spent: this stream's push already did its job (opened the sheet,
+      // bumped it on arrival, or stretched it and let go); the rest of it
+      // is momentum, and only a fresh swipe on top of it counts again.
+      if (!stream || sinceLast > CONFIG.streamGapMs) {
+        stream = { fromEnd: end, recent: [], claimed: false, spent: false };
       } else if (!end) {
         stream.fromEnd = false;
-      } else if (!stream.fromEnd && delta > 0 && isFreshSwipe(stream.recent, magnitude)) {
+      } else if (delta > 0 && isFreshSwipe(stream.recent, magnitude)) {
+        fresh = true;
         stream.fromEnd = true;
       }
+      // A discrete notch only ever opens a stream; everything inside a
+      // train is the same push, however ragged the browser's cadence is.
+      var notch = isolated && magnitude >= CONFIG.wheelNotchMinPx && stream.recent.length <= 1;
+      // How far this event pulls the sheet: the raw delta, but never
+      // faster than wheelPullRatePxPerS, so a push feels the same in
+      // every browser. The page itself is still scrolled by the raw delta.
+      var step = Math.min(magnitude, CONFIG.wheelPullRatePxPerS * Math.min(Math.max(sinceLast, 4), 40) / 1000);
+      if (delta < 0) step = -step;
+
       if (magnitude) {
         stream.recent.push(magnitude);
         if (stream.recent.length > 6) stream.recent.shift();
       }
       lastWheelAt = now;
+      wheelTrain = !isolated;
 
       // Only a sheet that is up (or being held up) holds the page; while it
-      // is falling, the same swipe already scrolls the page underneath.
+      // is falling or merely bumping, the same swipe scrolls the page.
       var lifted = phase === 'peek' || phase === 'open';
 
       if (!event.cancelable) {
@@ -480,10 +641,19 @@
       if (!delta || (touch && touch.owned)) return;
 
       if (!lifted) {
-        if (delta > 0 && end && stream.fromEnd) {
-          // A push at the end: opens, or catches a falling sheet.
+        if (delta > 0 && end && stream.fromEnd && (!stream.spent || fresh || notch)) {
+          // A push at the end: opens, or catches a falling sheet. A stream
+          // that already did its job is inert: its momentum must not push
+          // the sheet open again after it has closed.
           if (stream.claimed) event.preventDefault();
-          applyPush(delta, isolated, now);
+          applyPush(step, notch, now);
+        } else if (delta > 0 && end && !stream.claimed) {
+          // The momentum that carried the page here: one bump, as hard as
+          // it arrived.
+          if (!stream.spent) {
+            stream.spent = true;
+            startHint(magnitude / Math.max(8, sinceLast) * 1000);
+          }
         } else if (stream.claimed) {
           event.preventDefault();
           instantScrollBy(delta);
@@ -492,9 +662,26 @@
       }
 
       if (phase === 'peek') {
-        if (delta > 0) applyPush(delta, isolated, now);
+        if (delta > 0) applyPush(step, notch, now);
         else close('cancel');
-      } else if (delta < 0) {
+        return;
+      }
+
+      // Open.
+      if (delta > 0) {
+        if (stream.spent && !fresh && !notch) return;
+        if (stretching && !fresh && !notch && isDying(stream.recent)) {
+          // Fingers off the pad: spring back now rather than hang on the
+          // momentum until it runs out.
+          stream.spent = true;
+          releaseStretch();
+          return;
+        }
+        stream.spent = false;
+        applyStretch(step, now);
+      } else if (stretching && stretch > 0) {
+        applyStretch(step, now);
+      } else {
         close('close');
       }
     }
@@ -510,10 +697,18 @@
      * Ownership of a touch gesture is decided on its first move and kept
      * to the end: iOS Safari will not let a page take over a gesture the
      * browser already started scrolling, and will not hand one back once
-     * touchmove was prevented. A swipe that arrives at the end of the page
-     * therefore stays native (the "end" moment); the sheet only answers a
-     * swipe that starts there and moves up, or any touch while it is
-     * lifted.
+     * touchmove was prevented.
+     *
+     * A swipe up that starts at, or just short of, the end of the page is
+     * the sheet's. "Just short" matters on iOS: at the end of a page Safari
+     * expands its bottom toolbar, which shortens the viewport and leaves the
+     * page tens of px short of its end without anything having scrolled —
+     * a strict at-the-end test then rejects exactly the swipe meant for the
+     * sheet. Here the rest of the page is scrolled by hand, 1:1 with the
+     * finger, and the pull continues into the sheet in one motion.
+     *
+     * A swipe that starts well up the page stays native — momentum carrying
+     * it to the end is the "end" moment and only bumps the sheet.
      */
     function onTouchStart(event) {
       if (event.touches.length !== 1) {
@@ -523,17 +718,20 @@
       var point = event.touches[0];
       touch = {
         id: point.identifier,
+        startX: point.clientX,
         startY: point.clientY,
-        fromEnd: atEnd(),
+        nearEnd: !pinchZoomed() && gapToEnd() <= CONFIG.touchNearEndPx,
         decided: false,
         owned: false,
         mode: null,
         originY: 0,
         originLift: 0,
+        originScrollY: 0,
+        endScrollY: 0,
         handedOff: 0,
         samples: []
       };
-      if (phase !== 'idle') {
+      if (phase === 'peek' || phase === 'open' || phase === 'closing') {
         clearAutoClose();
         autoCloseScheduled = false;
         stopLoop();
@@ -566,29 +764,35 @@
       var move = touch.startY - point.clientY;
 
       if (!touch.decided) {
-        if (!move) {
-          if (phase !== 'idle' && event.cancelable) event.preventDefault();
+        var lifted = phase === 'peek' || phase === 'open' || phase === 'closing';
+        var sideways = Math.abs(point.clientX - touch.startX);
+        if (!move && !sideways) {
+          if (lifted && event.cancelable) event.preventDefault();
           return;
         }
         touch.decided = true;
-        if (phase !== 'idle') {
+        // A move the browser has already made non-cancelable is its own
+        // to scroll; taking it as well would move the page twice.
+        if (lifted && event.cancelable) {
           touch.owned = true;
           touch.mode = 'drag';
-        } else if (touch.fromEnd && move > 0 && atEnd()) {
+        } else if (touch.nearEnd && move > 0 && sideways <= move && event.cancelable) {
           touch.owned = true;
           touch.mode = 'push';
           beginMotion();
           phase = 'peek';
         }
         if (!touch.owned) {
-          touch = null;
+          endTouch();
           return;
         }
         stopLoop();
-        pulling = false;
-        pull = 0;
+        resetDrives();
+        catchSheet();
         touch.originY = point.clientY;
         touch.originLift = Math.abs(y);
+        touch.originScrollY = window.scrollY;
+        touch.endScrollY = maxScrollY();
       }
 
       if (event.cancelable) event.preventDefault();
@@ -596,14 +800,16 @@
       var next;
 
       if (touch.mode === 'push') {
-        next = rubber(delta, galleryHeight * CONFIG.touchPeekMax, CONFIG.touchResistance);
+        // First the rest of the page, then the sheet — the same rubber band
+        // a native page has at its end, all the way through.
+        var remainder = Math.max(0, touch.endScrollY - touch.originScrollY);
+        var pageTarget = touch.originScrollY + Math.min(Math.max(delta, 0), remainder);
+        var pageStep = pageTarget - window.scrollY;
+        if (Math.abs(pageStep) >= 0.5) instantScrollBy(pageStep);
+        next = appleRubber(appleUnrubber(touch.originLift) + Math.max(0, delta - remainder));
       } else {
         var raw = touch.originLift + delta;
-        if (raw > galleryHeight) {
-          next = galleryHeight + rubber(raw - galleryHeight, overshoot * CONFIG.stretchMax, CONFIG.stretchResistance);
-        } else {
-          next = Math.max(0, raw);
-        }
+        next = raw > galleryHeight ? galleryHeight + appleRubber(raw - galleryHeight) : Math.max(0, raw);
         // Past fully closed, keep moving the page with the finger.
         var below = raw < 0 ? -raw : 0;
         var scrollStep = below - touch.handedOff;
@@ -630,6 +836,8 @@
         return;
       }
 
+      if (gesture.mode === 'push') liftScrollY = Math.min(window.scrollY, maxScrollY());
+
       var fingerUp = -releaseRate(gesture.samples, 'finger');
       var lift = Math.abs(y);
       var flingUp = fingerUp > CONFIG.touchFlingPxPerS;
@@ -637,7 +845,7 @@
       v = releaseRate(gesture.samples, 'lift');
 
       if (gesture.mode === 'push') {
-        if (lift >= galleryHeight * CONFIG.touchOpenAt || (flingUp && lift > 4)) {
+        if (lift >= galleryHeight * CONFIG.touchOpenAt || (flingUp && lift >= CONFIG.touchFlingMinLiftPx)) {
           open();
         } else {
           close('cancel');
@@ -661,7 +869,7 @@
     // ---- keyboard, scroll, lifecycle --------------------------------------
 
     function onKeyDown(event) {
-      if (phase === 'idle' || event.defaultPrevented) return;
+      if (phase === 'idle' || phase === 'hint' || event.defaultPrevented) return;
       if (event.altKey || event.ctrlKey || event.metaKey) return;
       var target = event.target;
       if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
@@ -677,21 +885,46 @@
     }
 
     /*
-     * Anything else that moves the page up while the sheet is lifted — the
-     * scrollbar, an anchor, find-in-page, focus — drops the sheet. Only
-     * movement away from the end counts: Safari reports positions past the
-     * end while it settles there, and iOS changes innerHeight rather than
-     * scrollY when its toolbar shows.
+     * Two jobs. Anything that moves the page up while the sheet is lifted —
+     * the scrollbar, an anchor, find-in-page, focus — drops the sheet; only
+     * movement away from the end counts, because Safari reports positions
+     * past the end while it settles there and iOS changes innerHeight
+     * rather than scrollY when its toolbar shows. And a scroll that lands
+     * on the end with speed while nothing else drives the sheet — touch
+     * momentum, a keyboard jump — gives the arrival bump. Wheel-driven
+     * arrivals bump from the wheel's own momentum tail instead.
      */
     function onScroll() {
-      if (phase !== 'peek' && phase !== 'open') return;
+      var now = performance.now();
+      var sy = window.scrollY;
+      var previous = lastScroll;
+      var dt = previous ? now - previous.t : 0;
+      var speed = dt > 0 && dt <= 120 ? (sy - previous.y) / dt * 1000 : 0;
+      lastScroll = { y: sy, t: now, speed: speed };
+
       if (touch && touch.owned) return;
-      if (window.scrollY < liftScrollY - CONFIG.scrollAwayPx) close('close');
+
+      if (phase === 'peek' || phase === 'open') {
+        if (sy < liftScrollY - CONFIG.scrollAwayPx) close('close');
+        return;
+      }
+
+      // Only the end of a run of steps is an arrival with momentum; a lone
+      // jump (scroll restoration on reload, an anchor) is not. A trackpad's
+      // momentum still arriving as wheel events: the wheel handler sizes
+      // the bump from those instead.
+      if (phase !== 'idle' || speed <= 0 || !(previous.speed > 0)) return;
+      if (wheelTrain && now - lastWheelAt < 100) return;
+      var max = maxScrollY();
+      if (max - sy > CONFIG.endTolerancePx || max - previous.y <= CONFIG.endTolerancePx || pinchZoomed()) return;
+      // The last step is cut short by the end itself; the one before it
+      // still carries the full speed.
+      startHint(Math.max(speed, previous.speed));
     }
 
     function onResize() {
       measureSizes();
-      if (phase === 'idle' || (touch && touch.owned)) return;
+      if (phase === 'idle' || phase === 'hint' || (touch && touch.owned)) return;
       // The page reflowed and its end moved away from under the lifted
       // sheet: drop it. A small change — a mobile toolbar showing or
       // hiding — keeps it open.
@@ -703,12 +936,17 @@
       wake();
     }
 
-    // Non-passive wheel/touchmove listeners make the browser wait on this
-    // script before scrolling, so they are only attached near the end of
-    // the page, never while reading the rest of it.
+    /*
+     * Non-passive wheel/touchmove listeners make the browser wait on this
+     * script before scrolling, so they are only attached near the end of
+     * the page, never while reading the rest of it. The same class switches
+     * off the browser's own bounce there (css/project-footer.css), and only
+     * there — elsewhere, including pull-to-refresh at the top, stays native.
+     */
     function arm() {
       if (armed) return;
       armed = true;
+      html.classList.add('is-footer-near');
       requestImages();
       window.addEventListener('wheel', onWheel, { passive: false });
       window.addEventListener('touchmove', onTouchMove, { passive: false });
@@ -720,6 +958,7 @@
       if (!armed || phase !== 'idle' || touch || wheelEndTimer) return;
       armed = false;
       stream = null;
+      html.classList.remove('is-footer-near');
       window.removeEventListener('wheel', onWheel, { passive: false });
       window.removeEventListener('touchmove', onTouchMove, { passive: false });
     }

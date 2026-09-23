@@ -25,9 +25,6 @@ rsync -a \
 cp "$ROOT/robots.production.txt" "$SITE_DIR/robots.txt"
 cp "$ROOT/deploy/beget/.htaccess" "$SITE_DIR/.htaccess"
 
-echo "Building the secret footer preview…"
-python3 "$ROOT/scripts/make-footer-preview.py" "$SITE_DIR"
-
 echo "Building clean URLs (/slug/ + .html redirects)…"
 python3 "$ROOT/scripts/build-clean-urls.py" "$SITE_DIR"
 

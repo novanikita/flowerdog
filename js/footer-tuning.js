@@ -58,6 +58,42 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(values)); } catch (e) {}
   }
 
+  /*
+   * Frame pacing, so a "feels like a lower framerate" can be looked at
+   * instead of guessed: the rate over the last half second, the worst gap
+   * between frames in the last two seconds, and whether the footer's
+   * listeners are armed right now (they make the browser wait on this
+   * script before scrolling, which is the first thing to suspect).
+   */
+  function startFpsMeter(node) {
+    var frames = [];
+    var worst = [];
+    var last = 0;
+    var shownAt = 0;
+
+    function tick(now) {
+      if (last) {
+        var gap = now - last;
+        frames.push(now);
+        worst.push({ t: now, gap: gap });
+        while (frames.length && now - frames[0] > 500) frames.shift();
+        while (worst.length && now - worst[0].t > 2000) worst.shift();
+        if (now - shownAt > 250) {
+          shownAt = now;
+          var span = frames.length > 1 ? (frames[frames.length - 1] - frames[0]) / 1000 : 0;
+          var rate = span > 0 ? Math.round((frames.length - 1) / span) : 0;
+          var peak = worst.reduce(function (max, f) { return Math.max(max, f.gap); }, 0);
+          var armed = document.documentElement.classList.contains('is-footer-near');
+          node.innerHTML = '<b>' + rate + '</b> к/с · худший кадр ' + Math.round(peak) + ' мс · подвал ' + (armed ? 'рядом' : 'далеко');
+          node.classList.toggle('is-low', rate > 0 && rate < 50);
+        }
+      }
+      last = now;
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
   function build(config) {
     var defaults = JSON.parse(JSON.stringify(config));
     var stored = readStored();
@@ -67,6 +103,9 @@
     style.textContent =
       '.fd-tune{position:fixed;top:8px;left:8px;z-index:2147483647;font:13px/1.3 -apple-system,system-ui,sans-serif;color:#111}' +
       '.fd-tune__toggle{padding:6px 10px;border:0;border-radius:999px;background:#0056d3;color:#fff;font:inherit;font-weight:600;cursor:pointer}' +
+      '.fd-tune__fps{margin-left:6px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(0,0,0,.15);font-variant-numeric:tabular-nums;white-space:nowrap}' +
+      '.fd-tune__fps.is-low{background:#ffd7d7}' +
+      '.fd-tune__fps b{font-weight:700}' +
       '.fd-tune__body{display:none;margin-top:6px;width:min(320px,calc(100vw - 16px));max-height:min(70vh,560px);overflow:auto;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.96);box-shadow:0 8px 30px rgba(0,0,0,.18);backdrop-filter:blur(8px)}' +
       '.fd-tune.is-open .fd-tune__body{display:block}' +
       '.fd-tune__head{margin:10px 0 4px;font-weight:700;opacity:.55;text-transform:uppercase;font-size:11px;letter-spacing:.04em}' +
@@ -87,10 +126,15 @@
     toggle.className = 'fd-tune__toggle';
     toggle.type = 'button';
     toggle.textContent = 'Подвал: настройки';
+    var fps = document.createElement('span');
+    fps.className = 'fd-tune__fps';
+    fps.textContent = '…';
     var body = document.createElement('div');
     body.className = 'fd-tune__body';
     root.appendChild(toggle);
+    root.appendChild(fps);
     root.appendChild(body);
+    startFpsMeter(fps);
 
     toggle.addEventListener('click', function () { root.classList.toggle('is-open'); });
 

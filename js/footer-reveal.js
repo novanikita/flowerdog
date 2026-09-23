@@ -13,6 +13,12 @@
 
     // Wheel and trackpad. Pull is measured in wheel-delta px.
     streamGapMs: 160,
+    // How long after the last event a claimed gesture is still treated as
+    // going on. Safari's trackpad stream stutters for over 100ms at a time
+    // in the middle of a gesture, and a claimed gesture is one the browser
+    // will not scroll for — so this has to outlast any stutter, or the page
+    // stops moving in the middle of a swipe.
+    claimReleaseMs: 450,
     wheelOpenPull: 170,
     wheelIsolatedGapMs: 30,
     wheelKickPull: 50,
@@ -243,6 +249,7 @@
     var stream = null;
     var lastWheelAt = -Infinity;
     var wheelTrain = false; // the last wheel event came right after another
+    var claiming = false; // this gesture is the page's; the browser scrolls none of it
     var wheelEndTimer = 0;
     var touch = null;
     var lastScroll = null;
@@ -388,6 +395,7 @@
       stopLoop();
       window.clearTimeout(wheelEndTimer);
       wheelEndTimer = 0;
+      claiming = false;
       touch = null;
       stream = null;
       toIdle();
@@ -577,12 +585,14 @@
      * The flip side: a gesture the page has claimed is one the browser has
      * agreed not to scroll for, to its very end — momentum included, and
      * on a trackpad the next swipe often begins before that momentum has
-     * died, so the stream can run on for as long as the user keeps
-     * swiping. Once the sheet is down again, the remaining events of a
-     * claimed stream are therefore scrolled here by hand; dropping them
-     * left the page frozen until the user paused. An event the browser
-     * has already made non-cancelable is its own to scroll and is never
-     * touched.
+     * died, so it can run on for as long as the user keeps swiping. Once
+     * the sheet is down again, the remaining events are therefore scrolled
+     * here by hand; dropping them left the page frozen until the user
+     * paused. That claim is kept outside the stream bookkeeping below and
+     * only let go after a real pause: Safari stutters mid-gesture for long
+     * enough to look like a new stream, and letting go there stopped the
+     * page dead in the middle of a swipe. An event the browser has already
+     * made non-cancelable is its own to scroll and is never touched.
      */
     function onWheel(event) {
       if (event.ctrlKey) return;
@@ -600,7 +610,7 @@
       // bumped it on arrival, or stretched it and let go); the rest of it
       // is momentum, and only a fresh swipe on top of it counts again.
       if (!stream || sinceLast > CONFIG.streamGapMs) {
-        stream = { fromEnd: end, recent: [], claimed: false, spent: false };
+        stream = { fromEnd: end, recent: [], spent: false };
       } else if (!end) {
         stream.fromEnd = false;
       } else if (delta > 0 && isFreshSwipe(stream.recent, magnitude)) {
@@ -628,14 +638,14 @@
       var lifted = phase === 'peek' || phase === 'open';
 
       if (!event.cancelable) {
-        stream.claimed = false;
+        claiming = false;
       } else if (lifted) {
         event.preventDefault();
-        stream.claimed = true;
+        claiming = true;
       }
-      if (stream.claimed) {
+      if (claiming) {
         window.clearTimeout(wheelEndTimer);
-        wheelEndTimer = window.setTimeout(onWheelEnd, CONFIG.streamGapMs);
+        wheelEndTimer = window.setTimeout(onWheelEnd, CONFIG.claimReleaseMs);
       }
 
       if (!delta || (touch && touch.owned)) return;
@@ -645,16 +655,16 @@
           // A push at the end: opens, or catches a falling sheet. A stream
           // that already did its job is inert: its momentum must not push
           // the sheet open again after it has closed.
-          if (stream.claimed) event.preventDefault();
+          if (claiming) event.preventDefault();
           applyPush(step, notch, now);
-        } else if (delta > 0 && end && !stream.claimed) {
+        } else if (delta > 0 && end && !claiming) {
           // The momentum that carried the page here: one bump, as hard as
           // it arrived.
           if (!stream.spent) {
             stream.spent = true;
             startHint(magnitude / Math.max(8, sinceLast) * 1000);
           }
-        } else if (stream.claimed) {
+        } else if (claiming) {
           event.preventDefault();
           instantScrollBy(delta);
         }
@@ -688,6 +698,7 @@
 
     function onWheelEnd() {
       wheelEndTimer = 0;
+      claiming = false;
       if (!nearEnd) disarm();
     }
 

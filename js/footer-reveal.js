@@ -49,15 +49,6 @@
     maxLiftRatio: 0.9, // of the viewport height
     stretchHoldMs: 120, // wheel/trackpad stretch springs back after this pause
 
-    // The bump on arriving at the end with momentum: a critically damped
-    // spring kicked upward, height proportional to the arrival speed.
-    hint: {
-      perSpeed: 0.012, // px of bump per px/s of arrival speed
-      minSpeed: 350, // px/s; slower arrivals get no bump
-      maxDesktopPx: 28,
-      maxTouchPx: 40 // taller, so it clears the iOS toolbar's edge fade
-    },
-
     // response ≈ seconds per oscillation; damping 1 = no overshoot; kick =
     // starting speed, as a multiple of the remaining distance per second,
     // so a close starts moving at once instead of easing in from rest.
@@ -66,8 +57,7 @@
       open: { response: 0.46, damping: 0.78, kick: 0 },
       cancel: { response: 0.4, damping: 1, kick: 0 },
       close: { response: 0.7, damping: 0.82, kick: 2.5 },
-      autoClose: { response: 0.85, damping: 0.8, kick: 2.2 },
-      hint: { response: 0.5, damping: 1, kick: 0 }
+      autoClose: { response: 0.85, damping: 0.8, kick: 2.2 }
     }
   };
 
@@ -156,32 +146,6 @@
     if (prefersReducedMotion()) return;
     html.classList.add('has-footer-reveal');
 
-    var coarsePointer = window.matchMedia('(pointer: coarse)');
-
-    /*
-     * Whether the browser's own bounce past the end of the page may be
-     * switched off near the footer (css/project-footer.css). Chromium and
-     * Gecko: always. WebKit: only until a wheel is involved — with the
-     * root's overscroll-behavior set to none and a non-passive wheel
-     * listener present, WebKit stops scrolling the page altogether, so on
-     * a Mac the bounce stays on and does the arrival's showing by itself.
-     */
-    var wheelSafeEngine = !!navigator.userAgentData ||
-      (window.CSS && CSS.supports && CSS.supports('-moz-appearance', 'none'));
-    var macLike = /Mac|iP(hone|ad|od)/.test(navigator.platform || '');
-    if (wheelSafeEngine || coarsePointer.matches) html.classList.add('can-lock-end');
-    if (!wheelSafeEngine) {
-      window.addEventListener('wheel', function () {
-        html.classList.remove('can-lock-end');
-      }, { passive: true, once: true });
-    }
-
-    // An arrival by momentum gets the sheet's own bump unless the browser
-    // is about to bounce the page natively anyway.
-    function wantsArrivalBump() {
-      return html.classList.contains('can-lock-end') || !macLike;
-    }
-
     var panel = document.createElement('div');
     panel.className = 'site-footer-reveal__panel';
     panel.setAttribute('aria-hidden', 'true');
@@ -200,10 +164,6 @@
 
     function maxLift() {
       return Math.max(galleryHeight, window.innerHeight * CONFIG.maxLiftRatio);
-    }
-
-    function hintMax() {
-      return coarsePointer.matches ? CONFIG.hint.maxTouchPx : CONFIG.hint.maxDesktopPx;
     }
 
     // ---- pictures ----------------------------------------------------------
@@ -252,7 +212,7 @@
 
     var y = 0; // px the sheet is lifted; drawn as |y|
     var v = 0;
-    var phase = 'idle'; // idle | hint | peek | open | closing
+    var phase = 'idle'; // idle | peek | open | closing
     var springName = 'cancel';
 
     // Input-driven targets; at most one is active at a time.
@@ -272,11 +232,9 @@
     var autoCloseScheduled = false;
     var stream = null;
     var lastWheelAt = -Infinity;
-    var wheelTrain = false; // the last wheel event came right after another
     var claiming = false; // this gesture is the page's; the browser scrolls none of it
     var wheelEndTimer = 0;
     var touch = null;
-    var lastScroll = null;
 
     var armed = false;
     var nearEnd = false;
@@ -437,7 +395,7 @@
     }
 
     function close(name) {
-      if (phase === 'idle' || phase === 'hint' || (phase === 'closing' && springName === name)) return;
+      if (phase === 'idle' || (phase === 'closing' && springName === name)) return;
       catchSheet();
       phase = 'closing';
       springName = name;
@@ -470,38 +428,14 @@
       autoCloseTimer = 0;
     }
 
-    // ---- the arrival bump --------------------------------------------------
-
-    /*
-     * Arriving at the end with speed nudges the sheet up a little and lets
-     * it settle back — UIScrollView's bounce at its edge, scaled way down —
-     * so there is a hint that something lies under the page. One kick per
-     * arrival, sized by how fast the page was moving; whatever momentum is
-     * left is spent against the end. It can never open the gallery; that
-     * takes a new, deliberate push.
-     */
-    function startHint(speed) {
-      if (phase !== 'idle' || speed < CONFIG.hint.minSpeed) return;
-      var peak = Math.min(hintMax(), speed * CONFIG.hint.perSpeed);
-      beginMotion();
-      phase = 'hint';
-      springName = 'hint';
-      // A critically damped spring kicked from rest peaks at v0 / (ω·e).
-      v = peak * (2 * Math.PI / CONFIG.springs.hint.response) * Math.E;
-      wake();
-    }
-
     // ---- wheel & trackpad --------------------------------------------------
 
     /*
-     * Momentum that carried the page to its end must not open anything —
-     * that is the "you reached the end" moment; it only bumps the sheet
-     * (the hint above). So a wheel stream only pulls the sheet open if it
-     * began while already at the end, or if a new swipe clearly
-     * accelerates on top of a decaying momentum tail (macOS cancels
-     * momentum the instant fingers touch the pad again, without a gap in
-     * events). The same test tells a deliberate push past fully open from
-     * the momentum tail of the push that opened the sheet.
+     * The momentum tail of the push that opened the sheet is not a new
+     * push: it must neither stretch the sheet nor, once the sheet has
+     * closed by itself, open it again. A new swipe on top of that tail
+     * is — macOS cancels momentum the instant fingers touch the pad again,
+     * without a gap in events, so it shows up as a clear acceleration.
      */
     function isFreshSwipe(recent, magnitude) {
       if (recent.length < 3 || magnitude < CONFIG.wheelFreshMinPx) return false;
@@ -597,14 +531,13 @@
     }
 
     /*
-     * Gesture ownership. While the sheet is down, nothing is ever
-     * cancelled: at the end of the page the browser has nowhere to scroll
-     * (overscroll-behavior in css/project-footer.css keeps it from
-     * bouncing), so the events can simply be read. While the sheet is
-     * lifted, every event of a gesture is cancelled — including the
-     * delta-less one Safari sends first: WebKit decides on that first
-     * event whether the page owns the gesture, and if it goes through,
-     * nothing later in that gesture can be cancelled.
+     * Gesture ownership. A gesture that starts at the end of the page, or
+     * while the sheet is lifted, is the sheet's: every event of it is
+     * cancelled — including the delta-less one Safari sends first, since
+     * WebKit decides on that first event whether the page owns the
+     * gesture, and if it goes through, nothing later in that gesture can
+     * be cancelled. A gesture that started elsewhere and reaches the end by
+     * momentum is the browser's, bounce included, and is never touched.
      *
      * The flip side: a gesture the page has claimed is one the browser has
      * agreed not to scroll for, to its very end — momentum included, and
@@ -628,19 +561,14 @@
       var sinceLast = now - lastWheelAt;
       var isolated = sinceLast >= CONFIG.wheelIsolatedGapMs;
       var end = atEnd();
-      var fresh = false;
 
       // spent: this stream's push already did its job (opened the sheet,
-      // bumped it on arrival, or stretched it and let go); the rest of it
-      // is momentum, and only a fresh swipe on top of it counts again.
+      // or stretched it and let go); the rest of it is momentum, and only
+      // a fresh swipe on top of it counts again.
       if (!stream || sinceLast > CONFIG.streamGapMs) {
-        stream = { fromEnd: end, recent: [], spent: false };
-      } else if (!end) {
-        stream.fromEnd = false;
-      } else if (delta > 0 && isFreshSwipe(stream.recent, magnitude)) {
-        fresh = true;
-        stream.fromEnd = true;
+        stream = { recent: [], spent: false };
       }
+      var fresh = delta > 0 && isFreshSwipe(stream.recent, magnitude);
       // A discrete notch only ever opens a stream; everything inside a
       // train is the same push, however ragged the browser's cadence is.
       var notch = isolated && magnitude >= CONFIG.wheelNotchMinPx && stream.recent.length <= 1;
@@ -655,7 +583,6 @@
         if (stream.recent.length > 6) stream.recent.shift();
       }
       lastWheelAt = now;
-      wheelTrain = !isolated;
 
       // Only a sheet that is up (or being held up) holds the page; while it
       // is falling or merely bumping, the same swipe scrolls the page.
@@ -663,10 +590,10 @@
 
       if (!event.cancelable) {
         claiming = false;
-      } else if (lifted || end) {
+      } else if (lifted || end || claiming) {
         // At the end of the page every new gesture is the sheet's: a push
         // lifts it, a swipe up is scrolled by hand — and neither can set
-        // off the browser's own bounce, whichever engine this is.
+        // off the browser's own bounce.
         event.preventDefault();
         claiming = true;
       }
@@ -678,21 +605,14 @@
       if (!delta || (touch && touch.owned)) return;
 
       if (!lifted) {
-        if (delta > 0 && end && stream.fromEnd && (!stream.spent || fresh || notch)) {
-          // A push at the end: opens, or catches a falling sheet. A stream
+        if (delta > 0 && end && claiming && (!stream.spent || fresh || notch)) {
+          // A push at the end: opens, or catches a falling sheet. Only a
+          // gesture the sheet owns can push; momentum that carried the page
+          // here is the browser's and gets its bounce instead. A stream
           // that already did its job is inert: its momentum must not push
           // the sheet open again after it has closed.
-          if (claiming) event.preventDefault();
           applyPush(step, notch, now);
-        } else if (delta > 0 && end && !claiming) {
-          // The momentum that carried the page here: one bump, as hard as
-          // it arrived.
-          if (!stream.spent) {
-            stream.spent = true;
-            if (wantsArrivalBump() || notch) startHint(magnitude / Math.max(8, sinceLast) * 1000);
-          }
         } else if (claiming) {
-          event.preventDefault();
           // A wheel notch keeps the browser's smooth step (scroll-behavior
           // on html); a trackpad's stream is applied as it comes.
           if (notch) window.scrollBy(0, delta);
@@ -748,8 +668,8 @@
      * sheet. Here the rest of the page is scrolled by hand, 1:1 with the
      * finger, and the pull continues into the sheet in one motion.
      *
-     * A swipe that starts well up the page stays native — momentum carrying
-     * it to the end is the "end" moment and only bumps the sheet.
+     * A swipe that starts well up the page stays native, momentum and the
+     * browser's bounce at the end included.
      */
     function onTouchStart(event) {
       if (event.touches.length !== 1) {
@@ -910,7 +830,7 @@
     // ---- keyboard, scroll, lifecycle --------------------------------------
 
     function onKeyDown(event) {
-      if (phase === 'idle' || phase === 'hint' || event.defaultPrevented) return;
+      if (phase === 'idle' || event.defaultPrevented) return;
       if (event.altKey || event.ctrlKey || event.metaKey) return;
       var target = event.target;
       if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
@@ -926,46 +846,21 @@
     }
 
     /*
-     * Two jobs. Anything that moves the page up while the sheet is lifted —
-     * the scrollbar, an anchor, find-in-page, focus — drops the sheet; only
+     * Anything that moves the page up while the sheet is lifted — the
+     * scrollbar, an anchor, find-in-page, focus — drops the sheet. Only
      * movement away from the end counts, because Safari reports positions
      * past the end while it settles there and iOS changes innerHeight
-     * rather than scrollY when its toolbar shows. And a scroll that lands
-     * on the end with speed while nothing else drives the sheet — touch
-     * momentum, a keyboard jump — gives the arrival bump. Wheel-driven
-     * arrivals bump from the wheel's own momentum tail instead.
+     * rather than scrollY when its toolbar shows.
      */
     function onScroll() {
-      var now = performance.now();
-      var sy = window.scrollY;
-      var previous = lastScroll;
-      var dt = previous ? now - previous.t : 0;
-      var speed = dt > 0 && dt <= 120 ? (sy - previous.y) / dt * 1000 : 0;
-      lastScroll = { y: sy, t: now, speed: speed };
-
       if (touch && touch.owned) return;
-
-      if (phase === 'peek' || phase === 'open') {
-        if (sy < liftScrollY - CONFIG.scrollAwayPx) close('close');
-        return;
-      }
-
-      // Only the end of a run of steps is an arrival with momentum; a lone
-      // jump (scroll restoration on reload, an anchor) is not. A trackpad's
-      // momentum still arriving as wheel events: the wheel handler sizes
-      // the bump from those instead.
-      if (phase !== 'idle' || speed <= 0 || !(previous.speed > 0)) return;
-      if (wheelTrain && now - lastWheelAt < 100) return;
-      var max = maxScrollY();
-      if (max - sy > CONFIG.endTolerancePx || max - previous.y <= CONFIG.endTolerancePx || pinchZoomed()) return;
-      // The last step is cut short by the end itself; the one before it
-      // still carries the full speed.
-      if (wantsArrivalBump()) startHint(Math.max(speed, previous.speed));
+      if (phase !== 'peek' && phase !== 'open') return;
+      if (window.scrollY < liftScrollY - CONFIG.scrollAwayPx) close('close');
     }
 
     function onResize() {
       measureSizes();
-      if (phase === 'idle' || phase === 'hint' || (touch && touch.owned)) return;
+      if (phase === 'idle' || (touch && touch.owned)) return;
       // The page reflowed and its end moved away from under the lifted
       // sheet: drop it. A small change — a mobile toolbar showing or
       // hiding — keeps it open.
@@ -980,9 +875,8 @@
     /*
      * Non-passive wheel/touchmove listeners make the browser wait on this
      * script before scrolling, so they are only attached near the end of
-     * the page, never while reading the rest of it. The same class switches
-     * off the browser's own bounce there (css/project-footer.css), and only
-     * there — elsewhere, including pull-to-refresh at the top, stays native.
+     * the page, never while reading the rest of it. The same class keeps
+     * the picture panel visible there (css/project-footer.css).
      */
     function arm() {
       if (armed) return;

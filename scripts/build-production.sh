@@ -15,7 +15,6 @@ rsync -a \
   --exclude 'robots.production.txt' \
   --exclude 'robots.preview.txt' \
   --exclude '.cursor' \
-  --exclude 'js/footer-tuning.js' \
   --exclude '/how-we-work.html' \
   --exclude '/audit.html' \
   --exclude '/bandlink.html' \
@@ -28,6 +27,9 @@ cp "$ROOT/deploy/beget/.htaccess" "$SITE_DIR/.htaccess"
 
 echo "Building clean URLs (/slug/ + .html redirects)…"
 python3 "$ROOT/scripts/build-clean-urls.py" "$SITE_DIR"
+
+echo "Building the secret footer preview…"
+python3 "$ROOT/scripts/make-footer-preview.py" "$SITE_DIR"
 
 echo "Production build ready in: $SITE_DIR"
 echo "Draft pages are served only under /preview/<token>/ (excluded from site root)."

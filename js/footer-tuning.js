@@ -11,6 +11,9 @@
   var STORAGE_KEY = 'fd-footer-tuning';
   var FIELDS = [
     ['Ощущение'],
+    ['arrival.maxPx', 'Подскок при доскролле, px', 0, 160, 2],
+    ['arrival.perSpeed', 'Подскок — чувствительность к скорости', 0, 0.06, 0.002],
+    ['springs.arrival.response', 'Подскок — период', 0.2, 1.2, 0.02],
     ['peekMax', 'Подглядывание, доля галереи', 0.2, 0.9, 0.05],
     ['wheelOpenPull', 'Толчок для открытия, px', 60, 400, 10],
     ['wheelPullRatePxPerS', 'Скорость толчка, px/с', 600, 3000, 100],

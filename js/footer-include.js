@@ -56,6 +56,10 @@
     script.src = 'js/footer-reveal.js';
     script.dataset.footerRevealScript = 'true';
     document.body.appendChild(script);
+    // The tuning panel: local copies only, like the reveal itself.
+    var tuning = document.createElement('script');
+    tuning.src = 'js/footer-tuning.js';
+    document.body.appendChild(tuning);
   }
 
   function inject(markup) {

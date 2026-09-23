@@ -64,6 +64,11 @@
     }
   };
 
+  // Read live by js/footer-tuning.js on local copies of the site, so the
+  // feel can be set with sliders; every value above is read where it is
+  // used, never cached.
+  window.footerRevealConfig = CONFIG;
+
   var html = document.documentElement;
 
   function prefersReducedMotion() {

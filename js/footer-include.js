@@ -3,7 +3,13 @@
 
   /* Master switch for the site footer. */
   var FOOTER_ENABLED = true;
-  var FOOTER_REVEAL_ENABLED = false;
+
+  /*
+   * The footer reveal is still in the works and runs only on a local copy
+   * of the site (localhost or a home-network address). On flowerdog.studio
+   * this is false and js/footer-reveal.js is never loaded.
+   */
+  var FOOTER_REVEAL_ENABLED = /^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)$/.test(window.location.hostname);
 
   var slots = document.querySelectorAll('[data-site-footer]');
   if (!slots.length) return;

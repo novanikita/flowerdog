@@ -20,7 +20,10 @@
     // stops moving in the middle of a swipe.
     claimReleaseMs: 450,
     wheelOpenPull: 170,
-    wheelIsolatedGapMs: 30,
+    // A wheel notch is an event with a real pause before it. A trackpad's
+    // events are 8–16ms apart even at the slow start of a swipe; a second
+    // deliberate click of a wheel never comes sooner than this.
+    wheelNotchGapMs: 100,
     wheelKickPull: 50,
     // Browsers scale wheel deltas very differently for the same gesture —
     // Safari's run several times Chromium's, and a hard swipe there
@@ -559,7 +562,6 @@
       if (Math.abs(event.deltaX) > Math.abs(delta)) delta = 0;
       var magnitude = Math.abs(delta);
       var sinceLast = now - lastWheelAt;
-      var isolated = sinceLast >= CONFIG.wheelIsolatedGapMs;
       var end = atEnd();
 
       // spent: this stream's push already did its job (opened the sheet,
@@ -569,9 +571,10 @@
         stream = { recent: [], spent: false };
       }
       var fresh = delta > 0 && isFreshSwipe(stream.recent, magnitude);
-      // A discrete notch only ever opens a stream; everything inside a
-      // train is the same push, however ragged the browser's cadence is.
-      var notch = isolated && magnitude >= CONFIG.wheelNotchMinPx && stream.recent.length <= 1;
+      // A discrete notch only ever opens a stream (or follows its opening
+      // notch); everything inside a train is the same push, however ragged
+      // the browser's cadence is.
+      var notch = sinceLast >= CONFIG.wheelNotchGapMs && magnitude >= CONFIG.wheelNotchMinPx && stream.recent.length <= 1;
       // How far this event pulls the sheet: the raw delta, but never
       // faster than wheelPullRatePxPerS, so a push feels the same in
       // every browser. The page itself is still scrolled by the raw delta.

@@ -9,18 +9,27 @@
 }
 
 /*
- * No rubber-band at the page end. The sheet is lifted by wheel/touch
- * input that arrives while the page already sits at its end, and it does
- * its own bounce there (js/footer-reveal.js); without this, Safari (and
- * Chrome on macOS) would bounce the whole page at the same time, and on
- * Safari the first event of a trackpad gesture carries no delta at all,
- * so the page cannot even tell yet whether to claim the gesture. Only
- * while the footer is near the screen (the script sets the class well
- * before the end is reached): everywhere else — pull-to-refresh at the
- * top included — the browser keeps its own behavior.
+ * No rubber-band at the page end on touch screens. A finger's momentum
+ * that carries the page to its end would otherwise bounce the whole page
+ * natively at the same moment js/footer-reveal.js gives the sheet its own
+ * bump. Only while the footer is near the screen (the script sets the
+ * class well before the end is reached), so pull-to-refresh at the top
+ * stays native.
+ *
+ * Never on the root element for a wheel or trackpad. WebKit stops
+ * scrolling the page altogether — every wheel event, from the first
+ * pixel — when the root has overscroll-behavior: none while any
+ * non-passive wheel listener exists, and the script must listen that way
+ * to be able to claim a gesture. (On body alone the rule is harmless but
+ * also useless: WebKit does not carry it to the viewport from there.) So
+ * the script sets the mark for engines without the bug and for touch-only
+ * devices, and on WebKit takes it away on the first wheel event it ever
+ * sees. With a wheel there, the sheet handles its end by claiming every
+ * gesture that starts at it, and an arrival by momentum gets the
+ * browser's own bounce.
  */
-html.is-footer-near,
-html.is-footer-near body {
+html.is-footer-near.can-lock-end,
+html.is-footer-near.can-lock-end body {
   overscroll-behavior-y: none;
 }
 
@@ -213,8 +222,11 @@ html.is-sheet-moving [data-site-footer] {
  * page — the pictures never move, the sheet slides off them.
  *
  * The panel spans the viewport so the stage has room to grow, but paints
- * nothing itself, and is only visible while the sheet moves: at rest
- * there is nothing that could ever show through the page.
+ * nothing itself, and is only visible while the sheet moves or the footer
+ * is near: elsewhere on the page there is nothing that could ever show
+ * through. Near the end it stays visible so that a browser's own bounce
+ * past the end (macOS, where the sheet cannot forbid it — see the
+ * overscroll note above) uncovers the pictures the same way a lift does.
  *
  * The stage holds the pictures at the gallery height, pinned to the
  * bottom. Pulled past fully open, the script scales it from its bottom
@@ -230,7 +242,8 @@ html.is-sheet-moving [data-site-footer] {
   visibility: hidden;
 }
 
-html.is-sheet-moving .site-footer-reveal__panel {
+html.is-sheet-moving .site-footer-reveal__panel,
+html.is-footer-near .site-footer-reveal__panel {
   visibility: visible;
 }
 

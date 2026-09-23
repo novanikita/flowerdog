@@ -158,6 +158,30 @@
 
     var coarsePointer = window.matchMedia('(pointer: coarse)');
 
+    /*
+     * Whether the browser's own bounce past the end of the page may be
+     * switched off near the footer (css/project-footer.css). Chromium and
+     * Gecko: always. WebKit: only until a wheel is involved — with the
+     * root's overscroll-behavior set to none and a non-passive wheel
+     * listener present, WebKit stops scrolling the page altogether, so on
+     * a Mac the bounce stays on and does the arrival's showing by itself.
+     */
+    var wheelSafeEngine = !!navigator.userAgentData ||
+      (window.CSS && CSS.supports && CSS.supports('-moz-appearance', 'none'));
+    var macLike = /Mac|iP(hone|ad|od)/.test(navigator.platform || '');
+    if (wheelSafeEngine || coarsePointer.matches) html.classList.add('can-lock-end');
+    if (!wheelSafeEngine) {
+      window.addEventListener('wheel', function () {
+        html.classList.remove('can-lock-end');
+      }, { passive: true, once: true });
+    }
+
+    // An arrival by momentum gets the sheet's own bump unless the browser
+    // is about to bounce the page natively anyway.
+    function wantsArrivalBump() {
+      return html.classList.contains('can-lock-end') || !macLike;
+    }
+
     var panel = document.createElement('div');
     panel.className = 'site-footer-reveal__panel';
     panel.setAttribute('aria-hidden', 'true');
@@ -639,7 +663,10 @@
 
       if (!event.cancelable) {
         claiming = false;
-      } else if (lifted) {
+      } else if (lifted || end) {
+        // At the end of the page every new gesture is the sheet's: a push
+        // lifts it, a swipe up is scrolled by hand — and neither can set
+        // off the browser's own bounce, whichever engine this is.
         event.preventDefault();
         claiming = true;
       }
@@ -662,11 +689,14 @@
           // it arrived.
           if (!stream.spent) {
             stream.spent = true;
-            startHint(magnitude / Math.max(8, sinceLast) * 1000);
+            if (wantsArrivalBump() || notch) startHint(magnitude / Math.max(8, sinceLast) * 1000);
           }
         } else if (claiming) {
           event.preventDefault();
-          instantScrollBy(delta);
+          // A wheel notch keeps the browser's smooth step (scroll-behavior
+          // on html); a trackpad's stream is applied as it comes.
+          if (notch) window.scrollBy(0, delta);
+          else instantScrollBy(delta);
         }
         return;
       }
@@ -930,7 +960,7 @@
       if (max - sy > CONFIG.endTolerancePx || max - previous.y <= CONFIG.endTolerancePx || pinchZoomed()) return;
       // The last step is cut short by the end itself; the one before it
       // still carries the full speed.
-      startHint(Math.max(speed, previous.speed));
+      if (wantsArrivalBump()) startHint(Math.max(speed, previous.speed));
     }
 
     function onResize() {

@@ -222,7 +222,10 @@ html.is-sheet-moving [data-site-footer] {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  contain: strict;
+  /* Layout and paint only. Size containment would say nothing here — the
+     insets give this panel its size — and this is a corner where WebKit
+     has already been found surprising once. */
+  contain: layout paint;
   pointer-events: none;
   visibility: hidden;
 }

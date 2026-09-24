@@ -19,7 +19,6 @@
     // will not scroll for — so this has to outlast any stutter, or the page
     // stops moving in the middle of a swipe.
     claimReleaseMs: 450,
-    wheelOpenPull: 400,
     // A wheel notch is an event with a real pause before it. A trackpad's
     // events are 8–16ms apart even at the slow start of a swipe; a second
     // deliberate click of a wheel never comes sooner than this.
@@ -488,16 +487,21 @@
       return a < b && b < c && magnitude > c && magnitude >= a * 1.8;
     }
 
-    // Once the fingers leave the pad, a trackpad keeps sending the swipe's
-    // momentum: a run of shrinking deltas. (A finger slowing down before it
-    // lifts looks the same, and ends the same way.)
+    /*
+     * Once the fingers leave the pad, a trackpad keeps sending the swipe's
+     * momentum: a run of shrinking deltas, well below what the swipe itself
+     * was worth. Both tests matter — a finger merely easing off also
+     * shrinks its deltas, and taking that for the end of the gesture would
+     * drop the sheet while the user is still pushing.
+     */
     function isDying(recent) {
       var n = recent.length;
       if (n < 4) return false;
       for (var i = n - 3; i < n; i += 1) {
         if (recent[i] > recent[i - 1]) return false;
       }
-      return recent[n - 1] <= recent[n - 4] * 0.85;
+      var peak = Math.max.apply(null, recent);
+      return recent[n - 1] <= recent[n - 4] * 0.85 && recent[n - 1] <= peak * 0.5;
     }
 
     function beginPull() {
@@ -524,9 +528,11 @@
      * few px on macOS. So an event that opens a stream after a pause counts
      * as a discrete push: it gets a minimum visible peek, and two of them
      * within wheelPushWindowMs open the gallery, whatever their delta. A
-     * trackpad train only ever opens one stream, so it opens on distance
-     * instead — and the stutters inside that train (Safari drops out for up
-     * to ~120ms at a time) are not pushes of their own.
+     * trackpad train only ever opens one stream, and the stutters inside
+     * that train (Safari drops out for up to ~120ms at a time) are not
+     * pushes of their own; it opens by how far it has lifted the sheet —
+     * either right away, once the sheet is pinned against the top of its
+     * peek, or when the push ends (endPush).
      */
     function applyPush(delta, notch, now) {
       if (!pulling && !beginPull()) {
@@ -541,7 +547,8 @@
         lastPushAt = now;
       }
       lastInputAt = now;
-      if (pull >= CONFIG.wheelOpenPull || isolatedPushes >= CONFIG.wheelPushesToOpen) {
+      var ceiling = galleryHeight * CONFIG.peekMax;
+      if (rubber(pull, ceiling, 1) >= ceiling * 0.95 || isolatedPushes >= CONFIG.wheelPushesToOpen) {
         if (stream) stream.spent = true;
         open();
         return;
@@ -558,16 +565,9 @@
      */
     function endPush() {
       if (!pulling) return;
-      pulling = false;
-      pull = 0;
       if (stream) stream.spent = true;
-      if (Math.abs(y) >= galleryHeight * CONFIG.wheelOpenAt) {
-        open();
-        return;
-      }
-      phase = 'closing';
-      springName = 'cancel';
-      wake();
+      if (Math.abs(y) >= galleryHeight * CONFIG.wheelOpenAt) open();
+      else close('cancel');
     }
 
     function applyStretch(delta, now) {

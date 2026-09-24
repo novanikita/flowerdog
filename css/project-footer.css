@@ -191,10 +191,18 @@ html.is-sheet-moving [data-site-footer] {
 }
 
 /*
- * The secret layer. Fixed behind everything (z-index: -1); main and the
- * footer are opaque and cover it completely. js/footer-reveal.js uncovers
- * it by translating main + [data-site-footer] up past the end of the
- * page — the pictures never move, the sheet slides off them.
+ * The secret layer. Fixed behind the sheet — main and [data-site-footer]
+ * sit one paint layer above it (css/layout.css) and are opaque, so they
+ * cover it completely. js/footer-reveal.js uncovers it by translating
+ * them up past the end of the page — the pictures never move, the sheet
+ * slides off them.
+ *
+ * Never z-index: -1, however natural that looks here. On a real iPhone
+ * (iOS 26.6, Safari) a negative layer behind a translated sheet keeps a
+ * stale painting of it: the footer showed up a second time under its own
+ * wordmark, and after closing it stayed over the page until a reload.
+ * Neither the simulator nor WebKit on a Mac shows it; the device does,
+ * and z-index: 0 with the sheet above cures it.
  *
  * The panel spans the viewport so the stage has room to grow, but paints
  * nothing itself, and is only visible while the sheet moves or the footer
@@ -212,7 +220,7 @@ html.is-sheet-moving [data-site-footer] {
 .site-footer-reveal__panel {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   overflow: hidden;
   contain: strict;
   pointer-events: none;

@@ -18,7 +18,7 @@
     ['wheelOpenAt', 'Открыть, если поднялся на долю', 0.1, 0.9, 0.05],
     ['wheelOpenPull', 'Толчок для открытия сразу, px', 60, 600, 10],
     ['wheelPullRatePxPerS', 'Скорость толчка, px/с', 600, 3000, 100],
-    ['autoCloseMs', 'Автозакрытие, мс', 500, 6000, 100],
+    ['autoCloseMs', 'Автозакрытие, мс', 500, 20000, 100],
     ['slideIntervalMs', 'Смена картинок, мс', 80, 1000, 20],
     ['rubberC', 'Сопротивление растяжения', 0.2, 1, 0.05],
     ['maxLiftRatio', 'Макс. подъём, доля экрана', 0.5, 1, 0.05],
@@ -39,6 +39,91 @@
     ['touchFlingPxPerS', 'Флик, px/с', 200, 1500, 50],
     ['touchNearEndPx', 'Зона захвата у конца, px', 0, 300, 10]
   ];
+
+  /*
+   * Diagnostics. iOS Safari can keep a stale painting of the sheet after
+   * it has been translated — the footer shows up a second time, and after
+   * closing it stays over the page until a reload. It reproduces on real
+   * hardware only, so the suspects are switched off one at a time here,
+   * on the device that shows it. "Поднять лист" does the same transform
+   * the reveal does, without its logic, so there is time to look.
+   */
+  var SUSPECTS = [
+    ['zindex', 'Панель без z-index: -1',
+      '.site-footer-reveal__panel{z-index:0!important}main,[data-site-footer]{position:relative;z-index:1}'],
+    ['contain', 'Панель без contain: strict',
+      '.site-footer-reveal__panel{contain:none!important}'],
+    ['willchange', 'Без will-change при движении',
+      'html.is-sheet-moving main,html.is-sheet-moving [data-site-footer]{will-change:auto!important}'],
+    ['visibility', 'Панель видима всегда',
+      '.site-footer-reveal__panel{visibility:visible!important}'],
+    ['shadow', 'Без тени под подвалом',
+      'html.has-footer-reveal .site-footer{box-shadow:none!important}'],
+    ['flat', 'Сдвиг без 3D (translateY)', '']
+  ];
+
+  function buildDiagnostics(body, config) {
+    var head = document.createElement('div');
+    head.className = 'fd-tune__head';
+    head.textContent = 'Диагностика';
+    body.appendChild(head);
+
+    var lift = document.createElement('div');
+    lift.className = 'fd-tune__actions';
+    var up = document.createElement('button');
+    up.type = 'button';
+    up.textContent = 'Поднять лист';
+    var down = document.createElement('button');
+    down.type = 'button';
+    down.textContent = 'Опустить';
+    lift.appendChild(up);
+    lift.appendChild(down);
+    body.appendChild(lift);
+
+    var flat = false;
+    function move(px) {
+      var main = document.querySelector('main');
+      var slot = document.querySelector('[data-site-footer]');
+      var value = px ? (flat ? 'translateY(-' + px + 'px)' : 'translate3d(0,-' + px + 'px,0)') : '';
+      document.documentElement.classList.toggle('is-sheet-moving', !!px);
+      if (main) main.style.transform = value;
+      if (slot) slot.style.transform = value;
+    }
+    up.addEventListener('click', function () {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
+      var stage = document.querySelector('.site-footer-reveal__stage');
+      setTimeout(function () { move(stage ? stage.offsetHeight : 240); }, 60);
+    });
+    down.addEventListener('click', function () { move(0); });
+
+    SUSPECTS.forEach(function (suspect) {
+      var row = document.createElement('label');
+      row.className = 'fd-tune__row fd-tune__check';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      var text = document.createElement('span');
+      text.textContent = suspect[1];
+      row.appendChild(input);
+      row.appendChild(text);
+      body.appendChild(row);
+
+      var style = null;
+      input.addEventListener('change', function () {
+        if (suspect[0] === 'flat') {
+          flat = input.checked;
+          return;
+        }
+        if (input.checked && !style) {
+          style = document.createElement('style');
+          style.textContent = suspect[2];
+          document.head.appendChild(style);
+        } else if (!input.checked && style) {
+          style.remove();
+          style = null;
+        }
+      });
+    });
+  }
 
   function get(obj, path) {
     return path.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, obj);
@@ -117,6 +202,8 @@
       '.fd-tune__row.is-changed label{color:#0056d3;font-weight:600}' +
       '.fd-tune__actions{display:flex;gap:8px;margin-top:12px}' +
       '.fd-tune__actions button{flex:1;padding:8px;border:1px solid #0056d3;border-radius:8px;background:#fff;color:#0056d3;font:inherit;cursor:pointer}' +
+      '.fd-tune__check{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:12px}' +
+      '.fd-tune__check input{width:18px;height:18px;margin:0}' +
       '.fd-tune__out{width:100%;height:110px;margin-top:8px;font:11px/1.35 ui-monospace,Menlo,monospace;white-space:pre;display:none}' +
       '.fd-tune__out.is-shown{display:block}';
     document.head.appendChild(style);
@@ -209,6 +296,8 @@
       out.classList.add('is-shown');
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).catch(function () {});
     });
+
+    buildDiagnostics(body, config);
 
     reset.addEventListener('click', function () {
       Object.keys(readStored()).forEach(function (path) { set(config, path, get(defaults, path)); });

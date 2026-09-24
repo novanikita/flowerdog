@@ -78,17 +78,16 @@ body {
 }
 
 /*
- * position: relative + z-index: 1 puts main in a higher paint layer than
- * .site-footer-reveal__panel (position: fixed, z-index: -1 — see css/
- * project-footer.css), and background-color makes main a genuinely
- * opaque box rather than relying on the body/html "canvas background"
- * fallback (when html has no background of its own, the spec paints
- * body's white as the canvas — a layer even further back than a
- * position: fixed, z-index: -1 element, so it would never block that
- * panel from showing through). Together these keep the panel hidden
- * behind main's entire content — every paragraph, every gap between
- * lines — until js/footer-reveal.js lifts the sheet past the end of the
- * page.
+ * The sheet: main and the footer. position: relative + z-index: 1 puts
+ * both one paint layer above .site-footer-reveal__panel (position: fixed,
+ * z-index: 0 — see css/project-footer.css), and background-color makes
+ * them genuinely opaque boxes rather than relying on the body/html
+ * "canvas background" fallback (when html has no background of its own,
+ * the spec paints body's white as the canvas — a layer further back than
+ * any positioned element, so it would never block that panel from showing
+ * through). Together these keep the panel hidden behind the sheet's
+ * entire content — every paragraph, every gap between lines — until
+ * js/footer-reveal.js lifts it past the end of the page.
  */
 main {
   position: relative;
@@ -98,6 +97,8 @@ main {
 }
 
 [data-site-footer] {
+  position: relative;
+  z-index: 1;
   margin-top: auto;
 }
 

@@ -36,6 +36,10 @@
     wheelPushesToOpen: 2,
     wheelPushWindowMs: 700,
     pullHoldMs: 280,
+    // When a push ends, the sheet opens if it got at least this far up
+    // (a fraction of the gallery height). What the user sees decides,
+    // not how much delta their machine happened to send for the gesture.
+    wheelOpenAt: 0.35,
     peekMax: 0.8,
     catchFallingAt: 0.15,
 
@@ -334,13 +338,8 @@
 
       if (touch && touch.owned) return;
 
-      // Input that stops arriving holds for a beat, then springs back.
-      if (pulling && now - lastInputAt > CONFIG.pullHoldMs) {
-        pulling = false;
-        pull = 0;
-        phase = 'closing';
-        springName = 'cancel';
-      }
+      // Input that stops arriving holds for a beat, then the push is over.
+      if (pulling && now - lastInputAt > CONFIG.pullHoldMs) endPush();
       if (stretching && now - lastInputAt > CONFIG.stretchHoldMs) releaseStretch();
 
       var held = pulling || stretching;
@@ -550,6 +549,27 @@
       wake();
     }
 
+    /*
+     * The push is over: its events stopped, or what is still arriving is
+     * only the momentum left after the fingers lifted. How far the sheet
+     * actually rose decides whether it opens — the same gesture is worth
+     * wildly different deltas from one machine to the next, and going by
+     * those deltas made the sheet take real effort to open on some of them.
+     */
+    function endPush() {
+      if (!pulling) return;
+      pulling = false;
+      pull = 0;
+      if (stream) stream.spent = true;
+      if (Math.abs(y) >= galleryHeight * CONFIG.wheelOpenAt) {
+        open();
+        return;
+      }
+      phase = 'closing';
+      springName = 'cancel';
+      wake();
+    }
+
     function applyStretch(delta, now) {
       if (!stretching) {
         catchSheet();
@@ -652,7 +672,8 @@
           // here is the browser's and gets its bounce instead. A stream
           // that already did its job is inert: its momentum must not push
           // the sheet open again after it has closed.
-          applyPush(step, notch, now);
+          if (pulling && !fresh && !notch && isDying(stream.recent)) endPush();
+          else applyPush(step, notch, now);
         } else if (claiming) {
           // A wheel notch keeps the browser's smooth step (scroll-behavior
           // on html); a trackpad's stream is applied as it comes.

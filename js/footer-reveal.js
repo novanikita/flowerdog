@@ -416,7 +416,18 @@
     }
 
     function close(name) {
-      if (phase === 'idle' || phase === 'arrival' || (phase === 'closing' && springName === name)) return;
+      if (phase === 'idle' || phase === 'arrival') return;
+      if (phase === 'closing' && springName === name) {
+        // Already falling this way — but make sure it is still falling. A
+        // finger that touches the screen mid-fall stops the animation (the
+        // finger outranks the spring) and takes the gesture; letting go
+        // lands here, and returning without waking left the sheet down but
+        // for ever "closing", which is a state that owns every gesture
+        // after it: the page stopped scrolling and swipes lifted the sheet
+        // again, until the page was reloaded.
+        wake();
+        return;
+      }
       catchSheet();
       phase = 'closing';
       springName = name;

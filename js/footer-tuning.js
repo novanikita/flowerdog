@@ -47,6 +47,25 @@
    * on the device that shows it. "Поднять лист" does the same transform
    * the reveal does, without its logic, so there is time to look.
    */
+  /*
+   * The fixes being tried against "the sheet stops obeying" on a desktop.
+   * Each one is off by default — the page behaves exactly as it does now
+   * until a switch is turned on — and each can be turned on by the link
+   * itself (?fix=1, ?fix=2,3), so a tester can be sent one variant rather
+   * than instructions.
+   */
+  var FIXES = [
+    ['1', 'Исправление 1: толчок ловится и чуть выше конца страницы',
+      'Сейчас подвал открывается, только если страница стоит ровно в конце. С этим исправлением толчок понимается и когда до конца осталось немного: остаток страницы докручивается, а дальше идёт подъём — как на телефоне.',
+      function (c, on) { c.wheelNearEndPx = on ? 60 : 2; }],
+    ['2', 'Исправление 2: закрытие не увозит страницу',
+      'Сейчас свайп вверх закрывает подвал и той же инерцией тащит страницу выше конца — поэтому следующий толчок не срабатывает. С этим исправлением страница остаётся в конце.',
+      function (c, on) { c.carryPageOnClose = !on; }],
+    ['3', 'Исправление 3: без подскока при доскролле',
+      'Сейчас, когда страница долетает до конца с инерцией, подвал сам подпрыгивает. С этим исправлением он стоит на месте и ждёт толчка.',
+      function (c, on) { c.arrival.maxPx = on ? 0 : 48; }]
+  ];
+
   var SUSPECTS = [
     ['zindex', 'Панель без z-index: -1',
       '.site-footer-reveal__panel{z-index:0!important}main,[data-site-footer]{position:relative;z-index:1}'],
@@ -60,6 +79,49 @@
       'html.has-footer-reveal .site-footer{box-shadow:none!important}'],
     ['flat', 'Сдвиг без 3D (translateY)', '']
   ];
+
+  function buildFixes(body, config) {
+    var head = document.createElement('div');
+    head.className = 'fd-tune__head';
+    head.textContent = 'Гипотезы';
+    body.appendChild(head);
+
+    var asked = (/[?&]fix=([\d,]+)/.exec(window.location.search) || [])[1];
+    var wanted = asked ? asked.split(',') : [];
+    var note = document.createElement('p');
+    note.className = 'fd-tune__note';
+    note.textContent = 'Каждая включается отдельно. Ссылку можно дать сразу с включённой: добавь ?fix=1 или ?fix=1,2 в конец адреса.';
+    body.appendChild(note);
+
+    FIXES.forEach(function (fix) {
+      var row = document.createElement('label');
+      row.className = 'fd-tune__row fd-tune__check';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      var text = document.createElement('span');
+      text.textContent = fix[1];
+      row.appendChild(input);
+      row.appendChild(text);
+      var why = document.createElement('p');
+      why.className = 'fd-tune__note';
+      why.textContent = fix[2];
+      body.appendChild(row);
+      body.appendChild(why);
+
+      input.addEventListener('change', function () { fix[3](config, input.checked); });
+      if (wanted.indexOf(fix[0]) !== -1) {
+        input.checked = true;
+        fix[3](config, true);
+      }
+    });
+
+    if (wanted.length) {
+      var on = document.createElement('p');
+      on.className = 'fd-tune__note fd-tune__note--on';
+      on.textContent = 'Включено ссылкой: ' + wanted.join(', ');
+      body.insertBefore(on, note.nextSibling);
+    }
+  }
 
   function buildDiagnostics(body, config) {
     var head = document.createElement('div');
@@ -201,7 +263,9 @@
       '.fd-tune__row.is-changed label{color:#0056d3;font-weight:600}' +
       '.fd-tune__actions{display:flex;gap:8px;margin-top:12px}' +
       '.fd-tune__actions button{flex:1;padding:8px;border:1px solid #0056d3;border-radius:8px;background:#fff;color:#0056d3;font:inherit;cursor:pointer}' +
-      '.fd-tune__check{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:12px}' +
+      '.fd-tune__check{display:flex;align-items:flex-start;gap:8px;margin:10px 0 2px;font-size:12px;font-weight:600}' +
+      '.fd-tune__note{margin:0 0 10px 26px;font-size:11px;line-height:1.35;opacity:.65}' +
+      '.fd-tune__note--on{margin-left:0;font-weight:700;opacity:1;color:#0056d3}' +
       '.fd-tune__check input{width:18px;height:18px;margin:0}' +
       '.fd-tune__out{width:100%;height:110px;margin-top:8px;font:11px/1.35 ui-monospace,Menlo,monospace;white-space:pre;display:none}' +
       '.fd-tune__out.is-shown{display:block}';
@@ -296,6 +360,7 @@
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).catch(function () {});
     });
 
+    buildFixes(body, config);
     buildDiagnostics(body, config);
 
     reset.addEventListener('click', function () {

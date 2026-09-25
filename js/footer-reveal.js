@@ -11,6 +11,24 @@
     scrollAwayPx: 64,
     resizeAwayPx: 120,
 
+    /*
+     * Switches for the fixes being tried against "the sheet stops obeying"
+     * on a desktop, turned on from js/footer-tuning.js or by ?fix= on the
+     * preview page. Both default to how it behaves today, so nothing moves
+     * until someone asks for it. Whichever is kept stops being a switch.
+     *
+     * wheelNearEndPx: how far short of its end the page may be for a wheel
+     * push to still count as a push. A finger has had this all along
+     * (touchNearEndPx); the wheel has demanded the exact end, and a
+     * closing swipe leaves the page above it — so the next push did
+     * nothing at all.
+     *
+     * carryPageOnClose: whether a swipe that closes the sheet also scrolls
+     * the page on, which is what takes the page away from its end.
+     */
+    wheelNearEndPx: 2,
+    carryPageOnClose: true,
+
     // Wheel and trackpad. Pull is measured in wheel-delta px.
     streamGapMs: 160,
     // How long after the last event a claimed gesture is still treated as
@@ -129,10 +147,6 @@
   function pinchZoomed() {
     var viewport = window.visualViewport;
     return !!viewport && viewport.scale > 1.01;
-  }
-
-  function atEnd() {
-    return !pinchZoomed() && gapToEnd() <= CONFIG.endTolerancePx;
   }
 
   function wheelDeltaPx(event) {
@@ -631,7 +645,7 @@
       if (Math.abs(event.deltaX) > Math.abs(delta)) delta = 0;
       var magnitude = Math.abs(delta);
       var sinceLast = now - lastWheelAt;
-      var end = atEnd();
+      var end = !pinchZoomed() && gapToEnd() <= CONFIG.wheelNearEndPx;
 
       // spent: this stream's push already did its job (opened the sheet,
       // or stretched it and let go); the rest of it is momentum, and only
@@ -683,9 +697,18 @@
           // here is the browser's and gets its bounce instead. A stream
           // that already did its job is inert: its momentum must not push
           // the sheet open again after it has closed.
+          // The rest of the page comes first, exactly as it does under a
+          // finger: what is left of the push then goes into the sheet.
+          var gap = gapToEnd();
+          if (gap > CONFIG.endTolerancePx) {
+            var take = Math.min(step, gap);
+            instantScrollBy(take);
+            step -= take;
+          }
+          if (step <= 0) return;
           if (pulling && !fresh && !notch && isDying(stream.recent)) endPush();
           else applyPush(step, notch, now);
-        } else if (claiming) {
+        } else if (claiming && CONFIG.carryPageOnClose) {
           // A wheel notch keeps the browser's smooth step (scroll-behavior
           // on html); a trackpad's stream is applied as it comes.
           if (notch) window.scrollBy(0, delta);
@@ -860,7 +883,7 @@
         var scrollStep = below - touch.handedOff;
         if (scrollStep) {
           touch.handedOff = below;
-          instantScrollBy(-scrollStep);
+          if (CONFIG.carryPageOnClose) instantScrollBy(-scrollStep);
         }
       }
 

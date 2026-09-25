@@ -765,7 +765,9 @@
         handedOff: 0,
         samples: []
       };
-      if (phase === 'peek' || phase === 'open' || phase === 'closing') {
+      // A finger outranks the spring — but only while the sheet is up. One
+      // that lands on a sheet already falling leaves it alone (onTouchMove).
+      if (phase === 'peek' || phase === 'open') {
         clearAutoClose();
         autoCloseScheduled = false;
         stopLoop();
@@ -798,7 +800,12 @@
       var move = touch.startY - point.clientY;
 
       if (!touch.decided) {
-        var lifted = phase === 'peek' || phase === 'open' || phase === 'closing';
+        // A falling sheet does not hold the page: whoever wants to read on
+        // gets to scroll straight away, with the browser's own momentum,
+        // instead of spending their first swipe on the sheet. (A swipe up
+        // still catches it — that is the push below, from wherever the
+        // sheet has got to.) The wheel has always worked this way.
+        var lifted = phase === 'peek' || phase === 'open';
         var sideways = Math.abs(point.clientX - touch.startX);
         if (!move && !sideways) {
           if (lifted && event.cancelable) event.preventDefault();
@@ -817,6 +824,10 @@
           phase = 'peek';
         }
         if (!touch.owned) {
+          // The page is about to scroll under a sheet that is still on its
+          // way down (and, with the closing spring, still bouncing): put it
+          // away quickly instead.
+          if (phase === 'closing' && springName !== 'cancel') springName = 'cancel';
           endTouch();
           return;
         }

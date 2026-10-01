@@ -113,6 +113,17 @@
       id: 'slides', title: 'Смена картинок', ends: ['', ''],
       min: 80, max: 600, step: 20, start: 260, unit: ' мс',
       apply: function (c, v) { c.slideIntervalMs = v; }
+    },
+    ['Телефон'],
+    {
+      // After the finger lets go, the sheet travels the rest of the way up
+      // on its own; how calmly. Left end: the old, shared opening spring.
+      id: 'touchOpen', title: 'Открытие пальцем', ends: ['резко', 'спокойно'],
+      min: 0, max: 1, step: 0.05, start: 0.5,
+      apply: function (c, t) {
+        c.springs.openTouch.response = round(0.31 + (0.7 - 0.31) * t, 3);
+        c.springs.openTouch.damping = round(0.82 + (1 - 0.82) * t, 3);
+      }
     }
   ];
 

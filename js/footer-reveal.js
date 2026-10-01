@@ -79,6 +79,7 @@
     springs: {
       follow: { response: 0.096, damping: 1, kick: 0 },
       open: { response: 0.31, damping: 0.82, kick: 0 },
+      openTouch: { response: 0.505, damping: 0.91, kick: 0 }, // opening after a finger lets go
       cancel: { response: 0.202, damping: 1, kick: 0 },
       close: { response: 0.543, damping: 0.892, kick: 2.5 },
       autoClose: { response: 0.775, damping: 0.76, kick: 0.5 },
@@ -405,10 +406,10 @@
       toIdle();
     }
 
-    function open() {
+    function open(name) {
       catchSheet();
       phase = 'open';
-      springName = 'open';
+      springName = name || 'open';
       resetDrives();
       isolatedPushes = 0;
       clearAutoClose();
@@ -890,9 +891,13 @@
       var flingDown = fingerUp < -CONFIG.touchFlingPxPerS;
       v = releaseRate(gesture.samples, 'lift');
 
+      // A finger lets go of a sheet it has only pulled part of the way —
+      // under touch the pull is stiff — so the opening spring carries it
+      // the rest of the way on its own. That travel is what reads as abrupt
+      // on a phone; it gets a calmer spring of its own (openTouch).
       if (gesture.mode === 'push') {
         if (lift >= galleryHeight * CONFIG.touchOpenAt || (flingUp && lift >= CONFIG.touchFlingMinLiftPx)) {
-          open();
+          open('openTouch');
         } else {
           close('cancel');
         }
@@ -902,7 +907,7 @@
       if (flingDown || (!flingUp && lift < galleryHeight * CONFIG.touchCloseAt)) {
         close('close');
       } else {
-        open();
+        open('openTouch');
       }
     }
 

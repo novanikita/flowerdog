@@ -57,6 +57,11 @@
     // (a fraction of the gallery height). What the user sees decides,
     // not how much delta their machine happened to send for the gesture.
     wheelOpenAt: 0.35,
+    // While the push is still going, it opens at once — without waiting
+    // for the push to end — when the peek reaches this fraction of its
+    // ceiling (peekMax). Lower: a hard push opens in one motion. Higher:
+    // the sheet peeks first and opens only once the push is over.
+    wheelSnapOpen: 0.95,
     peekMax: 0.8,
     catchFallingAt: 0.15,
 
@@ -573,7 +578,7 @@
       }
       lastInputAt = now;
       var ceiling = galleryHeight * CONFIG.peekMax;
-      if (rubber(pull, ceiling, 1) >= ceiling * 0.95 || isolatedPushes >= CONFIG.wheelPushesToOpen) {
+      if (rubber(pull, ceiling, 1) >= ceiling * CONFIG.wheelSnapOpen || isolatedPushes >= CONFIG.wheelPushesToOpen) {
         if (stream) stream.spent = true;
         open();
         return;

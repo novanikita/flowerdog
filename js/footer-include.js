@@ -9,7 +9,7 @@
    * of the site (localhost or a home-network address). On flowerdog.studio
    * this is false and js/footer-reveal.js is never loaded.
    */
-  var FOOTER_REVEAL_ENABLED = /^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)$/.test(window.location.hostname);
+  var FOOTER_REVEAL_ENABLED = /^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/.test(window.location.hostname);
 
   var slots = document.querySelectorAll('[data-site-footer]');
   if (!slots.length) return;

@@ -1,59 +1,117 @@
 /*
  * Tuning panel for the footer reveal. Loaded by js/footer-include.js on
- * local copies of the site only, never on flowerdog.studio. Every slider
- * changes a value in the reveal's CONFIG live, so the feel can be set by
- * eye; "Скопировать" produces the changed values to paste into a chat.
- * Changes are kept in localStorage between reloads; "Сбросить" clears.
+ * local copies of the site only, never on flowerdog.studio.
+ *
+ * Nine sliders, one per thing a person actually feels — how easy it is to
+ * open, how quickly it answers, how bouncy it is — rather than one per
+ * value in the reveal's CONFIG. Each moves several of those values
+ * together, along a line through the values in use today: in its starting
+ * position every slider reproduces them exactly, so nothing changes until
+ * one is moved. "Скопировать" lists the CONFIG values that came out
+ * different, to paste into a chat; positions are kept in localStorage
+ * between reloads, and "Сбросить" clears them.
  */
 (function () {
   'use strict';
 
-  var STORAGE_KEY = 'fd-footer-tuning';
-  var FIELDS = [
-    ['1. Подскок при доскролле'],
-    ['arrival.maxPx', 'Высота подскока, px (0 — выключен)', 0, 160, 2],
-    ['arrival.perSpeed', 'Чувствительность к скорости', 0, 0.06, 0.002],
-    ['springs.arrival.response', 'Мягкость подскока, с', 0.2, 1.2, 0.02],
-    ['2. Открытие тачпадом и колесом'],
-    ['peekMax', 'Потолок подглядывания, доля галереи', 0.2, 0.9, 0.05],
-    ['wheelSnapOpen', 'Открыть сразу на доле потолка', 0.3, 1, 0.05],
-    ['wheelOpenAt', 'Открыть после жеста, если поднялся на', 0.1, 0.9, 0.05],
-    ['pullHoldMs', 'Пауза до решения, мс', 60, 600, 10],
-    ['wheelPullRatePxPerS', 'Скорость толчка, px/с', 600, 3000, 100],
-    ['springs.follow.response', 'Слежение за тачпадом, с', 0.05, 0.4, 0.01],
-    ['springs.cancel.response', 'Возврат подглядывания, с', 0.2, 1, 0.02],
-    ['springs.open.response', 'Открытие — скорость, с', 0.2, 1, 0.02],
-    ['springs.open.damping', 'Открытие — затухание', 0.5, 1, 0.02],
-    ['3. Открытый подвал'],
-    ['autoCloseMs', 'Держится открытым, мс', 300, 20000, 100],
-    ['slideIntervalMs', 'Смена картинок, мс', 80, 1000, 20],
-    ['maxLiftRatio', 'Растяжение: потолок, доля экрана', 0.3, 1, 0.05],
-    ['rubberC', 'Растяжение: лёгкость', 0.2, 1, 0.05],
-    ['stretchHoldMs', 'Растяжение держится после жеста, мс', 40, 400, 10],
-    ['4. Закрытие'],
-    ['springs.autoClose.response', 'Само — скорость, с', 0.3, 1.5, 0.02],
-    ['springs.autoClose.damping', 'Само — затухание', 0.5, 1, 0.02],
-    ['springs.autoClose.kick', 'Само — рывок в начале', 0, 4, 0.1],
-    ['springs.close.response', 'Свайпом — скорость, с', 0.3, 1.5, 0.02],
-    ['springs.close.damping', 'Свайпом — затухание', 0.5, 1, 0.02],
-    ['springs.close.kick', 'Свайпом — рывок в начале', 0, 4, 0.1],
-    ['5. Касания (телефон)'],
-    ['touchOpenAt', 'Открыть, если поднял пальцем на', 0.1, 0.8, 0.05],
-    ['touchCloseAt', 'Закрыть, если опустил ниже', 0.5, 1, 0.05],
-    ['touchFlingPxPerS', 'Флик пальцем, px/с', 200, 1500, 50],
-    ['touchNearEndPx', 'Зона захвата у конца, px', 0, 300, 10]
+  var STORAGE_KEY = 'fd-footer-feel';
+
+  // From a at t=0 through today's value b at t=mid to c at t=1.
+  function along(a, b, c, t, mid) {
+    var m = mid === undefined ? 0.5 : mid;
+    return t <= m ? a + (b - a) * (t / m) : b + (c - b) * ((t - m) / (1 - m));
+  }
+
+  function round(value, places) {
+    var f = Math.pow(10, places);
+    return Math.round(value * f) / f;
+  }
+
+  /*
+   * Each feel: a title, what the two ends mean, the range (natural units
+   * where there is one, 0–1 otherwise), where today's values sit on it,
+   * and how a position becomes CONFIG values. `base` is the CONFIG as it
+   * was loaded, so scaling keeps today's proportions.
+   */
+  var FEELS = [
+    ['Доскролл'],
+    {
+      id: 'bump', title: 'Подскок при доскролле', ends: ['нет', 'высокий'],
+      min: 0, max: 120, step: 2, start: 48, unit: ' px',
+      apply: function (c, v) {
+        c.arrival.maxPx = v;
+        // the same arrival speed reaches the ceiling, whatever it is
+        c.arrival.perSpeed = round(v / 2400, 4);
+      }
+    },
+    ['Открытие'],
+    {
+      id: 'ease', title: 'Открыть', ends: ['тяжело', 'легко'],
+      min: 0, max: 1, step: 0.05, start: 0.5,
+      apply: function (c, t) {
+        c.wheelOpenAt = round(along(0.6, 0.35, 0.2, t), 3);
+        c.wheelPullRatePxPerS = Math.round(along(1200, 2000, 3000, t));
+        c.touchOpenAt = round(along(0.5, 0.3, 0.18, t), 3);
+      }
+    },
+    {
+      id: 'stages', title: 'Сильный толчок', ends: ['сначала подглядывает', 'открывает сразу'],
+      min: 0, max: 1, step: 0.05, start: 0.5,
+      apply: function (c, t) {
+        c.peekMax = round(along(0.9, 0.8, 0.6, t), 3);
+        c.wheelSnapOpen = round(along(1, 0.95, 0.5, t), 3);
+      }
+    },
+    {
+      id: 'answer', title: 'Отклик на тачпад', ends: ['мягко, с запаздыванием', 'мгновенно'],
+      min: 0, max: 1, step: 0.05, start: 0.5,
+      apply: function (c, t) {
+        c.springs.follow.response = round(along(0.2, 0.12, 0.06, t), 3);
+        c.pullHoldMs = Math.round(along(420, 280, 120, t));
+        c.stretchHoldMs = Math.round(along(200, 120, 60, t));
+      }
+    },
+    ['Движение'],
+    {
+      id: 'speed', title: 'Скорость движений', ends: ['медленно', 'быстро'],
+      min: 0, max: 1, step: 0.05, start: 0.5,
+      apply: function (c, t, base) {
+        var f = along(1.6, 1, 0.55, t);
+        ['open', 'cancel', 'close', 'autoClose', 'arrival'].forEach(function (name) {
+          c.springs[name].response = round(base.springs[name].response * f, 3);
+        });
+      }
+    },
+    {
+      id: 'bounce', title: 'Пружинистость', ends: ['ровно', 'пружинит'],
+      min: 0, max: 1, step: 0.05, start: 0.5,
+      apply: function (c, t) {
+        c.springs.open.damping = round(along(1, 0.7, 0.5, t), 3);
+        c.springs.close.damping = round(along(1, 0.82, 0.6, t), 3);
+        c.springs.autoClose.damping = round(along(1, 0.6, 0.45, t), 3);
+      }
+    },
+    ['Открытый подвал'],
+    {
+      id: 'hold', title: 'Держится открытым', ends: ['', ''],
+      min: 300, max: 5000, step: 100, start: 1000, unit: ' мс',
+      apply: function (c, v) { c.autoCloseMs = v; }
+    },
+    {
+      id: 'stretch', title: 'Растяжение вверх', ends: ['нет', 'высоко и легко'],
+      min: 0, max: 1, step: 0.05, start: 0.6,
+      apply: function (c, t) {
+        // 0 leaves the lift capped at the gallery height: no stretch at all
+        c.maxLiftRatio = round(along(0, 0.8, 1, t, 0.6), 3);
+        c.rubberC = round(along(0.3, 0.6, 0.9, t, 0.6), 3);
+      }
+    },
+    {
+      id: 'slides', title: 'Смена картинок', ends: ['', ''],
+      min: 80, max: 600, step: 20, start: 160, unit: ' мс',
+      apply: function (c, v) { c.slideIntervalMs = v; }
+    }
   ];
-
-  function get(obj, path) {
-    return path.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, obj);
-  }
-
-  function set(obj, path, value) {
-    var keys = path.split('.');
-    var last = keys.pop();
-    var target = keys.reduce(function (o, k) { return o[k]; }, obj);
-    target[last] = value;
-  }
 
   function readStored() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { return {}; }
@@ -63,12 +121,21 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(values)); } catch (e) {}
   }
 
+  // Every leaf of a plain object, as dotted paths.
+  function leaves(obj, prefix, out) {
+    Object.keys(obj).forEach(function (key) {
+      var path = prefix ? prefix + '.' + key : key;
+      if (obj[key] && typeof obj[key] === 'object') leaves(obj[key], path, out);
+      else out[path] = obj[key];
+    });
+    return out;
+  }
+
   /*
    * Frame pacing, so a "feels like a lower framerate" can be looked at
    * instead of guessed: the rate over the last half second, the worst gap
    * between frames in the last two seconds, and whether the footer's
-   * listeners are armed right now (they make the browser wait on this
-   * script before scrolling, which is the first thing to suspect).
+   * listeners are armed right now.
    */
   function startFpsMeter(node) {
     var frames = [];
@@ -100,9 +167,9 @@
   }
 
   function build(config) {
-    var defaults = JSON.parse(JSON.stringify(config));
+    var base = JSON.parse(JSON.stringify(config));
     var stored = readStored();
-    Object.keys(stored).forEach(function (path) { set(config, path, stored[path]); });
+    var positions = {};
 
     var style = document.createElement('style');
     style.textContent =
@@ -111,17 +178,18 @@
       '.fd-tune__fps{margin-left:6px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(0,0,0,.15);font-variant-numeric:tabular-nums;white-space:nowrap}' +
       '.fd-tune__fps.is-low{background:#ffd7d7}' +
       '.fd-tune__fps b{font-weight:700}' +
-      '.fd-tune__body{display:none;margin-top:6px;width:min(320px,calc(100vw - 16px));max-height:min(70vh,560px);overflow:auto;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.96);box-shadow:0 8px 30px rgba(0,0,0,.18);backdrop-filter:blur(8px)}' +
+      '.fd-tune__body{display:none;margin-top:6px;width:min(320px,calc(100vw - 16px));max-height:min(75vh,620px);overflow:auto;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.96);box-shadow:0 8px 30px rgba(0,0,0,.18);backdrop-filter:blur(8px)}' +
       '.fd-tune.is-open .fd-tune__body{display:block}' +
-      '.fd-tune__head{margin:10px 0 4px;font-weight:700;opacity:.55;text-transform:uppercase;font-size:11px;letter-spacing:.04em}' +
-      '.fd-tune__row{display:grid;grid-template-columns:1fr 52px;gap:2px 8px;align-items:center;margin:6px 0}' +
-      '.fd-tune__row label{grid-column:1/3;font-size:12px}' +
-      '.fd-tune__row input[type=range]{width:100%;margin:0}' +
-      '.fd-tune__row output{font-variant-numeric:tabular-nums;text-align:right;font-size:12px}' +
-      '.fd-tune__row.is-changed label{color:#0056d3;font-weight:600}' +
-      '.fd-tune__actions{display:flex;gap:8px;margin-top:12px}' +
+      '.fd-tune__head{margin:12px 0 2px;font-weight:700;opacity:.5;text-transform:uppercase;font-size:11px;letter-spacing:.04em}' +
+      '.fd-tune__row{margin:10px 0}' +
+      '.fd-tune__title{display:flex;justify-content:space-between;font-size:13px;font-weight:600}' +
+      '.fd-tune__title output{font-weight:400;font-variant-numeric:tabular-nums;opacity:.7}' +
+      '.fd-tune__row input[type=range]{width:100%;margin:4px 0 0}' +
+      '.fd-tune__ends{display:flex;justify-content:space-between;font-size:11px;opacity:.55}' +
+      '.fd-tune__row.is-changed .fd-tune__title{color:#0056d3}' +
+      '.fd-tune__actions{display:flex;gap:8px;margin-top:14px}' +
       '.fd-tune__actions button{flex:1;padding:8px;border:1px solid #0056d3;border-radius:8px;background:#fff;color:#0056d3;font:inherit;cursor:pointer}' +
-      '.fd-tune__out{width:100%;height:110px;margin-top:8px;font:11px/1.35 ui-monospace,Menlo,monospace;white-space:pre;display:none}' +
+      '.fd-tune__out{width:100%;height:120px;margin-top:8px;font:11px/1.35 ui-monospace,Menlo,monospace;white-space:pre;display:none}' +
       '.fd-tune__out.is-shown{display:block}';
     document.head.appendChild(style);
 
@@ -145,49 +213,61 @@
 
     var rows = [];
 
-    FIELDS.forEach(function (field) {
-      if (field.length === 1) {
+    FEELS.forEach(function (feel) {
+      if (Array.isArray(feel)) {
         var head = document.createElement('div');
         head.className = 'fd-tune__head';
-        head.textContent = field[0];
+        head.textContent = feel[0];
         body.appendChild(head);
         return;
       }
-      var path = field[0];
       var row = document.createElement('div');
       row.className = 'fd-tune__row';
-      var label = document.createElement('label');
-      label.textContent = field[1];
+      var title = document.createElement('div');
+      title.className = 'fd-tune__title';
+      var name = document.createElement('span');
+      name.textContent = feel.title;
+      var output = document.createElement('output');
+      title.appendChild(name);
+      title.appendChild(output);
       var input = document.createElement('input');
       input.type = 'range';
-      input.min = field[2];
-      input.max = field[3];
-      input.step = field[4];
-      input.value = get(config, path);
-      var output = document.createElement('output');
-      row.appendChild(label);
+      input.min = feel.min;
+      input.max = feel.max;
+      input.step = feel.step;
+      var ends = document.createElement('div');
+      ends.className = 'fd-tune__ends';
+      ends.innerHTML = '<span></span><span></span>';
+      ends.children[0].textContent = feel.ends[0];
+      ends.children[1].textContent = feel.ends[1];
+      row.appendChild(title);
       row.appendChild(input);
-      row.appendChild(output);
+      if (feel.ends[0] || feel.ends[1]) row.appendChild(ends);
       body.appendChild(row);
 
-      function refresh() {
-        var value = get(config, path);
-        output.textContent = String(Math.round(value * 1000) / 1000);
+      function show() {
+        var value = positions[feel.id];
         input.value = value;
-        row.classList.toggle('is-changed', value !== get(defaults, path));
+        output.textContent = feel.unit ? value + feel.unit : '';
+        row.classList.toggle('is-changed', value !== feel.start);
+      }
+
+      function setTo(value) {
+        positions[feel.id] = value;
+        feel.apply(config, value, base);
+        show();
       }
 
       input.addEventListener('input', function () {
-        set(config, path, parseFloat(input.value));
-        refresh();
-        var changed = readStored();
-        if (get(config, path) === get(defaults, path)) delete changed[path];
-        else changed[path] = get(config, path);
-        writeStored(changed);
+        setTo(parseFloat(input.value));
+        var saved = readStored();
+        if (positions[feel.id] === feel.start) delete saved[feel.id];
+        else saved[feel.id] = positions[feel.id];
+        writeStored(saved);
       });
 
-      rows.push(refresh);
-      refresh();
+      setTo(stored[feel.id] !== undefined ? stored[feel.id] : feel.start);
+      rows.push({ feel: feel, setTo: setTo });
     });
 
     var actions = document.createElement('div');
@@ -207,18 +287,22 @@
     body.appendChild(out);
 
     copy.addEventListener('click', function () {
-      var changed = readStored();
-      var text = Object.keys(changed).length ? JSON.stringify(changed, null, 2) : '(ничего не менялось)';
+      var was = leaves(base, '', {});
+      var now = leaves(config, '', {});
+      var changed = {};
+      Object.keys(now).forEach(function (path) { if (now[path] !== was[path]) changed[path] = now[path]; });
+      var feels = readStored();
+      var text = Object.keys(changed).length
+        ? JSON.stringify({ feel: feels, config: changed }, null, 2)
+        : '(ничего не менялось)';
       out.value = text;
       out.classList.add('is-shown');
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).catch(function () {});
     });
 
-
     reset.addEventListener('click', function () {
-      Object.keys(readStored()).forEach(function (path) { set(config, path, get(defaults, path)); });
       writeStored({});
-      rows.forEach(function (refresh) { refresh(); });
+      rows.forEach(function (r) { r.setTo(r.feel.start); });
       out.value = '';
       out.classList.remove('is-shown');
     });

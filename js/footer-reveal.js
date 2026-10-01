@@ -78,10 +78,10 @@
     // so a close starts moving at once instead of easing in from rest.
     springs: {
       follow: { response: 0.096, damping: 1, kick: 0 },
-      open: { response: 0.31, damping: 0.73, kick: 0 },
+      open: { response: 0.31, damping: 0.82, kick: 0 },
       cancel: { response: 0.202, damping: 1, kick: 0 },
-      close: { response: 0.543, damping: 0.838, kick: 2.5 },
-      autoClose: { response: 0.775, damping: 0.64, kick: 0.5 },
+      close: { response: 0.543, damping: 0.892, kick: 2.5 },
+      autoClose: { response: 0.775, damping: 0.76, kick: 0.5 },
       arrival: { response: 0.388, damping: 1, kick: 0 }
     }
   };

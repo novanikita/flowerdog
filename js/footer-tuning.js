@@ -87,7 +87,7 @@
     },
     {
       id: 'bounce', title: 'Пружинистость', ends: ['ровно', 'пружинит'],
-      min: 0, max: 1, step: 0.05, start: 0.45,
+      min: 0, max: 1, step: 0.05, start: 0.3,
       apply: function (c, t) {
         c.springs.open.damping = round(along(1, 0.7, 0.5, t), 3);
         c.springs.close.damping = round(along(1, 0.82, 0.6, t), 3);

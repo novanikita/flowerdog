@@ -5,9 +5,9 @@
  * Nine sliders, one per thing a person actually feels — how easy it is to
  * open, how quickly it answers, how bouncy it is — rather than one per
  * value in the reveal's CONFIG. Each moves several of those values
- * together, along a line through the values in use today: in its starting
- * position every slider reproduces them exactly, so nothing changes until
- * one is moved. "Скопировать" lists the CONFIG values that came out
+ * together. Each starts where the feel was last settled, and in that
+ * position reproduces exactly the values in js/footer-reveal.js — so
+ * nothing changes until a slider is moved, and "Сбросить" comes back here. "Скопировать" lists the CONFIG values that came out
  * different, to paste into a chat; positions are kept in localStorage
  * between reloads, and "Сбросить" clears them.
  */
@@ -37,7 +37,7 @@
     ['Доскролл'],
     {
       id: 'bump', title: 'Подскок при доскролле', ends: ['нет', 'высокий'],
-      min: 0, max: 120, step: 2, start: 48, unit: ' px',
+      min: 0, max: 120, step: 2, start: 108, unit: ' px',
       apply: function (c, v) {
         c.arrival.maxPx = v;
         // the same arrival speed reaches the ceiling, whatever it is
@@ -47,7 +47,7 @@
     ['Открытие'],
     {
       id: 'ease', title: 'Открыть', ends: ['тяжело', 'легко'],
-      min: 0, max: 1, step: 0.05, start: 0.5,
+      min: 0, max: 1, step: 0.05, start: 0.05,
       apply: function (c, t) {
         c.wheelOpenAt = round(along(0.6, 0.35, 0.2, t), 3);
         c.wheelPullRatePxPerS = Math.round(along(1200, 2000, 3000, t));
@@ -56,7 +56,7 @@
     },
     {
       id: 'stages', title: 'Сильный толчок', ends: ['сначала подглядывает', 'открывает сразу'],
-      min: 0, max: 1, step: 0.05, start: 0.5,
+      min: 0, max: 1, step: 0.05, start: 0.65,
       apply: function (c, t) {
         c.peekMax = round(along(0.9, 0.8, 0.6, t), 3);
         c.wheelSnapOpen = round(along(1, 0.95, 0.5, t), 3);
@@ -64,7 +64,7 @@
     },
     {
       id: 'answer', title: 'Отклик на тачпад', ends: ['мягко, с запаздыванием', 'мгновенно'],
-      min: 0, max: 1, step: 0.05, start: 0.5,
+      min: 0, max: 1, step: 0.05, start: 0.7,
       apply: function (c, t) {
         c.springs.follow.response = round(along(0.2, 0.12, 0.06, t), 3);
         c.pullHoldMs = Math.round(along(420, 280, 120, t));
@@ -74,17 +74,20 @@
     ['Движение'],
     {
       id: 'speed', title: 'Скорость движений', ends: ['медленно', 'быстро'],
-      min: 0, max: 1, step: 0.05, start: 0.5,
-      apply: function (c, t, base) {
+      min: 0, max: 1, step: 0.05, start: 0.75,
+      apply: function (c, t) {
+        // fixed reference periods, not the ones in CONFIG: those are this
+        // slider's own output, and scaling them again would compound
+        var reference = { open: 0.4, cancel: 0.26, close: 0.7, autoClose: 1, arrival: 0.5 };
         var f = along(1.6, 1, 0.55, t);
-        ['open', 'cancel', 'close', 'autoClose', 'arrival'].forEach(function (name) {
-          c.springs[name].response = round(base.springs[name].response * f, 3);
+        Object.keys(reference).forEach(function (name) {
+          c.springs[name].response = round(reference[name] * f, 3);
         });
       }
     },
     {
       id: 'bounce', title: 'Пружинистость', ends: ['ровно', 'пружинит'],
-      min: 0, max: 1, step: 0.05, start: 0.5,
+      min: 0, max: 1, step: 0.05, start: 0.45,
       apply: function (c, t) {
         c.springs.open.damping = round(along(1, 0.7, 0.5, t), 3);
         c.springs.close.damping = round(along(1, 0.82, 0.6, t), 3);
@@ -94,12 +97,12 @@
     ['Открытый подвал'],
     {
       id: 'hold', title: 'Держится открытым', ends: ['', ''],
-      min: 300, max: 5000, step: 100, start: 1000, unit: ' мс',
+      min: 300, max: 5000, step: 100, start: 500, unit: ' мс',
       apply: function (c, v) { c.autoCloseMs = v; }
     },
     {
       id: 'stretch', title: 'Растяжение вверх', ends: ['нет', 'высоко и легко'],
-      min: 0, max: 1, step: 0.05, start: 0.6,
+      min: 0, max: 1, step: 0.05, start: 0,
       apply: function (c, t) {
         // 0 leaves the lift capped at the gallery height: no stretch at all
         c.maxLiftRatio = round(along(0, 0.8, 1, t, 0.6), 3);
@@ -108,7 +111,7 @@
     },
     {
       id: 'slides', title: 'Смена картинок', ends: ['', ''],
-      min: 80, max: 600, step: 20, start: 160, unit: ' мс',
+      min: 80, max: 600, step: 20, start: 260, unit: ' мс',
       apply: function (c, v) { c.slideIntervalMs = v; }
     }
   ];

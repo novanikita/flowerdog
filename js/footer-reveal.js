@@ -29,27 +29,27 @@
     // delivers over 100px in a single 8ms event — so the sheet is pulled
     // by a rate-limited step instead of the raw delta. Without it the same
     // flick opens instantly in one browser and gently in another.
-    wheelPullRatePxPerS: 1280,
+    wheelPullRatePxPerS: 1200,
     wheelNotchMinPx: 4,
     wheelFreshMinPx: 12,
     wheelPushesToOpen: 2,
     wheelPushWindowMs: 700,
-    pullHoldMs: 216,
+    pullHoldMs: 280,
     // When a push ends, the sheet opens if it got at least this far up
     // (a fraction of the gallery height). What the user sees decides,
     // not how much delta their machine happened to send for the gesture.
-    wheelOpenAt: 0.575,
+    wheelOpenAt: 0.6,
     // While the push is still going, it opens at once — without waiting
     // for the push to end — when the peek reaches this fraction of its
     // ceiling (peekMax). Lower: a hard push opens in one motion. Higher:
     // the sheet peeks first and opens only once the push is over.
-    wheelSnapOpen: 0.815,
-    peekMax: 0.74,
+    wheelSnapOpen: 0.5,
+    peekMax: 0.6,
     catchFallingAt: 0.15,
 
     // Touch. Ratios are fractions of the gallery height.
     touchNearEndPx: 60, // a swipe up that starts this close to the end is the sheet's
-    touchOpenAt: 0.48,
+    touchOpenAt: 0.5,
     touchCloseAt: 0.85,
     touchFlingPxPerS: 550, // finger speed, not sheet speed
     touchFlingMinLiftPx: 12,
@@ -58,7 +58,7 @@
     // band, (1 - 1 / (x * c / d + 1)) * d, with d = viewport height.
     rubberC: 0.3,
     maxLiftRatio: 0, // of the viewport height; 0: never past the gallery height
-    stretchHoldMs: 96, // wheel/trackpad stretch springs back after this pause
+    stretchHoldMs: 120, // wheel/trackpad stretch springs back after this pause
 
     /*
      * The bump on arriving at the end with momentum. The sheet lifts on a
@@ -68,8 +68,8 @@
      * page arrives natively, this only answers it.
      */
     arrival: {
-      maxPx: 108, // ceiling, however fast the arrival
-      perSpeed: 0.045, // px of bump per px/s of arrival speed
+      maxPx: 0, // ceiling, however fast the arrival
+      perSpeed: 0, // px of bump per px/s of arrival speed
       minSpeed: 300 // px/s; slower arrivals get nothing
     },
 
@@ -77,13 +77,13 @@
     // starting speed, as a multiple of the remaining distance per second,
     // so a close starts moving at once instead of easing in from rest.
     springs: {
-      follow: { response: 0.096, damping: 1, kick: 0 },
-      open: { response: 0.31, damping: 0.82, kick: 0 },
+      follow: { response: 0.12, damping: 1, kick: 0 },
+      open: { response: 0.382, damping: 0.7, kick: 0 },
       openTouch: { response: 0.505, damping: 0.91, kick: 0 }, // opening after a finger lets go
-      cancel: { response: 0.202, damping: 1, kick: 0 },
-      close: { response: 0.543, damping: 0.892, kick: 2.5 },
-      autoClose: { response: 0.775, damping: 0.76, kick: 0.5 },
-      arrival: { response: 0.388, damping: 1, kick: 0 }
+      cancel: { response: 0.248, damping: 1, kick: 0 },
+      close: { response: 0.669, damping: 0.82, kick: 2.5 },
+      autoClose: { response: 0.955, damping: 0.6, kick: 0.5 },
+      arrival: { response: 0.478, damping: 1, kick: 0 }
     }
   };
 

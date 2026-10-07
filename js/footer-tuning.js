@@ -37,7 +37,7 @@
     ['Доскролл'],
     {
       id: 'bump', title: 'Подскок при доскролле', ends: ['нет', 'высокий'],
-      min: 0, max: 120, step: 2, start: 108, unit: ' px',
+      min: 0, max: 120, step: 2, start: 0, unit: ' px',
       apply: function (c, v) {
         c.arrival.maxPx = v;
         // the same arrival speed reaches the ceiling, whatever it is
@@ -47,7 +47,7 @@
     ['Открытие'],
     {
       id: 'ease', title: 'Открыть', ends: ['тяжело', 'легко'],
-      min: 0, max: 1, step: 0.05, start: 0.05,
+      min: 0, max: 1, step: 0.05, start: 0,
       apply: function (c, t) {
         c.wheelOpenAt = round(along(0.6, 0.35, 0.2, t), 3);
         c.wheelPullRatePxPerS = Math.round(along(1200, 2000, 3000, t));
@@ -56,7 +56,7 @@
     },
     {
       id: 'stages', title: 'Сильный толчок', ends: ['сначала подглядывает', 'открывает сразу'],
-      min: 0, max: 1, step: 0.05, start: 0.65,
+      min: 0, max: 1, step: 0.05, start: 1,
       apply: function (c, t) {
         c.peekMax = round(along(0.9, 0.8, 0.6, t), 3);
         c.wheelSnapOpen = round(along(1, 0.95, 0.5, t), 3);
@@ -64,7 +64,7 @@
     },
     {
       id: 'answer', title: 'Отклик на тачпад', ends: ['мягко, с запаздыванием', 'мгновенно'],
-      min: 0, max: 1, step: 0.05, start: 0.7,
+      min: 0, max: 1, step: 0.05, start: 0.5,
       apply: function (c, t) {
         c.springs.follow.response = round(along(0.2, 0.12, 0.06, t), 3);
         c.pullHoldMs = Math.round(along(420, 280, 120, t));
@@ -74,7 +74,7 @@
     ['Движение'],
     {
       id: 'speed', title: 'Скорость движений', ends: ['медленно', 'быстро'],
-      min: 0, max: 1, step: 0.05, start: 0.75,
+      min: 0, max: 1, step: 0.05, start: 0.55,
       apply: function (c, t) {
         // fixed reference periods, not the ones in CONFIG: those are this
         // slider's own output, and scaling them again would compound
@@ -87,7 +87,7 @@
     },
     {
       id: 'bounce', title: 'Пружинистость', ends: ['ровно', 'пружинит'],
-      min: 0, max: 1, step: 0.05, start: 0.3,
+      min: 0, max: 1, step: 0.05, start: 0.5,
       apply: function (c, t) {
         c.springs.open.damping = round(along(1, 0.7, 0.5, t), 3);
         c.springs.close.damping = round(along(1, 0.82, 0.6, t), 3);

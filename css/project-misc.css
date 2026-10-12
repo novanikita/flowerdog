@@ -169,6 +169,14 @@ figure.project-figure--bordered::after {
   margin-left: 0.2em;
 }
 
+.ids p.quote.quote--portraits {
+  margin-bottom: 0;
+}
+
+.portraits-inline--start {
+  margin-left: 0;
+}
+
 .portraits-inline .portreit + .portreit {
   margin-left: -0.2em;
 }

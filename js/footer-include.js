@@ -4,12 +4,11 @@
   /* Master switch for the site footer. */
   var FOOTER_ENABLED = true;
 
-  /*
-   * The footer reveal is still in the works and runs only on a local copy
-   * of the site (localhost or a home-network address). On flowerdog.studio
-   * this is false and js/footer-reveal.js is never loaded.
-   */
-  var FOOTER_REVEAL_ENABLED = /^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/.test(window.location.hostname);
+  /* The reveal runs on every page of the site. */
+  var FOOTER_REVEAL_ENABLED = true;
+
+  /* The tuning panel stays on local copies of the site only. */
+  var FOOTER_TUNING_ENABLED = /^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/.test(window.location.hostname);
 
   var slots = document.querySelectorAll('[data-site-footer]');
   if (!slots.length) return;
@@ -28,10 +27,11 @@
     '<div class="site-footer__contact">' +
     '<a class="site-footer__email" href="mailto:hi@flowerdog.studio">hi@flowerdog.studio</a>' +
     '<p class="site-footer__contact-note">' +
-    '<span data-i18n data-ru="Пишите нам на&nbsp;" data-en="Write to us by&nbsp;">Пишите нам на </span>' +
+    '<strong class="site-footer__contact-lead"><span data-i18n data-ru="Напишите нам на&nbsp;" data-en="Write to us by&nbsp;">Напишите нам на </span>' +
     '<a href="mailto:hi@flowerdog.studio" class="site-footer__link" data-i18n data-ru="почту" data-en="email">почту</a>' +
     '<span data-i18n data-ru=" или&nbsp;в&nbsp;" data-en=" or&nbsp;on&nbsp;"> или в </span>' +
-    '<a href="https://t.me/dmitry2man" class="site-footer__link" data-i18n data-ru="телеграм" data-en="Telegram">телеграм</a>' +
+    '<a href="https://t.me/dmitry2man" class="site-footer__link" data-i18n data-ru="телеграм" data-en="Telegram">телеграм</a></strong><br>' +
+    '<span data-i18n data-ru="Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно, и предложим варианты." data-en="Tell us about your task in any words. Then we\'ll ask everything we need and suggest options.">Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно, и предложим варианты.</span>' +
     '</p></div>' +
     '<nav class="site-footer__nav" aria-label="Footer">' +
     '<a class="site-footer__nav-link" href="portfolio.html" data-i18n data-ru="Проекты" data-en="Projects">Проекты</a>' +
@@ -56,7 +56,7 @@
     script.src = 'js/footer-reveal.js';
     script.dataset.footerRevealScript = 'true';
     document.body.appendChild(script);
-    // The tuning panel: local copies only, like the reveal itself.
+    if (!FOOTER_TUNING_ENABLED) return;
     var tuning = document.createElement('script');
     tuning.src = 'js/footer-tuning.js';
     document.body.appendChild(tuning);

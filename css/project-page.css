@@ -8,6 +8,14 @@
   box-sizing: border-box;
 }
 
+.main-page-intro {
+  width: 72%;
+}
+
+.ids .main-page-intro h1 {
+  font-weight: 500;
+}
+
 .ids .main-page-text-fixed a:hover,
 .ids .main-page-text-fixed a:focus-visible,
 .ids.page-vacancies .ids__wrapper.S a:hover,

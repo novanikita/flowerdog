@@ -35,35 +35,6 @@
   border-radius: var(--fds-radius-pill);
 }
 
-.fds-card__cover--sound {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--fds-inverse-bg);
-  color: var(--fds-inverse-text);
-  transition: background-color var(--fds-duration-base) var(--fds-ease);
-  cursor: pointer;
-}
-
-.fds-card--sound:hover .fds-card__cover--sound,
-.fds-card--sound:focus-visible .fds-card__cover--sound,
-.fds-card--sound.is-playing .fds-card__cover--sound {
-  background-color: var(--fds-accent);
-}
-
-.fds-card__sound-icon {
-  width: min(70%, 12em);
-  aspect-ratio: 1;
-  display: block;
-  background-color: currentColor;
-  mask: url('/images/icon/sound-2.svg') center / contain no-repeat;
-  -webkit-mask: url('/images/icon/sound-2.svg') center / contain no-repeat;
-  pointer-events: none;
-}
-
-.fds-card--sound {
-  cursor: pointer;
-}
 
 .fds-card__strip {
   display: flex;
@@ -157,30 +128,6 @@ a.fds-button:focus-visible {
   color: var(--fds-accent);
 }
 
-.fds-card--menu {
-  cursor: default;
-}
-
-.fds-card__meta--stack {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
-}
-
-.fds-card__meta--stack h2 {
-  margin: 0;
-  padding-right: 1em;
-}
-
-p.fds-card__text {
-  margin: 0;
-  padding-right: 1em;
-  font-size: 1em;
-  line-height: 1.25;
-  font-weight: 400;
-  color: var(--fds-text);
-  min-height: 2.5em;
-}
 
 @media (width <= 768px) {
   .fds-card__meta:has(.fds-chip--soon) {
@@ -196,14 +143,6 @@ p.fds-card__text {
     width: auto;
   }
 
-  p.fds-card__text {
-    font-size: 0.9em;
-    padding-right: 0.5em;
-  }
-
-  .fds-card__meta--stack h2 {
-    font-size: 1.8em;
-  }
 
   .fds-grid[data-projects-page="index"] > a.fds-button {
     order: 999;

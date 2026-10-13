@@ -10,14 +10,7 @@ fds-gallery, .fds-gallery {
 
     @media (width <= 768px) {
         --gap: 0.4em;
-
-        figure,
-        figure.fds-figure--l,
-        figure.fds-figure--xl,
-        figure:not(.fds-figure--l):not(.fds-figure--xl) {
-            border-radius: var(--fds-radius-m);
-        }
-    } 
+    }
 
     &.fds-gallery--review {
         @media (width <= 768px) {
@@ -25,7 +18,7 @@ fds-gallery, .fds-gallery {
         } 
     }
 
-    figure {
+    .fds-figure {
         flex: 0 0 calc((100% - var(--gap) * (var(--columns) - 1)) / var(--columns));
         overflow: hidden;
         border-radius: var(--fds-radius-l);
@@ -57,16 +50,13 @@ fds-gallery, .fds-gallery {
             display: block;
         }
 
-        &.fds-figure--l {
+        &:where(.fds-figure--l) {
             flex: 0 0 calc((100% - var(--gap)) / 2);
-            border-radius: var(--fds-radius-l);
         }
-        &.fds-figure--xl {
-            
+        &:where(.fds-figure--xl) {
             flex: 0 0 100%;
-            border-radius: var(--fds-radius-l);
         }
-        &:not(.fds-figure--l):not(.fds-figure--xl) {
+        &:where(:not(.fds-figure--l):not(.fds-figure--xl)) {
             border-radius: var(--fds-radius-s);
         }
     }
@@ -128,125 +118,22 @@ video.has-sound-toggle {
     -webkit-mask-image: url('/images/icon/speaker-mute.svg');
 }
 
-.fds-gallery-wrap,
-fds-gallery,
-.fds-gallery {
-  display: none;
-}
-
-.fds-wrap[data-client-tag="yandex"] .fds-gallery-wrap,
-.fds-wrap[data-client-tag="audit"] .fds-gallery-wrap,
-.fds-wrap[data-client-tag="sber500"] .fds-gallery-wrap,
-.fds-wrap[data-client-tag="sporos"] .fds-gallery-wrap,
-.fds-wrap[data-client-tag="vi"] .fds-gallery-wrap,
-.fds-wrap[data-client-tag="yamusic"] .fds-gallery-wrap,
-.fds-wrap[data-client-tag="bandlink"] .fds-gallery-wrap {
-  display: block;
-}
-
-.fds-wrap[data-client-tag="yandex"] fds-gallery,
-.fds-wrap[data-client-tag="yandex"] .fds-gallery,
-.fds-wrap[data-client-tag="audit"] fds-gallery,
-.fds-wrap[data-client-tag="audit"] .fds-gallery,
-.fds-wrap[data-client-tag="sber500"] fds-gallery,
-.fds-wrap[data-client-tag="sber500"] .fds-gallery,
-.fds-wrap[data-client-tag="sporos"] fds-gallery,
-.fds-wrap[data-client-tag="sporos"] .fds-gallery,
-.fds-wrap[data-client-tag="vi"] fds-gallery,
-.fds-wrap[data-client-tag="vi"] .fds-gallery,
-.fds-wrap[data-client-tag="yamusic"] fds-gallery,
-.fds-wrap[data-client-tag="yamusic"] .fds-gallery,
-.fds-wrap[data-client-tag="bandlink"] fds-gallery,
-.fds-wrap[data-client-tag="bandlink"] .fds-gallery {
-  display: flex;
-}
-
-.fds-gallery-wrap--rangos,
-.fds-gallery-wrap--lavatop,
-.fds-gallery-wrap--dodo,
-.fds-gallery-wrap--kim-chips,
-.fds-gallery-wrap--toolpar {
-  display: block;
-}
-
-.fds-gallery-wrap--rangos fds-gallery,
-.fds-gallery-wrap--rangos .fds-gallery,
-.fds-gallery-wrap--lavatop fds-gallery,
-.fds-gallery-wrap--lavatop .fds-gallery,
-.fds-gallery-wrap--dodo fds-gallery,
-.fds-gallery-wrap--dodo .fds-gallery,
-.fds-gallery-wrap--kim-chips fds-gallery,
-.fds-gallery-wrap--kim-chips .fds-gallery,
-.fds-gallery-wrap--toolpar fds-gallery,
-.fds-gallery-wrap--toolpar .fds-gallery {
-  display: flex;
-}
-
-.fds-gallery-wrap--rangos figure img,
-.fds-gallery-wrap--rangos figure video,
-.fds-gallery-wrap--lavatop figure img,
-.fds-gallery-wrap--lavatop figure video,
-.fds-gallery-wrap--dodo figure img,
-.fds-gallery-wrap--dodo figure video,
-.fds-gallery-wrap--kim-chips figure img,
-.fds-gallery-wrap--kim-chips figure video,
-.fds-gallery-wrap--toolpar figure img,
-.fds-gallery-wrap--toolpar figure video {
-  width: 100%;
-  display: block;
-}
-
-/* Kim Chips: while case text is hidden, stack galleries like Lavatop (gallery --gap) */
-.fds-wrap--s:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) {
-  display: none;
-}
-
-.fds-wrap--s:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .fds-wrap--l:has(.fds-gallery-wrap--kim-chips) {
-  margin-top: 1em;
-}
-
-.fds-gallery-wrap--dodo fds-gallery figure.fds-figure--l.fds-figure--tight,
-.fds-gallery-wrap--dodo .fds-gallery figure.fds-figure--l.fds-figure--tight {
+/* Tight corners: every figure on mobile, --tight figures always. */
+.fds-gallery .fds-figure--tight {
   border-radius: var(--fds-radius-xs);
 }
 
 @media (width <= 768px) {
-  .fds-wrap--s:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .fds-wrap--l:has(.fds-gallery-wrap--kim-chips) {
-    margin-top: 0.4em;
-  }
-
-  .fds-wrap:has(+ .fds-wrap .fds-gallery-wrap) > .fds-space--l:last-child,
-  .fds-wrap:has(+ .fds-wrap .fds-gallery-wrap) > .fds-space--m:last-child {
-    height: calc(var(--fds-density) * 0.7em);
-  }
-
-  .fds-wrap:has(+ .fds-wrap .fds-gallery-wrap) > .fds-cta + .fds-space--m {
-    height: calc(var(--fds-density) * 1.4em);
-  }
-
-  .fds-gallery-wrap--dodo fds-gallery figure.fds-figure--xl,
-  .fds-gallery-wrap--dodo .fds-gallery figure.fds-figure--xl {
-    border-radius: var(--fds-radius-xs);
-  }
-
-  .fds-gallery-wrap--dodo fds-gallery figure.fds-figure--l,
-  .fds-gallery-wrap--dodo fds-gallery figure:not(.fds-figure--l):not(.fds-figure--xl),
-  .fds-gallery-wrap--dodo .fds-gallery figure.fds-figure--l,
-  .fds-gallery-wrap--dodo .fds-gallery figure:not(.fds-figure--l):not(.fds-figure--xl) {
-    border-radius: var(--fds-radius-xs);
-  }
-
-  .fds-gallery-wrap--dodo fds-gallery figure.fds-figure--l.fds-figure--tight,
-  .fds-gallery-wrap--dodo .fds-gallery figure.fds-figure--l.fds-figure--tight {
+  .fds-gallery.fds-gallery--tight .fds-figure {
     border-radius: var(--fds-radius-xs);
   }
 }
 
-figure.fds-figure--bordered {
+.fds-figure--bordered {
   position: relative;
 }
 
-figure.fds-figure--bordered::after {
+.fds-figure--bordered::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -255,17 +142,17 @@ figure.fds-figure--bordered::after {
   pointer-events: none;
 }
 
-.fds-wrap[data-client-tag="sporos"] figure.fds-figure--logo {
+.fds-gallery .fds-figure--logo {
   margin-top: calc(var(--fds-density) * 4em);
   margin-bottom: calc(var(--fds-density) * 4em);
 }
 
-.fds-wrap[data-client-tag="sporos"] figure.fds-figure--logo a {
+.fds-gallery .fds-figure--logo a {
   display: flex;
   justify-content: center;
 }
 
-.fds-wrap[data-client-tag="sporos"] figure.fds-figure--logo img {
+.fds-gallery .fds-figure--logo img {
   width: 50%;
   max-width: 50%;
 }

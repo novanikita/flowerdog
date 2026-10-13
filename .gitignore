@@ -2,3 +2,7 @@
 .venv-face/
 .venv*/
 .DS_Store
+
+# screenshot tool
+_shots/
+scripts/screenshots/node_modules/

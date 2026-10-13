@@ -1,8 +1,8 @@
-.ids .fds-grid--people-extended .fds-person__meta {
+.fds-grid--people-extended .fds-person__meta {
   font-size: 0.85em;
 }
 
-.ids .fds-grid--people-extended p.fds-person__bio {
+.fds-grid--people-extended p.fds-person__bio {
   font-size: 0.8em;
   padding-right: 0.5em;
 }
@@ -40,7 +40,7 @@
   line-height: 1.12;
 }
 
-.ids .fds-person__meta h2.fds-person__name {
+.fds-person__meta h2.fds-person__name {
   margin: 0;
   font-size: 1em;
   line-height: inherit;
@@ -53,7 +53,7 @@
   margin: 0.1em 0 0;
 }
 
-.ids p.fds-person__bio {
+p.fds-person__bio {
   margin-top: 0.5em;
   margin-bottom: 0;
   padding-right: 1em;
@@ -71,26 +71,26 @@
     font-size: 1.05em;
   }
 
-  .ids .fds-grid--people-extended .fds-person__meta {
+  .fds-grid--people-extended .fds-person__meta {
     font-size: 0.85em;
   }
 
-  .ids .fds-grid--people-extended p.fds-person__bio {
+  .fds-grid--people-extended p.fds-person__bio {
     font-size: 0.7em;
   }
 
-  .ids p.fds-person__bio {
+  p.fds-person__bio {
     margin-top: 0.5em;
     font-size: 0.9em;
     padding-right: 0.5em;
   }
 }
 
-html[data-lang="en"] .ids .fds-person__meta .fds-chip {
+html[data-lang="en"] .fds-person__meta .fds-chip {
   font-size: 0.72em;
 }
 
-html[data-lang="en"] .ids .fds-grid--people-extended p.fds-person__bio {
+html[data-lang="en"] .fds-grid--people-extended p.fds-person__bio {
   hyphens: auto;
 }
 
@@ -121,7 +121,7 @@ html[data-lang="en"] .ids .fds-grid--people-extended p.fds-person__bio {
   margin-left: 0.2em;
 }
 
-.ids p.fds-display.fds-display--avatars {
+p.fds-display.fds-display--avatars {
   margin-bottom: 0;
 }
 
@@ -147,7 +147,7 @@ html[data-lang="en"] .ids .fds-grid--people-extended p.fds-person__bio {
   display: contents;
 }
 
-.ids p.fds-credits {
+p.fds-credits {
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -209,7 +209,7 @@ html[data-lang="en"] .ids .fds-grid--people-extended p.fds-person__bio {
     display: flex;
   }
 
-  .ids .fds-space.fds-space--avatars {
+  .fds-space.fds-space--avatars {
     height: calc(var(--fds-density) * 0.7em);
   }
 }

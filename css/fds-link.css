@@ -1,32 +1,31 @@
-.ids {
-  & a {
+a {
+  color: var(--fds-text);
+  text-decoration: underline;
+  will-change: color;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--fds-line);
+  transition: color 0s ease;
+
+  &:hover,
+  &:focus-visible {
     color: var(--fds-text);
-    text-decoration: underline;
-    will-change: color;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
     text-decoration-color: var(--fds-line);
     transition: color 0s ease;
-
-    &:hover,
-    &:focus-visible {
-      color: var(--fds-text);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 0.25em;
-      text-decoration-color: var(--fds-line);
-      transition: color 0s ease;
-    }
   }
 }
+
 
 html[data-lang="en"] .fds-cta .fds-link--cta {
   white-space: normal;
 }
 
-.ids .main-page-text-fixed a:hover,
-.ids .main-page-text-fixed a:focus-visible,
-.ids.page-vacancies .fds-wrap--s a:hover,
-.ids.page-vacancies .fds-wrap--s a:focus-visible {
+.fds-wrap__text a:hover,
+.fds-wrap__text a:focus-visible,
+[data-page="vacancies"] .fds-wrap--s a:hover,
+[data-page="vacancies"] .fds-wrap--s a:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
@@ -39,15 +38,15 @@ html[data-lang="en"] .fds-cta .fds-link--cta {
   text-decoration: underline;
   text-decoration-color: var(--fds-text);
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.25em;
   background: transparent;
   transition: none;
 }
 
-.ids .fds-link--cta,
-.ids .fds-link--cta:hover,
-.ids .fds-link--cta:visited,
-.ids .fds-link--cta:focus-visible {
+.fds-link--cta,
+.fds-link--cta:hover,
+.fds-link--cta:visited,
+.fds-link--cta:focus-visible {
   text-decoration-color: var(--fds-text);
 }
 
@@ -56,11 +55,11 @@ html[data-lang="en"] .fds-cta .fds-link--cta {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.25em;
 }
 
-.ids .fds-link--cta:hover,
-.ids .fds-link--cta:focus-visible {
+.fds-link--cta:hover,
+.fds-link--cta:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
@@ -70,15 +69,15 @@ html[data-lang="en"] .fds-cta .fds-link--cta {
   transition: transform var(--fds-duration-base) var(--fds-ease);
 }
 
-.ids :is(p, ul):has(+ .fds-space + .fds-cta) {
+:is(p, ul):has(+ .fds-space + .fds-cta) {
   margin-bottom: 0;
 }
 
-.ids ul:has(+ .fds-space + .fds-cta) > li:last-child {
+ul:has(+ .fds-space + .fds-cta) > li:last-child {
   margin-bottom: 0;
 }
 
-.ids p.fds-cta {
+p.fds-cta {
   margin-bottom: 0;
 }
 
@@ -114,12 +113,12 @@ html[data-lang="en"] .fds-cta .fds-link--cta {
   text-decoration-color: var(--fds-text);
 }
 
-.ids a.fds-link--anchor {
+a.fds-link--anchor {
   text-decoration: none;
   transition: opacity var(--fds-duration-base) var(--fds-ease);
 }
 
-.ids a.fds-link--anchor span:not(.fds-link__arrow) {
+a.fds-link--anchor span:not(.fds-link__arrow) {
   text-decoration: underline;
   text-decoration-thickness: 0.5px;
   text-underline-offset: 0.3em;
@@ -131,17 +130,17 @@ html[data-lang="en"] .fds-cta .fds-link--cta {
   transition: transform var(--fds-duration-base) var(--fds-ease);
 }
 
-.ids a.fds-link--anchor:hover,
-.ids a.fds-link--anchor:focus-visible {
+a.fds-link--anchor:hover,
+a.fds-link--anchor:focus-visible {
   opacity: 0.6;
 }
 
-.ids a.fds-link--anchor:hover .fds-link__arrow,
-.ids a.fds-link--anchor:focus-visible .fds-link__arrow {
+a.fds-link--anchor:hover .fds-link__arrow,
+a.fds-link--anchor:focus-visible .fds-link__arrow {
   transform: translateX(0.25em);
 }
 
-.ids a.fds-link--case {
+a.fds-link--case {
   color: var(--fds-text);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -149,8 +148,8 @@ html[data-lang="en"] .fds-cta .fds-link--cta {
   text-decoration-color: var(--fds-line);
 }
 
-.ids a.fds-link--case:hover,
-.ids a.fds-link--case:focus-visible {
+a.fds-link--case:hover,
+a.fds-link--case:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
@@ -160,7 +159,7 @@ html[data-lang="en"] .fds-cta .fds-link--cta {
     white-space: normal;
   }
 
-  .ids p.fds-case__list a.fds-link--anchor {
+  p.fds-case__list a.fds-link--anchor {
     display: inline-block;
     margin-bottom: 1em;
   }

@@ -51,13 +51,6 @@
     }
   }
 
-  & .fds-wrap__text {
-    width: 85%;
-
-    @media (width <= 768px) {
-      width: 100%;
-    }
-  }
 }
 
 html,
@@ -149,14 +142,14 @@ main {
   overflow: visible;
 }
 
-.ids .fds-grid--people {
+.fds-grid--people {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: 0;
   row-gap: 3em;
 }
 
-.ids .fds-grid--people-extended {
+.fds-grid--people-extended {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
@@ -189,7 +182,7 @@ main {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .ids .fds-grid--people {
+  .fds-grid--people {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: 2.5em;
   }
@@ -204,17 +197,14 @@ main {
   }
 }
 
-.main-page-header {
-  width: 70%;
-}
-
-.main-page-text-fixed {
+/* A narrower text column inside a wrap. */
+.fds-wrap__text {
   width: 50%;
   max-width: 100%;
   box-sizing: border-box;
 }
 
-.main-page-intro {
+.fds-wrap__text--wide {
   width: 72%;
 }
 
@@ -228,12 +218,12 @@ main {
 }
 
 @media (width <= 768px) {
-  .main-page-header,
-  .main-page-text-fixed {
+  .fds-wrap__text,
+  .fds-wrap__text--wide {
     width: 100%;
   }
 
-  .main-page-text-fixed {
+  .fds-wrap__text {
     margin-bottom: 3em;
   }
 
@@ -246,10 +236,4 @@ main {
     margin-left: 0;
     margin-right: 0;
   }
-}
-
-.main-page {
-  display: block;
-  width: 100%;
-  max-width: 100%;
 }

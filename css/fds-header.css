@@ -114,7 +114,7 @@ header.is-hidden {
 .fds-header .fds-header__logo a:visited,
 .fds-header .fds-header__logo a:focus-visible {
   color: var(--fds-text);
-  text-decoration: none !important;
+  text-decoration: none;
   background: transparent;
   transition: none;
 }
@@ -129,7 +129,7 @@ header.is-hidden {
 .fds-header__nav .fds-header__link:hover,
 .fds-header__nav .fds-header__link:focus-visible {
   color: var(--fds-accent);
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
 .fds-lang {
@@ -171,7 +171,6 @@ header.is-hidden {
 
   header {
     padding: var(--fds-gutter);
-    margin-bottom: 1.2em;
   }
 
   .fds-header {
@@ -186,6 +185,8 @@ header.is-hidden {
     gap: 0;
   }
 
+  /* !important: js/header-scroll.js writes the desktop logo size inline and
+     only resets it after a resize; the mobile size must win meanwhile. */
   .fds-header__left .fds-header__logo a {
     font-size: 3.5em !important;
   }
@@ -196,11 +197,7 @@ header.is-hidden {
   }
 
   .fds-header__right {
-    margin-top: 0 !important;
-  }
-
-  .fds-header__right {
-    margin-top: 0;
+    margin-top: 0 !important; /* same reason as the logo size above */
     margin-left: auto;
     min-width: 0;
     display: block;

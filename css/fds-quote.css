@@ -8,7 +8,7 @@
   flex: 1 1 auto;
 }
 
-.ids .fds-quote__lead {
+.fds-quote__lead {
   margin: 0 0 0.375em;
   font-size: 2em;
   line-height: 1.1;
@@ -16,26 +16,26 @@
   color: var(--fds-text);
 }
 
-.ids .fds-quote__content > :last-child,
-.ids .fds-quote > :last-child:not(.fds-quote__byline) {
+.fds-quote__content > :last-child,
+.fds-quote > :last-child:not(.fds-quote__byline) {
   margin-bottom: 0;
 }
 
-.ids .fds-quote .fds-lead + .fds-quote__lead {
+.fds-quote .fds-lead + .fds-quote__lead {
   margin-top: 1em;
 }
 
-.ids .fds-quote .fds-lead {
+.fds-quote .fds-lead {
   margin-top: 0.6em;
   margin-bottom: 0;
   font-size: 1.3em;
 }
 
-.ids .fds-quote__lead + .fds-lead {
+.fds-quote__lead + .fds-lead {
   margin-top: 0.5em;
 }
 
-.ids .fds-quote .fds-lead:first-child {
+.fds-quote .fds-lead:first-child {
   margin-top: 0;
 }
 
@@ -86,18 +86,18 @@
 }
 
 @media (width <= 768px) {
-  body.page-about p.fds-lead:not(.fds-cta),
-  body.page-about .fds-quote .fds-lead:not(.fds-cta),
-  body.page-how-we-work .fds-quote .fds-lead {
+  [data-page="about"] p.fds-lead:not(.fds-cta),
+  [data-page="about"] .fds-quote .fds-lead:not(.fds-cta),
+  [data-page="how-we-work"] .fds-quote .fds-lead {
     font-size: 1.1em;
   }
 
-  .ids .fds-quote__lead {
+  .fds-quote__lead {
     font-size: 1.5em;
   }
 }
 
-html[data-lang="en"] .ids .fds-quote__role {
+html[data-lang="en"] .fds-quote__role {
   font-size: 0.8em;
 }
 

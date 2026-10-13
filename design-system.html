@@ -233,13 +233,15 @@
               <table class="ds-table">
                 <thead><tr><th>Класс</th><th>Размер / интерлиньяж / вес</th><th>Живьём</th></tr></thead>
                 <tbody>
-                  <tr><td><code>.fds-display</code></td><td>3em / 1 / 500, на мобиле 2em</td><td class="ds-sample"><p class="fds-display">Камерная студия</p></td></tr>
+                  <tr><td><code>.fds-display</code></td><td>3em / 1 / 600, на мобиле 2em</td><td class="ds-sample"><p class="fds-display">Камерная студия</p></td></tr>
                   <tr><td><code>.fds-title</code>, <code>h1</code></td><td>2em / 0.9 / 700</td><td class="ds-sample"><p class="fds-title">Ребрендинг Sporos</p></td></tr>
-                  <tr><td><code>.fds-title--intro</code></td><td>вес 500, на мобиле как lead</td><td class="ds-sample"><p class="fds-title fds-title--intro">Делаем всё то, через что бизнес разговаривает с людьми</p></td></tr>
+                  <tr><td><code>.fds-title--intro</code></td><td>1.6em / 0.9 / 500, на мобиле как lead</td><td class="ds-sample"><p class="fds-title fds-title--intro">Делаем всё то, через что бизнес разговаривает с людьми</p></td></tr>
+                  <tr><td><code>.fds-title--outro</code></td><td>как title, на мобиле вес 600 (как display)</td><td class="ds-sample"><p class="fds-title fds-title--outro">Мы понятные, системные и вовлечённые</p></td></tr>
                   <tr><td><code>.fds-heading</code>, <code>h2</code></td><td>2em / 1.08 / 700</td><td class="ds-sample"><p class="fds-heading">Разработка концепции</p></td></tr>
                   <tr><td><code>.fds-heading--light</code></td><td>вес 500</td><td class="ds-sample"><p class="fds-heading fds-heading--light">Мы дизайн-студия, а не агентство</p></td></tr>
                   <tr><td><code>.fds-subheading</code>, <code>h3</code></td><td>1.5em / 1.18 / 700, на мобиле интерлиньяж 1</td><td class="ds-sample"><p class="fds-subheading">Кто нам нужен</p></td></tr>
                   <tr><td><code>.fds-lead</code></td><td>1.5em / 1.2 / 500, на мобиле 1.2em</td><td class="ds-sample"><p class="fds-lead">Первым делом погружаемся в задачу.</p></td></tr>
+                  <tr><td><code>.fds-lead--s</code></td><td>1.2em, на мобиле как lead</td><td class="ds-sample"><p class="fds-lead fds-lead--s">Составляем план проекта по дням.</p></td></tr>
                   <tr><td><code>p</code></td><td>1em / 1.3 / 400</td><td class="ds-sample"><p>Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно.</p></td></tr>
                   <tr><td><code>.fds-small</code></td><td>0.85em</td><td class="ds-sample"><p class="fds-small">сооснователь</p></td></tr>
                   <tr><td><code>.fds-caption</code></td><td>0.7em</td><td class="ds-sample"><p class="fds-caption">ИП Туманов Дмитрий Олегович, ИНН 272198797725</p></td></tr>
@@ -291,7 +293,7 @@
               <div class="ds-demo"><a class="fds-button" href="portfolio.html">Ещё проекты</a></div>
 
               <h3>Аватары</h3>
-              <p class="ds-text"><code>.fds-avatar</code> это круглая картинка в размер строки. В ряду <code>.fds-avatars</code> они наезжают друг на друга на 0.2em; <code>--zoom</code> приближает лицо. В цитате аватар 2.2em, в кредитах 1.2em.</p>
+              <p class="ds-text"><code>.fds-avatar</code> это круглая картинка в размер строки. В ряду <code>.fds-avatars</code> они наезжают друг на друга на 0.2em; <code>--zoom</code> приближает лицо. В цитате аватар 2.2em, в кредитах 1.2em; на мобиле аватар в ряду 1.1em, чтобы одиннадцать портретов главной встали в одну строку.</p>
               <div class="ds-demo">
                 <p class="fds-display fds-display--avatars"><span class="fds-avatars fds-avatars--start">
                   <span class="fds-avatar"><img src="images/about/dima-tumanov-team.jpg" alt=""></span>
@@ -523,11 +525,11 @@
     .fds-space--m.fds-space--avatars
     p.fds-display--avatars › .fds-avatars     ряд портретов
     .fds-space--l
-    .fds-wrap__text.fds-wrap__text--wide › h1.fds-title.fds-title--intro
+    .fds-wrap__text.fds-wrap__text--wide › h1.fds-title.fds-title--intro   две строки через br
     .fds-space--l
     .fds-grid[data-projects-page="index"]      карточки рендерит скрипт, в конце .fds-button
     .fds-space--xl
-    .fds-wrap__text › h2.fds-title, .fds-space--s, p.fds-lead × n</pre>
+    .fds-wrap__text › h2.fds-title.fds-title--outro, .fds-space--s, p.fds-lead.fds-lead--s × n</pre>
               <h3>Кейс</h3>
               <pre class="ds-code">main
   .fds-wrap.fds-wrap--s[data-type-tags][data-client-tag]

@@ -5,7 +5,7 @@ p {
   &.fds-display {
     font-size: 3em;
     line-height: 1;
-    font-weight: 500;
+    font-weight: 600;
 
     @media (width <= 768px) {
       font-size: 2em;
@@ -20,6 +20,11 @@ p {
     @media (width <= 768px) {
       font-size: 1.2em;
     }
+  }
+
+  /* A step down from lead for a longer run of text, e.g. the index outro. */
+  &.fds-lead--s {
+    font-size: 1.2em;
   }
 }
 
@@ -45,9 +50,17 @@ h1,
   margin-bottom: 0.4em;
 }
 
-/* The index intro: a lighter title that reads as lead text on mobile. */
+/* The index intro: a smaller, lighter title that reads as lead text on mobile. */
 .fds-title--intro {
+  font-size: 1.6em;
   font-weight: 500;
+}
+
+/* The index outro: on mobile it sits at display size, so it takes display weight. */
+@media (width <= 768px) {
+  .fds-title--outro {
+    font-weight: 600;
+  }
 }
 
 h2,

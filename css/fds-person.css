@@ -122,11 +122,6 @@ p.fds-display.fds-display--avatars {
   margin-right: -0.2em;
 }
 
-/* On desktop the two groups read as one row; on mobile they stack (see below). */
-.fds-avatars__row {
-  display: contents;
-}
-
 p.fds-credits {
   margin-top: 0;
   margin-bottom: 0;
@@ -173,20 +168,14 @@ p.fds-credits {
     margin-bottom: 0.35em;
   }
 
+  /* Small enough for all eleven index portraits to fit one row at 320px. */
   .fds-avatar {
-    width: 1.3em;
-    height: 1.3em;
+    width: 1.1em;
+    height: 1.1em;
   }
 
   .fds-avatars--start {
-    flex-direction: column;
-    align-items: flex-start;
-    row-gap: calc(var(--fds-density) * 0.1em);
     margin-top: 0;
-  }
-
-  .fds-avatars__row {
-    display: flex;
   }
 
   .fds-space.fds-space--avatars {

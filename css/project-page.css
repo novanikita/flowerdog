@@ -276,6 +276,14 @@ main {
     width: 100%;
   }
 
+  /* Index intro text drops to the body text style (p.about). */
+  .ids .main-page-intro h1:last-child {
+    margin-top: 0;
+    font-size: 1.2em;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
   .main-page-text-fixed h1:last-child {
     margin-top: 1em;
   }

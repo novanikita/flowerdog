@@ -181,6 +181,20 @@ figure.project-figure--bordered::after {
   margin-left: -0.2em;
 }
 
+/* Same overlap, but taken on the right so a wrapped row starts flush left. */
+.portraits-inline--start .portreit + .portreit {
+  margin-left: 0;
+}
+
+.portraits-inline--start .portreit {
+  margin-right: -0.2em;
+}
+
+/* On desktop the two groups read as one row; on mobile they stack (see below). */
+.portraits-inline__row {
+  display: contents;
+}
+
 .ids p.project-team {
   margin-top: 0;
   margin-bottom: 0;
@@ -241,5 +255,22 @@ hr.default {
   .portreit {
     width: 1.3em;
     height: 1.3em;
+  }
+
+  /* Index intro: portraits break into two rows, an XS step apart. */
+  .portraits-inline--start {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: calc(var(--ids__density) * 0.1em);
+    margin-top: 0;
+  }
+
+  .portraits-inline__row {
+    display: flex;
+  }
+
+  /* Gap between the intro text and the portraits is S on mobile (same value as .ids__space.S). */
+  .ids .ids__space.portraits-gap {
+    height: calc(var(--ids__density) * 0.7em);
   }
 }

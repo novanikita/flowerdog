@@ -31,7 +31,7 @@
   line-height: 1.12;
 }
 
-.fds-person__meta h2.fds-person__name {
+.fds-person__name {
   margin: 0;
   font-size: 1em;
   line-height: inherit;
@@ -151,7 +151,7 @@ p.fds-credits {
   font-weight: 400;
 }
 
-.fds-credits .fds-strong:not(.fds-credits__label) {
+.fds-credits strong:not(.fds-credits__label) {
   font-weight: 800;
 }
 

@@ -1,7 +1,3 @@
-.fds-wrap__text--wide h1 {
-  font-weight: 500;
-}
-
 .fds-meta__date {
   font-size: 0.7em;
   font-weight: 400;
@@ -37,18 +33,6 @@ p.fds-toc {
 }
 
 @media (width <= 768px) {
-  .fds-wrap__text h1:last-child {
-    margin-top: 1em;
-  }
-
-  /* The index intro: its heading reads as lead text on mobile. */
-  .fds-wrap__text--wide h1:last-child {
-    margin-top: 0;
-    font-size: 1.2em;
-    line-height: 1.2;
-    font-weight: 500;
-  }
-
   p.fds-toc {
     line-height: 1.2;
   }

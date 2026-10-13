@@ -79,7 +79,7 @@
   gap: 0.4em;
 }
 
-.fds-card__meta h2 {
+.fds-card__title {
   color: var(--fds-text);
   font-size: 2em;
   line-height: 1.12;
@@ -87,8 +87,8 @@
   transition: none;
 }
 
-.fds-card:hover .fds-card__meta h2,
-.fds-card:focus-visible .fds-card__meta h2 {
+.fds-card:hover .fds-card__title,
+.fds-card:focus-visible .fds-card__title {
   color: var(--fds-accent);
 }
 
@@ -134,7 +134,7 @@ a.fds-button:focus-visible {
     flex-wrap: wrap;
   }
 
-  .fds-card__meta:has(.fds-chip--soon) h2 {
+  .fds-card__meta:has(.fds-chip--soon) .fds-card__title {
     flex-basis: 100%;
   }
 
@@ -164,7 +164,7 @@ a.fds-button:focus-visible {
     min-height: 18em;
   }
 
-  .fds-card__meta h2 {
+  .fds-card__title {
     font-size: 1.8em;
     width: auto;
   }

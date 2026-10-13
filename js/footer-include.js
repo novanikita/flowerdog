@@ -46,7 +46,7 @@
     '</div></div>' +
     '<div class="fds-footer__brand">' +
     '<img class="fds-footer__flower" src="images/icon/flower.svg" width="120" height="88" alt="" aria-hidden="true" draggable="false">' +
-    '<h1 class="fds-footer__wordmark"><img src="images/icon/logo.svg" width="1671" height="352" alt="flowerdog"></h1>' +
+    '<div class="fds-footer__wordmark"><img src="images/icon/logo.svg" width="1671" height="352" alt="flowerdog"></div>' +
     '</div>' +
     '</footer>';
 

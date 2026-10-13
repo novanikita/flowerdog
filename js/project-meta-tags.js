@@ -260,9 +260,10 @@
     var fragment = document.createDocumentFragment();
     var titleRu = normalizeNdaTitle(title);
     var titleEn = normalizeNdaTitle(resolveTitleEn(number, title));
-    var h3 = document.createElement('h3');
-    setI18n(h3, titleRu, titleEn);
-    fragment.appendChild(h3);
+    var heading = document.createElement('h2');
+    heading.className = 'fds-subheading';
+    setI18n(heading, titleRu, titleEn);
+    fragment.appendChild(heading);
 
     if (description) {
       var p = document.createElement('p');
@@ -277,10 +278,9 @@
     var p = document.createElement('p');
     var titleRu = normalizeNdaTitle(title);
     var titleEn = normalizeNdaTitle(resolveTitleEn(number, title));
-    var span = document.createElement('span');
-    span.className = 'fds-strong';
-    setI18n(span, titleRu, titleEn);
-    p.appendChild(span);
+    var strong = document.createElement('strong');
+    setI18n(strong, titleRu, titleEn);
+    p.appendChild(strong);
     if (description) {
       p.appendChild(document.createTextNode(' '));
       var desc = document.createElement('span');

@@ -45,6 +45,7 @@
     meta.className = 'fds-card__meta';
 
     var title = document.createElement('h2');
+    title.className = 'fds-card__title';
     title.setAttribute('data-i18n', '');
     title.setAttribute('data-ru', project.titleRu || '');
     title.setAttribute('data-en', project.titleEn || project.titleRu || '');

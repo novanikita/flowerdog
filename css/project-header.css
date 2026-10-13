@@ -1,12 +1,12 @@
 header {
-  padding: 0 1em;
+  padding: 0 var(--fds-gutter);
   display: flex;
   width: 100%;
   max-width: 100%;
   position: sticky;
   top: 0;
-  z-index: 1100;
-  background: var(--color-white);
+  z-index: var(--fds-z-header);
+  background: var(--fds-bg);
 }
 
 header.is-fixed-on-case {
@@ -14,7 +14,7 @@ header.is-fixed-on-case {
   left: 0;
   right: 0;
   top: 0;
-  transition: transform 0.28s ease;
+  transition: transform var(--fds-duration-slow) var(--fds-ease);
 }
 
 header.is-hidden {
@@ -113,7 +113,7 @@ header.is-hidden {
 .main-header .logo a:hover,
 .main-header .logo a:visited,
 .main-header .logo a:focus-visible {
-  color: var(--color-blue);
+  color: var(--fds-text);
   text-decoration: none !important;
   background: transparent;
   transition: none;
@@ -128,7 +128,7 @@ header.is-hidden {
 
 .main-header__nav .main-header__link:hover,
 .main-header__nav .main-header__link:focus-visible {
-  color: #ff6900;
+  color: var(--fds-accent);
   text-decoration: none !important;
 }
 
@@ -144,34 +144,33 @@ header.is-hidden {
 .lang-switcher__btn {
   min-width: 1.4em;
   min-height: 1.4em;
-  //padding: 0.2em;
-  background: var(--color-white);
+  background: transparent;
   border: none;
   font-size: inherit;
   font-family: inherit;
-  color: var(--color-blue);
+  color: var(--fds-text);
   cursor: pointer;
   opacity: 0.5;
   transition: none;
 }
 
 .lang-switcher__btn.is-active {
-  color: var(--color-blue);
+  color: var(--fds-text);
   opacity: 1;
 }
 
 .lang-switcher__btn:hover,
 .lang-switcher__btn:focus-visible {
-  color: #ff6900;
+  color: var(--fds-accent);
 }
 
-@media screen and (max-width: 768px) {
+@media (width <= 768px) {
   body.has-mobile-menu-open {
     overflow: hidden;
   }
 
   header {
-    padding: 0.5em;
+    padding: var(--fds-gutter);
     margin-bottom: 1.2em;
   }
 
@@ -220,14 +219,14 @@ header.is-hidden {
     align-items: flex-end;
     gap: 0.45em;
     cursor: pointer;
-    z-index: 1300;
+    z-index: var(--fds-z-menu-top);
     position: relative;
   }
 
   .main-header__menu-line {
     width: 2em;
     height: 0.4em;
-    background: var(--color-blue);
+    background: var(--fds-text);
     display: block;
   }
 
@@ -246,32 +245,32 @@ header.is-hidden {
     min-height: 100vh;
     min-height: 100dvh;
     margin: 0;
-    z-index: 1200;
+    z-index: var(--fds-z-menu);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: max(0.5em, env(safe-area-inset-top)) 0.5em max(0.5em, env(safe-area-inset-bottom));
-    background: var(--color-blue);
+    padding: max(var(--fds-gutter), env(safe-area-inset-top)) var(--fds-gutter) max(var(--fds-gutter), env(safe-area-inset-bottom));
+    background: var(--fds-inverse-bg);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
-    transition: opacity 180ms ease, transform 180ms ease;
+    transition: opacity var(--fds-duration-base) var(--fds-ease), transform var(--fds-duration-base) var(--fds-ease);
   }
 
   .main-header.is-menu-open .main-header__left {
     position: fixed;
-    top: max(0.5em, env(safe-area-inset-top));
-    left: 0.5em;
-    z-index: 1300;
+    top: max(var(--fds-gutter), env(safe-area-inset-top));
+    left: var(--fds-gutter);
+    z-index: var(--fds-z-menu-top);
   }
 
   .main-header.is-menu-open .main-header__menu-toggle {
     position: fixed;
-    top: max(0.5em, env(safe-area-inset-top));
-    right: 0.5em;
-    z-index: 1301;
+    top: max(var(--fds-gutter), env(safe-area-inset-top));
+    right: var(--fds-gutter);
+    z-index: calc(var(--fds-z-menu-top) + 1);
     align-items: flex-end;
   }
 
@@ -295,7 +294,7 @@ header.is-hidden {
 
   .main-header.is-menu-open .main-header__nav,
   .main-header.is-menu-open .lang-switcher {
-    animation: mobile-menu-items-in 180ms ease-out both;
+    animation: mobile-menu-items-in var(--fds-duration-base) var(--fds-ease-out) both;
   }
 
   .main-header__right .main-header__link,
@@ -309,7 +308,7 @@ header.is-hidden {
   }
 
   .main-header.is-menu-open .main-header__menu-line {
-    background: var(--color-white);
+    background: var(--fds-inverse-text);
   }
 
   .main-header.is-menu-open .logo a,
@@ -317,7 +316,7 @@ header.is-hidden {
   .main-header.is-menu-open .main-header__link:hover,
   .main-header.is-menu-open .main-header__link:visited,
   .main-header.is-menu-open .lang-switcher__btn {
-    color: var(--color-white);
+    color: var(--fds-inverse-text);
   }
 
   .main-header.is-menu-open .main-header__logo-image {

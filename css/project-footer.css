@@ -1,7 +1,3 @@
-:root {
-  --footer-gallery-height: clamp(220px, 28vw, 380px);
-}
-
 .main-page {
   display: block;
   width: 100%;
@@ -29,11 +25,11 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  color: var(--color-blue);
+  color: var(--fds-text);
 }
 
 html.has-footer-reveal .site-footer {
-  box-shadow: 0 2em 2em -0.5em rgb(0 0 0 / 0.16);
+  box-shadow: 0 2em 2em -0.5em var(--fds-shadow);
 }
 
 html.is-sheet-moving main,
@@ -59,8 +55,8 @@ html.is-sheet-moving [data-site-footer] {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   align-items: start;
-  padding: 7em 1em 0;
-  background-color: var(--color-white);
+  padding: 7em var(--fds-gutter) 0;
+  background-color: var(--fds-bg);
 }
 
 .site-footer__contact {
@@ -79,14 +75,14 @@ html.is-sheet-moving [data-site-footer] {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
-  text-decoration-color: rgba(0, 86, 211, 0.2);
+  text-decoration-color: var(--fds-line);
   word-break: break-word;
 }
 
 .ids .site-footer__email:hover,
 .ids .site-footer__email:focus-visible {
-  color: var(--color-orange);
-  text-decoration-color: var(--color-orange);
+  color: var(--fds-accent);
+  text-decoration-color: var(--fds-accent);
 }
 
 .ids .site-footer__contact-note {
@@ -107,13 +103,13 @@ html.is-sheet-moving [data-site-footer] {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
-  text-decoration-color: rgba(0, 86, 211, 0.2);
+  text-decoration-color: var(--fds-line);
 }
 
 .ids .site-footer__link:hover,
 .ids .site-footer__link:focus-visible {
-  color: var(--color-orange);
-  text-decoration-color: var(--color-orange);
+  color: var(--fds-accent);
+  text-decoration-color: var(--fds-accent);
 }
 
 .site-footer__nav {
@@ -135,7 +131,7 @@ html.is-sheet-moving [data-site-footer] {
 
 .ids .site-footer__nav-link:hover,
 .ids .site-footer__nav-link:focus-visible {
-  color: var(--color-orange);
+  color: var(--fds-accent);
 }
 
 .site-footer__legal {
@@ -152,7 +148,7 @@ html.is-sheet-moving [data-site-footer] {
 .site-footer__legal-item {
   margin: 0;
   max-width: none;
-  color: var(--color-blue-50);
+  color: var(--fds-text-muted);
   font-size: 0.72em;
   font-weight: 400;
   line-height: 1.35;
@@ -165,8 +161,8 @@ html.is-sheet-moving [data-site-footer] {
 .site-footer__brand {
   position: relative;
   width: 100%;
-  padding: 2em 1em 1.2em;
-  background-color: var(--color-white);
+  padding: 2em var(--fds-gutter) 1.2em;
+  background-color: var(--fds-bg);
 }
 
 .site-footer__flower {
@@ -224,7 +220,7 @@ html.is-sheet-moving [data-site-footer] {
 .site-footer-reveal__panel {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: var(--fds-z-reveal);
   overflow: hidden;
   /* Layout and paint only. Size containment would say nothing here — the
      insets give this panel its size — and this is a corner where WebKit
@@ -244,9 +240,9 @@ html.is-footer-near .site-footer-reveal__panel {
   right: 0;
   bottom: 0;
   left: 0;
-  height: var(--footer-gallery-height);
+  height: var(--fds-reveal-height);
   overflow: hidden;
-  background-color: var(--color-blue-10);
+  background-color: var(--fds-surface);
   transform-origin: 50% 100%;
 }
 
@@ -267,11 +263,7 @@ html.is-sheet-moving .site-footer-reveal__stage {
   opacity: 1;
 }
 
-@media screen and (max-width: 768px) {
-  :root {
-    --footer-gallery-height: 14em;
-  }
-
+@media (width <= 768px) {
   .site-footer {
     margin: 0;
     padding: 0;
@@ -280,7 +272,7 @@ html.is-sheet-moving .site-footer-reveal__stage {
   .site-footer__top {
     grid-template-columns: 1fr;
     gap: 2em;
-    padding: 4em 0.5em 0;
+    padding: 4em var(--fds-gutter) 0;
   }
 
   .site-footer__contact,
@@ -320,7 +312,7 @@ html.is-sheet-moving .site-footer-reveal__stage {
   }
 
   .site-footer__brand {
-    padding: 1em 0.5em 1.5em;
+    padding: 1em var(--fds-gutter) 1.5em;
   }
 
   .site-footer__flower {

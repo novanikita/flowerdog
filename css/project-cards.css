@@ -40,8 +40,8 @@
   min-height: 29em;
   background-size: cover;
   background-position: center;
-  border-radius: var(--project-radius);
-  background-color: var(--color-blue-10);
+  border-radius: var(--fds-radius-l);
+  background-color: var(--fds-surface);
 }
 
 .project-promo.project-promo-hard {
@@ -49,27 +49,27 @@
 }
 
 .project-promo.project-promo-soft {
-  border-radius: 2em;
+  border-radius: var(--fds-radius-xl);
 }
 
 .project-promo.project-promo-round {
-  border-radius: 50em;
+  border-radius: var(--fds-radius-pill);
 }
 
 .project-promo--sound {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-blue);
-  color: var(--color-white);
-  transition: background-color 0.2s ease;
+  background-color: var(--fds-inverse-bg);
+  color: var(--fds-inverse-text);
+  transition: background-color var(--fds-duration-base) var(--fds-ease);
   cursor: pointer;
 }
 
 .menu-promo-link--sound:hover .project-promo--sound,
 .menu-promo-link--sound:focus-visible .project-promo--sound,
 .menu-promo-link--sound.is-playing .project-promo--sound {
-  background-color: var(--color-orange);
+  background-color: var(--fds-accent);
 }
 
 .menu-sound-icon {
@@ -98,18 +98,18 @@
   flex: 1;
   min-width: 0;
   height: 2px;
-  border-radius: 1em;
-  background-color: var(--color-blue-10);
-  transition: background-color 0.12s ease;
+  border-radius: var(--fds-radius-pill);
+  background-color: var(--fds-surface);
+  transition: background-color var(--fds-duration-fast) var(--fds-ease);
 }
 
 .project-cover-strip__segment.is-active {
-  background-color: var(--color-blue);
+  background-color: var(--fds-text);
 }
 
 .project-promo-link:hover .project-cover-strip__segment.is-active,
 .project-promo-link:focus-visible .project-cover-strip__segment.is-active {
-  background-color: var(--color-orange);
+  background-color: var(--fds-accent);
 }
 
 .project-promo-meta {
@@ -134,8 +134,8 @@
   line-height: 1.2;
   padding: 0.15em 0.7em;
   margin-top: 0.2em;
-  background-color: rgba(0, 86, 211, 0.1);
-  color: var(--color-blue);
+  background-color: var(--fds-surface);
+  color: var(--fds-text);
   flex-shrink: 0;
 }
 
@@ -145,7 +145,7 @@
 }
 
 .project-promo-meta h2 {
-  color: var(--color-blue);
+  color: var(--fds-text);
   font-size: 2em;
   line-height: 1.12;
   margin: 0;
@@ -154,13 +154,13 @@
 
 .project-promo-link:hover .project-promo-meta h2,
 .project-promo-link:focus-visible .project-promo-meta h2 {
-  color: #ff6900;
+  color: var(--fds-accent);
 }
 
 .project-promo-link:hover .project-tag-chip--soon,
 .project-promo-link:focus-visible .project-tag-chip--soon {
-  background-color: rgba(255, 105, 0, 0.1);
-  color: #ff6900;
+  background-color: var(--fds-surface-accent);
+  color: var(--fds-accent);
 }
 
 .projects-grid > a.projects-more-btn {
@@ -175,22 +175,22 @@ a.projects-more-btn:active,
 a.projects-more-btn:focus-visible {
   display: block;
   width: 100%;
-  color: var(--color-blue);
+  color: var(--fds-text);
   text-decoration: none;
   font-size: 1.5em;
   line-height: 1.2;
   font-weight: 500;
   padding: 2em;
-  border-radius: 50em;
-  background-color: rgba(0, 86, 211, 0.1);
+  border-radius: var(--fds-radius-pill);
+  background-color: var(--fds-surface);
   text-align: center;
   transition: none;
 }
 
 a.projects-more-btn:hover,
 a.projects-more-btn:focus-visible {
-  background-color: rgba(255, 105, 0, 0.1);
-  color: #ff6900;
+  background-color: var(--fds-surface-accent);
+  color: var(--fds-accent);
 }
 
 .founder-quotes {
@@ -215,7 +215,7 @@ a.projects-more-btn:focus-visible {
   font-size: 2em;
   line-height: 1.1;
   font-weight: 500;
-  color: var(--color-blue);
+  color: var(--fds-text);
 }
 
 .ids .founder-quote__content > :last-child,
@@ -248,7 +248,7 @@ a.projects-more-btn:focus-visible {
   order: -1;
   margin-top: 0;
   margin-bottom: 1.5em;
-  color: var(--color-blue);
+  color: var(--fds-text);
 }
 
 .founder-quote__byline .portreit {
@@ -272,7 +272,7 @@ a.projects-more-btn:focus-visible {
 .founder-quote__role {
   font-size: 0.85em;
   font-weight: 400;
-  color: var(--color-blue-50);
+  color: var(--fds-text-muted);
 }
 
 .founder-quote--max,
@@ -280,11 +280,11 @@ a.projects-more-btn:focus-visible {
 .founder-quote--max .about,
 .founder-quote--max .founder-quote__byline,
 .founder-quote--max .founder-quote__name {
-  color: var(--color-orange);
+  color: var(--fds-accent);
 }
 
 .founder-quote--max .founder-quote__role {
-  color: rgba(255, 105, 0, 0.5);
+  color: var(--fds-accent-muted);
 }
 
 .space-images {
@@ -297,7 +297,7 @@ a.projects-more-btn:focus-visible {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 2em;
+  border-radius: var(--fds-radius-xl);
   object-fit: cover;
 }
 
@@ -318,15 +318,15 @@ a.projects-more-btn:focus-visible {
   box-sizing: border-box;
   min-width: 0;
   padding: 1.2em 1.5em 1.5em;
-  border-radius: 2em;
-  background-color: var(--color-blue-10);
-  color: var(--color-blue);
+  border-radius: var(--fds-radius-xl);
+  background-color: var(--fds-surface);
+  color: var(--fds-text);
 }
 
 .process-card--faded {
   position: relative;
   overflow: visible;
-  background-color: rgba(0, 86, 211, 0.04);
+  background-color: var(--fds-surface-faint);
 }
 
 .process-card--faded > :not(.process-card__error) {
@@ -439,12 +439,12 @@ a.projects-more-btn:focus-visible {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  border-radius: var(--project-radius);
-  background-color: var(--color-blue-10);
+  border-radius: var(--fds-radius-l);
+  background-color: var(--fds-surface);
 }
 
 .team-promo.team-promo-soft {
-  border-radius: 2em;
+  border-radius: var(--fds-radius-xl);
 }
 
 .team-promo.team-promo-hard {
@@ -452,7 +452,7 @@ a.projects-more-btn:focus-visible {
 }
 
 .team-promo.team-promo-round {
-  border-radius: 50em;
+  border-radius: var(--fds-radius-pill);
 }
 
 .team-meta {
@@ -471,7 +471,7 @@ a.projects-more-btn:focus-visible {
   font-size: 1em;
   line-height: inherit;
   font-weight: 700;
-  color: var(--color-blue);
+  color: var(--fds-text);
 }
 
 .team-meta .project-tag-chip {
@@ -486,7 +486,7 @@ a.projects-more-btn:focus-visible {
   font-size: 1em;
   line-height: 1.25;
   font-weight: 400;
-  color: var(--color-blue);
+  color: var(--fds-text);
 }
 
 .menu-promo-link {
@@ -510,11 +510,11 @@ a.projects-more-btn:focus-visible {
   font-size: 1em;
   line-height: 1.25;
   font-weight: 400;
-  color: var(--color-blue);
+  color: var(--fds-text);
   min-height: 2.5em;
 }
 
-@media screen and (max-width: 768px) {
+@media (width <= 768px) {
   body.page-about p.about:not(.about-how-we-work-cta),
   body.page-about .founder-quote .about:not(.about-how-we-work-cta),
   body.page-how-we-work .founder-quote .about {
@@ -535,7 +535,7 @@ a.projects-more-btn:focus-visible {
   }
 
   .space-images__img {
-    border-radius: 1.2em;
+    border-radius: var(--fds-radius-m);
   }
 
   .process-cards {
@@ -544,7 +544,7 @@ a.projects-more-btn:focus-visible {
   }
 
   .process-card {
-    border-radius: 1.2em;
+    border-radius: var(--fds-radius-m);
   }
 
   .ids .process-card__title {

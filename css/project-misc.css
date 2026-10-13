@@ -77,10 +77,10 @@ ids-gallery,
 
 .project-gallery--dodo ids-gallery figure.L.project-figure--soft-radius,
 .project-gallery--dodo .ids__gallery figure.L.project-figure--soft-radius {
-  border-radius: 0.6em;
+  border-radius: var(--fds-radius-xs);
 }
 
-@media screen and (max-width: 768px) {
+@media (width <= 768px) {
   .ids__wrapper.S:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .ids__wrapper.L:has(.project-gallery--kim-chips) {
     margin-top: 0.4em;
   }
@@ -88,29 +88,29 @@ ids-gallery,
   /* Text → image spacing in cases → S; after image stays L */
   .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .ids__space.L:last-child,
   .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .ids__space.M:last-child {
-    height: calc(var(--ids__density) * 0.7em);
+    height: calc(var(--fds-density) * 0.7em);
   }
 
   /* Keep M after audit CTA */
   .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .about-how-we-work-cta + .ids__space.M {
-    height: calc(var(--ids__density) * 1.4em);
+    height: calc(var(--fds-density) * 1.4em);
   }
 
   .project-gallery--dodo ids-gallery figure.XL,
   .project-gallery--dodo .ids__gallery figure.XL {
-    border-radius: 0.4em;
+    border-radius: var(--fds-radius-xs);
   }
 
   .project-gallery--dodo ids-gallery figure.L,
   .project-gallery--dodo ids-gallery figure:not(.L):not(.XL),
   .project-gallery--dodo .ids__gallery figure.L,
   .project-gallery--dodo .ids__gallery figure:not(.L):not(.XL) {
-    border-radius: 0.3em;
+    border-radius: var(--fds-radius-xs);
   }
 
   .project-gallery--dodo ids-gallery figure.L.project-figure--soft-radius,
   .project-gallery--dodo .ids__gallery figure.L.project-figure--soft-radius {
-    border-radius: 0.25em;
+    border-radius: var(--fds-radius-xs);
   }
 }
 
@@ -122,14 +122,14 @@ figure.project-figure--bordered::after {
   content: "";
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--fds-line);
   border-radius: inherit;
   pointer-events: none;
 }
 
 .ids__wrapper[data-client-tag="sporos"] figure.project-figure--logo {
-  margin-top: calc(var(--ids__density) * 4em);
-  margin-bottom: calc(var(--ids__density) * 4em);
+  margin-top: calc(var(--fds-density) * 4em);
+  margin-bottom: calc(var(--fds-density) * 4em);
 }
 
 .ids__wrapper[data-client-tag="sporos"] figure.project-figure--logo a {
@@ -224,7 +224,7 @@ figure.project-figure--bordered::after {
 }
 
 .project-team__role {
-  color: var(--color-blue-50);
+  color: var(--fds-text-muted);
   font-weight: 400;
 }
 
@@ -239,7 +239,7 @@ hr.default {
   border-width: 1px;
 }
 
-@media screen and (max-width: 768px) {
+@media (width <= 768px) {
   .portraits-inline {
     display: flex;
     margin-left: 0;
@@ -261,7 +261,7 @@ hr.default {
   .portraits-inline--start {
     flex-direction: column;
     align-items: flex-start;
-    row-gap: calc(var(--ids__density) * 0.1em);
+    row-gap: calc(var(--fds-density) * 0.1em);
     margin-top: 0;
   }
 
@@ -271,6 +271,6 @@ hr.default {
 
   /* Gap between the intro text and the portraits is S on mobile (same value as .ids__space.S). */
   .ids .ids__space.portraits-gap {
-    height: calc(var(--ids__density) * 0.7em);
+    height: calc(var(--fds-density) * 0.7em);
   }
 }

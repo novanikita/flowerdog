@@ -20,17 +20,17 @@
 .ids .main-page-text-fixed a:focus-visible,
 .ids.page-vacancies .ids__wrapper.S a:hover,
 .ids.page-vacancies .ids__wrapper.S a:focus-visible {
-  color: var(--color-orange);
-  text-decoration-color: var(--color-orange);
+  color: var(--fds-accent);
+  text-decoration-color: var(--fds-accent);
 }
 
 .main-page-header__cta,
 .main-page-header__cta:hover,
 .main-page-header__cta:visited,
 .main-page-header__cta:focus-visible {
-  color: var(--color-blue);
+  color: var(--fds-text);
   text-decoration: underline;
-  text-decoration-color: rgba(0, 86, 211, 1);
+  text-decoration-color: var(--fds-text);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
   background: transparent;
@@ -41,26 +41,26 @@
 .ids .main-page-header__cta:hover,
 .ids .main-page-header__cta:visited,
 .ids .main-page-header__cta:focus-visible {
-  text-decoration-color: rgba(0, 86, 211, 1);
+  text-decoration-color: var(--fds-text);
 }
 
 .main-page-header__cta:hover,
 .main-page-header__cta:focus-visible {
-  color: #ff6900;
-  text-decoration-color: #ff6900;
+  color: var(--fds-accent);
+  text-decoration-color: var(--fds-accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
 .ids .main-page-header__cta:hover,
 .ids .main-page-header__cta:focus-visible {
-  color: #ff6900;
-  text-decoration-color: #ff6900;
+  color: var(--fds-accent);
+  text-decoration-color: var(--fds-accent);
 }
 
 .about-how-we-work-cta .project-anchor-arrow {
   text-decoration: none;
-  transition: transform 0.2s ease;
+  transition: transform var(--fds-duration-base) var(--fds-ease);
 }
 
 .ids :is(p, ul):has(+ .ids__space + .about-how-we-work-cta) {
@@ -90,43 +90,43 @@ main {
 }
 
 .quote-word {
-  color: var(--color-blue);
+  color: var(--fds-text);
   text-decoration: underline;
   text-underline-offset: 0.15em;
-  text-decoration-color: var(--color-blue);
+  text-decoration-color: var(--fds-text);
   text-decoration-thickness: 0.01em;
-  background-color: var(--color-black-0);
+  background-color: transparent;
   transition: none;
 }
 
 .quote-word:hover,
 .quote-word.is-active {
-  color: #ff6900;
-  text-decoration-color: #ff6900;
+  color: var(--fds-accent);
+  text-decoration-color: var(--fds-accent);
 }
 
 .founder-quote--max .quote-word {
-  color: var(--color-orange);
-  text-decoration-color: var(--color-orange);
+  color: var(--fds-accent);
+  text-decoration-color: var(--fds-accent);
 }
 
 .founder-quote--max .quote-word:hover,
 .founder-quote--max .quote-word.is-active {
-  color: var(--color-blue);
-  text-decoration-color: var(--color-blue);
+  color: var(--fds-text);
+  text-decoration-color: var(--fds-text);
 }
 
 .quote-tooltip {
   position: absolute;
   left: 0;
   top: 0;
-  background: var(--color-blue);
+  background: var(--fds-inverse-bg);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
-  z-index: 1000;
-  border-radius: 1em 1em 1em 1em;
+  transition: opacity var(--fds-duration-lazy) var(--fds-ease), visibility 0s linear var(--fds-duration-lazy);
+  z-index: var(--fds-z-tip);
+  border-radius: var(--fds-radius-m);
 }
 
 .quote-tooltip.is-visible {
@@ -141,7 +141,7 @@ main {
   max-width: 17em;
   padding: 1em;
   font-size: 1em;
-  color: var(--color-white);
+  color: var(--fds-inverse-text);
   white-space: pre-line;
 }
 
@@ -167,18 +167,17 @@ main {
 
 .project-date {
   font-size: 0.7em;
-  color: var(--color-gray);
   font-weight: 400;
 }
 
 .project-meta-wrap {
   line-height: 1.2;
-  margin-bottom: calc(var(--ids__density) * 0.35em);
+  margin-bottom: calc(var(--fds-density) * 0.35em);
 }
 
 .project-meta-wrap .project-meta {
   font-size: 0.7em;
-  color: var(--color-blue);
+  color: var(--fds-text);
   display: inline-flex;
   align-items: baseline;
   vertical-align: baseline;
@@ -202,9 +201,9 @@ main {
 .project-tag-chip {
   display: inline-flex;
   align-items: center;
-  background-color: rgba(0, 86, 211, 0.1);
-  color: var(--color-blue);
-  border-radius: 1em;
+  background-color: var(--fds-surface);
+  color: var(--fds-text);
+  border-radius: var(--fds-radius-pill);
   padding: 0.1em 0.6em;
   font-size: 0.7em;
   line-height: 1.2;
@@ -217,7 +216,7 @@ main {
 
 .ids a.project-anchor-link {
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--fds-duration-base) var(--fds-ease);
 }
 
 .ids a.project-anchor-link span:not(.project-anchor-arrow) {
@@ -229,7 +228,7 @@ main {
 .project-anchor-arrow {
   display: inline-block;
   text-decoration: none;
-  transition: transform 0.2s ease;
+  transition: transform var(--fds-duration-base) var(--fds-ease);
 }
 
 .ids a.project-anchor-link:hover,
@@ -257,20 +256,20 @@ main {
 }
 
 .ids a.project-case-link {
-  color: var(--color-blue);
+  color: var(--fds-text);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
-  text-decoration-color: rgba(0, 86, 211, 0.2);
+  text-decoration-color: var(--fds-line);
 }
 
 .ids a.project-case-link:hover,
 .ids a.project-case-link:focus-visible {
-  color: var(--color-orange);
-  text-decoration-color: var(--color-orange);
+  color: var(--fds-accent);
+  text-decoration-color: var(--fds-accent);
 }
 
-@media screen and (max-width: 768px) {
+@media (width <= 768px) {
   .main-page-header,
   .main-page-text-fixed {
     width: 100%;
@@ -325,10 +324,10 @@ main {
     right: auto;
     width: calc(100% - 4em);
     max-width: none;
-    z-index: 1300;
-    border-radius: 1em;
+    z-index: var(--fds-z-menu-top);
+    border-radius: var(--fds-radius-m);
     transform: translateX(-50%);
-    transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+    transition: opacity var(--fds-duration-lazy) var(--fds-ease), visibility 0s linear var(--fds-duration-lazy);
   }
 
   .quote-tooltip--aside.is-visible {
@@ -360,7 +359,7 @@ main {
 
   .project-meta-wrap {
     line-height: 1;
-    margin-bottom: calc(var(--ids__density) * 0.15em);
+    margin-bottom: calc(var(--fds-density) * 0.15em);
   }
 
   .project-meta-wrap .project-meta {
@@ -382,11 +381,11 @@ main {
 
 /* How we work — text sized and centered like the vacancies page */
 .ids.page-how-we-work h1.how-we-work__title {
-  color: var(--color-blue);
+  color: var(--fds-text);
 }
 
 .ids.page-how-we-work h3.how-we-work__title {
-  color: var(--color-blue);
+  color: var(--fds-text);
 }
 
 .ids.page-how-we-work .how-we-work__section {
@@ -395,7 +394,7 @@ main {
 
 .ids.page-how-we-work .how-we-work__figure {
   margin: 0;
-  border-radius: 1.4em;
+  border-radius: var(--fds-radius-l);
   overflow: hidden;
 }
 

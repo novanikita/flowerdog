@@ -1,26 +1,26 @@
 .ids {
   & a {
-    color: var(--color-blue);
+    color: var(--fds-text);
     text-decoration: underline;
     will-change: color;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
-    text-decoration-color: rgba(0, 86, 211, 0.2);
+    text-decoration-color: var(--fds-line);
     transition: color 0s ease;
 
     &:hover,
     &:focus-visible {
-      color: var(--color-blue);
+      color: var(--fds-text);
       text-decoration-thickness: 1px;
       text-underline-offset: 0.25em;
-      text-decoration-color: rgba(0, 86, 211, 0.2);
+      text-decoration-color: var(--fds-line);
       transition: color 0s ease;
     }
   }
 
   & p {
     margin-top: 0;
-    margin-bottom: calc(var(--ids__density) * 0.4em);
+    margin-bottom: calc(var(--fds-density) * 0.4em);
 
     &.loud {
       font-size: 2em;
@@ -32,7 +32,7 @@
       line-height: 1;
       font-weight: 500;
 
-      @media screen and (max-width: 768px) {
+      @media (width <= 768px) {
         font-size: 2em;
       }
     }
@@ -40,7 +40,7 @@
     &.quote.quote--page {
       max-width: 70%;
 
-      @media screen and (max-width: 768px) {
+      @media (width <= 768px) {
         max-width: 100%;
       }
     }
@@ -50,7 +50,7 @@
       line-height: 1.2;
       font-weight: 500;
 
-      @media screen and (max-width: 768px) {
+      @media (width <= 768px) {
         font-size: 1.2em;
       }
     }
@@ -86,7 +86,7 @@
   & h2 {
     font-size: 2em;
     font-weight: 700;
-    line-height: calc(var(--ids__density) / 1.2);
+    line-height: calc(var(--fds-density) / 1.2);
     margin-bottom: 0.5em;
 
     &.XS {
@@ -97,20 +97,20 @@
 
   & h3 {
     font-size: 1.5em;
-    line-height: calc(var(--ids__density) / 1.1);
+    line-height: calc(var(--fds-density) / 1.1);
     margin-bottom: 0.3em;
     font-weight: 700;
   }
 
   & h4 {
     font-size: 1.1em;
-    line-height: var(--ids__density);
+    line-height: var(--fds-density);
     margin-bottom: 0.5em;
   }
 
   & h5 {
     font-size: 1em;
-    line-height: var(--ids__density);
+    line-height: var(--fds-density);
     margin-bottom: 0.5em;
   }
 
@@ -118,7 +118,7 @@
     font-size: 0.8em;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    line-height: var(--ids__density);
+    line-height: var(--fds-density);
     margin-bottom: 0.5em;
   }
 
@@ -128,25 +128,25 @@
   }
 
   & mark {
-    color: var(--color-blue);
-    background-color: var(--color-blue);
+    color: var(--fds-text);
+    background-color: var(--fds-inverse-bg);
   }
 
   & ul,
   & ol {
-    margin: 0 0 calc(var(--ids__density) * 0.75em) 0;
+    margin: 0 0 calc(var(--fds-density) * 0.75em) 0;
     padding: 0;
 
     & li {
       position: relative;
-      margin-bottom: calc(var(--ids__density) * 0.5em);
+      margin-bottom: calc(var(--fds-density) * 0.5em);
     }
   }
 
   & ul {
     & li {
       list-style-type: none;
-      padding-left: calc(var(--ids__density) * 0.75em);
+      padding-left: calc(var(--fds-density) * 0.75em);
 
       &:before {
         position: absolute;
@@ -164,25 +164,21 @@
 
   & blockquote {
     font-size: 1.4em;
-    line-height: var(--ids__density);
+    line-height: var(--fds-density);
     margin: 0;
-    padding-left: calc(var(--ids__density) * 0.75em);
-    margin-bottom: calc(var(--ids__density) * 1em);
+    padding-left: calc(var(--fds-density) * 0.75em);
+    margin-bottom: calc(var(--fds-density) * 1em);
   }
 
   & aside {
     margin: 0;
-    margin-bottom: calc(var(--ids__density) * 0.5em);
-    background: var(--color-gray);
-    padding-top: calc(var(--ids__density) * 0.4em);
-    padding-right: calc(var(--ids__density) * 1.5em);
-    padding-bottom: calc(var(--ids__density) * 0.4em);
-    padding-left: calc(var(--ids__density) * 0.5em);
-    border-radius: 0.2em;
-
-    @media (--ids__mobile) {
-      padding-right: calc(var(--ids__density) * 0.75em);
-    }
+    margin-bottom: calc(var(--fds-density) * 0.5em);
+    background: var(--fds-surface);
+    padding-top: calc(var(--fds-density) * 0.4em);
+    padding-right: calc(var(--fds-density) * 1.5em);
+    padding-bottom: calc(var(--fds-density) * 0.4em);
+    padding-left: calc(var(--fds-density) * 0.5em);
+    border-radius: var(--fds-radius-xs);
 
     code {
       background: none;
@@ -196,13 +192,13 @@
     letter-spacing: 0.02em;
     font-weight: 400;
     padding: 0.1em 0.25em;
-    border-radius: 0.2em;
-    color: rgba(0, 86, 211, 0.7);
-    background: rgba(0, 86, 211, 0.05);
+    border-radius: var(--fds-radius-xs);
+    color: var(--fds-text-muted);
+    background: var(--fds-surface-faint);
   }
 
   & figure {
-    margin: 0 0 calc(var(--ids__density)) 0;
+    margin: 0 0 calc(var(--fds-density)) 0;
 
     &.XXS,
     &.ids__figure__XXS {
@@ -218,9 +214,9 @@
     }
 
     & figcaption {
-      margin-top: calc(var(--ids__density) * 0.25em);
+      margin-top: calc(var(--fds-density) * 0.25em);
       font-size: 0.8em;
-      line-height: var(--ids__density);
+      line-height: var(--fds-density);
       opacity: 0.7;
     }
   }
@@ -228,15 +224,15 @@
   & details {
     padding: 0.5em;
     cursor: pointer;
-    border-radius: var(--ids__radius);
+    border-radius: var(--fds-radius-xs);
 
     & summary {
-      padding-bottom: var(--ids__micro-padding);
+      padding-bottom: 0.25em;
     }
   }
 
   & hr {
-    border-top-color: rgba(0, 86, 211, 0.2);
+    border-top-color: var(--fds-line);
     border-bottom: 0;
   }
 
@@ -247,7 +243,7 @@
     margin: 1em 0;
     padding: 0;
     border: 0;
-    background-color: var(--color-blue-50);
+    background-color: var(--fds-text-muted);
   }
 }
 
@@ -258,7 +254,7 @@ video{
   height: auto;
 }
 
-@media screen and (max-width: 768px) {
+@media (width <= 768px) {
   html[data-lang="en"] .ids p .quote-word-nowrap-mobile {
     white-space: nowrap;
   }

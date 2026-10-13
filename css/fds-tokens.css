@@ -1,0 +1,72 @@
+/*
+ * FDS tokens. The only file that knows concrete values; everything else
+ * refers to these. Rules: docs/fds.md, section 3.
+ */
+
+:root {
+  /* Palette: three colours, nothing else is ever introduced. */
+  --fds-blue: #0056d3;
+  --fds-orange: #ff6900;
+  --fds-white: #ffffff;
+
+  /* Tints: the palette at a given opacity, nothing else. */
+  --fds-blue-50: color-mix(in srgb, var(--fds-blue) 50%, transparent);
+  --fds-blue-20: color-mix(in srgb, var(--fds-blue) 20%, transparent);
+  --fds-blue-10: color-mix(in srgb, var(--fds-blue) 10%, transparent);
+  --fds-blue-5: color-mix(in srgb, var(--fds-blue) 5%, transparent);
+  --fds-orange-50: color-mix(in srgb, var(--fds-orange) 50%, transparent);
+  --fds-orange-10: color-mix(in srgb, var(--fds-orange) 10%, transparent);
+  --fds-white-70: color-mix(in srgb, var(--fds-white) 70%, transparent);
+
+  /* Semantic colours: components use only these. */
+  --fds-text: var(--fds-blue);
+  --fds-text-muted: var(--fds-blue-50);
+  --fds-accent: var(--fds-orange);
+  --fds-accent-muted: var(--fds-orange-50);
+  --fds-bg: var(--fds-white);
+  --fds-surface: var(--fds-blue-10);
+  --fds-surface-accent: var(--fds-orange-10);
+  --fds-surface-faint: var(--fds-blue-5);
+  --fds-line: var(--fds-blue-20);
+  --fds-inverse-bg: var(--fds-blue);
+  --fds-inverse-text: var(--fds-white);
+  --fds-shadow: rgb(0 0 0 / 0.16);
+
+  /* Radius scale. Mobile overrides live on the components that need them. */
+  --fds-radius-xs: 0.2em;
+  --fds-radius-s: 0.8em;
+  --fds-radius-m: 1em;
+  --fds-radius-l: 1.4em;
+  --fds-radius-xl: 2em;
+  --fds-radius-pill: 100em;
+
+  /* Motion. */
+  --fds-duration-fast: 0.12s;
+  --fds-duration-base: 0.2s;
+  --fds-duration-slow: 0.3s;
+  --fds-duration-enter: 0.34s;
+  --fds-duration-lazy: 0.5s;
+  --fds-ease: ease;
+  --fds-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --fds-ease-in: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Stacking. */
+  --fds-z-reveal: 0;
+  --fds-z-sheet: 1;
+  --fds-z-sound: 3;
+  --fds-z-tip: 1000;
+  --fds-z-header: 1100;
+  --fds-z-menu: 1200;
+  --fds-z-menu-top: 1300;
+
+  /* Layout. */
+  --fds-gutter: 1em;
+  --fds-reveal-height: clamp(220px, 28vw, 380px);
+}
+
+@media (width <= 768px) {
+  :root {
+    --fds-gutter: 0.5em;
+    --fds-reveal-height: 14em;
+  }
+}

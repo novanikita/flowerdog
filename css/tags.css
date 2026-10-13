@@ -2,9 +2,9 @@
 
 .tag {
   display: inline-block;
-  background: var(--color-white);
-  border: 0.05em solid var(--color-blue);
-  border-radius: 0.2em;
+  background: var(--fds-bg);
+  border: 0.05em solid var(--fds-text);
+  border-radius: var(--fds-radius-xs);
   padding: 0.15em 0.4em;
   margin: 0 0.15em 0.15em 0;
   font-family: inherit;
@@ -30,10 +30,10 @@
 .project-promo-link .project-tags .tag {
   font-size: 0.7em;
   padding: 0.1em 0.5em;
-  color: var(--color-blue);
-  background-color: rgba(0, 86, 211, 0.1);
+  color: var(--fds-text);
+  background-color: var(--fds-surface);
   border: 0;
-  border-radius: 1em;
+  border-radius: var(--fds-radius-pill);
   margin: 0;
 }
 

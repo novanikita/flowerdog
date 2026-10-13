@@ -1,0 +1,224 @@
+/*
+ * Styles for the design-system page only (prefix ds-). Everything the
+ * page documents is rendered with the site's own classes from fds.css;
+ * this file adds the reading layout: section navigation, spec tables,
+ * swatches, code blocks and demo frames.
+ */
+
+@layer pages {
+  .ds-layout {
+    display: grid;
+    grid-template-columns: 13em minmax(0, 1fr);
+    column-gap: 3em;
+    align-items: start;
+  }
+
+  .ds-nav {
+    position: sticky;
+    top: 5em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+    font-size: 0.85em;
+  }
+
+  .ds-nav a {
+    text-decoration: none;
+  }
+
+  .ds-nav a.is-active {
+    font-weight: 700;
+  }
+
+  .ds-content {
+    min-width: 0;
+  }
+
+  .ds-section {
+    scroll-margin-top: 5em;
+  }
+
+  .ds-section + .ds-section {
+    margin-top: calc(var(--fds-density) * 4em);
+  }
+
+  .ds-section > h2 {
+    margin-bottom: 0.6em;
+  }
+
+  .ds-section > h3 {
+    margin-top: calc(var(--fds-density) * 1.4em);
+  }
+
+  .ds-text {
+    max-width: 36em;
+  }
+
+  /* A rule of the system: short, imperative, numbered. */
+  .ds-rules {
+    max-width: 36em;
+  }
+
+  .ds-rules li {
+    margin-bottom: calc(var(--fds-density) * 0.3em);
+  }
+
+  /* Spec table: name, live sample, values. */
+  .ds-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 calc(var(--fds-density) * 1em);
+    font-size: 0.85em;
+  }
+
+  .ds-table th,
+  .ds-table td {
+    padding: 0.7em 1em 0.7em 0;
+    border-top: 1px solid var(--fds-line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .ds-table th {
+    font-weight: 400;
+    color: var(--fds-text-muted);
+    border-top: 0;
+  }
+
+  .ds-table td:first-child {
+    white-space: nowrap;
+  }
+
+  .ds-table .ds-sample {
+    font-size: 1.1765em; /* back to the body size inside the smaller table */
+  }
+
+  .ds-table .ds-sample > * {
+    margin: 0;
+  }
+
+  code,
+  .ds-code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    letter-spacing: 0;
+  }
+
+  .ds-code {
+    display: block;
+    margin: 0 0 calc(var(--fds-density) * 1em);
+    padding: 1em 1.2em;
+    overflow-x: auto;
+    border-radius: var(--fds-radius-m);
+    background: var(--fds-surface-faint);
+    color: var(--fds-text);
+    font-size: 0.8em;
+    line-height: 1.5;
+    white-space: pre;
+  }
+
+  /* Colour swatches. */
+  .ds-swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+    gap: 0.6em;
+    margin: 0 0 calc(var(--fds-density) * 1em);
+  }
+
+  .ds-swatch {
+    border-radius: var(--fds-radius-m);
+    border: 1px solid var(--fds-line);
+    overflow: hidden;
+    font-size: 0.8em;
+  }
+
+  .ds-swatch__color {
+    height: 4em;
+  }
+
+  .ds-swatch__name {
+    padding: 0.6em 0.8em 0.1em;
+  }
+
+  .ds-swatch__value {
+    padding: 0 0.8em 0.7em;
+    color: var(--fds-text-muted);
+  }
+
+  /* Demo frame: a tinted box that shows an invisible thing (a spacer, a grid cell). */
+  .ds-demo {
+    margin: 0 0 calc(var(--fds-density) * 1em);
+  }
+
+  .ds-demo .fds-space {
+    background: var(--fds-surface);
+    border-radius: var(--fds-radius-xs);
+  }
+
+  .ds-grid-demo > * {
+    min-height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fds-surface);
+    border: 1px solid var(--fds-bg);
+    border-radius: var(--fds-radius-xs);
+    font-size: 0.8em;
+  }
+
+  .ds-demo--inverse {
+    padding: 1.5em;
+    border-radius: var(--fds-radius-m);
+    background: var(--fds-inverse-bg);
+    color: var(--fds-inverse-text);
+  }
+
+  .ds-radii {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin: 0 0 calc(var(--fds-density) * 1em);
+  }
+
+  .ds-radius {
+    width: 7em;
+    height: 5em;
+    display: flex;
+    align-items: flex-end;
+    padding: 0.6em;
+    background: var(--fds-surface);
+    font-size: 0.8em;
+  }
+
+  .ds-motion {
+    display: inline-block;
+    width: 3em;
+    height: 1.2em;
+    border-radius: var(--fds-radius-xs);
+    background: var(--fds-text);
+    vertical-align: middle;
+    transition: transform var(--ds-duration, 0.3s) var(--ds-ease, ease);
+  }
+
+  tr:hover .ds-motion {
+    transform: translateX(3em);
+  }
+
+  @media (width <= 768px) {
+    .ds-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ds-nav {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.4em 1em;
+      margin-bottom: 2em;
+    }
+
+    .ds-table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+}

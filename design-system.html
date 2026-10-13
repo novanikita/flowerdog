@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Дизайн-система flowerdog</title>
+    <meta name="description" content="FDS — дизайн-система сайта flowerdog.studio: токены, каркас, типографика, компоненты и правила." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Дизайн-система flowerdog" />
+    <meta property="og:description" content="FDS — дизайн-система сайта flowerdog.studio: токены, каркас, типографика, компоненты и правила." />
+    <link rel="canonical" href="https://flowerdog.studio/design-system" />
+    <meta property="og:url" content="https://flowerdog.studio/design-system" />
+    <meta property="og:image" content="https://flowerdog.studio/images/icon/meta.png" />
+    <meta property="og:site_name" content="Flowerdog" />
+    <meta property="og:locale" content="ru_RU" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icon/favicon-16-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icon/favicon-32-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/icon/favicon-48-48.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0056D3">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/fds.css" />
+    <link rel="stylesheet" href="css/design-system.css" />
+    <script src="js/page-transition-prep.js"></script>
+  </head>
+  <body>
+    <div data-fds-header></div>
+    <main>
+      <div class="fds-wrap fds-wrap--l">
+        <div class="fds-space fds-space--xl"></div>
+        <div class="ds-layout">
+          <nav class="ds-nav" aria-label="Разделы">
+            <a href="#intro">Введение</a>
+            <a href="#files">Файлы и слои</a>
+            <a href="#settings">Настройки</a>
+            <a href="#color">Цвет</a>
+            <a href="#layout">Каркас</a>
+            <a href="#type">Типографика</a>
+            <a href="#elements">Элементы</a>
+            <a href="#components">Компоненты</a>
+            <a href="#motion">Движение</a>
+            <a href="#content">Контент</a>
+            <a href="#templates">Шаблоны страниц</a>
+            <a href="#changelog">Changelog</a>
+          </nav>
+
+          <div class="ds-content">
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="intro">
+              <h1 class="fds-display">FDS — дизайн-система flowerdog</h1>
+              <div class="fds-space fds-space--m"></div>
+              <p class="fds-lead ds-text">Эта страница описывает, из чего собран сайт flowerdog.studio, и одновременно показывает это живьём: каждый пример ниже сделан теми же классами, которые работают на сайте. Если страница и сайт разошлись, что-то сломано.</p>
+              <p class="ds-text">FDS выросла из <a href="https://intuition-tech.github.io/ids/">IDS</a>: оттуда плотность, резиновый размер шрифта, обёртки и спейсеры. Сверху лежат компоненты студии: шапка, футер с подвалом из картинок, карточки проектов, люди, цитаты, галереи кейсов.</p>
+              <p class="ds-text">Главное правило одно: <strong>нет класса в системе, значит нет стиля на сайте</strong>. Новый компонент сначала появляется здесь, с примером и описанием, потом на странице. Правило под конкретный кейс, клиента или страницу не пишется: если компоненту нужно вести себя иначе, у него появляется модификатор.</p>
+              <p class="ds-text">Версия 1.0, 13 октября 2026. Исходники в репозитории, свод правил в <code>docs/fds.md</code>.</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="files">
+              <h2>Файлы и слои</h2>
+              <p class="ds-text">Страница подключает один файл, <code>css/fds.css</code>. Он объявляет каскадные слои и импортирует остальное. Слой важнее специфичности: правило компонента всегда побеждает правило текста, а правило страницы побеждает компонент. Поэтому в селекторах нет накруток вроде <code>.ids p.team-bio</code>.</p>
+              <pre class="ds-code">@layer tokens, base, layout, text, components, pages, utilities;
+
+@import url("fds-tokens.css")     layer(tokens);      /* значения */
+@import url("fds-normalize.css")  layer(base);
+@import url("fds-settings.css")   layer(base);        /* шрифт, плотность, размер */
+@import url("fds-transition.css") layer(base);        /* переход между страницами */
+@import url("fds-layout.css")     layer(layout);      /* обёртки, спейсеры, сетка */
+@import url("fds-text.css")       layer(text);        /* теги и текстовые стили */
+@import url("fds-link.css")       layer(text);
+@import url("fds-chip.css")       layer(components);
+@import url("fds-header.css")     layer(components);
+@import url("fds-footer.css")     layer(components);
+@import url("fds-card.css")       layer(components);
+@import url("fds-person.css")     layer(components);
+@import url("fds-step.css")       layer(components);
+@import url("fds-quote.css")      layer(components);
+@import url("fds-gallery.css")    layer(components);
+@import url("fds-case.css")       layer(pages);       /* мета кейса, якоря */
+@import url("fds-utilities.css")  layer(utilities);</pre>
+              <h3>Имена</h3>
+              <p class="ds-text">Схема одна: <code>fds-блок__элемент--модификатор</code>. Блок называется по смыслу, а не по странице и не по человеку. Размер это модификатор: <code>fds-space--xl</code>, <code>fds-figure--l</code>. Состояния ставит скрипт, они без префикса: <code>is-active</code>, <code>is-hidden</code>, <code>has-menu-open</code>. Скоуп страницы, если он всё-таки нужен, это атрибут <code>html[data-page="about"]</code>, и таких правил должно становиться меньше, а не больше.</p>
+              <p class="ds-text">Один компонент один файл. Плоские селекторы, вложенность только для модификаторов внутри блока. Значения только через токены, в компонентах нет ни одного hex-кода.</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="settings">
+              <h2>Настройки</h2>
+              <p class="ds-text">Шрифт <strong>Sona</strong>, variable 100..900, один файл <code>fonts/Sona.woff2</code>. Плотность <code>--fds-density: 1.3</code> это базовый интерлиньяж, и от неё считаются отступы текста и спейсеры.</p>
+              <p class="ds-text">Размер шрифта у <code>html</code> резиновый. От 320 до 768px он растёт с 14 до 32px, на 768px падает до 11px и растёт до 22.5px к 1500px, дальше не меняется. Всё остальное в системе задано в <code>em</code> от этого значения, поэтому страница масштабируется целиком. Это единственное место с пикселями.</p>
+              <pre class="ds-code">--fds-font-min-mobile: 14;   --fds-font-max-mobile: 32;
+--fds-font-min-desktop: 11;  --fds-font-max-desktop: 22.5;
+--fds-viewport-min: 320;     --fds-breakpoint: 768;     --fds-viewport-max: 1500;</pre>
+              <p class="ds-text">Устройств два. Мобила это <code>width &lt;= 768px</code>, десктоп всё, что шире. В коде брейкпоинт записывается только так, и он один:</p>
+              <pre class="ds-code">@media (width &lt;= 768px) { … }</pre>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="color">
+              <h2>Цвет</h2>
+              <p class="ds-text">Два слоя. Палитра из трёх цветов, которые нельзя использовать напрямую, и семантические токены, которыми пользуются компоненты.</p>
+              <h3>Палитра</h3>
+              <div class="ds-swatches">
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-blue)"></div><div class="ds-swatch__name">--fds-blue</div><div class="ds-swatch__value">#0056d3</div></div>
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-orange)"></div><div class="ds-swatch__name">--fds-orange</div><div class="ds-swatch__value">#ff6900</div></div>
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-white)"></div><div class="ds-swatch__name">--fds-white</div><div class="ds-swatch__value">#ffffff</div></div>
+              </div>
+              <h3>Оттенки</h3>
+              <p class="ds-text">Только прозрачность палитры через <code>color-mix</code>. Новых цветов нет, серого нет, чёрного нет.</p>
+              <div class="ds-swatches">
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-blue-50)"></div><div class="ds-swatch__name">--fds-blue-50</div><div class="ds-swatch__value">синий 50%</div></div>
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-blue-20)"></div><div class="ds-swatch__name">--fds-blue-20</div><div class="ds-swatch__value">синий 20%</div></div>
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-blue-10)"></div><div class="ds-swatch__name">--fds-blue-10</div><div class="ds-swatch__value">синий 10%</div></div>
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-blue-5)"></div><div class="ds-swatch__name">--fds-blue-5</div><div class="ds-swatch__value">синий 5%</div></div>
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-orange-50)"></div><div class="ds-swatch__name">--fds-orange-50</div><div class="ds-swatch__value">оранжевый 50%</div></div>
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-orange-10)"></div><div class="ds-swatch__name">--fds-orange-10</div><div class="ds-swatch__value">оранжевый 10%</div></div>
+                <div class="ds-swatch"><div class="ds-swatch__color" style="background: var(--fds-white-70)"></div><div class="ds-swatch__name">--fds-white-70</div><div class="ds-swatch__value">белый 70%</div></div>
+              </div>
+              <h3>Семантика</h3>
+              <table class="ds-table">
+                <thead><tr><th>Токен</th><th>Значение</th><th>Где</th></tr></thead>
+                <tbody>
+                  <tr><td><code>--fds-text</code></td><td>синий</td><td>весь текст, иконки, рамки, полоски</td></tr>
+                  <tr><td><code>--fds-text-muted</code></td><td>синий 50%</td><td>роли людей, юридический блок, разделитель</td></tr>
+                  <tr><td><code>--fds-accent</code></td><td>оранжевый</td><td>hover и активное состояние, акцентная цитата</td></tr>
+                  <tr><td><code>--fds-accent-muted</code></td><td>оранжевый 50%</td><td>роль в акцентной цитате</td></tr>
+                  <tr><td><code>--fds-bg</code></td><td>белый</td><td>фон страницы, шапки, футера</td></tr>
+                  <tr><td><code>--fds-surface</code></td><td>синий 10%</td><td>подложка карточек, чипов, кнопки, заглушка обложки, <code>aside</code></td></tr>
+                  <tr><td><code>--fds-surface-accent</code></td><td>оранжевый 10%</td><td>подложка при hover</td></tr>
+                  <tr><td><code>--fds-surface-faint</code></td><td>синий 5%</td><td>фон <code>code</code></td></tr>
+                  <tr><td><code>--fds-line</code></td><td>синий 20%</td><td>подчёркивания ссылок, <code>hr</code>, рамка figure</td></tr>
+                  <tr><td><code>--fds-inverse-bg</code></td><td>синий</td><td>мобильное меню, тултип, включённая кнопка звука</td></tr>
+                  <tr><td><code>--fds-inverse-text</code></td><td>белый</td><td>текст на синем</td></tr>
+                  <tr><td><code>--fds-shadow</code></td><td>чёрный 16%</td><td>тень листа над подвалом</td></tr>
+                </tbody>
+              </table>
+              <ol class="ds-rules">
+                <li>Синий это чернила. Весь текст синий, чёрного на сайте нет.</li>
+                <li>Оранжевый только для реакции: hover, focus, активное состояние, и для акцентной цитаты. В покое оранжевым ничего не написано.</li>
+                <li>Оттенки только прозрачностью. Нужен новый оттенок, значит нужен новый токен, а не rgba в компоненте.</li>
+              </ol>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="layout">
+              <h2>Каркас</h2>
+              <p class="ds-text">Страница собирается из этажей: обёртка, внутри неё текст или сетка, между этажами спейсеры. Вертикальный ритм задают спейсеры, а не марджины компонентов.</p>
+
+              <h3>Обёртки</h3>
+              <table class="ds-table">
+                <thead><tr><th>Класс</th><th>Ширина</th><th>Где</th></tr></thead>
+                <tbody>
+                  <tr><td><code>.fds-wrap .fds-wrap--l</code></td><td>100%, отступы <code>--fds-gutter</code> (1em, на мобиле 0.5em)</td><td>сетки, галереи, широкие блоки</td></tr>
+                  <tr><td><code>.fds-wrap .fds-wrap--s</code></td><td>60% по центру, на мобиле 100%</td><td>текст кейсов и вакансий</td></tr>
+                  <tr><td><code>.fds-wrap__text</code></td><td>50% внутри обёртки, на мобиле 100%</td><td>узкая колонка текста на главной и «О нас»</td></tr>
+                  <tr><td><code>.fds-wrap__text--wide</code></td><td>72%</td><td>вступление на главной</td></tr>
+                </tbody>
+              </table>
+
+              <h3>Спейсеры</h3>
+              <p class="ds-text">Пустой <code>div</code> заданной высоты. Высота считается от плотности, поэтому растёт вместе со шрифтом. Модификатор <code>--mobile-s</code> даёт другой шаг на мобиле: так в кейсах сжимается расстояние от текста до картинок.</p>
+              <table class="ds-table">
+                <thead><tr><th>Класс</th><th>Высота</th><th>Живьём</th></tr></thead>
+                <tbody>
+                  <tr><td><code>.fds-space.fds-space--xs</code></td><td>0.2 × плотность</td><td class="ds-demo"><div class="fds-space fds-space--xs"></div></td></tr>
+                  <tr><td><code>.fds-space</code>, <code>.fds-space--s</code></td><td>0.7 × плотность</td><td class="ds-demo"><div class="fds-space fds-space--s"></div></td></tr>
+                  <tr><td><code>.fds-space.fds-space--m</code></td><td>1.4 × плотность</td><td class="ds-demo"><div class="fds-space fds-space--m"></div></td></tr>
+                  <tr><td><code>.fds-space.fds-space--l</code></td><td>2.4 × плотность</td><td class="ds-demo"><div class="fds-space fds-space--l"></div></td></tr>
+                  <tr><td><code>.fds-space.fds-space--xl</code></td><td>4 × плотность</td><td class="ds-demo"><div class="fds-space fds-space--xl"></div></td></tr>
+                  <tr><td><code>.fds-space--mobile-s</code></td><td>на мобиле как S</td><td class="ds-demo"><div class="fds-space fds-space--l fds-space--mobile-s"></div></td></tr>
+                </tbody>
+              </table>
+
+              <h3>Сетка</h3>
+              <p class="ds-text">Одна сетка, <code>.fds-grid</code>, четыре колонки без зазора. Колонки и зазоры это модификаторы. На мобиле четыре колонки становятся двумя, три и две одной, если не сказано <code>--keep</code>. Элемент занимает одну колонку, <code>--l</code> две, <code>--xl</code> все.</p>
+              <table class="ds-table">
+                <thead><tr><th>Модификатор</th><th>Что делает</th><th>Где</th></tr></thead>
+                <tbody>
+                  <tr><td><code>.fds-grid--2</code>, <code>.fds-grid--3</code></td><td>две или три колонки</td><td>цитаты, фото, этапы</td></tr>
+                  <tr><td><code>.fds-grid--gap-s</code></td><td>зазор 0.5em</td><td>этапы процесса, фото пространства</td></tr>
+                  <tr><td><code>.fds-grid--gap-l</code></td><td>зазор между колонками 2em, на мобиле между рядами 3em</td><td>цитаты основателей</td></tr>
+                  <tr><td><code>.fds-grid--rows</code></td><td>зазор между рядами 3em, на мобиле 2.5em</td><td>команда</td></tr>
+                  <tr><td><code>.fds-grid--top</code></td><td>выравнивание по верху</td><td>цитаты</td></tr>
+                  <tr><td><code>.fds-grid--keep</code></td><td>на мобиле остаётся две колонки</td><td>фото пространства</td></tr>
+                </tbody>
+              </table>
+              <div class="ds-demo">
+                <div class="fds-grid fds-grid--gap-s ds-grid-demo">
+                  <div class="fds-grid__item fds-grid__item--l">--l</div>
+                  <div class="fds-grid__item">1</div>
+                  <div class="fds-grid__item">1</div>
+                  <div class="fds-grid__item fds-grid__item--xl">--xl</div>
+                </div>
+              </div>
+
+              <h3>Радиусы</h3>
+              <p class="ds-text">Шкала из шести значений. Круглый аватар это <code>50%</code>, единственное исключение.</p>
+              <div class="ds-radii">
+                <div class="ds-radius" style="border-radius: var(--fds-radius-xs)">xs 0.2em</div>
+                <div class="ds-radius" style="border-radius: var(--fds-radius-s)">s 0.8em</div>
+                <div class="ds-radius" style="border-radius: var(--fds-radius-m)">m 1em</div>
+                <div class="ds-radius" style="border-radius: var(--fds-radius-l)">l 1.4em</div>
+                <div class="ds-radius" style="border-radius: var(--fds-radius-xl)">xl 2em</div>
+                <div class="ds-radius" style="border-radius: var(--fds-radius-pill)">pill</div>
+              </div>
+              <table class="ds-table">
+                <thead><tr><th>Токен</th><th>Где</th></tr></thead>
+                <tbody>
+                  <tr><td><code>--fds-radius-xs</code></td><td><code>code</code>, <code>aside</code>, плотные figure в галерее</td></tr>
+                  <tr><td><code>--fds-radius-s</code></td><td>мелкие figure в галерее</td></tr>
+                  <tr><td><code>--fds-radius-m</code></td><td>тултип, блок кода, на мобиле карточка этапа и фото пространства</td></tr>
+                  <tr><td><code>--fds-radius-l</code></td><td>обложка проекта, figure L и XL, фото человека, одиночная картинка</td></tr>
+                  <tr><td><code>--fds-radius-xl</code></td><td>карточка этапа, фото пространства, модификатор <code>--soft</code></td></tr>
+                  <tr><td><code>--fds-radius-pill</code></td><td>чипы, кнопка, полоска обложек, модификатор <code>--round</code></td></tr>
+                </tbody>
+              </table>
+
+              <h3>Слои по оси Z</h3>
+              <pre class="ds-code">--fds-z-reveal: 0      панель с картинками под листом
+--fds-z-sheet: 1       main и футер
+--fds-z-sound: 3       кнопка звука на видео
+--fds-z-tip: 1000      тултип
+--fds-z-header: 1100   шапка
+--fds-z-menu: 1200     мобильное меню
+--fds-z-menu-top: 1300 логотип и крестик над меню</pre>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="type">
+              <h2>Типографика</h2>
+              <p class="ds-text">Стиль задаётся классом, тег выбирается по смыслу. Голые <code>h1</code>, <code>h2</code>, <code>h3</code> выглядят как title, heading и subheading, но <code>h2</code> с классом <code>fds-title</code> выглядит как title. Это позволяет держать иерархию заголовков правильной, не трогая внешний вид.</p>
+              <table class="ds-table">
+                <thead><tr><th>Класс</th><th>Размер / интерлиньяж / вес</th><th>Живьём</th></tr></thead>
+                <tbody>
+                  <tr><td><code>.fds-display</code></td><td>3em / 1 / 500, на мобиле 2em</td><td class="ds-sample"><p class="fds-display">Камерная студия</p></td></tr>
+                  <tr><td><code>.fds-title</code>, <code>h1</code></td><td>2em / 0.9 / 700</td><td class="ds-sample"><p class="fds-title">Ребрендинг Sporos</p></td></tr>
+                  <tr><td><code>.fds-title--intro</code></td><td>вес 500, на мобиле как lead</td><td class="ds-sample"><p class="fds-title fds-title--intro">Делаем всё то, через что бизнес разговаривает с людьми</p></td></tr>
+                  <tr><td><code>.fds-heading</code>, <code>h2</code></td><td>2em / 1.08 / 700</td><td class="ds-sample"><p class="fds-heading">Разработка концепции</p></td></tr>
+                  <tr><td><code>.fds-heading--light</code></td><td>вес 500</td><td class="ds-sample"><p class="fds-heading fds-heading--light">Мы дизайн-студия, а не агентство</p></td></tr>
+                  <tr><td><code>.fds-subheading</code>, <code>h3</code></td><td>1.5em / 1.18 / 700, на мобиле интерлиньяж 1</td><td class="ds-sample"><p class="fds-subheading">Кто нам нужен</p></td></tr>
+                  <tr><td><code>.fds-lead</code></td><td>1.5em / 1.2 / 500, на мобиле 1.2em</td><td class="ds-sample"><p class="fds-lead">Первым делом погружаемся в задачу.</p></td></tr>
+                  <tr><td><code>p</code></td><td>1em / 1.3 / 400</td><td class="ds-sample"><p>Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно.</p></td></tr>
+                  <tr><td><code>.fds-small</code></td><td>0.85em</td><td class="ds-sample"><p class="fds-small">сооснователь</p></td></tr>
+                  <tr><td><code>.fds-caption</code></td><td>0.7em</td><td class="ds-sample"><p class="fds-caption">ИП Туманов Дмитрий Олегович, ИНН 272198797725</p></td></tr>
+                </tbody>
+              </table>
+              <h3>Иерархия заголовков</h3>
+              <ol class="ds-rules">
+                <li>На странице один <code>h1</code>. Это заголовок страницы: название кейса, вакансии, манифест на главной. Там, где заголовок не нужен визуально («Проекты», «О нас»), он есть в разметке и скрыт классом <code>fds-visually-hidden</code>.</li>
+                <li>Разделы страницы это <code>h2</code>, их подразделы <code>h3</code>. Заголовки карточек, людей и этапов на уровень ниже заголовка раздела.</li>
+                <li>Логотип и вордмарк в футере не заголовки.</li>
+              </ol>
+              <h3>Правила текста</h3>
+              <ol class="ds-rules">
+                <li><code>strong</code> это вес 600; в кредитах кейса имена 800. Класса для жирности нет.</li>
+                <li>У абзаца есть нижний отступ 0.4 × плотность. Когда абзац должен прижаться к следующему блоку, у него <code>fds-flush</code>, а расстояние задаёт спейсер.</li>
+                <li>Неразрывные пробелы перед короткими словами расставляет <code>js/nbsp-typography.js</code>. В разметке <code>&amp;nbsp;</code> только там, где скрипт не достаёт: внутри <code>data-ru</code> и <code>data-en</code>.</li>
+                <li>Переносы строк в манифесте на главной задаются <code>br</code>. Для слова или переноса, который нужен только на десктопе, есть <code>fds-desktop-only</code>.</li>
+              </ol>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="elements">
+              <h2>Элементы</h2>
+              <h3>Ссылки</h3>
+              <p class="ds-text">Блок это сам тег <code>a</code>: синий, подчёркивание на 20%, при наведении оранжевый вместе с подчёркиванием. Всё остальное модификаторы.</p>
+              <table class="ds-table">
+                <thead><tr><th>Класс</th><th>Живьём</th><th>Что меняется</th></tr></thead>
+                <tbody>
+                  <tr><td><code>a</code></td><td class="ds-sample"><p>Напишите нам на <a href="mailto:hi@flowerdog.studio">почту</a></p></td><td>подчёркивание <code>--fds-line</code>, смещение 0.25em</td></tr>
+                  <tr><td><code>.fds-link--cta</code></td><td class="ds-sample"><p class="fds-lead fds-cta"><a href="#elements" class="fds-link--cta"><span class="fds-link__arrow" aria-hidden="true">→</span> Подробней про наш подход</a></p></td><td>сплошное подчёркивание, стрелка сдвигается на 0.1em; стоит в <code>p.fds-cta</code></td></tr>
+                  <tr><td><code>.fds-link--anchor</code></td><td class="ds-sample"><p><a class="fds-link--anchor" href="#type"><span class="fds-link__arrow" aria-hidden="true">→</span> <span>Типографика</span></a></p></td><td>волосяное подчёркивание слов, при наведении прозрачность 0.6; список таких ссылок это <code>p.fds-toc</code></td></tr>
+                  <tr><td><code>.fds-term</code></td><td class="ds-sample"><p>Мы <span class="fds-term">камерная</span> студия</p></td><td>слово с тултипом, подчёркивание 0.01em; тултип рисует <code>js/quote-tooltip.js</code></td></tr>
+                </tbody>
+              </table>
+
+              <h3>Чипы</h3>
+              <p class="ds-text">Пилюля на подложке. Ряд чипов это <code>.fds-chips</code>. На кейсах чипы перед заголовком собирает <code>js/project-meta-tags.js</code> из словаря тегов, бейдж «скоро» на карточке ставит <code>js/projects-render.js</code>.</p>
+              <div class="ds-demo">
+                <div class="fds-chips">
+                  <span class="fds-chip">брендинг</span>
+                  <span class="fds-chip">сайт</span>
+                  <span class="fds-chip">Яндекс</span>
+                  <span class="fds-chip fds-chip--soon">скоро</span>
+                </div>
+              </div>
+
+              <h3>Кнопка</h3>
+              <p class="ds-text">На сайте одна кнопка, и это ссылка во всю ширину сетки: «Ещё проекты» на главной. Подложка синяя 10%, при наведении оранжевая 10%.</p>
+              <div class="ds-demo"><a class="fds-button" href="portfolio.html">Ещё проекты</a></div>
+
+              <h3>Аватары</h3>
+              <p class="ds-text"><code>.fds-avatar</code> это круглая картинка в размер строки. В ряду <code>.fds-avatars</code> они наезжают друг на друга на 0.2em; <code>--zoom</code> приближает лицо. В цитате аватар 2.2em, в кредитах 1.2em.</p>
+              <div class="ds-demo">
+                <p class="fds-display fds-display--avatars"><span class="fds-avatars fds-avatars--start">
+                  <span class="fds-avatar"><img src="images/about/dima-tumanov-team.jpg" alt=""></span>
+                  <span class="fds-avatar"><img src="images/about/max-novokhatsky-team.jpg" alt=""></span>
+                  <span class="fds-avatar"><img src="images/about/biata-novoseltseva-team.jpg" alt=""></span>
+                  <span class="fds-avatar"><img src="images/about/nikita-nova-team.jpg" alt=""></span>
+                </span></p>
+              </div>
+
+              <h3>Теги из IDS</h3>
+              <p class="ds-text">Списки, <code>aside</code>, <code>blockquote</code>, <code>code</code>, <code>figure</code> с подписью и <code>hr</code> стилизованы и доступны в кейсах, хотя на сайте пока почти не встречаются.</p>
+              <div class="ds-demo">
+                <ul>
+                  <li>Созваниваемся, погружаемся в ситуацию.</li>
+                  <li>Анализируем дизайн, который есть сейчас.</li>
+                </ul>
+                <aside>Аудит занимает неделю, по итогам отдаём список рекомендаций, план и смету.</aside>
+                <blockquote>Хороший дизайн держится на сильной коммуникации.</blockquote>
+                <p>Разделитель <code>.fds-divider</code>:</p>
+                <hr class="fds-divider">
+              </div>
+
+              <h3>Утилиты</h3>
+              <table class="ds-table">
+                <thead><tr><th>Класс</th><th>Что делает</th></tr></thead>
+                <tbody>
+                  <tr><td><code>.fds-desktop-only</code></td><td>на мобиле не показывается</td></tr>
+                  <tr><td><code>.fds-flush</code></td><td>абзац без нижнего отступа</td></tr>
+                  <tr><td><code>.fds-visually-hidden</code></td><td>есть для поисковиков и скринридеров, на экране не видно</td></tr>
+                  <tr><td><code>.fds-anchor</code></td><td>цель якорной ссылки, остаётся под шапкой на 3em</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="components">
+              <h2>Компоненты</h2>
+
+              <h3>Шапка</h3>
+              <p class="ds-text">Партиал <code>partials/header.html</code>, подгружается в <code>[data-fds-header]</code>. Слева логотип размером <code>clamp(3.4em, 13.2vw, 10em)</code>, справа меню 1.5em / 800 и переключатель языка. На кейсах шапка уезжает вверх при скролле вниз, когда виден футер, и возвращается при скролле вверх (<code>js/header-scroll.js</code>). На мобиле бургер открывает синее меню на весь экран; пункты 2.5em. Та, что вверху этой страницы, и есть пример.</p>
+              <pre class="ds-code">.fds-header
+  .fds-header__left   .fds-header__logo  .fds-header__logo-image
+  .fds-header__right  .fds-header__burger  .fds-header__burger-line
+                      .fds-header__nav     .fds-header__link
+                      .fds-lang            .fds-lang__btn  .is-active
+состояния: header.is-fixed, header.is-hidden, .fds-header.is-menu-open, body.has-menu-open</pre>
+
+              <h3>Футер и подвал</h3>
+              <p class="ds-text">Партиал <code>partials/footer.html</code> в <code>[data-fds-footer]</code>. Четыре колонки: контакт на две, навигация, юридический блок. Ниже цветок и вордмарк во всю ширину. Под листом страницы спрятана панель с картинками, <code>.fds-reveal</code>: страница заканчивается ровно на вордмарке, а <code>js/footer-reveal.js</code> поднимает весь лист, когда пользователь тянет дальше конца. Картинки лежат в <code>images/footer-animation/</code>. Пример внизу этой страницы.</p>
+              <pre class="ds-code">.fds-footer
+  .fds-footer__top     .fds-footer__contact  .fds-footer__email  .fds-footer__contact-note
+                       .fds-footer__nav      .fds-footer__nav-link
+                       .fds-footer__legal    .fds-footer__legal-item
+  .fds-footer__brand   .fds-footer__flower   .fds-footer__wordmark
+.fds-reveal  .fds-reveal__stage
+состояния на html: has-footer-reveal, is-sheet-moving, is-footer-near</pre>
+
+              <h3>Карточка проекта</h3>
+              <p class="ds-text">Ссылка целиком. Обложка 29em высотой (18em на мобиле) с одним из трёх углов: <code>--hard</code>, <code>--soft</code>, <code>--round</code>. Если обложек несколько, под ней полоска сегментов, и движение мыши по карточке листает обложки (<code>js/project-cover-hover.js</code>). Заголовок карточки при наведении оранжевый. На главной и в портфолио карточки рендерит <code>js/projects-render.js</code> из <code>js/projects-data.js</code>.</p>
+              <div class="ds-demo">
+                <div class="fds-grid">
+                  <div class="fds-grid__item fds-grid__item--l">
+                    <a class="fds-card" href="sporos.html" data-cover-images="images/projects-cover/sporos-cover-1.avif|images/projects-cover/sporos-cover-2.avif|images/projects-cover/sporos-cover-3.avif">
+                      <div class="fds-card__cover fds-card__cover--soft" style="background-image: url('images/projects-cover/sporos-cover-1.avif');"></div>
+                      <div class="fds-card__strip" aria-hidden="true"><span class="fds-card__strip-segment is-active"></span><span class="fds-card__strip-segment"></span><span class="fds-card__strip-segment"></span></div>
+                      <div class="fds-card__meta"><h3 class="fds-card__title">Ребрендинг Sporos</h3></div>
+                    </a>
+                  </div>
+                  <div class="fds-grid__item">
+                    <a class="fds-card" href="toolpar.html">
+                      <div class="fds-card__cover fds-card__cover--round" style="background-image: url('images/projects-cover/toolpar-cover.avif');"></div>
+                      <div class="fds-card__meta"><h3 class="fds-card__title">Toolpar</h3><span class="fds-chip fds-chip--soon">скоро</span></div>
+                    </a>
+                  </div>
+                  <div class="fds-grid__item">
+                    <a class="fds-card" href="rangos.html">
+                      <div class="fds-card__cover fds-card__cover--hard" style="background-image: url('images/projects-cover/rangos-cover-1.avif');"></div>
+                      <div class="fds-card__meta"><h3 class="fds-card__title">Rangos</h3></div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <pre class="ds-code">&lt;div class="fds-grid"&gt;
+  &lt;div class="fds-grid__item fds-grid__item--l"&gt;
+    &lt;a class="fds-card" href="sporos.html" data-cover-images="a.avif|b.avif"&gt;
+      &lt;div class="fds-card__cover fds-card__cover--soft" style="background-image: url('a.avif')"&gt;&lt;/div&gt;
+      &lt;div class="fds-card__strip"&gt;…&lt;/div&gt;
+      &lt;div class="fds-card__meta"&gt;&lt;h2 class="fds-card__title"&gt;…&lt;/h2&gt;&lt;/div&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+              <h3>Человек</h3>
+              <p class="ds-text">Квадратное фото с теми же тремя углами, под ним имя и роль-чип, потом био 0.8em. Команда это <code>.fds-grid.fds-grid--rows</code> из таких элементов.</p>
+              <div class="ds-demo">
+                <div class="fds-grid fds-grid--rows">
+                  <div class="fds-grid__item">
+                    <div class="fds-person__photo fds-person__photo--round" style="background-image: url('images/about/dima-tumanov-team.jpg');"></div>
+                    <div class="fds-person__meta"><h4 class="fds-person__name">Дима Туманов</h4><span class="fds-chip">сооснователь</span></div>
+                    <p class="fds-person__bio">В студии занимаюсь клиентами, процессами, деньгами и визионерством.</p>
+                  </div>
+                  <div class="fds-grid__item">
+                    <div class="fds-person__photo fds-person__photo--soft" style="background-image: url('images/about/max-novokhatsky-team.jpg');"></div>
+                    <div class="fds-person__meta"><h4 class="fds-person__name">Макс Новохатский</h4><span class="fds-chip">сооснователь</span></div>
+                    <p class="fds-person__bio">В студии отвечаю за подбор команды и арт-дирекшн проектов.</p>
+                  </div>
+                </div>
+              </div>
+
+              <h3>Этап процесса</h3>
+              <p class="ds-text">Карточка на подложке с углом xl: ярлык и длительность, иллюстрация, заголовок уровня heading, текст. Три этапа стоят в <code>.fds-grid--3.fds-grid--gap-s</code>.</p>
+              <div class="ds-demo">
+                <div class="fds-grid fds-grid--3 fds-grid--gap-s">
+                  <article class="fds-step">
+                    <div class="fds-step__header"><p class="fds-step__label">Этап 1</p><p class="fds-step__duration">2 недели</p></div>
+                    <h4 class="fds-step__title fds-heading">Разработка концепции</h4>
+                    <p class="fds-step__text"><span class="fds-step__text-lead">Собираем референсы,</span> пробуем направления, показываем три пути.</p>
+                  </article>
+                  <article class="fds-step">
+                    <div class="fds-step__header"><p class="fds-step__label">Этап 2</p><p class="fds-step__duration">3 недели</p></div>
+                    <h4 class="fds-step__title fds-heading">Перенос на носители</h4>
+                    <p class="fds-step__text">Упаковка, сайт, соцсети, наружка.</p>
+                  </article>
+                  <article class="fds-step">
+                    <div class="fds-step__header"><p class="fds-step__label">Этап 3</p><p class="fds-step__duration">1 неделя</p></div>
+                    <h4 class="fds-step__title fds-heading">Собираем брендбук</h4>
+                    <p class="fds-step__text">Правила, файлы, передача команде.</p>
+                  </article>
+                </div>
+              </div>
+
+              <h3>Цитата основателя</h3>
+              <p class="ds-text">Подпись с аватаром стоит сверху (порядок в разметке обратный ради доступности), лид это heading--light, дальше абзацы lead размером 1.3em. Вариант <code>--accent</code> оранжевый целиком. Два таких блока стоят в <code>.fds-grid--2.fds-grid--gap-l.fds-grid--top</code>.</p>
+              <div class="ds-demo">
+                <div class="fds-grid fds-grid--2 fds-grid--gap-l fds-grid--top">
+                  <article class="fds-quote fds-quote--accent">
+                    <div class="fds-quote__content">
+                      <p class="fds-quote__lead fds-heading fds-heading--light">Мы что-то среднее между студией и мастерской.</p>
+                      <p class="fds-lead">Маленьковость даёт возможность вникать в каждый проект лично.</p>
+                    </div>
+                    <div class="fds-quote__byline"><span class="fds-avatar"><img src="images/about/max-novokhatsky-team.jpg" alt=""></span><span class="fds-quote__byline-text"><span class="fds-quote__name">Макс Новохатский</span><span class="fds-quote__role fds-small">сооснователь</span></span></div>
+                  </article>
+                  <article class="fds-quote">
+                    <div class="fds-quote__content">
+                      <p class="fds-quote__lead fds-heading fds-heading--light">Мы дизайн-студия, а не агентство.</p>
+                      <p class="fds-lead">Нам важно, чтобы в дизайне мы сначала говорили про смысл.</p>
+                    </div>
+                    <div class="fds-quote__byline"><span class="fds-avatar"><img src="images/about/dima-tumanov-team.jpg" alt=""></span><span class="fds-quote__byline-text"><span class="fds-quote__name">Дима Туманов</span><span class="fds-quote__role fds-small">сооснователь</span></span></div>
+                  </article>
+                </div>
+              </div>
+
+              <h3>Тултип</h3>
+              <p class="ds-text"><code>.fds-tip</code> это синий блок с белым текстом 17em шириной, появляется у слова <code>.fds-term</code> при наведении и исчезает за 0.5s. Варианты <code>--wide</code> (28em) и <code>--aside</code> (половина ширины, на мобиле по центру). Тексты лежат в <code>js/quote-tooltip.js</code>.</p>
+              <div class="ds-demo ds-demo--inverse"><p class="fds-flush">Так выглядит тултип: синяя подложка, белый текст, угол m.</p></div>
+
+              <h3>Галерея кейса</h3>
+              <p class="ds-text">Элемент <code>&lt;fds-gallery&gt;</code> (<code>js/fds-gallery.js</code>) раскладывает figure в три колонки с зазором 1em (0.4em на мобиле). <code>--l</code> занимает половину, <code>--xl</code> всю ширину. Мелкие figure со скруглением s, крупные l. Внутри картинка, видео или iframe. Модификаторы figure: <code>--bordered</code> тонкая рамка поверх, <code>--logo</code> логотип по центру с большими полями, <code>--tight</code> угол xs. Модификатор галереи <code>--tight</code> делает все углы xs на мобиле. Одиночная картинка вне галереи это <code>figure.fds-figure--framed</code>.</p>
+              <div class="ds-demo">
+                <fds-gallery>
+                  <figure class="fds-figure fds-figure--l"><img src="images/projects-cover/sporos-cover-2.avif" alt=""></figure>
+                  <figure class="fds-figure fds-figure--l"><img src="images/projects-cover/sporos-cover-3.avif" alt=""></figure>
+                  <figure class="fds-figure"><img src="images/projects-cover/rangos-cover-2.avif" alt=""></figure>
+                  <figure class="fds-figure"><img src="images/projects-cover/rangos-cover-3.avif" alt=""></figure>
+                  <figure class="fds-figure fds-figure--bordered"><img src="images/projects-cover/rangos-cover-4.avif" alt=""></figure>
+                </fds-gallery>
+              </div>
+              <p class="ds-text">Видео в галерее играет без звука, когда попадает в экран (<code>js/video-viewport-autoplay.js</code>). У видео с <code>data-sound-toggle</code> на мобиле есть кнопка <code>.fds-sound</code>, на десктопе курсор-динамик.</p>
+
+              <h3>Шапка кейса</h3>
+              <p class="ds-text">Кейс начинается с обёртки <code>fds-wrap--s</code> с атрибутами <code>data-type-tags</code> и <code>data-client-tag</code>: из них <code>js/project-meta-tags.js</code> собирает чипы перед <code>h1</code>. Мета-строка <code>.fds-meta</code> с номером и датой 0.7em. В конце кейса кредиты <code>p.fds-credits</code>: ярлык, аватар, имя 800 и роль приглушённым.</p>
+              <div class="ds-demo">
+                <p class="fds-credits"><strong class="fds-credits__label">Команда проекта:</strong> <span class="fds-credits__member"><span class="fds-avatar"><img src="images/portrait/Katya-Kozhara.avif" alt=""></span> <strong>Катя Кожара</strong> <span class="fds-credits__role">дизайнер</span>,</span> <span class="fds-credits__member"><span class="fds-avatar"><img src="images/portrait/Anya-Khudyakova.avif" alt=""></span> <strong>Аня Худякова</strong> <span class="fds-credits__role">редактор</span></span></p>
+              </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="motion">
+              <h2>Движение</h2>
+              <p class="ds-text">Пять длительностей и три кривые. Наведите на строку, чтобы увидеть.</p>
+              <table class="ds-table">
+                <thead><tr><th>Токен</th><th>Значение</th><th>Где</th><th>Живьём</th></tr></thead>
+                <tbody>
+                  <tr><td><code>--fds-duration-fast</code></td><td>0.12s</td><td>полоска обложек</td><td><span class="ds-motion" style="--ds-duration: var(--fds-duration-fast)"></span></td></tr>
+                  <tr><td><code>--fds-duration-base</code></td><td>0.2s</td><td>hover, стрелки, мобильное меню</td><td><span class="ds-motion" style="--ds-duration: var(--fds-duration-base)"></span></td></tr>
+                  <tr><td><code>--fds-duration-slow</code></td><td>0.3s</td><td>уход шапки, уход страницы</td><td><span class="ds-motion" style="--ds-duration: var(--fds-duration-slow)"></span></td></tr>
+                  <tr><td><code>--fds-duration-enter</code></td><td>0.34s</td><td>появление страницы</td><td><span class="ds-motion" style="--ds-duration: var(--fds-duration-enter); --ds-ease: var(--fds-ease-out)"></span></td></tr>
+                  <tr><td><code>--fds-duration-lazy</code></td><td>0.5s</td><td>тултип</td><td><span class="ds-motion" style="--ds-duration: var(--fds-duration-lazy)"></span></td></tr>
+                  <tr><td><code>--fds-ease-out</code></td><td>cubic-bezier(0.22, 1, 0.36, 1)</td><td>появление</td><td><span class="ds-motion" style="--ds-ease: var(--fds-ease-out)"></span></td></tr>
+                  <tr><td><code>--fds-ease-in</code></td><td>cubic-bezier(0.4, 0, 0.2, 1)</td><td>исчезновение</td><td><span class="ds-motion" style="--ds-ease: var(--fds-ease-in)"></span></td></tr>
+                </tbody>
+              </table>
+              <ol class="ds-rules">
+                <li>Переход между страницами: тело уходит вверх на 0.25em и гаснет за 0.3s, новое приходит снизу за 0.34s (<code>fds-transition.css</code>, <code>js/page-transition.js</code>). В браузерах с View Transitions тот же эффект через <code>@view-transition</code>.</li>
+                <li>Подвал: лист страницы поднимается над картинками на пружинах. Параметры пружин живут в <code>js/footer-reveal.js</code>, на локальной копии сайта их можно крутить панелью <code>js/footer-tuning.js</code>. Родной скролл браузера никогда не подавляется.</li>
+                <li><code>prefers-reduced-motion: reduce</code> выключает переходы, анимации и плавный скролл.</li>
+                <li>Hover меняет только цвет и прозрачность. Ничего не увеличивается и не всплывает.</li>
+              </ol>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="content">
+              <h2>Контент</h2>
+              <h3>Два языка</h3>
+              <p class="ds-text">Русский по умолчанию, английский по кнопке в шапке, выбор запоминается в <code>localStorage</code>. Любой текст, который переключается, лежит в атрибутах элемента, а не в двух копиях разметки. Словарь для повторяющихся строк и тегов в <code>js/site-dictionary.js</code>. Эта страница только на русском.</p>
+              <pre class="ds-code">&lt;p data-i18n data-ru="Проекты" data-en="Projects"&gt;Проекты&lt;/p&gt;
+&lt;a data-i18n data-key="nav.about" href="about.html"&gt;О нас&lt;/a&gt;   &lt;!-- строка из словаря --&gt;</pre>
+              <h3>Картинки</h3>
+              <ul class="ds-rules">
+                <li>Обложки проектов: <code>images/projects-cover/&lt;slug&gt;-cover-&lt;n&gt;.avif</code>, несколько на проект.</li>
+                <li>Команда: <code>images/about/&lt;имя&gt;-team.jpg</code>; портреты для кредитов в кейсах: <code>images/portrait/</code>.</li>
+                <li>Картинки кейсов в <code>images/projects/&lt;slug&gt;/</code>, конвертация в AVIF скриптом <code>scripts/convert-to-avif.sh</code>.</li>
+                <li>Подвал: <code>images/footer-animation/footer-NN.avif</code>.</li>
+                <li>Иконки и фавиконки в <code>images/icon/</code>. Иконки звука подключаются как маска и красятся токеном.</li>
+              </ul>
+              <h3>Черновики</h3>
+              <p class="ds-text">Кейс, который ещё нельзя показывать, лежит в корне как обычная страница, но исключён из сборки и опубликован только в <code>preview/&lt;токен&gt;/</code>. Как это устроено, написано в <code>preview/README.md</code>.</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="templates">
+              <h2>Шаблоны страниц</h2>
+              <p class="ds-text">Каждая страница подключает <code>css/fds.css</code>, партиалы шапки и футера и набор скриптов. Ниже скелеты: порядок обёрток и спейсеров, без текста.</p>
+              <h3>Главная</h3>
+              <pre class="ds-code">main
+  .fds-wrap.fds-wrap--l
+    .fds-space--m
+    p.fds-display.fds-display--avatars        манифест в три строки
+    .fds-space--m.fds-space--avatars
+    p.fds-display--avatars › .fds-avatars     ряд портретов
+    .fds-space--l
+    .fds-wrap__text.fds-wrap__text--wide › h1.fds-title.fds-title--intro
+    .fds-space--l
+    .fds-grid[data-projects-page="index"]      карточки рендерит скрипт, в конце .fds-button
+    .fds-space--xl
+    .fds-wrap__text › h2.fds-title, .fds-space--s, p.fds-lead × n</pre>
+              <h3>Кейс</h3>
+              <pre class="ds-code">main
+  .fds-wrap.fds-wrap--s[data-type-tags][data-client-tag]
+    .fds-space--xl
+    .fds-chips                                 чипы собирает скрипт
+    .fds-space--s
+    h1
+    .fds-space--m.fds-space--mobile-s
+  .fds-wrap.fds-wrap--l › fds-gallery › figure.fds-figure[--l|--xl] × n
+  .fds-wrap.fds-wrap--s
+    .fds-space--l
+    h2.fds-subheading, p …
+    .fds-space--l.fds-space--mobile-s
+  … галереи и текст чередуются …
+  .fds-wrap.fds-wrap--s
+    .fds-space--l
+    p.fds-credits
+    .fds-space--m</pre>
+              <h3>О нас</h3>
+              <pre class="ds-code">main
+  .fds-wrap.fds-wrap--l
+    h1.fds-visually-hidden
+    .fds-space--xl
+    .fds-grid.fds-grid--2.fds-grid--gap-l.fds-grid--top › article.fds-quote × 2
+  .fds-space--xl
+  .fds-wrap.fds-wrap--l › h2.fds-title, .fds-space--s, .fds-grid.fds-grid--rows › люди
+  …</pre>
+              <h3>Портфолио и вакансии</h3>
+              <pre class="ds-code">портфолио:  .fds-wrap--l › h1.fds-visually-hidden, .fds-grid[data-projects-page="portfolio"]
+вакансия:   .fds-wrap--s › .fds-space--xl, h1, section.fds-anchor › h2.fds-subheading, p …</pre>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="changelog">
+              <h2>Changelog</h2>
+              <h3>1.0, 13 октября 2026</h3>
+              <ul class="ds-rules">
+                <li>Система выделена из кода сайта: токены вместо вшитых значений, каскадные слои, один файл на компонент, единая схема имён с префиксом <code>fds</code>.</li>
+                <li>Слиты шесть описаний ссылки, три чипа, шесть сеток, четыре ширины текста. Удалён мёртвый код IDS и скрытый раздел «Что мы уже делали».</li>
+                <li>Починены <code>//</code>-комментарии, из-за которых не существовали серый цвет и фон кнопки языка; удалены правила, которые никогда не выигрывали каскад.</li>
+                <li>Иерархия заголовков: один <code>h1</code> на страницу, внешний вид заголовков через классы, вордмарк в футере больше не заголовок.</li>
+                <li>Осознанные изменения внешнего вида: hover всех ссылок оранжевый; радиусы figure на Dodo 0.2em; рамка figure синяя; заголовок этапа, лид цитаты, заметка и юридический блок футера взяли ближайший размер шкалы; на мобиле угол карточки этапа и фото пространства 1em.</li>
+              </ul>
+            </section>
+
+          </div>
+        </div>
+        <div class="fds-space fds-space--xl"></div>
+      </div>
+    </main>
+    <div data-fds-footer></div>
+
+    <script src="js/page-transition.js"></script>
+    <script src="js/site-dictionary.js"></script>
+    <script src="js/header-include.js"></script>
+    <script src="js/footer-include.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/header-scroll.js"></script>
+    <script src="js/fds-gallery.js"></script>
+    <script src="js/image-loading-optimizer.js"></script>
+    <script src="js/project-cover-hover.js"></script>
+    <script src="js/nbsp-typography.js"></script>
+    <script>
+      // Highlight the section in view in the side navigation.
+      (function () {
+        var links = document.querySelectorAll('.ds-nav a');
+        var sections = document.querySelectorAll('.ds-section');
+        if (!('IntersectionObserver' in window) || !links.length) return;
+        var byId = {};
+        links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            links.forEach(function (a) { a.classList.remove('is-active'); });
+            var link = byId[entry.target.id];
+            if (link) link.classList.add('is-active');
+          });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        sections.forEach(function (s) { observer.observe(s); });
+      })();
+    </script>
+  </body>
+</html>

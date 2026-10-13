@@ -1,7 +1,7 @@
 class IdsGallery extends HTMLElement {
   constructor() {
     super();
-    this.classList.add('ids__gallery');
+    this.classList.add('fds-gallery');
   }
 
   connectedCallback() {
@@ -20,6 +20,6 @@ class IdsGallery extends HTMLElement {
   }
 }
 
-if (!window.customElements.get('ids-gallery')) {
-  window.customElements.define('ids-gallery', IdsGallery);
+if (!window.customElements.get('fds-gallery')) {
+  window.customElements.define('fds-gallery', IdsGallery);
 }

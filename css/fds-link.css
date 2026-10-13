@@ -19,22 +19,22 @@
   }
 }
 
-html[data-lang="en"] .about-how-we-work-cta .main-page-header__cta {
+html[data-lang="en"] .fds-cta .fds-link--cta {
   white-space: normal;
 }
 
 .ids .main-page-text-fixed a:hover,
 .ids .main-page-text-fixed a:focus-visible,
-.ids.page-vacancies .ids__wrapper.S a:hover,
-.ids.page-vacancies .ids__wrapper.S a:focus-visible {
+.ids.page-vacancies .fds-wrap--s a:hover,
+.ids.page-vacancies .fds-wrap--s a:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
 
-.main-page-header__cta,
-.main-page-header__cta:hover,
-.main-page-header__cta:visited,
-.main-page-header__cta:focus-visible {
+.fds-link--cta,
+.fds-link--cta:hover,
+.fds-link--cta:visited,
+.fds-link--cta:focus-visible {
   color: var(--fds-text);
   text-decoration: underline;
   text-decoration-color: var(--fds-text);
@@ -44,50 +44,50 @@ html[data-lang="en"] .about-how-we-work-cta .main-page-header__cta {
   transition: none;
 }
 
-.ids .main-page-header__cta,
-.ids .main-page-header__cta:hover,
-.ids .main-page-header__cta:visited,
-.ids .main-page-header__cta:focus-visible {
+.ids .fds-link--cta,
+.ids .fds-link--cta:hover,
+.ids .fds-link--cta:visited,
+.ids .fds-link--cta:focus-visible {
   text-decoration-color: var(--fds-text);
 }
 
-.main-page-header__cta:hover,
-.main-page-header__cta:focus-visible {
+.fds-link--cta:hover,
+.fds-link--cta:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
-.ids .main-page-header__cta:hover,
-.ids .main-page-header__cta:focus-visible {
+.ids .fds-link--cta:hover,
+.ids .fds-link--cta:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
 
-.about-how-we-work-cta .project-anchor-arrow {
+.fds-cta .fds-link__arrow {
   text-decoration: none;
   transition: transform var(--fds-duration-base) var(--fds-ease);
 }
 
-.ids :is(p, ul):has(+ .ids__space + .about-how-we-work-cta) {
+.ids :is(p, ul):has(+ .fds-space + .fds-cta) {
   margin-bottom: 0;
 }
 
-.ids ul:has(+ .ids__space + .about-how-we-work-cta) > li:last-child {
+.ids ul:has(+ .fds-space + .fds-cta) > li:last-child {
   margin-bottom: 0;
 }
 
-.ids p.about-how-we-work-cta {
+.ids p.fds-cta {
   margin-bottom: 0;
 }
 
-.about-how-we-work-cta .main-page-header__cta:hover .project-anchor-arrow,
-.about-how-we-work-cta .main-page-header__cta:focus-visible .project-anchor-arrow {
+.fds-cta .fds-link--cta:hover .fds-link__arrow,
+.fds-cta .fds-link--cta:focus-visible .fds-link__arrow {
   transform: translateX(0.1em);
 }
 
-.quote-word {
+.fds-term {
   color: var(--fds-text);
   text-decoration: underline;
   text-underline-offset: 0.15em;
@@ -97,51 +97,51 @@ html[data-lang="en"] .about-how-we-work-cta .main-page-header__cta {
   transition: none;
 }
 
-.quote-word:hover,
-.quote-word.is-active {
+.fds-term:hover,
+.fds-term.is-active {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
 
-.founder-quote--max .quote-word {
+.fds-quote--accent .fds-term {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
 
-.founder-quote--max .quote-word:hover,
-.founder-quote--max .quote-word.is-active {
+.fds-quote--accent .fds-term:hover,
+.fds-quote--accent .fds-term.is-active {
   color: var(--fds-text);
   text-decoration-color: var(--fds-text);
 }
 
-.ids a.project-anchor-link {
+.ids a.fds-link--anchor {
   text-decoration: none;
   transition: opacity var(--fds-duration-base) var(--fds-ease);
 }
 
-.ids a.project-anchor-link span:not(.project-anchor-arrow) {
+.ids a.fds-link--anchor span:not(.fds-link__arrow) {
   text-decoration: underline;
   text-decoration-thickness: 0.5px;
   text-underline-offset: 0.3em;
 }
 
-.project-anchor-arrow {
+.fds-link__arrow {
   display: inline-block;
   text-decoration: none;
   transition: transform var(--fds-duration-base) var(--fds-ease);
 }
 
-.ids a.project-anchor-link:hover,
-.ids a.project-anchor-link:focus-visible {
+.ids a.fds-link--anchor:hover,
+.ids a.fds-link--anchor:focus-visible {
   opacity: 0.6;
 }
 
-.ids a.project-anchor-link:hover .project-anchor-arrow,
-.ids a.project-anchor-link:focus-visible .project-anchor-arrow {
+.ids a.fds-link--anchor:hover .fds-link__arrow,
+.ids a.fds-link--anchor:focus-visible .fds-link__arrow {
   transform: translateX(0.25em);
 }
 
-.ids a.project-case-link {
+.ids a.fds-link--case {
   color: var(--fds-text);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -149,18 +149,18 @@ html[data-lang="en"] .about-how-we-work-cta .main-page-header__cta {
   text-decoration-color: var(--fds-line);
 }
 
-.ids a.project-case-link:hover,
-.ids a.project-case-link:focus-visible {
+.ids a.fds-link--case:hover,
+.ids a.fds-link--case:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
 
 @media (width <= 768px) {
-  .main-page-header__cta {
+  .fds-link--cta {
     white-space: normal;
   }
 
-  .ids p.project-list a.project-anchor-link {
+  .ids p.fds-case__list a.fds-link--anchor {
     display: inline-block;
     margin-bottom: 1em;
   }

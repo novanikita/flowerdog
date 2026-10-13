@@ -1,13 +1,13 @@
-.ids .team-grid--extended .team-meta {
+.ids .fds-grid--people-extended .fds-person__meta {
   font-size: 0.85em;
 }
 
-.ids .team-grid--extended p.team-bio {
+.ids .fds-grid--people-extended p.fds-person__bio {
   font-size: 0.8em;
   padding-right: 0.5em;
 }
 
-.team-promo {
+.fds-person__photo {
   width: 100%;
   aspect-ratio: 1 / 1;
   background-size: cover;
@@ -17,19 +17,19 @@
   background-color: var(--fds-surface);
 }
 
-.team-promo.team-promo-soft {
+.fds-person__photo.fds-person__photo--soft {
   border-radius: var(--fds-radius-xl);
 }
 
-.team-promo.team-promo-hard {
+.fds-person__photo.fds-person__photo--hard {
   border-radius: 0;
 }
 
-.team-promo.team-promo-round {
+.fds-person__photo.fds-person__photo--round {
   border-radius: var(--fds-radius-pill);
 }
 
-.team-meta {
+.fds-person__meta {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -40,7 +40,7 @@
   line-height: 1.12;
 }
 
-.ids .team-meta h2.team-name {
+.ids .fds-person__meta h2.fds-person__name {
   margin: 0;
   font-size: 1em;
   line-height: inherit;
@@ -48,12 +48,12 @@
   color: var(--fds-text);
 }
 
-.team-meta .project-tag-chip {
+.fds-person__meta .fds-chip {
   font-size: 0.8em;
   margin: 0.1em 0 0;
 }
 
-.ids p.team-bio {
+.ids p.fds-person__bio {
   margin-top: 0.5em;
   margin-bottom: 0;
   padding-right: 1em;
@@ -64,37 +64,37 @@
 }
 
 @media (width <= 768px) {
-  .team-meta {
+  .fds-person__meta {
     flex-direction: column;
     align-items: flex-start;
     row-gap: 0.25em;
     font-size: 1.05em;
   }
 
-  .ids .team-grid--extended .team-meta {
+  .ids .fds-grid--people-extended .fds-person__meta {
     font-size: 0.85em;
   }
 
-  .ids .team-grid--extended p.team-bio {
+  .ids .fds-grid--people-extended p.fds-person__bio {
     font-size: 0.7em;
   }
 
-  .ids p.team-bio {
+  .ids p.fds-person__bio {
     margin-top: 0.5em;
     font-size: 0.9em;
     padding-right: 0.5em;
   }
 }
 
-html[data-lang="en"] .ids .team-meta .project-tag-chip {
+html[data-lang="en"] .ids .fds-person__meta .fds-chip {
   font-size: 0.72em;
 }
 
-html[data-lang="en"] .ids .team-grid--extended p.team-bio {
+html[data-lang="en"] .ids .fds-grid--people-extended p.fds-person__bio {
   hyphens: auto;
 }
 
-.portreit {
+.fds-avatar {
   width: 0.9em;
   height: 0.9em;
   border-radius: 50%;
@@ -102,114 +102,114 @@ html[data-lang="en"] .ids .team-grid--extended p.team-bio {
   display: inline-block;
 }
 
-.portreit img {
+.fds-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.portreit--zoom img {
+.fds-avatar--zoom img {
   transform: scale(2.2) translateY(-8%);
   transform-origin: 50% 18%;
 }
 
-.portraits-inline {
+.fds-avatars {
   display: inline-flex;
   align-items: flex-end;
   vertical-align: text-bottom;
   margin-left: 0.2em;
 }
 
-.ids p.quote.quote--portraits {
+.ids p.fds-display.fds-display--avatars {
   margin-bottom: 0;
 }
 
-.portraits-inline--start {
+.fds-avatars--start {
   margin-left: 0;
 }
 
-.portraits-inline .portreit + .portreit {
+.fds-avatars .fds-avatar + .fds-avatar {
   margin-left: -0.2em;
 }
 
 /* Same overlap, but taken on the right so a wrapped row starts flush left. */
-.portraits-inline--start .portreit + .portreit {
+.fds-avatars--start .fds-avatar + .fds-avatar {
   margin-left: 0;
 }
 
-.portraits-inline--start .portreit {
+.fds-avatars--start .fds-avatar {
   margin-right: -0.2em;
 }
 
 /* On desktop the two groups read as one row; on mobile they stack (see below). */
-.portraits-inline__row {
+.fds-avatars__row {
   display: contents;
 }
 
-.ids p.project-team {
+.ids p.fds-credits {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.project-team .portreit {
+.fds-credits .fds-avatar {
   width: 1.2em;
   height: 1.2em;
   margin-right: 0.1em;
   vertical-align: -0.3em;
 }
 
-.project-team__member {
+.fds-credits__member {
   white-space: nowrap;
 }
 
-.project-team__member:not(:last-child) {
+.fds-credits__member:not(:last-child) {
   margin-right: 0.5em;
 }
 
-.project-team {
+.fds-credits {
   font-weight: 400;
 }
 
-.project-team .project-text-emphasis:not(.project-team__label) {
+.fds-credits .fds-strong:not(.fds-credits__label) {
   font-weight: 800;
 }
 
-.project-team__role {
+.fds-credits__role {
   color: var(--fds-text-muted);
   font-weight: 400;
 }
 
 @media (width <= 768px) {
-  .portraits-inline {
+  .fds-avatars {
     display: flex;
     margin-left: 0;
     margin-top: 0.35em;
     vertical-align: baseline;
   }
 
-  .project-team__label {
+  .fds-credits__label {
     display: block;
     margin-bottom: 0.35em;
   }
 
-  .portreit {
+  .fds-avatar {
     width: 1.3em;
     height: 1.3em;
   }
 
-  .portraits-inline--start {
+  .fds-avatars--start {
     flex-direction: column;
     align-items: flex-start;
     row-gap: calc(var(--fds-density) * 0.1em);
     margin-top: 0;
   }
 
-  .portraits-inline__row {
+  .fds-avatars__row {
     display: flex;
   }
 
-  .ids .ids__space.portraits-gap {
+  .ids .fds-space.fds-space--avatars {
     height: calc(var(--fds-density) * 0.7em);
   }
 }

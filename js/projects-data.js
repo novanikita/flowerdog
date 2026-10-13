@@ -4,11 +4,11 @@
   window.SiteProjectsData = {
     index: [
       {
-        itemClass: 'L',
+        itemClass: 'fds-grid__item--l',
         href: 'yandex.html',
         coverImages:
           'images/projects-cover/yandex-cover-1.avif|images/projects-cover/yandex-cover-2.avif|images/projects-cover/yandex-cover-3.avif|images/projects-cover/yandex-cover-4.avif|images/projects-cover/yandex-cover-5.avif|images/projects-cover/yandex-cover-6.avif',
-        promoClass: 'project-promo-soft',
+        promoClass: 'fds-card__cover--soft',
         titleRu: '117 проектов для Яндекса',
         titleEn: '117 projects for Yandex'
       },
@@ -17,7 +17,7 @@
         typeTags: 'branding',
         coverImages:
           'images/projects-cover/kim-chips-cover.avif|images/projects-cover/kim-chips-cover-2.avif|images/projects-cover/kim-chips-cover-3.avif|images/projects-cover/kim-chips-cover-4.avif',
-        promoClass: 'project-promo-hard',
+        promoClass: 'fds-card__cover--hard',
         titleRu: 'Ким чипсы',
         titleEn: 'Kim Chips'
       },
@@ -26,7 +26,7 @@
         typeTags: 'branding',
         coverImages:
           'images/projects-cover/rangos-cover-1.avif|images/projects-cover/rangos-cover-2.avif|images/projects-cover/rangos-cover-3.avif|images/projects-cover/rangos-cover-4.avif',
-        promoClass: 'project-promo-round',
+        promoClass: 'fds-card__cover--round',
         titleRu: 'Rangos',
         titleEn: 'Rangos'
       },
@@ -36,7 +36,7 @@
         typeTags: 'branding',
         coverImages:
           'images/projects-cover/toolpar-cover.avif|images/projects-cover/toolpar-cover-2.avif|images/projects-cover/toolpar-cover-3.avif|images/projects-cover/toolpar-cover-4.avif',
-        promoClass: 'project-promo-hard',
+        promoClass: 'fds-card__cover--hard',
         titleRu: 'Toolpar',
         titleEn: 'Toolpar'
       },
@@ -45,13 +45,13 @@
         typeTags: 'website',
         coverImages:
           'images/projects-cover/lavatop-cover-1.avif|images/projects-cover/lavatop-cover-2.avif|images/projects-cover/lavatop-cover-3.avif',
-        promoClass: 'project-promo-round',
+        promoClass: 'fds-card__cover--round',
         titleRu: 'Lavatop',
         titleEn: 'Lavatop'
       },
       {
         id: 'dodo',
-        itemClass: 'L',
+        itemClass: 'fds-grid__item--l',
         href: 'dodo.html',
         typeTags: 'website',
         coverImages:
@@ -62,11 +62,11 @@
     ],
     portfolio: [
       {
-        itemClass: 'L',
+        itemClass: 'fds-grid__item--l',
         href: 'yandex.html',
         coverImages:
           'images/projects-cover/yandex-cover-1.avif|images/projects-cover/yandex-cover-2.avif|images/projects-cover/yandex-cover-3.avif|images/projects-cover/yandex-cover-4.avif|images/projects-cover/yandex-cover-5.avif|images/projects-cover/yandex-cover-6.avif',
-        promoClass: 'project-promo-soft',
+        promoClass: 'fds-card__cover--soft',
         titleRu: '117 проектов для Яндекса',
         titleEn: '117 projects for Yandex'
       },
@@ -75,7 +75,7 @@
         typeTags: 'branding',
         coverImages:
           'images/projects-cover/kim-chips-cover.avif|images/projects-cover/kim-chips-cover-2.avif|images/projects-cover/kim-chips-cover-3.avif|images/projects-cover/kim-chips-cover-4.avif',
-        promoClass: 'project-promo-hard',
+        promoClass: 'fds-card__cover--hard',
         titleRu: 'Ким чипсы',
         titleEn: 'Kim Chips'
       },
@@ -84,7 +84,7 @@
         typeTags: 'branding',
         coverImages:
           'images/projects-cover/rangos-cover-1.avif|images/projects-cover/rangos-cover-2.avif|images/projects-cover/rangos-cover-3.avif|images/projects-cover/rangos-cover-4.avif',
-        promoClass: 'project-promo-round',
+        promoClass: 'fds-card__cover--round',
         titleRu: 'Rangos',
         titleEn: 'Rangos'
       },
@@ -93,7 +93,7 @@
         typeTags: 'website',
         coverImages:
           'images/projects-cover/lavatop-cover-1.avif|images/projects-cover/lavatop-cover-2.avif|images/projects-cover/lavatop-cover-3.avif',
-        promoClass: 'project-promo-hard',
+        promoClass: 'fds-card__cover--hard',
         titleRu: 'Lavatop',
         titleEn: 'Lavatop'
       },
@@ -102,12 +102,12 @@
         typeTags: 'branding',
         coverImages:
           'images/projects-cover/sporos-cover-1.avif|images/projects-cover/sporos-cover-2.avif|images/projects-cover/sporos-cover-3.avif',
-        promoClass: 'project-promo-round',
+        promoClass: 'fds-card__cover--round',
         titleRu: 'Sporos',
         titleEn: 'Sporos'
       },
       {
-        itemClass: 'L',
+        itemClass: 'fds-grid__item--l',
         href: 'dodo.html',
         typeTags: 'website',
         coverImages:
@@ -120,7 +120,7 @@
         typeTags: 'events',
         coverImages:
           'images/projects-cover/sber500-cover-1.avif|images/projects-cover/sber500-cover-2.avif|images/projects-cover/sber500-cover-3.avif|images/projects-cover/sber500-cover-4.avif',
-        promoClass: 'project-promo-soft',
+        promoClass: 'fds-card__cover--soft',
         titleRu: 'Sber500',
         titleEn: 'Sber500'
       },
@@ -129,7 +129,7 @@
         typeTags: 'branding',
         coverImages:
           'images/projects-cover/toolpar-cover.avif|images/projects-cover/toolpar-cover-2.avif|images/projects-cover/toolpar-cover-3.avif|images/projects-cover/toolpar-cover-4.avif',
-        promoClass: 'project-promo-hard',
+        promoClass: 'fds-card__cover--hard',
         titleRu: 'Toolpar',
         titleEn: 'Toolpar'
       }

@@ -1,4 +1,4 @@
-ids-gallery, .ids__gallery {
+fds-gallery, .fds-gallery {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -12,14 +12,14 @@ ids-gallery, .ids__gallery {
         --gap: 0.4em;
 
         figure,
-        figure.L,
-        figure.XL,
-        figure:not(.L):not(.XL) {
+        figure.fds-figure--l,
+        figure.fds-figure--xl,
+        figure:not(.fds-figure--l):not(.fds-figure--xl) {
             border-radius: var(--fds-radius-m);
         }
     } 
 
-    &.review {
+    &.fds-gallery--review {
         @media (width <= 768px) {
         --columns: 1;
         } 
@@ -57,22 +57,22 @@ ids-gallery, .ids__gallery {
             display: block;
         }
 
-        &.L {
+        &.fds-figure--l {
             flex: 0 0 calc((100% - var(--gap)) / 2);
             border-radius: var(--fds-radius-l);
         }
-        &.XL {
+        &.fds-figure--xl {
             
             flex: 0 0 100%;
             border-radius: var(--fds-radius-l);
         }
-        &:not(.L):not(.XL) {
+        &:not(.fds-figure--l):not(.fds-figure--xl) {
             border-radius: var(--fds-radius-s);
         }
     }
 }
 
-.video-sound-toggle {
+.fds-sound {
     position: absolute;
     top: 1em;
     right: 1em;
@@ -103,7 +103,7 @@ video.has-sound-toggle {
     }
 }
 
-.video-sound-toggle__icon {
+.fds-sound__icon {
     width: 1.5em;
     height: 1.5em;
     display: block;
@@ -113,140 +113,140 @@ video.has-sound-toggle {
     -webkit-mask: url('/images/icon/speaker.svg') center / contain no-repeat;
 }
 
-.video-sound-toggle:not(.is-on):hover,
-.video-sound-toggle:not(.is-on):focus-visible {
+.fds-sound:not(.is-on):hover,
+.fds-sound:not(.is-on):focus-visible {
     background: var(--fds-bg);
 }
 
-.video-sound-toggle.is-on {
+.fds-sound.is-on {
     background: var(--fds-inverse-bg);
 }
 
-.video-sound-toggle.is-on .video-sound-toggle__icon {
+.fds-sound.is-on .fds-sound__icon {
     background-color: var(--fds-bg);
     mask-image: url('/images/icon/speaker-mute.svg');
     -webkit-mask-image: url('/images/icon/speaker-mute.svg');
 }
 
-.project-gallery,
-ids-gallery,
-.ids__gallery {
+.fds-gallery-wrap,
+fds-gallery,
+.fds-gallery {
   display: none;
 }
 
-.ids__wrapper[data-client-tag="yandex"] .project-gallery,
-.ids__wrapper[data-client-tag="audit"] .project-gallery,
-.ids__wrapper[data-client-tag="sber500"] .project-gallery,
-.ids__wrapper[data-client-tag="sporos"] .project-gallery,
-.ids__wrapper[data-client-tag="vi"] .project-gallery,
-.ids__wrapper[data-client-tag="yamusic"] .project-gallery,
-.ids__wrapper[data-client-tag="bandlink"] .project-gallery {
+.fds-wrap[data-client-tag="yandex"] .fds-gallery-wrap,
+.fds-wrap[data-client-tag="audit"] .fds-gallery-wrap,
+.fds-wrap[data-client-tag="sber500"] .fds-gallery-wrap,
+.fds-wrap[data-client-tag="sporos"] .fds-gallery-wrap,
+.fds-wrap[data-client-tag="vi"] .fds-gallery-wrap,
+.fds-wrap[data-client-tag="yamusic"] .fds-gallery-wrap,
+.fds-wrap[data-client-tag="bandlink"] .fds-gallery-wrap {
   display: block;
 }
 
-.ids__wrapper[data-client-tag="yandex"] ids-gallery,
-.ids__wrapper[data-client-tag="yandex"] .ids__gallery,
-.ids__wrapper[data-client-tag="audit"] ids-gallery,
-.ids__wrapper[data-client-tag="audit"] .ids__gallery,
-.ids__wrapper[data-client-tag="sber500"] ids-gallery,
-.ids__wrapper[data-client-tag="sber500"] .ids__gallery,
-.ids__wrapper[data-client-tag="sporos"] ids-gallery,
-.ids__wrapper[data-client-tag="sporos"] .ids__gallery,
-.ids__wrapper[data-client-tag="vi"] ids-gallery,
-.ids__wrapper[data-client-tag="vi"] .ids__gallery,
-.ids__wrapper[data-client-tag="yamusic"] ids-gallery,
-.ids__wrapper[data-client-tag="yamusic"] .ids__gallery,
-.ids__wrapper[data-client-tag="bandlink"] ids-gallery,
-.ids__wrapper[data-client-tag="bandlink"] .ids__gallery {
+.fds-wrap[data-client-tag="yandex"] fds-gallery,
+.fds-wrap[data-client-tag="yandex"] .fds-gallery,
+.fds-wrap[data-client-tag="audit"] fds-gallery,
+.fds-wrap[data-client-tag="audit"] .fds-gallery,
+.fds-wrap[data-client-tag="sber500"] fds-gallery,
+.fds-wrap[data-client-tag="sber500"] .fds-gallery,
+.fds-wrap[data-client-tag="sporos"] fds-gallery,
+.fds-wrap[data-client-tag="sporos"] .fds-gallery,
+.fds-wrap[data-client-tag="vi"] fds-gallery,
+.fds-wrap[data-client-tag="vi"] .fds-gallery,
+.fds-wrap[data-client-tag="yamusic"] fds-gallery,
+.fds-wrap[data-client-tag="yamusic"] .fds-gallery,
+.fds-wrap[data-client-tag="bandlink"] fds-gallery,
+.fds-wrap[data-client-tag="bandlink"] .fds-gallery {
   display: flex;
 }
 
-.project-gallery--rangos,
-.project-gallery--lavatop,
-.project-gallery--dodo,
-.project-gallery--kim-chips,
-.project-gallery--toolpar {
+.fds-gallery-wrap--rangos,
+.fds-gallery-wrap--lavatop,
+.fds-gallery-wrap--dodo,
+.fds-gallery-wrap--kim-chips,
+.fds-gallery-wrap--toolpar {
   display: block;
 }
 
-.project-gallery--rangos ids-gallery,
-.project-gallery--rangos .ids__gallery,
-.project-gallery--lavatop ids-gallery,
-.project-gallery--lavatop .ids__gallery,
-.project-gallery--dodo ids-gallery,
-.project-gallery--dodo .ids__gallery,
-.project-gallery--kim-chips ids-gallery,
-.project-gallery--kim-chips .ids__gallery,
-.project-gallery--toolpar ids-gallery,
-.project-gallery--toolpar .ids__gallery {
+.fds-gallery-wrap--rangos fds-gallery,
+.fds-gallery-wrap--rangos .fds-gallery,
+.fds-gallery-wrap--lavatop fds-gallery,
+.fds-gallery-wrap--lavatop .fds-gallery,
+.fds-gallery-wrap--dodo fds-gallery,
+.fds-gallery-wrap--dodo .fds-gallery,
+.fds-gallery-wrap--kim-chips fds-gallery,
+.fds-gallery-wrap--kim-chips .fds-gallery,
+.fds-gallery-wrap--toolpar fds-gallery,
+.fds-gallery-wrap--toolpar .fds-gallery {
   display: flex;
 }
 
-.project-gallery--rangos figure img,
-.project-gallery--rangos figure video,
-.project-gallery--lavatop figure img,
-.project-gallery--lavatop figure video,
-.project-gallery--dodo figure img,
-.project-gallery--dodo figure video,
-.project-gallery--kim-chips figure img,
-.project-gallery--kim-chips figure video,
-.project-gallery--toolpar figure img,
-.project-gallery--toolpar figure video {
+.fds-gallery-wrap--rangos figure img,
+.fds-gallery-wrap--rangos figure video,
+.fds-gallery-wrap--lavatop figure img,
+.fds-gallery-wrap--lavatop figure video,
+.fds-gallery-wrap--dodo figure img,
+.fds-gallery-wrap--dodo figure video,
+.fds-gallery-wrap--kim-chips figure img,
+.fds-gallery-wrap--kim-chips figure video,
+.fds-gallery-wrap--toolpar figure img,
+.fds-gallery-wrap--toolpar figure video {
   width: 100%;
   display: block;
 }
 
 /* Kim Chips: while case text is hidden, stack galleries like Lavatop (gallery --gap) */
-.ids__wrapper.S:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) {
+.fds-wrap--s:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) {
   display: none;
 }
 
-.ids__wrapper.S:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .ids__wrapper.L:has(.project-gallery--kim-chips) {
+.fds-wrap--s:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .fds-wrap--l:has(.fds-gallery-wrap--kim-chips) {
   margin-top: 1em;
 }
 
-.project-gallery--dodo ids-gallery figure.L.project-figure--soft-radius,
-.project-gallery--dodo .ids__gallery figure.L.project-figure--soft-radius {
+.fds-gallery-wrap--dodo fds-gallery figure.fds-figure--l.fds-figure--tight,
+.fds-gallery-wrap--dodo .fds-gallery figure.fds-figure--l.fds-figure--tight {
   border-radius: var(--fds-radius-xs);
 }
 
 @media (width <= 768px) {
-  .ids__wrapper.S:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .ids__wrapper.L:has(.project-gallery--kim-chips) {
+  .fds-wrap--s:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .fds-wrap--l:has(.fds-gallery-wrap--kim-chips) {
     margin-top: 0.4em;
   }
 
-  .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .ids__space.L:last-child,
-  .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .ids__space.M:last-child {
+  .fds-wrap:has(+ .fds-wrap .fds-gallery-wrap) > .fds-space--l:last-child,
+  .fds-wrap:has(+ .fds-wrap .fds-gallery-wrap) > .fds-space--m:last-child {
     height: calc(var(--fds-density) * 0.7em);
   }
 
-  .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .about-how-we-work-cta + .ids__space.M {
+  .fds-wrap:has(+ .fds-wrap .fds-gallery-wrap) > .fds-cta + .fds-space--m {
     height: calc(var(--fds-density) * 1.4em);
   }
 
-  .project-gallery--dodo ids-gallery figure.XL,
-  .project-gallery--dodo .ids__gallery figure.XL {
+  .fds-gallery-wrap--dodo fds-gallery figure.fds-figure--xl,
+  .fds-gallery-wrap--dodo .fds-gallery figure.fds-figure--xl {
     border-radius: var(--fds-radius-xs);
   }
 
-  .project-gallery--dodo ids-gallery figure.L,
-  .project-gallery--dodo ids-gallery figure:not(.L):not(.XL),
-  .project-gallery--dodo .ids__gallery figure.L,
-  .project-gallery--dodo .ids__gallery figure:not(.L):not(.XL) {
+  .fds-gallery-wrap--dodo fds-gallery figure.fds-figure--l,
+  .fds-gallery-wrap--dodo fds-gallery figure:not(.fds-figure--l):not(.fds-figure--xl),
+  .fds-gallery-wrap--dodo .fds-gallery figure.fds-figure--l,
+  .fds-gallery-wrap--dodo .fds-gallery figure:not(.fds-figure--l):not(.fds-figure--xl) {
     border-radius: var(--fds-radius-xs);
   }
 
-  .project-gallery--dodo ids-gallery figure.L.project-figure--soft-radius,
-  .project-gallery--dodo .ids__gallery figure.L.project-figure--soft-radius {
+  .fds-gallery-wrap--dodo fds-gallery figure.fds-figure--l.fds-figure--tight,
+  .fds-gallery-wrap--dodo .fds-gallery figure.fds-figure--l.fds-figure--tight {
     border-radius: var(--fds-radius-xs);
   }
 }
 
-figure.project-figure--bordered {
+figure.fds-figure--bordered {
   position: relative;
 }
 
-figure.project-figure--bordered::after {
+figure.fds-figure--bordered::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -255,17 +255,17 @@ figure.project-figure--bordered::after {
   pointer-events: none;
 }
 
-.ids__wrapper[data-client-tag="sporos"] figure.project-figure--logo {
+.fds-wrap[data-client-tag="sporos"] figure.fds-figure--logo {
   margin-top: calc(var(--fds-density) * 4em);
   margin-bottom: calc(var(--fds-density) * 4em);
 }
 
-.ids__wrapper[data-client-tag="sporos"] figure.project-figure--logo a {
+.fds-wrap[data-client-tag="sporos"] figure.fds-figure--logo a {
   display: flex;
   justify-content: center;
 }
 
-.ids__wrapper[data-client-tag="sporos"] figure.project-figure--logo img {
+.fds-wrap[data-client-tag="sporos"] figure.fds-figure--logo img {
   width: 50%;
   max-width: 50%;
 }

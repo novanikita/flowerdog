@@ -20,8 +20,8 @@
 
   function resetHeaderInlineStyles(header) {
     if (!header) return;
-    var logoLink = header.querySelector('.main-header__left .logo a');
-    var rightBlock = header.querySelector('.main-header__right');
+    var logoLink = header.querySelector('.fds-header__left .fds-header__logo a');
+    var rightBlock = header.querySelector('.fds-header__right');
     if (logoLink) {
       logoLink.style.fontSize = '';
       logoLink.style.marginTop = '';
@@ -36,8 +36,8 @@
       resetHeaderInlineStyles(header);
       return;
     }
-    var logoLink = header.querySelector('.main-header__left .logo a');
-    var rightBlock = header.querySelector('.main-header__right');
+    var logoLink = header.querySelector('.fds-header__left .fds-header__logo a');
+    var rightBlock = header.querySelector('.fds-header__right');
     if (!logoLink) return;
 
     if (!header.__logoExpandedPx || header.__logoExpandedPx <= 0) {
@@ -70,7 +70,7 @@
   }
 
   function reserveHeaderSpace(header) {
-    var host = document.querySelector('[data-site-header]');
+    var host = document.querySelector('[data-fds-header]');
     if (!host || !header) return;
     var height = Math.ceil(header.getBoundingClientRect().height);
     if (height > 0) {
@@ -79,11 +79,11 @@
   }
 
   function initHeaderScroll() {
-    var header = document.querySelector('header.main-header') || document.querySelector('header');
+    var header = document.querySelector('header.fds-header') || document.querySelector('header');
     if (!header) return;
 
     header.classList.remove('is-hidden');
-    header.classList.add('is-fixed-on-case');
+    header.classList.add('is-fixed');
     reserveHeaderSpace(header);
     header.__logoExpandedPx = 0;
     header.__rightMarginTopExpandedPx = -1;
@@ -92,7 +92,7 @@
     var lastScrollY = window.scrollY || 0;
 
     function isFooterVisible() {
-      var footer = document.querySelector('.site-footer');
+      var footer = document.querySelector('.fds-footer');
       if (!footer) return false;
       var rect = footer.getBoundingClientRect();
       var vh = window.innerHeight || document.documentElement.clientHeight;

@@ -1,7 +1,7 @@
 // Auto-transform project metadata+tags on yandex.html.
-// Turns: p.project-date "№97, 20.01.2025, Казахстан, Концепция, KV, ..." into:
-//   p.project-meta (first 3 comma-separated parts)
-//   div.project-tag-row (remaining parts as chips)
+// Turns: p.fds-meta__date "№97, 20.01.2025, Казахстан, Концепция, KV, ..." into:
+//   p.fds-meta__item (first 3 comma-separated parts)
+//   div.fds-chips (remaining parts as chips)
 (function () {
   'use strict';
 
@@ -207,7 +207,7 @@
 
   function buildMetaParagraph(tokens) {
     var p = document.createElement('p');
-    p.className = 'project-meta';
+    p.className = 'fds-meta__item';
 
     tokens.forEach(function (t, index) {
       var span = document.createElement('span');
@@ -224,12 +224,12 @@
 
   function buildTagRow(tokens) {
     var row = document.createElement('div');
-    row.className = 'project-tag-row';
+    row.className = 'fds-chips';
     row.setAttribute('aria-label', 'Project tags');
 
     tokens.forEach(function (t) {
       var chip = document.createElement('span');
-      chip.className = 'project-tag-chip';
+      chip.className = 'fds-chip';
       setI18n(chip, t, translateTag(t));
       row.appendChild(chip);
     });
@@ -278,7 +278,7 @@
     var titleRu = normalizeNdaTitle(title);
     var titleEn = normalizeNdaTitle(resolveTitleEn(number, title));
     var span = document.createElement('span');
-    span.className = 'project-text-emphasis';
+    span.className = 'fds-strong';
     setI18n(span, titleRu, titleEn);
     p.appendChild(span);
     if (description) {
@@ -303,9 +303,9 @@
 
   function detectProjectContent(startNode) {
     var cur = startNode ? startNode.nextElementSibling : null;
-    while (cur && !(cur.classList && cur.classList.contains('project-meta-wrap'))) {
+    while (cur && !(cur.classList && cur.classList.contains('fds-meta'))) {
       if (
-        (cur.classList && cur.classList.contains('project-gallery')) ||
+        (cur.classList && cur.classList.contains('fds-gallery-wrap')) ||
         cur.querySelector('img, video, iframe')
       ) {
         return true;
@@ -318,9 +318,9 @@
   function detectProjectContentInRawBlock(dateEl) {
     var cur = dateEl ? dateEl.nextElementSibling : null;
     while (cur) {
-      if (cur.matches && cur.matches('p.project-date')) return false;
+      if (cur.matches && cur.matches('p.fds-meta__date')) return false;
       if (
-        (cur.classList && cur.classList.contains('project-gallery')) ||
+        (cur.classList && cur.classList.contains('fds-gallery-wrap')) ||
         cur.querySelector('img, video, iframe')
       ) {
         return true;
@@ -331,21 +331,21 @@
   }
 
   function normalizeProjectSpacingAndType() {
-    var wraps = Array.prototype.slice.call(document.querySelectorAll('.project-meta-wrap'));
+    var wraps = Array.prototype.slice.call(document.querySelectorAll('.fds-meta'));
     if (!wraps.length) return;
 
     wraps.forEach(function (wrapEl, idx) {
       var hasContent = detectProjectContent(wrapEl);
-      var metaEl = wrapEl.querySelector('p.project-meta');
+      var metaEl = wrapEl.querySelector('p.fds-meta__item');
       if (metaEl) {
-        metaEl.classList.add(hasContent ? 'project-meta--content' : 'project-meta--compact');
+        metaEl.classList.add(hasContent ? 'fds-meta__item--content' : 'fds-meta__item--compact');
       }
       if (!hasContent) return;
 
       // Insert one base spacer before content projects (except the very first).
       if (idx > 0) {
         var beforeSpacer = document.createElement('div');
-        beforeSpacer.className = 'ids__space';
+        beforeSpacer.className = 'fds-space';
         wrapEl.parentNode.insertBefore(beforeSpacer, wrapEl);
       }
 
@@ -353,14 +353,14 @@
       var scan = wrapEl.nextElementSibling;
       var nextWrap = null;
       while (scan) {
-        if (scan.classList && scan.classList.contains('project-meta-wrap')) {
+        if (scan.classList && scan.classList.contains('fds-meta')) {
           nextWrap = scan;
           break;
         }
         scan = scan.nextElementSibling;
       }
       var afterSpacer = document.createElement('div');
-      afterSpacer.className = 'ids__space';
+      afterSpacer.className = 'fds-space';
       if (nextWrap) {
         wrapEl.parentNode.insertBefore(afterSpacer, nextWrap);
       } else {
@@ -370,7 +370,7 @@
   }
 
   function transformCombinedFormat(dateEl) {
-    // Transform p.project-date when it already contains:
+    // Transform p.fds-meta__date when it already contains:
     // "№xx, дата, страна, тег1, тег2, ..."
     var raw = (dateEl && dateEl.textContent ? dateEl.textContent : '').trim();
     if (!raw) return false;
@@ -397,7 +397,7 @@
     var metaEl = buildMetaParagraph(metaTokens);
 
     var wrap = document.createElement('div');
-    wrap.className = 'project-meta-wrap';
+    wrap.className = 'fds-meta';
     wrap.appendChild(metaEl);
     if (tagTokens.length) {
       wrap.appendChild(buildTagRow(tagTokens));
@@ -409,9 +409,9 @@
 
   function transformSplitFormat(dateEl) {
     // Fallback:
-    // dateEl is p.project-date with only date (e.g. "20.01.2025")
+    // dateEl is p.fds-meta__date with only date (e.g. "20.01.2025")
     // and number+title are in the next <p> as:
-    // <code class="project-number">№xx</code> ...text...
+    // <code class="fds-meta__number">№xx</code> ...text...
     var raw = (dateEl && dateEl.textContent ? dateEl.textContent : '').trim();
     if (!raw) return false;
     if (raw.indexOf(',') !== -1) return false;
@@ -419,12 +419,12 @@
 
     // Avoid re-processing already converted blocks.
     var prev = dateEl.previousElementSibling;
-    if (prev && prev.classList && prev.classList.contains('project-meta-wrap')) return false;
+    if (prev && prev.classList && prev.classList.contains('fds-meta')) return false;
 
     var nextP = dateEl.nextElementSibling;
     if (!nextP || nextP.tagName !== 'P') return false;
 
-    var codeEl = nextP.querySelector('code.project-number');
+    var codeEl = nextP.querySelector('code.fds-meta__number');
     if (!codeEl) return false;
 
     var numberText = (codeEl.textContent || '').trim();
@@ -436,7 +436,7 @@
     var parent = dateEl.parentNode;
     if (!parent) return false;
 
-    // Remove number from source text (it becomes part of project-meta).
+    // Remove number from source text (it becomes part of fds-meta__item).
     codeEl.remove();
     var sourceText = (nextP.textContent || '').replace(/\s+/g, ' ').trim();
     var numberOnly = numberText.replace(/[^\d]/g, '');
@@ -458,7 +458,7 @@
       : buildTitleWithDescriptionParagraph(title, description, numberOnly);
 
     var wrap = document.createElement('div');
-    wrap.className = 'project-meta-wrap';
+    wrap.className = 'fds-meta';
     wrap.appendChild(metaEl);
     if (tags.length) wrap.appendChild(buildTagRow(tags));
     parent.insertBefore(wrap, dateEl);
@@ -469,13 +469,13 @@
   }
 
   function init() {
-    var items = document.querySelectorAll('p.project-date');
+    var items = document.querySelectorAll('p.fds-meta__date');
     if (!items || !items.length) return;
 
     items.forEach(function (p) {
       // 1) If date line is already in combined "№, date, country, tags..." format -> convert.
       if (transformCombinedFormat(p)) return;
-      // 2) Otherwise try split fallback: date-only + next <p> with code.project-number.
+      // 2) Otherwise try split fallback: date-only + next <p> with code.fds-meta__number.
       transformSplitFormat(p);
     });
 

@@ -163,9 +163,9 @@
   function initReveal() {
     if (html.dataset.footerRevealInit === 'true') return;
 
-    var slot = document.querySelector('[data-site-footer]');
-    var footer = slot && slot.querySelector('.site-footer');
-    var brand = footer && footer.querySelector('.site-footer__brand');
+    var slot = document.querySelector('[data-fds-footer]');
+    var footer = slot && slot.querySelector('.fds-footer');
+    var brand = footer && footer.querySelector('.fds-footer__brand');
     var main = document.querySelector('main');
     if (!slot || !footer || !brand || !main) return;
 
@@ -174,10 +174,10 @@
     html.classList.add('has-footer-reveal');
 
     var panel = document.createElement('div');
-    panel.className = 'site-footer-reveal__panel';
+    panel.className = 'fds-reveal';
     panel.setAttribute('aria-hidden', 'true');
     var stage = document.createElement('div');
-    stage.className = 'site-footer-reveal__stage';
+    stage.className = 'fds-reveal__stage';
     panel.appendChild(stage);
     document.body.appendChild(panel);
 

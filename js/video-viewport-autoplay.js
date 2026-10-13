@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var isYandexCasePage = Boolean(document.querySelector('.ids__wrapper[data-client-tag="yandex"]'));
+  var isYandexCasePage = Boolean(document.querySelector('.fds-wrap[data-client-tag="yandex"]'));
   var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
   if (!videos.length) return;
 
@@ -58,15 +58,15 @@
     host.style.position = host.style.position || 'relative';
     video.classList.add('has-sound-toggle');
 
-    var existing = host.querySelector('.video-sound-toggle');
+    var existing = host.querySelector('.fds-sound');
     var button = existing;
 
     if (!button) {
       button = document.createElement('button');
       button.type = 'button';
-      button.className = 'video-sound-toggle';
+      button.className = 'fds-sound';
       var icon = document.createElement('span');
-      icon.className = 'video-sound-toggle__icon';
+      icon.className = 'fds-sound__icon';
       icon.setAttribute('aria-hidden', 'true');
       button.appendChild(icon);
       button.setAttribute('aria-label', 'Включить звук');

@@ -46,7 +46,7 @@
       playPromise.catch(function () {});
     }
 
-    var button = promoEl.querySelector('.video-sound-toggle');
+    var button = promoEl.querySelector('.fds-sound');
     if (button) {
       button.classList.toggle('is-on', !wasMuted);
       button.setAttribute('aria-label', wasMuted ? 'Включить звук' : 'Выключить звук');
@@ -55,9 +55,9 @@
   }
 
   function updateCoverStrip(link, activeIndex) {
-    var strip = link.querySelector('.project-cover-strip');
+    var strip = link.querySelector('.fds-card__strip');
     if (!strip) return;
-    var segments = strip.querySelectorAll('.project-cover-strip__segment');
+    var segments = strip.querySelectorAll('.fds-card__strip-segment');
     for (var i = 0; i < segments.length; i += 1) {
       segments[i].classList.toggle('is-active', i === activeIndex);
     }
@@ -133,7 +133,7 @@
 
   function updateMenuLabel(link, index) {
     if (!link.hasAttribute('data-cover-labels-ru')) return;
-    var desc = link.querySelector('.menu-item-desc');
+    var desc = link.querySelector('.fds-card__text');
     if (!desc) return;
     var lang = (window.SiteLang && window.SiteLang.getCurrent())
       || document.documentElement.getAttribute('data-lang')
@@ -148,7 +148,7 @@
   function setupCoverHover(link, frames, useColors, useVideos) {
     if (!frames.length) return;
 
-    var promo = link.querySelector('.project-promo');
+    var promo = link.querySelector('.fds-card__cover');
     if (!promo) return;
 
     var currentIndex = -1;
@@ -263,7 +263,7 @@
   }
 
   function refreshMenuLabels() {
-    document.querySelectorAll('.menu-promo-link[data-cover-labels-ru]').forEach(function (link) {
+    document.querySelectorAll('.fds-card--menu[data-cover-labels-ru]').forEach(function (link) {
       var index = parseInt(link.dataset.menuCoverIndex || '0', 10);
       if (Number.isNaN(index)) index = 0;
       updateMenuLabel(link, index);
@@ -271,25 +271,25 @@
   }
 
   function initProjectCovers() {
-    document.querySelectorAll('.project-promo-link[data-cover-videos]').forEach(function (link) {
+    document.querySelectorAll('.fds-card[data-cover-videos]').forEach(function (link) {
       if (link.dataset.coverHoverInit === 'true') return;
       link.dataset.coverHoverInit = 'true';
       setupCoverHover(link, parseCoverImages(link.getAttribute('data-cover-videos')), false, true);
     });
 
-    document.querySelectorAll('.project-promo-link[data-cover-images]').forEach(function (link) {
+    document.querySelectorAll('.fds-card[data-cover-images]').forEach(function (link) {
       if (link.dataset.coverHoverInit === 'true') return;
       link.dataset.coverHoverInit = 'true';
       setupCoverHover(link, parseCoverImages(link.getAttribute('data-cover-images')), false, false);
     });
 
-    document.querySelectorAll('.project-promo-link[data-cover-colors]').forEach(function (link) {
+    document.querySelectorAll('.fds-card[data-cover-colors]').forEach(function (link) {
       if (link.dataset.coverHoverInit === 'true') return;
       link.dataset.coverHoverInit = 'true';
       setupCoverHover(link, parseCoverImages(link.getAttribute('data-cover-colors')), true, false);
     });
 
-    document.querySelectorAll('.menu-promo-link--sound[data-sound-samples]').forEach(function (link) {
+    document.querySelectorAll('.fds-card--sound[data-sound-samples]').forEach(function (link) {
       if (link.dataset.soundMenuInit === 'true') return;
       link.dataset.soundMenuInit = 'true';
       setupSoundMenu(link);

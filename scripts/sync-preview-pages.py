@@ -87,15 +87,15 @@ def build_hub_html(pages: list[dict], token: str) -> str:
 
   <body class="ids">
     <main>
-      <div class="ids__wrapper S">
-        <div class="ids__space XL"></div>
+      <div class="fds-wrap S">
+        <div class="fds-space XL"></div>
         <h1>Черновики</h1>
         <p>Страницы для просмотра до публикации на сайте.</p>
         <ul class="preview-hub__list">
 {items}
         </ul>
         <p class="preview-hub__note">Не делитесь этой ссылкой публично — доступ только по секретному URL.</p>
-        <div class="ids__space XL"></div>
+        <div class="fds-space XL"></div>
       </div>
     </main>
   </body>

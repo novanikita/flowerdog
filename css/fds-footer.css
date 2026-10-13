@@ -1,6 +1,6 @@
 /*
  * No bottom padding: the page ends exactly at the bottom of
- * .site-footer__brand, so native scrolling stops on the flowerdog
+ * .fds-footer__brand, so native scrolling stops on the flowerdog
  * wordmark. The picture gallery is not part of the document at all — it
  * is only uncovered when js/footer-reveal.js lifts the whole sheet (main
  * + this footer) past that end.
@@ -12,7 +12,7 @@
  * pictures. Without the reveal it would only ever surface in a native
  * overscroll bounce, as a stray grey band, so it is scoped too.
  */
-.site-footer {
+.fds-footer {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -22,19 +22,19 @@
   color: var(--fds-text);
 }
 
-html.has-footer-reveal .site-footer {
+html.has-footer-reveal .fds-footer {
   box-shadow: 0 2em 2em -0.5em var(--fds-shadow);
 }
 
 html.is-sheet-moving main,
-html.is-sheet-moving [data-site-footer] {
+html.is-sheet-moving [data-fds-footer] {
   will-change: transform;
 }
 
 /*
- * .site-footer__top and .site-footer__brand carry their own opaque
+ * .fds-footer__top and .fds-footer__brand carry their own opaque
  * background plus all of the padding that would otherwise live on
- * .site-footer (top/side padding) or as margin between them —
+ * .fds-footer (top/side padding) or as margin between them —
  * deliberately, not for looks. The picture panel is pinned to the bottom
  * of the viewport for the whole page, underneath everything; any
  * transparent gap in the footer — outer padding, the space between the
@@ -44,7 +44,7 @@ html.is-sheet-moving [data-site-footer] {
  * covered because it is inside the opaque element's own painted box;
  * margin would not, since a margin is blank space nothing paints.
  */
-.site-footer__top {
+.fds-footer__top {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
@@ -53,12 +53,12 @@ html.is-sheet-moving [data-site-footer] {
   background-color: var(--fds-bg);
 }
 
-.site-footer__contact {
+.fds-footer__contact {
   grid-column: 1 / span 2;
   min-width: 0;
 }
 
-.site-footer__email {
+.fds-footer__email {
   display: inline-block;
   margin: 0;
   color: inherit;
@@ -73,13 +73,13 @@ html.is-sheet-moving [data-site-footer] {
   word-break: break-word;
 }
 
-.ids .site-footer__email:hover,
-.ids .site-footer__email:focus-visible {
+.ids .fds-footer__email:hover,
+.ids .fds-footer__email:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
 
-.ids .site-footer__contact-note {
+.ids .fds-footer__contact-note {
   margin: 0.45em 0 0;
   max-width: 22em;
   font-size: 1.15em;
@@ -88,11 +88,11 @@ html.is-sheet-moving [data-site-footer] {
   letter-spacing: -0.01em;
 }
 
-.ids .site-footer__contact-lead {
+.ids .fds-footer__contact-lead {
   font-weight: 700;
 }
 
-.site-footer__link {
+.fds-footer__link {
   color: inherit;
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -100,13 +100,13 @@ html.is-sheet-moving [data-site-footer] {
   text-decoration-color: var(--fds-line);
 }
 
-.ids .site-footer__link:hover,
-.ids .site-footer__link:focus-visible {
+.ids .fds-footer__link:hover,
+.ids .fds-footer__link:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
 
-.site-footer__nav {
+.fds-footer__nav {
   grid-column: 3;
   display: flex;
   flex-direction: column;
@@ -115,19 +115,19 @@ html.is-sheet-moving [data-site-footer] {
   min-width: 0;
 }
 
-.site-footer__nav-link {
+.fds-footer__nav-link {
   display: inline-block;
   font-size: 1em;
   font-weight: 400;
   line-height: 1.35;
 }
 
-.ids .site-footer__nav-link:hover,
-.ids .site-footer__nav-link:focus-visible {
+.ids .fds-footer__nav-link:hover,
+.ids .fds-footer__nav-link:focus-visible {
   color: var(--fds-accent);
 }
 
-.site-footer__legal {
+.fds-footer__legal {
   grid-column: 4;
   display: flex;
   flex-direction: column;
@@ -138,7 +138,7 @@ html.is-sheet-moving [data-site-footer] {
   text-align: left;
 }
 
-.site-footer__legal-item {
+.fds-footer__legal-item {
   margin: 0 0 calc(var(--fds-density) * 0.4em);
   max-width: none;
   color: var(--fds-text-muted);
@@ -147,18 +147,18 @@ html.is-sheet-moving [data-site-footer] {
   line-height: 1.35;
 }
 
-.site-footer__legal-break {
+.fds-footer__legal-break {
   display: none;
 }
 
-.site-footer__brand {
+.fds-footer__brand {
   position: relative;
   width: 100%;
   padding: 2em var(--fds-gutter) 1.2em;
   background-color: var(--fds-bg);
 }
 
-.site-footer__flower {
+.fds-footer__flower {
   display: block;
   width: 24%;
   height: auto;
@@ -169,7 +169,7 @@ html.is-sheet-moving [data-site-footer] {
   user-select: none;
 }
 
-.ids .site-footer__wordmark {
+.ids .fds-footer__wordmark {
   display: block;
   width: 100%;
   margin: 0;
@@ -177,14 +177,14 @@ html.is-sheet-moving [data-site-footer] {
   line-height: 0;
 }
 
-.site-footer__wordmark img {
+.fds-footer__wordmark img {
   display: block;
   width: 100%;
   height: auto;
 }
 
 /*
- * The secret layer. Fixed behind the sheet — main and [data-site-footer]
+ * The secret layer. Fixed behind the sheet — main and [data-fds-footer]
  * sit one paint layer above it (css/fds-layout.css) and are opaque, so they
  * cover it completely. js/footer-reveal.js uncovers it by translating
  * them up past the end of the page — the pictures never move, the sheet
@@ -210,7 +210,7 @@ html.is-sheet-moving [data-site-footer] {
  * bottom. Pulled past fully open, the script scales it from its bottom
  * edge, so the pictures fill the extra room instead of leaving a gap.
  */
-.site-footer-reveal__panel {
+.fds-reveal {
   position: fixed;
   inset: 0;
   z-index: var(--fds-z-reveal);
@@ -223,12 +223,12 @@ html.is-sheet-moving [data-site-footer] {
   visibility: hidden;
 }
 
-html.is-sheet-moving .site-footer-reveal__panel,
-html.is-footer-near .site-footer-reveal__panel {
+html.is-sheet-moving .fds-reveal,
+html.is-footer-near .fds-reveal {
   visibility: visible;
 }
 
-.site-footer-reveal__stage {
+.fds-reveal__stage {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -239,11 +239,11 @@ html.is-footer-near .site-footer-reveal__panel {
   transform-origin: 50% 100%;
 }
 
-html.is-sheet-moving .site-footer-reveal__stage {
+html.is-sheet-moving .fds-reveal__stage {
   will-change: transform;
 }
 
-.site-footer-reveal__stage img {
+.fds-reveal__stage img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -252,69 +252,69 @@ html.is-sheet-moving .site-footer-reveal__stage {
   opacity: 0;
 }
 
-.site-footer-reveal__stage img.is-active {
+.fds-reveal__stage img.is-active {
   opacity: 1;
 }
 
 @media (width <= 768px) {
-  .site-footer {
+  .fds-footer {
     margin: 0;
     padding: 0;
   }
 
-  .site-footer__top {
+  .fds-footer__top {
     grid-template-columns: 1fr;
     gap: 2em;
     padding: 4em var(--fds-gutter) 0;
   }
 
-  .site-footer__contact,
-  .site-footer__nav,
-  .site-footer__legal {
+  .fds-footer__contact,
+  .fds-footer__nav,
+  .fds-footer__legal {
     grid-column: auto;
   }
 
-  .site-footer__email {
+  .fds-footer__email {
     font-size: 2.3em;
   }
 
-  .site-footer__contact-note {
+  .fds-footer__contact-note {
     font-size: 1.1em;
     max-width: none;
   }
 
-  .site-footer__nav-link {
+  .fds-footer__nav-link {
     font-size: 1.1em;
   }
 
-  .site-footer__nav {
+  .fds-footer__nav {
     gap: 0.4em;
   }
 
-  .site-footer__legal {
+  .fds-footer__legal {
     text-align: left;
   }
 
-  .site-footer__legal-item {
+  .fds-footer__legal-item {
     max-width: none;
     font-size: 0.7em;
   }
 
-  .site-footer__legal-break {
+  .fds-footer__legal-break {
     display: block;
   }
 
-  .site-footer__brand {
+  .fds-footer__brand {
     padding: 1em var(--fds-gutter) 1.5em;
   }
 
-  .site-footer__flower {
+  .fds-footer__flower {
     width: 44%;
     margin-left: auto;
     margin-right: 6%;
   }
 
-  .ids .site-footer__wordmark {
+  .ids .fds-footer__wordmark {
     margin-bottom: 0;
   }
 }

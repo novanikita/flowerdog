@@ -1,4 +1,4 @@
-.project-tag-row {
+.fds-chips {
   display: inline-flex;
   align-items: baseline;
   vertical-align: baseline;
@@ -7,7 +7,7 @@
   margin: 0;
 }
 
-.project-tag-chip {
+.fds-chip {
   display: inline-flex;
   align-items: center;
   background-color: var(--fds-surface);
@@ -19,11 +19,11 @@
 }
 
 @media (width <= 768px) {
-  .project-tag-row {
+  .fds-chips {
     gap: 0.35em;
   }
 
-  .project-tag-chip {
+  .fds-chip {
     font-size: 0.9em;
     line-height: 1.15;
     padding: 0.1em 0.55em;
@@ -49,7 +49,7 @@
 }
 
 /* Tags on project cards: placed above title at the bottom */
-.project-promo-link .project-tags {
+.fds-card .fds-chips--card {
   position: static;
   display: flex;
   flex-wrap: wrap;
@@ -58,7 +58,7 @@
   align-items: center;
 }
 
-.project-promo-link .project-tags .tag {
+.fds-card .fds-chips--card .tag {
   font-size: 0.7em;
   padding: 0.1em 0.5em;
   color: var(--fds-text);
@@ -69,13 +69,13 @@
 }
 
 /* Tags on individual project page (before h1) */
-.project-header-tags {
+.fds-chips--header {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25em;
   margin-bottom: 0.5em;
 }
 
-.project-header-tags .tag {
+.fds-chips--header .tag {
   font-size: 0.9em;
 }

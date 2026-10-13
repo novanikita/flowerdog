@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var words = document.querySelectorAll('.quote-word');
+  var words = document.querySelectorAll('.fds-term');
   if (!words.length) return;
 
   var suppressHideUntil = 0;
@@ -44,8 +44,8 @@
   }
 
   function getTooltipForWord(wordEl) {
-    var wrapper = wordEl.closest('.ids__wrapper') || document.body;
-    return wrapper.querySelector('.quote-tooltip');
+    var wrapper = wordEl.closest('.fds-wrap') || document.body;
+    return wrapper.querySelector('.fds-tip');
   }
 
   function resetTooltipPosition(tooltip) {
@@ -85,7 +85,7 @@
   function showTooltip(wordEl) {
     var tooltip = getTooltipForWord(wordEl);
     if (!tooltip) return;
-    var tooltipText = tooltip.querySelector('.quote-tooltip__text');
+    var tooltipText = tooltip.querySelector('.fds-tip__text');
     if (!tooltipText) return;
 
     var key = wordEl.getAttribute('data-quote-key');
@@ -109,7 +109,7 @@
     var containerRect = container.getBoundingClientRect();
     var wordRect = wordEl.getBoundingClientRect();
     var tooltipWidth = tooltip.offsetWidth || 0;
-    var placeAside = tooltip.classList.contains('quote-tooltip--aside');
+    var placeAside = tooltip.classList.contains('fds-tip--aside');
     var isMobile = window.matchMedia('(max-width: 768px)').matches;
     var gapPx = (parseFloat(getComputedStyle(tooltipText).fontSize) || 16) * 0.06;
     var top;
@@ -122,8 +122,8 @@
 
     if (placeAside && !isMobile) {
       var block =
-        wordEl.closest('.founder-quote') ||
-        wordEl.closest('.quote-words-root') ||
+        wordEl.closest('.fds-quote') ||
+        wordEl.closest('.fds-terms') ||
         wordEl;
       var blockRect = block.getBoundingClientRect();
       top = blockRect.top - containerRect.top;
@@ -132,8 +132,8 @@
     } else if (placeAside && isMobile) {
       // Absolute plaque centered in the quote block, nudged up so the trigger stays visible.
       var mobileBlock =
-        wordEl.closest('.founder-quote') ||
-        wordEl.closest('.quote-words-root') ||
+        wordEl.closest('.fds-quote') ||
+        wordEl.closest('.fds-terms') ||
         wordEl;
       var mobileBlockRect = mobileBlock.getBoundingClientRect();
       var tooltipHeight = tooltip.offsetHeight || 0;
@@ -190,7 +190,7 @@
   });
 
   if (supportsHover) {
-    document.querySelectorAll('#interactive-quote, .quote-words-root').forEach(function (root) {
+    document.querySelectorAll('#interactive-quote, .fds-terms').forEach(function (root) {
       root.addEventListener('mouseleave', hideTooltip);
     });
   }
@@ -198,8 +198,8 @@
   document.addEventListener('click', function (event) {
     if (!activeTooltip || !activeTooltip.classList.contains('is-visible')) return;
     var target = event.target && event.target.nodeType === 3 ? event.target.parentElement : event.target;
-    var clickedWord = target && target.closest && target.closest('.quote-word');
-    var clickedTooltip = target && target.closest && target.closest('.quote-tooltip');
+    var clickedWord = target && target.closest && target.closest('.fds-term');
+    var clickedTooltip = target && target.closest && target.closest('.fds-tip');
     if (clickedWord) return;
     if (clickedTooltip) {
       suppressHideUntil = 0;

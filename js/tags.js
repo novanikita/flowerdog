@@ -88,11 +88,11 @@
   }
 
   /**
-   * Decorate all .project-promo-link that have data-type-tags or data-client-tag
+   * Decorate all .fds-card that have data-type-tags or data-client-tag
    */
   function initProjectCards() {
-    document.querySelectorAll('.project-promo-link[data-type-tags], .project-promo-link[data-client-tag]').forEach(function (link) {
-      var container = link.querySelector('.project-tags');
+    document.querySelectorAll('.fds-card[data-type-tags], .fds-card[data-client-tag]').forEach(function (link) {
+      var container = link.querySelector('.fds-chips--card');
       if (!container) return;
       renderProjectTags(
         container,
@@ -110,7 +110,7 @@
     if (!wrapper) return;
     var header = wrapper.querySelector('h1');
     if (!header) return;
-    var container = document.querySelector('.project-header-tags');
+    var container = document.querySelector('.fds-chips--header');
     if (!container) return;
     renderProjectTags(
       container,

@@ -2,17 +2,17 @@
   font-weight: 500;
 }
 
-.project-date {
+.fds-meta__date {
   font-size: 0.7em;
   font-weight: 400;
 }
 
-.project-meta-wrap {
+.fds-meta {
   line-height: 1.2;
   margin-bottom: calc(var(--fds-density) * 0.35em);
 }
 
-.project-meta-wrap .project-meta {
+.fds-meta .fds-meta__item {
   font-size: 0.7em;
   color: var(--fds-text);
   display: inline-flex;
@@ -22,21 +22,21 @@
   margin: 0 0.6em 0 0;
 }
 
-.ids p.project-meta {
+.ids p.fds-meta__item {
   margin-bottom: 0;
 }
 
 .ids h3[id],
-.ids [id].project-anchor {
+.ids [id].fds-anchor {
   scroll-margin-top: 3em;
 }
 
-.ids p.project-list {
+.ids p.fds-case__list {
   margin-bottom: 0;
   line-height: 1.5;
 }
 
-.ids p.project-case-text {
+.ids p.fds-case__text {
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -57,16 +57,16 @@
     line-height: 1;
   }
 
-  .ids p.project-list {
+  .ids p.fds-case__list {
     line-height: 1.2;
   }
 
-  .project-meta-wrap {
+  .fds-meta {
     line-height: 1;
     margin-bottom: calc(var(--fds-density) * 0.15em);
   }
 
-  .project-meta-wrap .project-meta {
+  .fds-meta .fds-meta__item {
     font-size: 0.6em;
     gap: 0.4em;
     margin: 0 0.4em 0 0;
@@ -74,25 +74,25 @@
 }
 
 /* How we work — text sized and centered like the vacancies page */
-.ids.page-how-we-work h1.how-we-work__title {
+.ids.page-how-we-work h1.fds-case__title {
   color: var(--fds-text);
 }
 
-.ids.page-how-we-work h3.how-we-work__title {
+.ids.page-how-we-work h3.fds-case__title {
   color: var(--fds-text);
 }
 
-.ids.page-how-we-work .how-we-work__section {
+.ids.page-how-we-work .fds-anchor {
   scroll-margin-top: 3em;
 }
 
-.ids.page-how-we-work .how-we-work__figure {
+.ids.page-how-we-work .fds-figure--framed {
   margin: 0;
   border-radius: var(--fds-radius-l);
   overflow: hidden;
 }
 
 /* Vacancies */
-.ids.page-vacancies .vacancies__section {
+.ids.page-vacancies .fds-anchor {
   scroll-margin-top: 3em;
 }

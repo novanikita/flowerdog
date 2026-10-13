@@ -9,7 +9,7 @@
 
   function isGalleryMediaLink(link) {
     if (!link) return false;
-    if (link.closest('ids-gallery, .ids__gallery, .project-gallery')) return true;
+    if (link.closest('fds-gallery, .fds-gallery, .fds-gallery-wrap')) return true;
 
     var href = link.getAttribute('href');
     if (!href) return false;

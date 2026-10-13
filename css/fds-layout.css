@@ -1,22 +1,22 @@
-.ids__space {
+.fds-space {
   height: calc(var(--fds-density) * 0.7em);
 
-  &.XS {
+  &.fds-space--xs {
     height: calc(var(--fds-density) * 0.2em);
   }
-  &.M {
+  &.fds-space--m {
     height: calc(var(--fds-density) * 1.4em);
   }
-  &.L {
+  &.fds-space--l {
     height: calc(var(--fds-density) * 2.4em);
   }
-  &.XL {
+  &.fds-space--xl {
     height: calc(var(--fds-density) * 4em);
   }
   
 }
 
-.ids__wrapper {
+.fds-wrap {
   position: relative;
   width: 70%;
   margin: 0 auto;
@@ -26,12 +26,12 @@
     padding: 0 calc(var(--fds-density) * 0.6em);
   }
 
-  &.L {
+  &.fds-wrap--l {
     width: 100%;
     padding: 0 var(--fds-gutter);
   }
 
-  &.S {
+  &.fds-wrap--s {
     width: 60%;
     padding: 0 1em;
 
@@ -41,7 +41,7 @@
         }
   }
 
-  &.XS {
+  &.fds-wrap--xs {
     width: 50%;
     padding: 0 1em;
 
@@ -51,7 +51,7 @@
     }
   }
 
-  & .ids__text-width {
+  & .fds-wrap__text {
     width: 85%;
 
     @media (width <= 768px) {
@@ -74,7 +74,7 @@ body {
 
 /*
  * The sheet: main and the footer. position: relative + z-index: 1 puts
- * both one paint layer above .site-footer-reveal__panel (position: fixed,
+ * both one paint layer above .fds-reveal (position: fixed,
  * z-index: 0 — see css/fds-footer.css), and background-color makes
  * them genuinely opaque boxes rather than relying on the body/html
  * "canvas background" fallback (when html has no background of its own,
@@ -91,46 +91,46 @@ main {
   background-color: var(--fds-bg);
 }
 
-[data-site-footer] {
+[data-fds-footer] {
   position: relative;
   z-index: var(--fds-z-sheet);
   margin-top: auto;
 }
 
-.projects-grid {
+.fds-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
 }
 
-.projects-grid .projects-grid-item {
+.fds-grid .fds-grid__item {
   box-sizing: border-box;
   min-width: 0;
   grid-column: span 1;
 }
 
-.projects-grid .projects-grid-item.L {
+.fds-grid .fds-grid__item--l {
   grid-column: span 2;
 }
 
-.projects-grid .projects-grid-item.XL {
+.fds-grid .fds-grid__item--xl {
   grid-column: span 4;
 }
 
-.founder-quotes {
+.fds-grid--quotes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 2em;
   align-items: start;
 }
 
-.space-images {
+.fds-grid--photos {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5em;
 }
 
-.space-images__img {
+.fds-photo {
   width: 100%;
   height: auto;
   display: block;
@@ -138,68 +138,68 @@ main {
   object-fit: cover;
 }
 
-.projects-grid.menu-grid[hidden] {
+.fds-grid.fds-grid--menu[hidden] {
   display: none !important;
 }
 
-.process-cards {
+.fds-grid--steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5em;
   overflow: visible;
 }
 
-.ids .team-grid {
+.ids .fds-grid--people {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: 0;
   row-gap: 3em;
 }
 
-.ids .team-grid--extended {
+.ids .fds-grid--people-extended {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.team-grid-item {
+.fds-grid__item {
   box-sizing: border-box;
   min-width: 0;
 }
 
 @media (width <= 768px) {
-  .founder-quotes {
+  .fds-grid--quotes {
     grid-template-columns: 1fr;
     row-gap: 3em;
   }
 
-  .space-images {
+  .fds-grid--photos {
     gap: 0.4em;
   }
 
-  .space-images__img {
+  .fds-photo {
     border-radius: var(--fds-radius-m);
   }
 
-  .process-cards {
+  .fds-grid--steps {
     grid-template-columns: 1fr;
     gap: 0.5em;
   }
 
-  .projects-grid {
+  .fds-grid {
     column-gap: 0;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .ids .team-grid {
+  .ids .fds-grid--people {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: 2.5em;
   }
 
-  .projects-grid .projects-grid-item {
+  .fds-grid .fds-grid__item {
     grid-column: span 1;
   }
 
-  .projects-grid .projects-grid-item.L,
-  .projects-grid .projects-grid-item.XL {
+  .fds-grid .fds-grid__item--l,
+  .fds-grid .fds-grid__item--xl {
     grid-column: span 2;
   }
 }
@@ -218,7 +218,7 @@ main {
   width: 72%;
 }
 
-.ids__wrapper {
+.fds-wrap {
   overflow-wrap: anywhere;
 }
 
@@ -237,10 +237,10 @@ main {
     margin-bottom: 3em;
   }
 
-  .ids__wrapper,
-  .ids__wrapper.L,
-  .ids__wrapper.S,
-  .ids__wrapper.XS {
+  .fds-wrap,
+  .fds-wrap--l,
+  .fds-wrap--s,
+  .fds-wrap--xs {
     width: 100%;
     max-width: 100%;
     margin-left: 0;

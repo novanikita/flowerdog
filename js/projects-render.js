@@ -13,11 +13,11 @@
 
   function createCoverStrip(count) {
     var strip = document.createElement('div');
-    strip.className = 'project-cover-strip';
+    strip.className = 'fds-card__strip';
     strip.setAttribute('aria-hidden', 'true');
     for (var i = 0; i < count; i += 1) {
       var segment = document.createElement('span');
-      segment.className = 'project-cover-strip__segment' + (i === 0 ? ' is-active' : '');
+      segment.className = 'fds-card__strip-segment' + (i === 0 ? ' is-active' : '');
       strip.appendChild(segment);
     }
     return strip;
@@ -25,24 +25,24 @@
 
   function createCard(project) {
     var item = document.createElement('div');
-    item.className = 'projects-grid-item' + (project.itemClass ? ' ' + project.itemClass : '');
+    item.className = 'fds-grid__item' + (project.itemClass ? ' ' + project.itemClass : '');
     if (project.id) item.setAttribute('data-project-id', project.id);
 
     var link = document.createElement('a');
-    link.className = 'project-promo-link';
+    link.className = 'fds-card';
     var linkPrefix = window.SITE_PROJECT_LINK_PREFIX || '';
     link.href = linkPrefix + (project.href || 'soon.html');
     if (project.coverImages) link.setAttribute('data-cover-images', project.coverImages);
 
     var promo = document.createElement('div');
-    promo.className = 'project-promo' + (project.promoClass ? ' ' + project.promoClass : '');
+    promo.className = 'fds-card__cover' + (project.promoClass ? ' ' + project.promoClass : '');
     var firstCover = getFirstCoverImage(project.coverImages);
     if (firstCover) {
       promo.style.backgroundImage = "url('" + firstCover + "')";
     }
 
     var meta = document.createElement('div');
-    meta.className = 'project-promo-meta';
+    meta.className = 'fds-card__meta';
 
     var title = document.createElement('h2');
     title.setAttribute('data-i18n', '');
@@ -54,7 +54,7 @@
 
     if (project.badgeRu || project.badgeEn) {
       var badge = document.createElement('span');
-      badge.className = 'project-tag-chip project-tag-chip--soon';
+      badge.className = 'fds-chip fds-chip--soon';
       badge.setAttribute('data-i18n', '');
       badge.setAttribute('data-ru', project.badgeRu || project.badgeEn || '');
       badge.setAttribute('data-en', project.badgeEn || project.badgeRu || '');
@@ -85,7 +85,7 @@
 
     if (pageKey === 'index') {
       var more = document.createElement('a');
-      more.className = 'projects-more-btn';
+      more.className = 'fds-button';
       more.href = 'portfolio.html';
       more.setAttribute('data-i18n', '');
       more.setAttribute('data-ru', 'Ещё проекты');
@@ -99,7 +99,7 @@
   }
 
   function init() {
-    var grids = document.querySelectorAll('.projects-grid[data-projects-page]');
+    var grids = document.querySelectorAll('.fds-grid[data-projects-page]');
     grids.forEach(renderGrid);
     document.dispatchEvent(new CustomEvent('site:projects-rendered'));
   }

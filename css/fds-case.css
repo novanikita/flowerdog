@@ -26,19 +26,14 @@ p.fds-meta__item {
   margin-bottom: 0;
 }
 
-h3[id],
-[id].fds-anchor {
+.fds-anchor {
   scroll-margin-top: 3em;
 }
 
-p.fds-case__list {
+/* Table of contents: a paragraph of anchor links. */
+p.fds-toc {
   margin-bottom: 0;
   line-height: 1.5;
-}
-
-p.fds-case__text {
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 @media (width <= 768px) {
@@ -54,11 +49,7 @@ p.fds-case__text {
     font-weight: 500;
   }
 
-  h3 {
-    line-height: 1;
-  }
-
-  p.fds-case__list {
+  p.fds-toc {
     line-height: 1.2;
   }
 
@@ -74,26 +65,10 @@ p.fds-case__text {
   }
 }
 
-/* How we work — text sized and centered like the vacancies page */
-[data-page="how-we-work"] h1.fds-case__title {
-  color: var(--fds-text);
-}
-
-[data-page="how-we-work"] h3.fds-case__title {
-  color: var(--fds-text);
-}
-
-[data-page="how-we-work"] .fds-anchor {
-  scroll-margin-top: 3em;
-}
-
-[data-page="how-we-work"] .fds-figure--framed {
+/* A single picture outside a gallery. */
+.fds-figure--framed {
   margin: 0;
   border-radius: var(--fds-radius-l);
   overflow: hidden;
 }
 
-/* Vacancies */
-[data-page="vacancies"] .fds-anchor {
-  scroll-margin-top: 3em;
-}

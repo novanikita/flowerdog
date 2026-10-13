@@ -28,9 +28,9 @@
     '<a class="fds-footer__email" href="mailto:hi@flowerdog.studio">hi@flowerdog.studio</a>' +
     '<p class="fds-footer__contact-note">' +
     '<strong class="fds-footer__contact-lead"><span data-i18n data-ru="Напишите нам на&nbsp;" data-en="Write to us by&nbsp;">Напишите нам на </span>' +
-    '<a href="mailto:hi@flowerdog.studio" class="fds-footer__link" data-i18n data-ru="почту" data-en="email">почту</a>' +
+    '<a href="mailto:hi@flowerdog.studio" data-i18n data-ru="почту" data-en="email">почту</a>' +
     '<span data-i18n data-ru=" или&nbsp;в&nbsp;" data-en=" or&nbsp;on&nbsp;"> или в </span>' +
-    '<a href="https://t.me/dmitry2man" class="fds-footer__link" data-i18n data-ru="телеграм" data-en="Telegram">телеграм</a></strong><br>' +
+    '<a href="https://t.me/dmitry2man" data-i18n data-ru="телеграм" data-en="Telegram">телеграм</a></strong><br>' +
     '<span data-i18n data-ru="Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно, и предложим варианты." data-en="Tell us about your task in any words. Then we\'ll ask everything we need and suggest options.">Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно, и предложим варианты.</span>' +
     '</p></div>' +
     '<nav class="fds-footer__nav" aria-label="Footer">' +

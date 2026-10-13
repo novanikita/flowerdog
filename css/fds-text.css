@@ -1,11 +1,6 @@
 p {
   margin-top: 0;
   margin-bottom: calc(var(--fds-density) * 0.4em);
-
-  &.fds-loud {
-    font-size: 2em;
-    line-height: 1.2;
-  }
   
   &.fds-display {
     font-size: 3em;
@@ -14,14 +9,6 @@ p {
 
     @media (width <= 768px) {
       font-size: 2em;
-    }
-  }
-
-  &.fds-display--page {
-    max-width: 70%;
-
-    @media (width <= 768px) {
-      max-width: 100%;
     }
   }
 
@@ -51,16 +38,6 @@ h1 {
   font-weight: 700;
   line-height: 0.9;
   margin-bottom: 0.4em;
-
-  &.fds-title--s {
-    font-size: 1.4em;
-    font-weight: 400;                
-  }
-
-  &.fds-title--xs {
-    font-size: 1.2em;
-    font-weight: 400;
-  }
 }
 
 h2 {
@@ -68,11 +45,6 @@ h2 {
   font-weight: 700;
   line-height: calc(var(--fds-density) / 1.2);
   margin-bottom: 0.5em;
-
-  &.fds-heading--xs {
-    font-size: 1.5em;
-    font-weight: 400;
-  }
 }
 
 h3 {
@@ -82,22 +54,11 @@ h3 {
   font-weight: 700;
 }
 
-h4 {
-  font-size: 1.1em;
-  line-height: var(--fds-density);
-  margin-bottom: 0.5em;
-}
-
-h5 {
-  font-size: 1em;
-  line-height: var(--fds-density);
-  margin-bottom: 0.5em;
-}
-
+h4,
+h5,
 h6 {
-  font-size: 0.8em;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 1em;
+  font-weight: 700;
   line-height: var(--fds-density);
   margin-bottom: 0.5em;
 }
@@ -105,11 +66,6 @@ h6 {
 strong,
 b {
   font-weight: 400;
-}
-
-mark {
-  color: var(--fds-text);
-  background-color: var(--fds-inverse-bg);
 }
 
 ul,
@@ -180,31 +136,11 @@ code {
 figure {
   margin: 0 0 calc(var(--fds-density)) 0;
 
-  &.fds-figure--xxs {
-    width: 25%;
-  }
-  &.fds-figure--xs {
-    width: 50%;
-  }
-  &.fds-figure--s {
-    width: 75%;
-  }
-
   & figcaption {
     margin-top: calc(var(--fds-density) * 0.25em);
     font-size: 0.8em;
     line-height: var(--fds-density);
     opacity: 0.7;
-  }
-}
-
-details {
-  padding: 0.5em;
-  cursor: pointer;
-  border-radius: var(--fds-radius-xs);
-
-  & summary {
-    padding-bottom: 0.25em;
   }
 }
 
@@ -223,7 +159,6 @@ hr {
   background-color: var(--fds-text-muted);
 }
 
-
 iframe,
 video{
   aspect-ratio: 16 / 9;
@@ -232,16 +167,8 @@ video{
 }
 
 @media (width <= 768px) {
-  html[data-lang="en"] p .fds-nowrap-mobile {
-    white-space: nowrap;
-  }
-
-  html[data-lang="en"] p .fds-desktop-only {
-    display: none;
-  }
-
-  .fds-desktop-only {
-    display: none;
+  h3 {
+    line-height: 1;
   }
 }
 

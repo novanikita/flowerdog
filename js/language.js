@@ -31,11 +31,6 @@
       }
     });
 
-    document.querySelectorAll('.tag[data-tag-en], .tag[data-tag-ru]').forEach(function (el) {
-      var text = el.getAttribute('data-tag-' + lang);
-      if (text != null) el.textContent = text;
-    });
-
     document.querySelectorAll('[data-lang-switch]').forEach(function (btn) {
       var isActive = btn.getAttribute('data-lang-switch') === lang;
       btn.classList.toggle('is-active', isActive);

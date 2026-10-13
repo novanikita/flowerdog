@@ -101,22 +101,9 @@ header.is-hidden {
   justify-content: flex-end;
 }
 
-.fds-header__link,
-.fds-header__link:hover,
-.fds-header__link:visited,
-.fds-header__link:focus-visible,
-.fds-header a,
-.fds-header a:hover,
-.fds-header a:visited,
-.fds-header a:focus-visible,
-.fds-header .fds-header__logo a,
-.fds-header .fds-header__logo a:hover,
-.fds-header .fds-header__logo a:visited,
-.fds-header .fds-header__logo a:focus-visible {
+.fds-header a {
   color: var(--fds-text);
   text-decoration: none;
-  background: transparent;
-  transition: none;
 }
 
 .fds-header__right .fds-header__link,
@@ -129,7 +116,6 @@ header.is-hidden {
 .fds-header__nav .fds-header__link:hover,
 .fds-header__nav .fds-header__link:focus-visible {
   color: var(--fds-accent);
-  text-decoration: none;
 }
 
 .fds-lang {

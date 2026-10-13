@@ -1,72 +1,63 @@
+/*
+ * Links. The <a> element is the block: ink with a faint underline, accent
+ * on hover and focus. Everything else is a modifier on top of that.
+ */
 a {
   color: var(--fds-text);
   text-decoration: underline;
-  will-change: color;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
   text-decoration-color: var(--fds-line);
-  transition: color 0s ease;
-
-  &:hover,
-  &:focus-visible {
-    color: var(--fds-text);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.25em;
-    text-decoration-color: var(--fds-line);
-    transition: color 0s ease;
-  }
 }
 
-
-html[data-lang="en"] .fds-cta .fds-link--cta {
-  white-space: normal;
-}
-
-.fds-wrap__text a:hover,
-.fds-wrap__text a:focus-visible,
-[data-page="vacancies"] .fds-wrap--s a:hover,
-[data-page="vacancies"] .fds-wrap--s a:focus-visible {
+a:hover,
+a:focus-visible {
   color: var(--fds-accent);
   text-decoration-color: var(--fds-accent);
 }
 
-.fds-link--cta,
-.fds-link--cta:hover,
-.fds-link--cta:visited,
-.fds-link--cta:focus-visible {
-  color: var(--fds-text);
+/* Call to action: a solid underline, usually with an arrow. */
+.fds-link--cta {
+  text-decoration-color: var(--fds-text);
+}
+
+/* Anchor link: the arrow stays plain, the words carry a hairline. */
+.fds-link--anchor {
+  text-decoration: none;
+  transition: opacity var(--fds-duration-base) var(--fds-ease);
+}
+
+.fds-link--anchor span:not(.fds-link__arrow) {
   text-decoration: underline;
-  text-decoration-color: var(--fds-text);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.25em;
-  background: transparent;
-  transition: none;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 0.3em;
 }
 
-.fds-link--cta,
-.fds-link--cta:hover,
-.fds-link--cta:visited,
-.fds-link--cta:focus-visible {
-  text-decoration-color: var(--fds-text);
+.fds-link--anchor:hover,
+.fds-link--anchor:focus-visible {
+  opacity: 0.6;
 }
 
-.fds-link--cta:hover,
-.fds-link--cta:focus-visible {
-  color: var(--fds-accent);
-  text-decoration-color: var(--fds-accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.25em;
-}
-
-.fds-link--cta:hover,
-.fds-link--cta:focus-visible {
-  color: var(--fds-accent);
-  text-decoration-color: var(--fds-accent);
-}
-
-.fds-cta .fds-link__arrow {
+.fds-link__arrow {
+  display: inline-block;
   text-decoration: none;
   transition: transform var(--fds-duration-base) var(--fds-ease);
+}
+
+.fds-link--anchor:hover .fds-link__arrow,
+.fds-link--anchor:focus-visible .fds-link__arrow {
+  transform: translateX(0.25em);
+}
+
+.fds-link--cta:hover .fds-link__arrow,
+.fds-link--cta:focus-visible .fds-link__arrow {
+  transform: translateX(0.1em);
+}
+
+/* A paragraph that holds a call to action, after a spacer. It eats the
+   bottom margin of the paragraph or list before that spacer. */
+p.fds-cta {
+  margin-bottom: 0;
 }
 
 :is(p, ul):has(+ .fds-space + .fds-cta) {
@@ -77,23 +68,12 @@ ul:has(+ .fds-space + .fds-cta) > li:last-child {
   margin-bottom: 0;
 }
 
-p.fds-cta {
-  margin-bottom: 0;
-}
-
-.fds-cta .fds-link--cta:hover .fds-link__arrow,
-.fds-cta .fds-link--cta:focus-visible .fds-link__arrow {
-  transform: translateX(0.1em);
-}
-
+/* A term with a tooltip (js/quote-tooltip.js). */
 .fds-term {
-  color: var(--fds-text);
   text-decoration: underline;
   text-underline-offset: 0.15em;
   text-decoration-color: var(--fds-text);
   text-decoration-thickness: 0.01em;
-  background-color: transparent;
-  transition: none;
 }
 
 .fds-term:hover,
@@ -113,53 +93,8 @@ p.fds-cta {
   text-decoration-color: var(--fds-text);
 }
 
-a.fds-link--anchor {
-  text-decoration: none;
-  transition: opacity var(--fds-duration-base) var(--fds-ease);
-}
-
-a.fds-link--anchor span:not(.fds-link__arrow) {
-  text-decoration: underline;
-  text-decoration-thickness: 0.5px;
-  text-underline-offset: 0.3em;
-}
-
-.fds-link__arrow {
-  display: inline-block;
-  text-decoration: none;
-  transition: transform var(--fds-duration-base) var(--fds-ease);
-}
-
-a.fds-link--anchor:hover,
-a.fds-link--anchor:focus-visible {
-  opacity: 0.6;
-}
-
-a.fds-link--anchor:hover .fds-link__arrow,
-a.fds-link--anchor:focus-visible .fds-link__arrow {
-  transform: translateX(0.25em);
-}
-
-a.fds-link--case {
-  color: var(--fds-text);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.25em;
-  text-decoration-color: var(--fds-line);
-}
-
-a.fds-link--case:hover,
-a.fds-link--case:focus-visible {
-  color: var(--fds-accent);
-  text-decoration-color: var(--fds-accent);
-}
-
 @media (width <= 768px) {
-  .fds-link--cta {
-    white-space: normal;
-  }
-
-  p.fds-case__list a.fds-link--anchor {
+  p.fds-toc .fds-link--anchor {
     display: inline-block;
     margin-bottom: 1em;
   }

@@ -1,0 +1,215 @@
+.ids .team-grid--extended .team-meta {
+  font-size: 0.85em;
+}
+
+.ids .team-grid--extended p.team-bio {
+  font-size: 0.8em;
+  padding-right: 0.5em;
+}
+
+.team-promo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: var(--fds-radius-l);
+  background-color: var(--fds-surface);
+}
+
+.team-promo.team-promo-soft {
+  border-radius: var(--fds-radius-xl);
+}
+
+.team-promo.team-promo-hard {
+  border-radius: 0;
+}
+
+.team-promo.team-promo-round {
+  border-radius: var(--fds-radius-pill);
+}
+
+.team-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 0.4em;
+  row-gap: 0;
+  margin-top: 0.75em;
+  font-size: 1.2em;
+  line-height: 1.12;
+}
+
+.ids .team-meta h2.team-name {
+  margin: 0;
+  font-size: 1em;
+  line-height: inherit;
+  font-weight: 700;
+  color: var(--fds-text);
+}
+
+.team-meta .project-tag-chip {
+  font-size: 0.8em;
+  margin: 0.1em 0 0;
+}
+
+.ids p.team-bio {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  padding-right: 1em;
+  font-size: 1em;
+  line-height: 1.25;
+  font-weight: 400;
+  color: var(--fds-text);
+}
+
+@media (width <= 768px) {
+  .team-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 0.25em;
+    font-size: 1.05em;
+  }
+
+  .ids .team-grid--extended .team-meta {
+    font-size: 0.85em;
+  }
+
+  .ids .team-grid--extended p.team-bio {
+    font-size: 0.7em;
+  }
+
+  .ids p.team-bio {
+    margin-top: 0.5em;
+    font-size: 0.9em;
+    padding-right: 0.5em;
+  }
+}
+
+html[data-lang="en"] .ids .team-meta .project-tag-chip {
+  font-size: 0.72em;
+}
+
+html[data-lang="en"] .ids .team-grid--extended p.team-bio {
+  hyphens: auto;
+}
+
+.portreit {
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.portreit img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.portreit--zoom img {
+  transform: scale(2.2) translateY(-8%);
+  transform-origin: 50% 18%;
+}
+
+.portraits-inline {
+  display: inline-flex;
+  align-items: flex-end;
+  vertical-align: text-bottom;
+  margin-left: 0.2em;
+}
+
+.ids p.quote.quote--portraits {
+  margin-bottom: 0;
+}
+
+.portraits-inline--start {
+  margin-left: 0;
+}
+
+.portraits-inline .portreit + .portreit {
+  margin-left: -0.2em;
+}
+
+/* Same overlap, but taken on the right so a wrapped row starts flush left. */
+.portraits-inline--start .portreit + .portreit {
+  margin-left: 0;
+}
+
+.portraits-inline--start .portreit {
+  margin-right: -0.2em;
+}
+
+/* On desktop the two groups read as one row; on mobile they stack (see below). */
+.portraits-inline__row {
+  display: contents;
+}
+
+.ids p.project-team {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.project-team .portreit {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.1em;
+  vertical-align: -0.3em;
+}
+
+.project-team__member {
+  white-space: nowrap;
+}
+
+.project-team__member:not(:last-child) {
+  margin-right: 0.5em;
+}
+
+.project-team {
+  font-weight: 400;
+}
+
+.project-team .project-text-emphasis:not(.project-team__label) {
+  font-weight: 800;
+}
+
+.project-team__role {
+  color: var(--fds-text-muted);
+  font-weight: 400;
+}
+
+@media (width <= 768px) {
+  .portraits-inline {
+    display: flex;
+    margin-left: 0;
+    margin-top: 0.35em;
+    vertical-align: baseline;
+  }
+
+  .project-team__label {
+    display: block;
+    margin-bottom: 0.35em;
+  }
+
+  .portreit {
+    width: 1.3em;
+    height: 1.3em;
+  }
+
+  .portraits-inline--start {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: calc(var(--fds-density) * 0.1em);
+    margin-top: 0;
+  }
+
+  .portraits-inline__row {
+    display: flex;
+  }
+
+  .ids .ids__space.portraits-gap {
+    height: calc(var(--fds-density) * 0.7em);
+  }
+}

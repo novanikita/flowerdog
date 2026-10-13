@@ -1,23 +1,4 @@
 .ids {
-  & a {
-    color: var(--fds-text);
-    text-decoration: underline;
-    will-change: color;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.25em;
-    text-decoration-color: var(--fds-line);
-    transition: color 0s ease;
-
-    &:hover,
-    &:focus-visible {
-      color: var(--fds-text);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 0.25em;
-      text-decoration-color: var(--fds-line);
-      transition: color 0s ease;
-    }
-  }
-
   & p {
     margin-top: 0;
     margin-bottom: calc(var(--fds-density) * 0.4em);
@@ -266,4 +247,15 @@ video{
   .audit-break-desktop-only {
     display: none;
   }
+}
+
+.project-text-emphasis {
+  font-weight: 600;
+}
+
+hr.default {
+  display: block;
+  margin: 0.5em auto;
+  border-style: inset;
+  border-width: 1px;
 }

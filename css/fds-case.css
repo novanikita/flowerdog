@@ -1,0 +1,98 @@
+.ids .main-page-intro h1 {
+  font-weight: 500;
+}
+
+.project-date {
+  font-size: 0.7em;
+  font-weight: 400;
+}
+
+.project-meta-wrap {
+  line-height: 1.2;
+  margin-bottom: calc(var(--fds-density) * 0.35em);
+}
+
+.project-meta-wrap .project-meta {
+  font-size: 0.7em;
+  color: var(--fds-text);
+  display: inline-flex;
+  align-items: baseline;
+  vertical-align: baseline;
+  gap: 0.6em;
+  margin: 0 0.6em 0 0;
+}
+
+.ids p.project-meta {
+  margin-bottom: 0;
+}
+
+.ids h3[id],
+.ids [id].project-anchor {
+  scroll-margin-top: 3em;
+}
+
+.ids p.project-list {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.ids p.project-case-text {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media (width <= 768px) {
+  .ids .main-page-intro h1:last-child {
+    margin-top: 0;
+    font-size: 1.2em;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .main-page-text-fixed h1:last-child {
+    margin-top: 1em;
+  }
+
+  .ids h3 {
+    line-height: 1;
+  }
+
+  .ids p.project-list {
+    line-height: 1.2;
+  }
+
+  .project-meta-wrap {
+    line-height: 1;
+    margin-bottom: calc(var(--fds-density) * 0.15em);
+  }
+
+  .project-meta-wrap .project-meta {
+    font-size: 0.6em;
+    gap: 0.4em;
+    margin: 0 0.4em 0 0;
+  }
+}
+
+/* How we work — text sized and centered like the vacancies page */
+.ids.page-how-we-work h1.how-we-work__title {
+  color: var(--fds-text);
+}
+
+.ids.page-how-we-work h3.how-we-work__title {
+  color: var(--fds-text);
+}
+
+.ids.page-how-we-work .how-we-work__section {
+  scroll-margin-top: 3em;
+}
+
+.ids.page-how-we-work .how-we-work__figure {
+  margin: 0;
+  border-radius: var(--fds-radius-l);
+  overflow: hidden;
+}
+
+/* Vacancies */
+.ids.page-vacancies .vacancies__section {
+  scroll-margin-top: 3em;
+}

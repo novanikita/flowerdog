@@ -1,5 +1,36 @@
-/* Tag system: project type and client tags */
+.project-tag-row {
+  display: inline-flex;
+  align-items: baseline;
+  vertical-align: baseline;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0;
+}
 
+.project-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--fds-surface);
+  color: var(--fds-text);
+  border-radius: var(--fds-radius-pill);
+  padding: 0.1em 0.6em;
+  font-size: 0.7em;
+  line-height: 1.2;
+}
+
+@media (width <= 768px) {
+  .project-tag-row {
+    gap: 0.35em;
+  }
+
+  .project-tag-chip {
+    font-size: 0.9em;
+    line-height: 1.15;
+    padding: 0.1em 0.55em;
+  }
+}
+
+/* Tag system: project type and client tags */
 .tag {
   display: inline-block;
   background: var(--fds-bg);

@@ -143,7 +143,7 @@
     return event.deltaY;
   }
 
-  // html has scroll-behavior: smooth (css/settings.css); these scrolls
+  // html has scroll-behavior: smooth (css/fds-settings.css); these scrolls
   // must not animate. 'instant' as a scrollBy option is newer than the
   // browsers this has to work in, so the property is switched off inline.
   function instantScrollBy(delta) {
@@ -987,7 +987,7 @@
      * Non-passive wheel/touchmove listeners make the browser wait on this
      * script before scrolling, so they are only attached near the end of
      * the page, never while reading the rest of it. The same class keeps
-     * the picture panel visible there (css/project-footer.css).
+     * the picture panel visible there (css/fds-footer.css).
      */
     function arm() {
       if (armed) return;

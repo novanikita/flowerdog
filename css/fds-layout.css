@@ -1,0 +1,255 @@
+.ids__space {
+  height: calc(var(--fds-density) * 0.7em);
+
+  &.XS {
+    height: calc(var(--fds-density) * 0.2em);
+  }
+  &.M {
+    height: calc(var(--fds-density) * 1.4em);
+  }
+  &.L {
+    height: calc(var(--fds-density) * 2.4em);
+  }
+  &.XL {
+    height: calc(var(--fds-density) * 4em);
+  }
+  
+}
+
+.ids__wrapper {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+
+  @media (width <= 768px) {
+    width: 100%;
+    padding: 0 calc(var(--fds-density) * 0.6em);
+  }
+
+  &.L {
+    width: 100%;
+    padding: 0 var(--fds-gutter);
+  }
+
+  &.S {
+    width: 60%;
+    padding: 0 1em;
+
+    @media (width <= 768px) {
+      width: 100%;
+      padding: 0 calc(var(--fds-density) * 0.6em);
+        }
+  }
+
+  &.XS {
+    width: 50%;
+    padding: 0 1em;
+
+    @media (width <= 768px) {
+      width: 100%;
+      padding: 0 calc(var(--fds-density) * 0.6em);
+    }
+  }
+
+  & .ids__text-width {
+    width: 85%;
+
+    @media (width <= 768px) {
+      width: 100%;
+    }
+  }
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * The sheet: main and the footer. position: relative + z-index: 1 puts
+ * both one paint layer above .site-footer-reveal__panel (position: fixed,
+ * z-index: 0 — see css/fds-footer.css), and background-color makes
+ * them genuinely opaque boxes rather than relying on the body/html
+ * "canvas background" fallback (when html has no background of its own,
+ * the spec paints body's white as the canvas — a layer further back than
+ * any positioned element, so it would never block that panel from showing
+ * through). Together these keep the panel hidden behind the sheet's
+ * entire content — every paragraph, every gap between lines — until
+ * js/footer-reveal.js lifts it past the end of the page.
+ */
+main {
+  position: relative;
+  z-index: var(--fds-z-sheet);
+  flex: 1 0 auto;
+  background-color: var(--fds-bg);
+}
+
+[data-site-footer] {
+  position: relative;
+  z-index: var(--fds-z-sheet);
+  margin-top: auto;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+
+.projects-grid .projects-grid-item {
+  box-sizing: border-box;
+  min-width: 0;
+  grid-column: span 1;
+}
+
+.projects-grid .projects-grid-item.L {
+  grid-column: span 2;
+}
+
+.projects-grid .projects-grid-item.XL {
+  grid-column: span 4;
+}
+
+.founder-quotes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 2em;
+  align-items: start;
+}
+
+.space-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5em;
+}
+
+.space-images__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--fds-radius-xl);
+  object-fit: cover;
+}
+
+.projects-grid.menu-grid[hidden] {
+  display: none !important;
+}
+
+.process-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5em;
+  overflow: visible;
+}
+
+.ids .team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 0;
+  row-gap: 3em;
+}
+
+.ids .team-grid--extended {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.team-grid-item {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+@media (width <= 768px) {
+  .founder-quotes {
+    grid-template-columns: 1fr;
+    row-gap: 3em;
+  }
+
+  .space-images {
+    gap: 0.4em;
+  }
+
+  .space-images__img {
+    border-radius: var(--fds-radius-m);
+  }
+
+  .process-cards {
+    grid-template-columns: 1fr;
+    gap: 0.5em;
+  }
+
+  .projects-grid {
+    column-gap: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ids .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2.5em;
+  }
+
+  .projects-grid .projects-grid-item {
+    grid-column: span 1;
+  }
+
+  .projects-grid .projects-grid-item.L,
+  .projects-grid .projects-grid-item.XL {
+    grid-column: span 2;
+  }
+}
+
+.main-page-header {
+  width: 70%;
+}
+
+.main-page-text-fixed {
+  width: 50%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.main-page-intro {
+  width: 72%;
+}
+
+.ids__wrapper {
+  overflow-wrap: anywhere;
+}
+
+main {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (width <= 768px) {
+  .main-page-header,
+  .main-page-text-fixed {
+    width: 100%;
+  }
+
+  .main-page-text-fixed {
+    margin-bottom: 3em;
+  }
+
+  .ids__wrapper,
+  .ids__wrapper.L,
+  .ids__wrapper.S,
+  .ids__wrapper.XS {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.main-page {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}

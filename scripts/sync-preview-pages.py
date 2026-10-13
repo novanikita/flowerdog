@@ -59,12 +59,7 @@ def build_hub_html(pages: list[dict], token: str) -> str:
     <meta charset="utf-8" />
 {NOINDEX}{BASE_TAG}    <title>Превью — Flowerdog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/fds-tokens.css" />
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/settings.css" />
-    <link rel="stylesheet" href="css/layout.css" />
-    <link rel="stylesheet" href="css/ids.css" />
-    <link rel="stylesheet" href="css/project.css" />
+    <link rel="stylesheet" href="css/fds.css" />
     <style>
       .preview-hub__list {{
         margin: 1.5em 0 0;

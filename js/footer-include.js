@@ -31,7 +31,9 @@
     '<a href="mailto:hi@flowerdog.studio" data-i18n data-ru="почту" data-en="email">почту</a>' +
     '<span data-i18n data-ru=" или&nbsp;в&nbsp;" data-en=" or&nbsp;on&nbsp;"> или в </span>' +
     '<a href="https://t.me/dmitry2man" data-i18n data-ru="телеграм" data-en="Telegram">телеграм</a></strong><br>' +
-    '<span data-i18n data-ru="Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно, и предложим варианты." data-en="Tell us about your task in any words. Then we\'ll ask everything we need and suggest options.">Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно, и предложим варианты.</span>' +
+    '<span data-i18n data-ru="Расскажите про задачу любыми словами." data-en="Tell us about your task in any words.">Расскажите про задачу любыми словами.</span><br>' +
+    '<span data-i18n data-ru="Дальше мы спросим всё, что нужно," data-en="Then we\'ll ask everything we need">Дальше мы спросим всё, что нужно,</span><br>' +
+    '<span data-i18n data-ru="и предложим варианты." data-en="and suggest options.">и предложим варианты.</span>' +
     '</p></div>' +
     '<nav class="fds-footer__nav" aria-label="Footer">' +
     '<a class="fds-footer__nav-link" href="portfolio.html" data-i18n data-ru="Проекты" data-en="Projects">Проекты</a>' +

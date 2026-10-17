@@ -31,6 +31,15 @@
         <div class="ds-layout">
           <nav class="ds-nav" aria-label="Разделы">
             <a href="#intro">Введение</a>
+            <a href="#v2">2.0: что меняется</a>
+            <a href="#v2-type">2.0: текст</a>
+            <a href="#v2-merge">2.0: что сливается</a>
+            <a href="#v2-weight">2.0: жирность</a>
+            <a href="#v2-chips">2.0: плашки</a>
+            <a href="#v2-space">2.0: отступы</a>
+            <a href="#v2-radius">2.0: скругления</a>
+            <a href="#v2-tablet">2.0: планшеты</a>
+            <a href="#v2-decisions">2.0: решения</a>
             <a href="#files">Файлы и слои</a>
             <a href="#settings">Настройки</a>
             <a href="#color">Цвет</a>
@@ -53,7 +62,469 @@
               <p class="fds-lead ds-text">Эта страница описывает, из чего собран сайт flowerdog.studio, и одновременно показывает это живьём: каждый пример ниже сделан теми же классами, которые работают на сайте. Если страница и сайт разошлись, что-то сломано.</p>
               <p class="ds-text">FDS выросла из <a href="https://intuition-tech.github.io/ids/">IDS</a>: оттуда плотность, резиновый размер шрифта, обёртки и спейсеры. Сверху лежат компоненты студии: шапка, футер с подвалом из картинок, карточки проектов, люди, цитаты, галереи кейсов.</p>
               <p class="ds-text">Главное правило одно: <strong>нет класса в системе, значит нет стиля на сайте</strong>. Новый компонент сначала появляется здесь, с примером и описанием, потом на странице. Правило под конкретный кейс, клиента или страницу не пишется: если компоненту нужно вести себя иначе, у него появляется модификатор.</p>
-              <p class="ds-text">Версия 1.0, 13 октября 2026. Исходники в репозитории, свод правил в <code>docs/fds.md</code>.</p>
+              <p class="ds-text">Версия 1.0, 13 октября 2026; идёт переход на 2.0, что меняется, показано в разделах <a href="#v2">«2.0»</a>. Исходники в репозитории, свод правил в <code>docs/fds.md</code>.</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2">
+              <h2>2.0: что меняется</h2>
+              <p class="fds-lead ds-text">Система переходит на версию 2.0. Здесь каждое изменение показано парой: слева как сейчас на сайте, справа как станет. Цифры под образцами считаются живьём при текущей ширине окна.</p>
+              <p class="ds-text">Сузь окно до 768px и меньше или открой страницу на телефоне: увидишь мобильные размеры. Внизу слева всегда видно, какая сейчас ширина и база. Образцы «сейчас» собраны из настоящих классов сайта в том же окружении, что и на страницах. Это важно: например, чип в карточке человека получается 0.8 × 0.85 = 0.68 от базы.</p>
+              <p class="ds-text">Новые размеры текста задаются от базы страницы (<code>rem</code>), а не от родителя. Поэтому стиль выглядит одинаково, куда его ни положи, и такие перемножения исчезают.</p>
+              <p class="ds-text">Принципы 2.0: имена детерминированы; размеры плашек, отступов и скруглений называются как размеры одежды (<code>xs s m l xl</code>, новые только по краям: <code>2xs</code>, <code>2xl</code>), класс без модификатора всегда M; у текста своя лестница H1–H4, текст, подпись; исключений под страницу или клиента нет; вёрстка работает на любой ширине. Раздел живёт здесь, пока 2.0 переносится на сайт, потом станет записью в changelog.</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2-type">
+              <h2>2.0: текст</h2>
+              <p class="ds-text">Шесть уровней. У заголовков два веса, bold и medium, при одном размере. Размеры одежды тут не используются: у текста своя иерархия.</p>
+              <p class="ds-text">H4 добавлен сверх исходного списка. На сайте есть целая группа текста около 1.25 (текст цитат, «Как мы работаем» на главной). Без отдельного уровня её пришлось бы растянуть до H3 (+20%) или ужать до текста (−20%). Согласован 17 октября.</p>
+              <div class="ds-ladder">
+                <div class="ds-ladder__row">
+                  <div class="ds-ladder__meta"><b>H1</b>3 / мобила 2 · интерлиньяж 1</div>
+                  <div class="ds-ladder__samples"><p class="ds-new-h1">мы камерная студия</p></div>
+                </div>
+                <div class="ds-ladder__row">
+                  <div class="ds-ladder__meta"><b>H2</b>2 / мобила 1.8 · 1.05</div>
+                  <div class="ds-ladder__samples"><p class="ds-new-h2">117 проектов для Яндекса</p><p class="ds-new-h2 ds-new--medium">Мы дизайн-студия, а не агентство</p></div>
+                </div>
+                <div class="ds-ladder__row">
+                  <div class="ds-ladder__meta"><b>H3</b>1.5 / мобила 1.3 · 1.15</div>
+                  <div class="ds-ladder__samples"><p class="ds-new-h3">Кто нам нужен</p><p class="ds-new-h3 ds-new--medium">Первым делом погружаемся в задачу.</p></div>
+                </div>
+                <div class="ds-ladder__row">
+                  <div class="ds-ladder__meta"><b>H4</b>1.25 / мобила 1.1 · 1.2</div>
+                  <div class="ds-ladder__samples"><p class="ds-new-h4">Составляем план проекта по дням.</p><p class="ds-new-h4 ds-new--medium">Составляем план проекта по дням.</p></div>
+                </div>
+                <div class="ds-ladder__row">
+                  <div class="ds-ladder__meta"><b>Текст</b>1 / мобила 1 · 1.3</div>
+                  <div class="ds-ladder__samples"><p class="ds-new-text">Расскажите про задачу любыми словами. Дальше мы спросим всё, что нужно.</p><p class="ds-new-text ds-new--medium">Этап 1 · 2 недели</p><p class="ds-new-text ds-new--bold">Никита Нова</p></div>
+                </div>
+                <div class="ds-ladder__row">
+                  <div class="ds-ladder__meta"><b>Подпись</b>0.75 / мобила 0.75 · 1.25</div>
+                  <div class="ds-ladder__samples"><p class="ds-new-caption">В студии занимаюсь клиентами, процессами, деньгами и визионерством.</p><p class="ds-new-caption ds-new--bold">Дима Туманов</p></div>
+                </div>
+              </div>
+              <p class="ds-text">Классы будут <code>fds-h1</code>…<code>fds-h4</code>, <code>fds-text</code>, <code>fds-caption</code>. Вес меняется модификатором: <code>--medium</code>, <code>--bold</code>. Без модификатора заголовки bold, текст и подпись regular. Тег по-прежнему выбирается по смыслу. Например, название кейса остаётся тегом <code>h1</code>, но выглядит как H2, как и сейчас.</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2-merge">
+              <h2>2.0: что во что сливается</h2>
+              <p class="ds-text">Сгруппировано по уровню, в который уходит стиль. Сначала идут строки, где размер меняется сильнее всего на мобиле, их стоит посмотреть на телефоне.</p>
+
+              <!-- H1 -->
+              <div class="ds-cmp-group">
+                <h3 class="ds-cmp-group__title">→ H1 <span>3 / мобила 2</span></h3>
+
+                <div class="ds-cmp" style="--cols: 1">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Манифест на главной</span><span class="ds-cmp__where">главная · <code>p.fds-display</code></span><span class="ds-cmp__spec">размер тот же · вес 600 → 700</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-display" data-t>мы камерная, небольшая дизайн-студия</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h1" data-t>мы камерная, небольшая дизайн-студия</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp" style="--cols: 1">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Почта в футере</span><span class="ds-cmp__where">все страницы · <code>.fds-footer__email</code></span><span class="ds-cmp__spec">десктоп 2.95 → 3 · мобила 2.3 → 2</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><a class="fds-footer__email" href="mailto:hi@flowerdog.studio" data-t>hi@flowerdog.studio</a></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><a class="ds-new-h1" href="mailto:hi@flowerdog.studio" data-t>hi@flowerdog.studio</a></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+              </div>
+
+              <!-- H2 -->
+              <div class="ds-cmp-group">
+                <h3 class="ds-cmp-group__title">→ H2 <span>2 / мобила 1.8, bold и medium</span></h3>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Лид цитаты основателя</span><span class="ds-cmp__where">«О нас» · <code>.fds-quote__lead.fds-heading--light</code></span><span class="ds-cmp__spec">десктоп 2 → 2 · мобила 1.5 → 1.8 (+20%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-quote__lead fds-heading fds-heading--light" data-t>Мы что-то среднее между корпоративным инхаусом и&nbsp;креативной студией</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h2 ds-new--medium" data-t>Мы что-то среднее между корпоративным инхаусом и&nbsp;креативной студией</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Заголовок этапа</span><span class="ds-cmp__where">«Как работаем» · <code>.fds-step__title</code></span><span class="ds-cmp__spec">десктоп 2 → 2 · мобила 1.5 → 1.8 (+20%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-step__title fds-heading" data-t>Разработка концепции</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h2" data-t>Разработка концепции</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Название кейса и разделы «О нас»</span><span class="ds-cmp__where">кейсы, «О нас» · <code>h1</code>, <code>.fds-title</code></span><span class="ds-cmp__spec">десктоп 2 → 2 · мобила 2 → 1.8 (−10%) · интерлиньяж 0.9 → 1.05</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now" style="max-width: 9em"><p class="fds-title" data-t>Упаковка для Ким чипсов</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new" style="max-width: 9em"><p class="ds-new-h2" data-t>Упаковка для Ким чипсов</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Заголовок карточки проекта</span><span class="ds-cmp__where">главная, «Проекты» · <code>.fds-card__title</code></span><span class="ds-cmp__spec">десктоп 2 → 2 · мобила 1.8 → 1.8 · интерлиньяж 1.12 → 1.05</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><h2 class="fds-card__title" data-t>117 проектов для Яндекса</h2></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h2" data-t>117 проектов для Яндекса</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Финальная фраза на главной</span><span class="ds-cmp__where">главная · <code>.fds-title--outro</code></span><span class="ds-cmp__spec">десктоп 2 → 2 · мобила 2 → 1.8, вес на мобиле 600 → 700</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-title fds-title--outro" data-t>Мы понятные, системные и вовлечённые</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h2" data-t>Мы понятные, системные и вовлечённые</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+              </div>
+
+              <!-- H3 -->
+              <div class="ds-cmp-group">
+                <h3 class="ds-cmp-group__title">→ H3 <span>1.5 / мобила 1.3, bold и medium</span></h3>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Лид на «О нас»</span><span class="ds-cmp__where">«О нас» · <code>p.fds-lead</code> + правило страницы</span><span class="ds-cmp__spec">десктоп 1.5 → 1.5 · мобила 1.1 → 1.3 (+18%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now" data-page="about"><p class="fds-lead" data-t>Первым делом погружаемся в задачу: разбираемся, как устроен бизнес.</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h3 ds-new--medium" data-t>Первым делом погружаемся в задачу: разбираемся, как устроен бизнес.</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Подзаголовки кейсов и вакансий</span><span class="ds-cmp__where">кейсы, вакансии · <code>.fds-subheading</code></span><span class="ds-cmp__spec">десктоп 1.5 → 1.5 · мобила 1.5 → 1.3 (−13%) · интерлиньяж мобилы 1 → 1.15</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-subheading" data-t>Кто нам нужен</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h3" data-t>Кто нам нужен</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Лид на главной</span><span class="ds-cmp__where">главная · <code>p.fds-lead</code></span><span class="ds-cmp__spec">десктоп 1.5 → 1.5 · мобила 1.2 → 1.3 (+8%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-lead" data-t>Делаем айдентику, упаковку и сайты.</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h3 ds-new--medium" data-t>Делаем айдентику, упаковку и сайты.</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Вступление на главной</span><span class="ds-cmp__where">главная · <code>.fds-title--intro</code></span><span class="ds-cmp__spec">десктоп 1.6 → 1.5 (−6%) · мобила 1.2 → 1.3 (+8%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-title fds-title--intro" data-t>делаем всё то, через что бизнес «разговаривает» с людьми</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h3 ds-new--medium" data-t>делаем всё то, через что бизнес «разговаривает» с людьми</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Ссылка-CTA</span><span class="ds-cmp__where">«О нас», кейс · <code>p.fds-lead.fds-cta</code></span><span class="ds-cmp__spec">десктоп 1.5 → 1.5 · мобила 1.2 → 1.3 (+8%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-lead fds-cta" data-t><a href="#v2-merge" class="fds-link--cta"><span class="fds-link__arrow" aria-hidden="true">→</span> Подробней про наш подход</a></p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h3 ds-new--medium fds-cta" data-t><a href="#v2-merge" class="fds-link--cta"><span class="fds-link__arrow" aria-hidden="true">→</span> Подробней про наш подход</a></p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Кнопка «Ещё проекты»</span><span class="ds-cmp__where">главная · <code>.fds-button</code></span><span class="ds-cmp__spec">десктоп 1.5 → 1.5 · мобила 1.2 → 1.3 (+8%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><a class="fds-button" href="#v2-merge" data-t>Ещё проекты</a></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><a class="fds-button ds-new-h3 ds-new--medium" href="#v2-merge" data-t>Ещё проекты</a></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Пункты шапки и язык</span><span class="ds-cmp__where">все страницы · <code>.fds-header__link</code></span><span class="ds-cmp__spec">десктоп 1.5 → 1.5, вес 800 → 700 · в открытом мобильном меню 2.5/800 → H1 2/700 (−20%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><div class="fds-header__right"><a class="fds-header__link" href="#v2-merge" data-t>О нас</a><a class="fds-header__link" href="#v2-merge">Проекты</a></div></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><div class="fds-header__right"><a class="fds-header__link ds-new-h3" href="#v2-merge" data-t>О нас</a><a class="fds-header__link ds-new-h3" href="#v2-merge">Проекты</a></div></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+              </div>
+
+              <!-- H4 -->
+              <div class="ds-cmp-group">
+                <h3 class="ds-cmp-group__title">→ H4 <span>1.25 / мобила 1.1, medium · новый уровень</span></h3>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Текст цитаты основателя</span><span class="ds-cmp__where">«О нас» · <code>.fds-quote .fds-lead</code></span><span class="ds-cmp__spec">десктоп 1.3 → 1.25 (−4%) · мобила 1.1 → 1.1</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now" data-page="about"><div class="fds-quote"><div class="fds-quote__content"><p class="fds-lead" data-t>В основном занимаемся коммуникационным дизайном и делаем айдентику: фирменный стиль и всё, что с этим связано.</p></div></div></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h4 ds-new--medium" data-t>В основном занимаемся коммуникационным дизайном и делаем айдентику: фирменный стиль и всё, что с этим связано.</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">«Как мы работаем» на главной</span><span class="ds-cmp__where">главная · <code>.fds-lead--s</code></span><span class="ds-cmp__spec">десктоп 1.2 → 1.25 (+4%) · мобила 1.2 → 1.1 (−8%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-lead fds-lead--s" data-t>Составляем план проекта по дням и показываем работу каждую неделю.</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-h4 ds-new--medium" data-t>Составляем план проекта по дням и показываем работу каждую неделю.</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+              </div>
+
+              <!-- Text -->
+              <div class="ds-cmp-group">
+                <h3 class="ds-cmp-group__title">→ Текст <span>1 / мобила 1, regular, medium и bold</span></h3>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Текст тултипа</span><span class="ds-cmp__where">«О нас» · <code>.fds-tip__text</code></span><span class="ds-cmp__spec">десктоп 1 → 1 · мобила 0.86 → 1 (+16%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><div class="ds-tip-frame"><p class="fds-tip__text" data-t>Камерная — значит небольшая: каждый проект ведут основатели.</p></div></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><div class="ds-tip-frame"><p class="fds-tip__text ds-new-text" data-t>Камерная — значит небольшая: каждый проект ведут основатели.</p></div></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Ссылки в футере</span><span class="ds-cmp__where">все страницы · <code>.fds-footer__nav-link</code></span><span class="ds-cmp__spec">десктоп 1 → 1 · мобила 1.1 → 1 (−9%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><a class="fds-footer__nav-link" href="#v2-merge" data-t>Проекты</a></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><a class="ds-new-text" href="#v2-merge" data-t>Проекты</a></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Метка и срок этапа</span><span class="ds-cmp__where">«Как работаем» · <code>.fds-step__label</code></span><span class="ds-cmp__spec">0.95 → 1 (+5%), medium</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-step__label" data-t>Этап 1 · 2 недели</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-text ds-new--medium" data-t>Этап 1 · 2 недели</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Жирное в тексте</span><span class="ds-cmp__where">кейсы · <code>strong</code></span><span class="ds-cmp__spec">вес 600 → 700</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p>Задача: <strong data-t>сделать упаковку заметной на полке</strong> рядом с крупными брендами.</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-text">Задача: <strong class="ds-new--bold" data-t>сделать упаковку заметной на полке</strong> рядом с крупными брендами.</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Имена в кредитах кейса</span><span class="ds-cmp__where">кейсы · <code>.fds-credits strong</code></span><span class="ds-cmp__spec">вес 800 → 700</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-credits"><span class="fds-credits__member"><strong data-t>Никита Нова</strong> <span class="fds-credits__role">дизайн упаковки</span></span></p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-text"><strong class="ds-new--bold" data-t>Никита Нова</strong> дизайн упаковки</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+              </div>
+
+              <!-- Caption -->
+              <div class="ds-cmp-group">
+                <h3 class="ds-cmp-group__title">→ Подпись <span>0.75 везде, regular и bold</span></h3>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Мета кейса</span><span class="ds-cmp__where">кейсы · <code>.fds-meta__item</code></span><span class="ds-cmp__spec">десктоп 0.7 → 0.75 (+7%) · мобила 0.6 → 0.75 (+25%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><div class="fds-meta"><span class="fds-meta__item" data-t>2025 · упаковка, айдентика</span></div></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-caption" data-t>2025 · упаковка, айдентика</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Имя в карточке человека</span><span class="ds-cmp__where">«О нас» · <code>.fds-person__name</code></span><span class="ds-cmp__spec">0.85 → 0.75 (−12%), bold</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><div class="fds-person__meta"><p class="fds-person__name" data-t>Дима Туманов</p></div></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-caption ds-new--bold" data-t>Дима Туманов</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Роль в цитате</span><span class="ds-cmp__where">«О нас» · <code>.fds-quote__role.fds-small</code></span><span class="ds-cmp__spec">0.85 → 0.75 (−12%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><span class="fds-quote__role fds-small" data-t>сооснователь</span></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><span class="ds-new-caption" data-t>сооснователь</span></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Био в карточке человека</span><span class="ds-cmp__where">«О нас» · <code>.fds-person__bio</code></span><span class="ds-cmp__spec">десктоп 0.8 → 0.75 (−6%) · мобила 0.7 → 0.75 (+7%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now" style="max-width: 16em"><p class="fds-person__bio" data-t>В студии занимаюсь клиентами, процессами, деньгами и визионерством.</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new" style="max-width: 16em"><p class="ds-new-caption" data-t>В студии занимаюсь клиентами, процессами, деньгами и визионерством.</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+
+                <div class="ds-cmp">
+                  <div class="ds-cmp__head"><span class="ds-cmp__name">Юридический блок футера</span><span class="ds-cmp__where">все страницы · <code>.fds-caption</code></span><span class="ds-cmp__spec">0.7 → 0.75 (+7%)</span></div>
+                  <div class="ds-cmp__pair">
+                    <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><p class="fds-caption" data-t>ИП Туманов Дмитрий Олегович, ИНН 272198797725</p></div></div>
+                    <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><p class="ds-new-caption" data-t>ИП Туманов Дмитрий Олегович, ИНН 272198797725</p></div></div>
+                  </div>
+                  <div class="ds-cmp__delta" data-delta></div>
+                </div>
+              </div>
+
+              <div class="ds-cmp-group">
+                <h3 class="ds-cmp-group__title">Без изменений</h3>
+                <p class="ds-text">Абзац (1), ссылки, имя в цитате, текст этапа, заметка и почта-ссылка в футере уже стоят на своих ступенях; меняется только запись. Интерлиньяж текста 1.25…1.35 сводится к 1.3. Логотип в шапке остаётся отдельным размером компонента: это картинка, а не текст.</p>
+              </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2-weight">
+              <h2>2.0: жирность</h2>
+              <p class="ds-text">Сейчас на сайте пять весов: 400, 500, 600, 700, 800. Предлагаю оставить три и называть их по-типографски:</p>
+              <div class="ds-ladder">
+                <div class="ds-ladder__row"><div class="ds-ladder__meta"><b>regular 400</b>текст, подпись</div><div class="ds-ladder__samples"><p class="ds-new-h3 ds-new--regular">Расскажите про задачу</p></div></div>
+                <div class="ds-ladder__row"><div class="ds-ladder__meta"><b>medium 500</b>лиды, цитаты, метки</div><div class="ds-ladder__samples"><p class="ds-new-h3 ds-new--medium">Расскажите про задачу</p></div></div>
+                <div class="ds-ladder__row"><div class="ds-ladder__meta"><b>bold 700</b>заголовки, имена, strong</div><div class="ds-ladder__samples"><p class="ds-new-h3 ds-new--bold">Расскажите про задачу</p></div></div>
+              </div>
+              <p class="ds-text">600 (strong, манифест, ярлык кредитов) и 800 (шапка, имена в кредитах, мобильное меню) уходят в 700. Решено: манифест тоже 700, четвёртого веса нет.</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2-chips">
+              <h2>2.0: плашки</h2>
+              <p class="ds-text">Две плашки, S и M. Класс без модификатора означает M. Внутри размера плашка сама держит свой шрифт и поля, к лестнице текста она не привязана.</p>
+
+              <div class="ds-cmp">
+                <div class="ds-cmp__head"><span class="ds-cmp__name">Обычный чип → S</span><span class="ds-cmp__where">кейсы, «Проекты» · <code>.fds-chip</code> → <code>.fds-chip--s</code></span><span class="ds-cmp__spec">размер тот же, меняется только имя</span></div>
+                <div class="ds-cmp__pair">
+                  <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><span class="fds-chips"><span class="fds-chip" data-t>брендинг</span><span class="fds-chip">упаковка</span></span></div></div>
+                  <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><span class="fds-chips"><span class="fds-chip ds-new-chip-s" data-t>брендинг</span><span class="fds-chip ds-new-chip-s">упаковка</span></span></div></div>
+                </div>
+                <div class="ds-cmp__delta" data-delta></div>
+              </div>
+
+              <div class="ds-cmp">
+                <div class="ds-cmp__head"><span class="ds-cmp__name">Чип в карточке человека → S</span><span class="ds-cmp__where">«О нас» · <code>.fds-person__meta .fds-chip</code></span><span class="ds-cmp__spec">0.68 → 0.7 (+3%); правило для английской версии уходит</span></div>
+                <div class="ds-cmp__pair">
+                  <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><div class="fds-person__meta"><span class="fds-chip" data-t>сооснователь</span></div></div></div>
+                  <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><span class="fds-chip ds-new-chip-s" data-t>сооснователь</span></div></div>
+                </div>
+                <div class="ds-cmp__delta" data-delta></div>
+              </div>
+
+              <div class="ds-cmp">
+                <div class="ds-cmp__head"><span class="ds-cmp__name">Бейдж «скоро» → M</span><span class="ds-cmp__where">карточка проекта · <code>.fds-chip--soon</code> → <code>.fds-chip</code></span><span class="ds-cmp__spec">десктоп 0.8 → 0.8 · мобила 0.9 → 1 (+11%)</span></div>
+                <div class="ds-cmp__pair">
+                  <div><div class="ds-cmp__label">сейчас <span data-px></span></div><div class="ds-cmp__sample" data-m="now"><span class="fds-chip fds-chip--soon" data-t>скоро</span></div></div>
+                  <div><div class="ds-cmp__label">станет <span data-px></span></div><div class="ds-cmp__sample" data-m="new"><span class="fds-chip ds-new-chip-m" data-t>скоро</span></div></div>
+                </div>
+                <div class="ds-cmp__delta" data-delta></div>
+              </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2-space">
+              <h2>2.0: отступы</h2>
+              <p class="ds-text">Одна шкала на всё: спейсеры, зазоры сетки, поля страницы. Ступени 0.25, 0.5, 1, 2, 3, 5 от базы. Сейчас зазор сетки 0.5 не попадает ни в одну ступень спейсеров. Поэтому прежний <code>xs</code> становится <code>2xs</code>, а 0.5 занимает <code>xs</code>.</p>
+              <p class="ds-text">Класс <code>fds-space</code> без модификатора станет M. Там, где сейчас стоит голый <code>fds-space</code> (а это S), добавится <code>--s</code>, и на вид ничего не изменится.</p>
+              <div class="ds-legend"><span><i></i>сейчас</span><span><i class="is-new"></i>станет</span></div>
+              <div class="ds-scale">
+                <div class="ds-scale__item"><b>xs → 2xs</b><div class="ds-scale__bars"><span class="ds-scale__bar" style="height: calc(var(--fds-density) * 0.2rem)"></span><span class="ds-scale__bar ds-scale__bar--new" style="height: 0.25rem"></span></div><span class="ds-scale__note">0.26 → 0.25</span></div>
+                <div class="ds-scale__item"><b>xs</b><div class="ds-scale__bars"><span class="ds-scale__bar" style="height: 0.5rem"></span><span class="ds-scale__bar ds-scale__bar--new" style="height: 0.5rem"></span></div><span class="ds-scale__note">зазор сетки и поле на мобиле, 0.5</span></div>
+                <div class="ds-scale__item"><b>s</b><div class="ds-scale__bars"><span class="ds-scale__bar" style="height: calc(var(--fds-density) * 0.7rem)"></span><span class="ds-scale__bar ds-scale__bar--new" style="height: 1rem"></span></div><span class="ds-scale__note">0.91 → 1 (+10%)</span></div>
+                <div class="ds-scale__item"><b>m</b><div class="ds-scale__bars"><span class="ds-scale__bar" style="height: calc(var(--fds-density) * 1.4rem)"></span><span class="ds-scale__bar ds-scale__bar--new" style="height: 2rem"></span></div><span class="ds-scale__note">1.82 → 2 (+10%); зазор между цитатами 2 уже здесь</span></div>
+                <div class="ds-scale__item"><b>l</b><div class="ds-scale__bars"><span class="ds-scale__bar" style="height: calc(var(--fds-density) * 2.4rem)"></span><span class="ds-scale__bar ds-scale__bar--new" style="height: 3rem"></span></div><span class="ds-scale__note">3.12 → 3 (−4%); ряды команды 3 уже здесь</span></div>
+                <div class="ds-scale__item"><b>xl</b><div class="ds-scale__bars"><span class="ds-scale__bar" style="height: calc(var(--fds-density) * 4rem)"></span><span class="ds-scale__bar ds-scale__bar--new" style="height: 5rem"></span></div><span class="ds-scale__note">5.2 → 5 (−4%)</span></div>
+              </div>
+              <table class="ds-table">
+                <thead><tr><th>Что</th><th>Сейчас</th><th>Станет</th></tr></thead>
+                <tbody>
+                  <tr><td>Зазор сетки <code>--gap-s</code></td><td>0.5</td><td><code>--gap-xs</code>, 0.5</td></tr>
+                  <tr><td>Зазор между колонками цитат <code>--gap-l</code></td><td>2</td><td><code>--gap-m</code>, 2</td></tr>
+                  <tr><td>Ряды команды <code>--rows</code></td><td>3, на мобиле 2.5</td><td><code>--row-gap-l</code>, 3 везде (на мобиле +20%)</td></tr>
+                  <tr><td>Поле страницы у сеток</td><td>1, на мобиле 0.5</td><td><code>s</code> / <code>xs</code>, без изменений</td></tr>
+                  <tr><td>Поле страницы у текста на мобиле</td><td>0.78 (на 0.28 шире, чем у сеток)</td><td><code>xs</code> 0.5: текст встаёт ровно по краю картинок</td></tr>
+                </tbody>
+              </table>
+              <h3 class="ds-shots-title">Поле у текста на телефоне: кейс «Ким-чипсы», 390px. Оранжевая линия — край картинок</h3>
+              <div class="ds-shots__row" style="grid-template-columns: repeat(2, minmax(0, 18rem))">
+                <figure><img src="images/design-system/edge-kim-chips-now.jpg" alt="" loading="lazy"><figcaption>сейчас: текст и чипы на 5px правее картинок</figcaption></figure>
+                <figure><img src="images/design-system/edge-kim-chips-new.jpg" alt="" loading="lazy"><figcaption>станет: всё по одной линии</figcaption></figure>
+              </div>
+              <p class="ds-text">На главной текст уже стоит по краю картинок, разница только на страницах с узкой колонкой текста: кейсы и вакансии.</p>
+              <p class="ds-text">Внутренние поля компонентов (чипа, кнопки, тултипа) остаются частью размера компонента, как у плашек.</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2-radius">
+              <h2>2.0: скругления</h2>
+              <p class="ds-text">0.8 и 1 почти неотличимы, сливаю их в одну ступень. Имена сдвигаются так, чтобы M был самым частым скруглением, у карточки проекта. Круглый аватар тоже становится <code>pill</code>: на квадрате это круг, отдельное значение 50% не нужно.</p>
+              <div class="ds-legend"><span><i></i>сейчас</span><span><i class="is-new"></i>станет</span></div>
+              <div class="ds-scale">
+                <div class="ds-scale__item"><b>xs → xs</b><div class="ds-scale__bars"><span class="ds-scale__box" style="border-radius: 0.2rem"></span><span class="ds-scale__box ds-scale__box--new" style="border-radius: 0.2rem"></span></div><span class="ds-scale__note">0.2: code, aside, плотная галерея</span></div>
+                <div class="ds-scale__item"><b>s → s</b><div class="ds-scale__bars"><span class="ds-scale__box" style="border-radius: 0.8rem"></span><span class="ds-scale__box ds-scale__box--new" style="border-radius: 1rem"></span></div><span class="ds-scale__note">0.8 → 1: мелкие картинки в галерее кейса</span></div>
+                <div class="ds-scale__item"><b>m → s</b><div class="ds-scale__bars"><span class="ds-scale__box" style="border-radius: 1rem"></span><span class="ds-scale__box ds-scale__box--new" style="border-radius: 1rem"></span></div><span class="ds-scale__note">1: тултип, этап и фото на мобиле, без изменений</span></div>
+                <div class="ds-scale__item"><b>l → m</b><div class="ds-scale__bars"><span class="ds-scale__box" style="border-radius: 1.4rem"></span><span class="ds-scale__box ds-scale__box--new" style="border-radius: 1.4rem"></span></div><span class="ds-scale__note">1.4: карточка проекта, фото человека; только имя</span></div>
+                <div class="ds-scale__item"><b>xl → l</b><div class="ds-scale__bars"><span class="ds-scale__box" style="border-radius: 2rem"></span><span class="ds-scale__box ds-scale__box--new" style="border-radius: 2rem"></span></div><span class="ds-scale__note">2: этап, фото пространства; только имя</span></div>
+                <div class="ds-scale__item"><b>pill</b><div class="ds-scale__bars"><span class="ds-scale__box" style="border-radius: 100rem"></span><span class="ds-scale__box ds-scale__box--new" style="border-radius: 100rem"></span></div><span class="ds-scale__note">чипы, кнопка, аватар</span></div>
+              </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2-tablet">
+              <h2>2.0: планшеты</h2>
+              <p class="ds-text">Весь сайт измеряется от базы, размера шрифта страницы. База зависит от ширины окна. На графике видно, как она ведёт себя сейчас и в двух вариантах. Отмечены ширины реальных устройств.</p>
+              <div class="ds-demo"><svg class="ds-chart" data-chart viewBox="0 0 760 340" role="img" aria-label="База страницы в зависимости от ширины окна"></svg></div>
+              <div class="ds-legend"><span><i class="ds-chart-key ds-chart-key--now"></i>сейчас</span><span><i class="ds-chart-key ds-chart-key--a"></i>A: только поднять базу</span><span><i class="ds-chart-key ds-chart-key--b"></i>B: база выше, шапка-бургер до 1024 (рекомендую)</span></div>
+              <div data-tablet-body>
+                <table class="ds-table ds-base-table" data-base-table></table>
+                <p class="ds-text"><b>Что сейчас.</b> На 767px база 32px, на 769px уже 11px: текст за два пикселя уменьшается втрое. На iPad mini (744) поэтому огромный текст. На 768px гибрид: мобильная раскладка с десктопной базой (⚠︎ в таблице). На iPad (820) и телефоне лёжа (932) био команды около 8px.</p>
+                <p class="ds-text"><b>Почему нельзя просто поднять базу.</b> Её держит шапка: логотип растёт от ширины окна, а меню от базы. Если поднять базу до 14px, на 820–932px меню наезжает на логотип. Вариант A поднимает её только до 12.5px, на сколько пускает шапка. Текст на планшетах становится крупнее примерно на 12%.</p>
+                <p class="ds-text"><b>Вариант B, рекомендую.</b> Граница раскладки остаётся 768. На всех ширинах до 1024 шапка складывается в бургер, как на телефоне: у шапки появляется своя граница, потому что меню не помещается. Тогда база на десктопе начинается с 14px, и текст на iPad крупнее нынешнего примерно на четверть. С 1025px шапка обычная и помещается. Обе версии чинят iPad mini и 768px: там мобильная раскладка с базой 20px.</p>
+                <p class="ds-text">Вариант «до 1024 вся раскладка мобильная» тоже проверен и отброшен. На 932–1024 мобильная вёрстка расползается: строки в вакансиях по 120 знаков, фото команды по 500px. И на 1025px остаётся скачок базы 20 → 15px.</p>
+                <div class="ds-shots">
+                <h4 class="ds-shots-title">744px · iPad mini, вертикально · главная, верх</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-index-top-744.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-index-top-744.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-index-top-744.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">744px · iPad mini, вертикально · «О нас», команда</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-about-grid-744.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-about-grid-744.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-about-grid-744.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">768px · старый iPad, вертикально · главная, верх</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-index-top-768.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-index-top-768.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-index-top-768.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">768px · старый iPad, вертикально · «О нас», команда</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-about-grid-768.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-about-grid-768.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-about-grid-768.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">820px · iPad, вертикально · главная, верх</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-index-top-820.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-index-top-820.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-index-top-820.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">820px · iPad, вертикально · «О нас», команда</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-about-grid-820.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-about-grid-820.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-about-grid-820.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">932px · большой телефон, горизонтально · главная, верх</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-index-top-932.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-index-top-932.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-index-top-932.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">932px · большой телефон, горизонтально · «О нас», команда</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-about-grid-932.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-about-grid-932.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-about-grid-932.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">1180px · iPad, горизонтально · главная, верх</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-index-top-1180.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-index-top-1180.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-index-top-1180.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                <h4 class="ds-shots-title">1180px · iPad, горизонтально · «О нас», команда</h4>
+                <div class="ds-shots__row"><figure><img src="images/design-system/tablet-now-about-grid-1180.jpg" alt="" loading="lazy"><figcaption>сейчас</figcaption></figure><figure><img src="images/design-system/tablet-a2-about-grid-1180.jpg" alt="" loading="lazy"><figcaption>A</figcaption></figure><figure><img src="images/design-system/tablet-c-about-grid-1180.jpg" alt="" loading="lazy"><figcaption>B</figcaption></figure></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <section class="ds-section" id="v2-decisions">
+              <h2>2.0: решения</h2>
+              <p class="ds-text">Согласовано 17 октября 2026.</p>
+              <ol class="ds-rules">
+                <li><b>H4 есть.</b> Уровень 1.25 (на мобиле 1.1) для текста цитат и «Как мы работаем» на главной.</li>
+                <li><b>H1 весом 700.</b> В системе три веса: regular 400, medium 500, bold 700.</li>
+                <li><b>Мобильные H2 1.8 и H3 1.3</b>, со сдвигами из таблицы выше.</li>
+                <li><b>Подпись 0.75 на всех ширинах.</b> На мобиле в долях базы сжимаются только заголовки: мелкий текст дальше уменьшать нельзя.</li>
+                <li><b>Поле у текста на мобиле 0.5</b>, как у сеток: текст и картинки по одному краю.</li>
+                <li><b>Планшеты: вариант B.</b> Шапка складывается в бургер до 1024px, база на десктопе не меньше 14px.</li>
+              </ol>
             </section>
 
             <!-- ============================================================ -->
@@ -581,6 +1052,7 @@
       </div>
     </main>
     <div data-fds-footer></div>
+    <div class="ds-env" data-env aria-hidden="true"></div>
 
     <script src="js/page-transition.js"></script>
     <script src="js/site-dictionary.js"></script>
@@ -609,6 +1081,111 @@
           });
         }, { rootMargin: '-20% 0px -70% 0px' });
         sections.forEach(function (s) { observer.observe(s); });
+      })();
+    </script>
+    <script>
+      // Base font size against window width: now and the tablet variants.
+      (function () {
+        var svg = document.querySelector('[data-chart]');
+        if (!svg) return;
+        var NS = 'http://www.w3.org/2000/svg';
+        var W = 760, H = 340, L = 40, R = 16, T = 14, B = 46;
+        var X0 = 320, X1 = 2560, YMAX = 34;
+        var ramp = function (w, w0, w1, v0, v1) { return w <= w0 ? v0 : w >= w1 ? v1 : v0 + (v1 - v0) * (w - w0) / (w1 - w0); };
+        var variants = [
+          { key: 'now', base: function (w) { return w < 768 ? ramp(w, 320, 768, 14, 32) : ramp(w, 768, 1500, 11, 22.5); } },
+          { key: 'a', base: function (w) { return w <= 768 ? ramp(w, 320, 480, 14, 20) : ramp(w, 768, 1500, 12.5, 22.5); } },
+          { key: 'b', base: function (w) { return w <= 768 ? ramp(w, 320, 480, 14, 20) : ramp(w, 768, 1500, 14, 22.5); } }
+        ];
+        var devices = [[390, 'iPhone'], [744, 'iPad mini'], [820, 'iPad'], [932, 'телефон лёжа'], [1180, 'iPad лёжа'], [1440, 'ноутбук'], [1920, 'монитор']];
+        var x = function (w) { return L + Math.log(w / X0) / Math.log(X1 / X0) * (W - L - R); };
+        var y = function (px) { return T + (1 - px / YMAX) * (H - T - B); };
+        var el = function (name, attrs, text) {
+          var n = document.createElementNS(NS, name);
+          for (var k in attrs) n.setAttribute(k, attrs[k]);
+          if (text) n.textContent = text;
+          svg.appendChild(n);
+          return n;
+        };
+        [10, 20, 30].forEach(function (px) {
+          el('line', { x1: L, x2: W - R, y1: y(px), y2: y(px), 'class': 'ds-chart__grid' });
+          el('text', { x: L - 6, y: y(px) + 4, 'text-anchor': 'end' }, px + 'px');
+        });
+        devices.forEach(function (d, i) {
+          el('line', { x1: x(d[0]), x2: x(d[0]), y1: T, y2: H - B, 'class': 'ds-chart__device' });
+          el('text', { x: x(d[0]), y: H - B + 14 + (i % 2) * 13, 'text-anchor': 'middle' }, d[1] + ' ' + d[0]);
+        });
+        variants.forEach(function (v) {
+          var d = '', prev = null;
+          for (var w = X0; w <= X1; w += 1) {
+            var px = v.base(w);
+            d += (prev === null || Math.abs(px - prev) > 1 ? 'M' : 'L') + x(w).toFixed(1) + ' ' + y(px).toFixed(1) + ' ';
+            prev = px;
+          }
+          el('path', { d: d, 'class': 'ds-chart__line ds-chart__line--' + v.key });
+        });
+
+        var table = document.querySelector('[data-base-table]');
+        if (table) {
+          var widths = [390, 744, 768, 820, 932, 1024, 1180, 1440];
+          var names = { now: 'сейчас', a: 'A', b: 'B' };
+          var html = '<thead><tr><th>ширина</th>' + widths.map(function (w) { return '<th>' + w + '</th>'; }).join('') + '</tr></thead><tbody>';
+          variants.forEach(function (v) {
+            html += '<tr><td>' + names[v.key] + '</td>' + widths.map(function (w) {
+              var px = v.base(w).toFixed(1);
+              return '<td>' + (v.key === 'now' && w === 768 ? px + ' ⚠︎' : px) + '</td>';
+            }).join('') + '</tr>';
+          });
+          table.innerHTML = html + '</tbody>';
+        }
+      })();
+
+      // Live sizes: for each pair, the rendered size of the marked text in
+      // px and in units of the page base, and the change between them.
+      (function () {
+        var env = document.querySelector('[data-env]');
+
+        function read(el) {
+          var cs = getComputedStyle(el);
+          var fs = parseFloat(cs.fontSize);
+          var lh = cs.lineHeight === 'normal' ? null : parseFloat(cs.lineHeight) / fs;
+          return { fs: fs, w: cs.fontWeight, lh: lh };
+        }
+
+        function fmt(v, root) {
+          return '<b>' + v.fs.toFixed(1) + 'px</b> · ' + (v.fs / root).toFixed(2) + ' · вес ' + v.w;
+        }
+
+        function update() {
+          var root = parseFloat(getComputedStyle(document.documentElement).fontSize);
+          var w = window.innerWidth;
+          env.textContent = w + 'px · база ' + root.toFixed(1) + 'px · ' + (w <= 768 ? 'мобила' : 'десктоп');
+
+          document.querySelectorAll('.ds-cmp').forEach(function (cmp) {
+            var now = cmp.querySelector('[data-m="now"] [data-t]');
+            var nu = cmp.querySelector('[data-m="new"] [data-t]');
+            if (!now || !nu) return;
+            var a = read(now);
+            var b = read(nu);
+            cmp.querySelectorAll('[data-m]').forEach(function (side) {
+              var t = side.querySelector('[data-t]');
+              var label = side.parentElement.querySelector('[data-px]');
+              if (t && label) label.innerHTML = '· ' + fmt(read(t), root);
+            });
+            var pct = Math.round((b.fs / a.fs - 1) * 100);
+            var parts = [];
+            parts.push(pct === 0 ? 'размер тот же' : 'размер ' + (pct > 0 ? '+' : '−') + Math.abs(pct) + '%');
+            if (a.w !== b.w) parts.push('вес ' + a.w + ' → ' + b.w);
+            var same = pct === 0 && a.w === b.w;
+            cmp.classList.toggle('is-same', same);
+            cmp.querySelector('[data-delta]').innerHTML =
+              '<span class="fds-chip">' + (same ? 'на этой ширине без изменений' : parts.join(', ')) + '</span>';
+          });
+        }
+
+        window.addEventListener('resize', update);
+        document.fonts.ready.then(update);
+        update();
       })();
     </script>
   </body>

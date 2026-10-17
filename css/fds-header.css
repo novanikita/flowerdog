@@ -150,7 +150,12 @@ header.is-hidden {
   color: var(--fds-accent);
 }
 
-@media (width <= 768px) {
+/*
+ * The header folds into the burger up to 1024px, its own border apart from
+ * the 768px layout one: below it the menu does not fit next to the logo.
+ * js/header-scroll.js uses the same number.
+ */
+@media (width <= 1024px) {
   body.has-menu-open {
     overflow: hidden;
   }

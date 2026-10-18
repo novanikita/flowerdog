@@ -16,6 +16,7 @@ rsync -a \
   --exclude 'robots.preview.txt' \
   --exclude '.cursor' \
   --exclude 'docs' \
+  --exclude 'CLAUDE.md' \
   --exclude '/how-we-work.html' \
   --exclude '/audit.html' \
   --exclude '/bandlink.html' \

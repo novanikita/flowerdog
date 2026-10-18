@@ -17,6 +17,7 @@ rsync -a \
   --exclude 'CNAME' \
   --exclude '.cursor' \
   --exclude 'docs' \
+  --exclude 'CLAUDE.md' \
   "$ROOT/" "$SITE_DIR/"
 
 cp "$ROOT/robots.preview.txt" "$SITE_DIR/robots.txt"

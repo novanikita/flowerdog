@@ -66,6 +66,7 @@
   /* Spec table: name, live sample, values. */
   .ds-table {
     width: 100%;
+    overflow-wrap: normal;
     border-collapse: collapse;
     margin: 0 0 calc(var(--fds-density) * 1em);
     font-size: 0.85em;
@@ -108,7 +109,7 @@
     margin: 0 0 calc(var(--fds-density) * 1em);
     padding: 1em 1.2em;
     overflow-x: auto;
-    border-radius: var(--fds-radius-m);
+    border-radius: var(--fds-radius-s);
     background: var(--fds-surface-faint);
     color: var(--fds-text);
     font-size: 0.8em;
@@ -125,7 +126,7 @@
   }
 
   .ds-swatch {
-    border-radius: var(--fds-radius-m);
+    border-radius: var(--fds-radius-s);
     border: 1px solid var(--fds-line);
     overflow: hidden;
     font-size: 0.8em;
@@ -167,7 +168,7 @@
 
   .ds-demo--inverse {
     padding: 1.5em;
-    border-radius: var(--fds-radius-m);
+    border-radius: var(--fds-radius-s);
     background: var(--fds-inverse-bg);
     color: var(--fds-inverse-text);
   }
@@ -223,166 +224,82 @@
   }
 }
 
-/*
- * FDS 2.0 review: "now / new" pairs, the proposed type ladder (ds-new-*),
- * spacing and radius pairs, the base size chart and device shots. Lives
- * on this page while 2.0 moves onto the site, then becomes the changelog.
- */
+/* Doc pieces: the type ladder, the spacing bars, the tooltip in the flow. */
 @layer pages {
-  .ds-new-h1 { font-size: 3rem; line-height: 1; font-weight: 700; }
-  .ds-new-h2 { font-size: 2rem; line-height: 1.05; font-weight: 700; }
-  .ds-new-h3 { font-size: 1.5rem; line-height: 1.15; font-weight: 700; }
-  .ds-new-h4 { font-size: 1.25rem; line-height: 1.2; font-weight: 700; }
-  .ds-new-text { font-size: 1rem; line-height: 1.3; font-weight: 400; }
-  .ds-new-caption { font-size: 0.75rem; line-height: 1.25; font-weight: 400; }
-  .ds-new-chip-s { font-size: 0.7rem; }
-  .ds-new-chip-m { font-size: 0.8rem; padding: 0.15em 0.7em; }
-
-  @media (width <= 768px) {
-    .ds-new-h1 { font-size: 2rem; }
-    .ds-new-h2 { font-size: 1.8rem; }
-    .ds-new-h3 { font-size: 1.3rem; }
-    .ds-new-h4 { font-size: 1.1rem; }
-    .ds-new-chip-s { font-size: 0.9rem; }
-    .ds-new-chip-m { font-size: 1rem; }
+  .ds-content code {
+    font-size: 0.9em;
   }
 
-  .ds-new--regular { font-weight: 400; }
-  .ds-new--medium { font-weight: 500; }
-  .ds-new--bold { font-weight: 700; }
-
-  /* Comparison block: a head line, then "now" and "new" side by side. */
-  .ds-cmp {
-    padding: 1.2em 0 1.4em;
-    border-top: 1px solid var(--fds-line);
+  .ds-ladder {
+    margin: 0 0 2em;
   }
 
-  .ds-cmp__head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.3em 1em;
-    margin-bottom: 0.8em;
-    font-size: 0.85rem;
-  }
-
-  .ds-cmp__name { font-weight: 700; }
-  .ds-cmp__where, .ds-cmp__spec { color: var(--fds-text-muted); }
-
-  .ds-cmp__pair {
-    display: grid;
-    grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
-    gap: 2em;
-    align-items: start;
-  }
-
-  .ds-cmp__label {
-    margin-bottom: 0.5em;
-    font-size: 0.75rem;
-    color: var(--fds-text-muted);
-  }
-
-  .ds-cmp__label b { color: var(--fds-text); font-weight: 700; }
-
-  .ds-cmp__sample > *,
-  .ds-cmp__sample .fds-quote__content > * { margin: 0; }
-  .ds-cmp__sample .fds-header__right { margin: 0; justify-content: flex-start; }
-
-  /* The tooltip bubble without its positioning, so it can sit in the flow. */
-  .ds-tip-frame { display: inline-block; border-radius: var(--fds-radius-m); background: var(--fds-inverse-bg); }
-
-  .ds-cmp__delta {
-    margin-top: 0.8em;
-    font-size: 0.75rem;
-  }
-
-  .ds-cmp__delta .fds-chip { font-size: 1em; }
-  .ds-cmp.is-same .ds-cmp__delta .fds-chip { background: transparent; box-shadow: inset 0 0 0 1px var(--fds-line); }
-
-  .ds-cmp-group {
-    margin-top: 2.5em;
-  }
-
-  .ds-cmp-group__title {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.2em 1em;
-    margin-bottom: 0.4em;
-  }
-
-  .ds-cmp-group__title span { font-size: 0.85rem; font-weight: 400; color: var(--fds-text-muted); }
-
-  /* The new type ladder at a glance. */
-  .ds-ladder { margin: 0 0 2em; }
-  .ds-shots-title { margin: 1.5em 0 0.6em; font-size: 0.85rem; font-weight: 700; }
   .ds-ladder__row {
     display: grid;
-    grid-template-columns: 10em minmax(0, 1fr);
+    grid-template-columns: 12em minmax(0, 1fr);
     gap: 1.5em;
     align-items: baseline;
     padding: 0.8em 0;
     border-top: 1px solid var(--fds-line);
   }
-  .ds-ladder__meta { font-size: 0.75rem; color: var(--fds-text-muted); }
-  .ds-ladder__meta b { display: block; font-size: 1rem; color: var(--fds-text); }
-  .ds-ladder__samples > * { margin: 0; }
-  .ds-ladder__samples > * + * { margin-top: 0.3em; }
 
-  /* Spacing and radius pairs. */
-  .ds-scale { display: flex; flex-wrap: wrap; gap: 1.5em 2.5em; margin: 1em 0 2em; }
-  .ds-scale__item { display: flex; flex-direction: column; gap: 0.4em; font-size: 0.75rem; }
-  .ds-scale__bars { display: flex; gap: 0.5em; align-items: flex-start; }
-  .ds-scale__bar { width: 3rem; background: var(--fds-surface); border-radius: 2px; }
-  .ds-scale__bar--new { background: var(--fds-accent-muted); }
-  .ds-scale__box { width: 6rem; height: 4rem; background: var(--fds-surface); }
-  .ds-scale__box--new { background: var(--fds-accent-muted); }
-  .ds-scale__note { color: var(--fds-text-muted); max-width: 14em; }
+  .ds-ladder__meta {
+    font-size: var(--fds-type-caption);
+    color: var(--fds-text-muted);
+  }
 
-  .ds-legend { display: flex; flex-wrap: wrap; gap: 0.5em 1.5em; font-size: 0.75rem; margin-bottom: 1em; }
-  .ds-legend i { display: inline-block; width: 1em; height: 1em; vertical-align: -0.15em; margin-right: 0.4em; border-radius: 2px; background: var(--fds-surface); }
-  .ds-legend i.is-new { background: var(--fds-accent-muted); }
+  .ds-ladder__meta b {
+    display: block;
+    margin-bottom: 0.2em;
+    font-size: var(--fds-type-text);
+    color: var(--fds-text);
+  }
 
-  /* Base size chart. */
-  .ds-chart { display: block; width: 100%; max-width: 52rem; height: auto; color: var(--fds-text); }
-  .ds-chart text { font-size: 11px; fill: var(--fds-text-muted); }
-  .ds-chart .ds-chart__grid { stroke: var(--fds-line); stroke-width: 1; }
-  .ds-chart .ds-chart__device { stroke: var(--fds-line); stroke-dasharray: 2 3; }
-  .ds-chart .ds-chart__line { fill: none; stroke-width: 2.5; }
-  .ds-chart .ds-chart__line--now { stroke: var(--fds-text); }
-  .ds-chart .ds-chart__line--a { stroke: var(--fds-text-muted); stroke-dasharray: 6 4; }
-  .ds-chart .ds-chart__line--b { stroke: var(--fds-accent); }
-  .ds-legend i.chart-key { height: 0.25em; vertical-align: 0.25em; }
-  .ds-legend i.chart-key--now { background: var(--fds-text); }
-  .ds-legend i.chart-key--a { background: var(--fds-text-muted); }
-  .ds-legend i.chart-key--b { background: var(--fds-accent); }
+  .ds-ladder__samples > * {
+    margin: 0;
+  }
 
-  /* Device shots: now, A and B side by side. */
-  .ds-shots { margin: 1.5em 0 2.5em; }
-  .ds-shots__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1em; margin-bottom: 1em; }
-  .ds-shots__row figure { margin: 0; }
-  .ds-shots__row img { display: block; width: 100%; height: auto; border: 1px solid var(--fds-line); border-radius: var(--fds-radius-xs); }
-  .ds-shots__row figcaption { margin-top: 0.4em; font-size: 0.75rem; opacity: 1; color: var(--fds-text-muted); }
-  .ds-base-table td, .ds-base-table th { white-space: nowrap; }
+  .ds-ladder__samples > * + * {
+    margin-top: 0.3em;
+  }
 
-  /* Window size badge, always in view. */
-  .ds-env {
-    position: fixed;
-    left: 1rem;
-    bottom: 1rem;
-    z-index: var(--fds-z-tip);
-    padding: 0.4em 0.9em;
-    border-radius: var(--fds-radius-pill);
+  .ds-scale {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5em 2.5em;
+    margin: 1em 0 2em;
+  }
+
+  .ds-scale__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    max-width: 12em;
+    font-size: var(--fds-type-caption);
+  }
+
+  .ds-scale__bar {
+    width: 3rem;
+    background: var(--fds-surface);
+    border-radius: 2px;
+  }
+
+  .ds-scale__note {
+    color: var(--fds-text-muted);
+  }
+
+  /* The tooltip bubble without its positioning, so it can sit in the flow. */
+  .ds-tip-frame {
+    display: inline-block;
+    border-radius: var(--fds-radius-s);
     background: var(--fds-inverse-bg);
-    color: var(--fds-inverse-text);
-    font-size: 0.75rem;
-    pointer-events: none;
   }
 
   @media (width <= 768px) {
-    .ds-cmp__pair { grid-template-columns: minmax(0, 1fr); gap: 1.2em; }
-    .ds-ladder__row { grid-template-columns: minmax(0, 1fr); gap: 0.5em; }
-    .ds-env { left: 0.5rem; bottom: 0.5rem; }
+    .ds-ladder__row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.5em;
+    }
   }
-    
 }

@@ -18,21 +18,20 @@
   margin-bottom: 0;
 }
 
-.fds-quote .fds-lead + .fds-quote__lead {
+.fds-quote__text + .fds-quote__lead {
   margin-top: 1em;
 }
 
-.fds-quote .fds-lead {
+.fds-quote__text {
   margin-top: 0.6em;
   margin-bottom: 0;
-  font-size: 1.3em;
 }
 
-.fds-quote__lead + .fds-lead {
+.fds-quote__lead + .fds-quote__text {
   margin-top: 0.5em;
 }
 
-.fds-quote .fds-lead:first-child {
+.fds-quote__text:first-child {
   margin-top: 0;
 }
 
@@ -60,18 +59,18 @@
 }
 
 .fds-quote__name {
-  font-size: 1em;
-  font-weight: 700;
+  font-size: var(--fds-type-text);
+  font-weight: var(--fds-weight-bold);
 }
 
 .fds-quote__role {
-  font-weight: 400;
+  font-weight: var(--fds-weight-regular);
   color: var(--fds-text-muted);
 }
 
 .fds-quote--accent,
 .fds-quote--accent .fds-quote__lead,
-.fds-quote--accent .fds-lead,
+.fds-quote--accent .fds-quote__text,
 .fds-quote--accent .fds-quote__byline,
 .fds-quote--accent .fds-quote__name {
   color: var(--fds-accent);
@@ -79,22 +78,6 @@
 
 .fds-quote--accent .fds-quote__role {
   color: var(--fds-accent-muted);
-}
-
-@media (width <= 768px) {
-  [data-page="about"] p.fds-lead:not(.fds-cta),
-  [data-page="about"] .fds-quote .fds-lead:not(.fds-cta),
-  [data-page="how-we-work"] .fds-quote .fds-lead {
-    font-size: 1.1em;
-  }
-
-  .fds-quote__lead {
-    font-size: 1.5em;
-  }
-}
-
-html[data-lang="en"] .fds-quote__role {
-  font-size: 0.8em;
 }
 
 .fds-tip {
@@ -107,7 +90,7 @@ html[data-lang="en"] .fds-quote__role {
   pointer-events: none;
   transition: opacity var(--fds-duration-lazy) var(--fds-ease), visibility 0s linear var(--fds-duration-lazy);
   z-index: var(--fds-z-tip);
-  border-radius: var(--fds-radius-m);
+  border-radius: var(--fds-radius-s);
 }
 
 .fds-tip.is-visible {
@@ -121,7 +104,7 @@ html[data-lang="en"] .fds-quote__role {
   width: 17em;
   max-width: 17em;
   padding: 1em;
-  font-size: 1em;
+  font-size: var(--fds-type-text);
   color: var(--fds-inverse-text);
   white-space: pre-line;
 }
@@ -151,8 +134,6 @@ html[data-lang="en"] .fds-quote__role {
     width: 17em;
     max-width: 17em;
     padding: 0.8em 0.9em 0.7em 0.9em;
-    font-size: 0.86em;
-    line-height: 1.2;
   }
 
   .fds-tip--wide .fds-tip__text {
@@ -167,7 +148,7 @@ html[data-lang="en"] .fds-quote__role {
     width: calc(100% - 4em);
     max-width: none;
     z-index: var(--fds-z-menu-top);
-    border-radius: var(--fds-radius-m);
+    border-radius: var(--fds-radius-s);
     transform: translateX(-50%);
     transition: opacity var(--fds-duration-lazy) var(--fds-ease), visibility 0s linear var(--fds-duration-lazy);
   }

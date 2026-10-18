@@ -55,7 +55,7 @@
 
     if (project.badgeRu || project.badgeEn) {
       var badge = document.createElement('span');
-      badge.className = 'fds-chip fds-chip--soon';
+      badge.className = 'fds-chip';
       badge.setAttribute('data-i18n', '');
       badge.setAttribute('data-ru', project.badgeRu || project.badgeEn || '');
       badge.setAttribute('data-en', project.badgeEn || project.badgeRu || '');

@@ -21,7 +21,7 @@ fds-gallery, .fds-gallery {
     .fds-figure {
         flex: 0 0 calc((100% - var(--gap) * (var(--columns) - 1)) / var(--columns));
         overflow: hidden;
-        border-radius: var(--fds-radius-l);
+        border-radius: var(--fds-radius-m);
 
         a {
             display: block;

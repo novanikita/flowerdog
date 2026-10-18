@@ -32,12 +32,12 @@
   --fds-inverse-text: var(--fds-white);
   --fds-shadow: rgb(0 0 0 / 0.16);
 
-  /* Radius scale. Mobile overrides live on the components that need them. */
+  /* Radius scale, in clothing sizes; M is the project card. Mobile changes
+     live on the components that need them. */
   --fds-radius-xs: 0.2em;
-  --fds-radius-s: 0.8em;
-  --fds-radius-m: 1em;
-  --fds-radius-l: 1.4em;
-  --fds-radius-xl: 2em;
+  --fds-radius-s: 1em;
+  --fds-radius-m: 1.4em;
+  --fds-radius-l: 2em;
   --fds-radius-pill: 100em;
 
   /* Motion. */
@@ -59,14 +59,47 @@
   --fds-z-menu: 1200;
   --fds-z-menu-top: 1300;
 
+  /* Type ladder: H1–H4, text, caption. From the root, so a style looks the
+     same wherever it sits. Headings shrink on mobile, text and caption do not. */
+  --fds-type-h1: 3rem;
+  --fds-type-h2: 2rem;
+  --fds-type-h3: 1.5rem;
+  --fds-type-h4: 1.25rem;
+  --fds-type-text: 1rem;
+  --fds-type-caption: 0.75rem;
+  --fds-type-h1-leading: 1;
+  --fds-type-h2-leading: 1.05;
+  --fds-type-h3-leading: 1.15;
+  --fds-type-h4-leading: 1.2;
+  --fds-type-text-leading: 1.3;
+  --fds-type-caption-leading: 1.25;
+
+  /* Weights: three, named as in type. */
+  --fds-weight-regular: 400;
+  --fds-weight-medium: 500;
+  --fds-weight-bold: 700;
+
+  /* Spacing scale, in clothing sizes, from the root. New steps only at the
+     ends (3xs, 2xl), never between two existing ones. */
+  --fds-space-2xs: 0.25rem;
+  --fds-space-xs: 0.5rem;
+  --fds-space-s: 1rem;
+  --fds-space-m: 2rem;
+  --fds-space-l: 3rem;
+  --fds-space-xl: 5rem;
+
   /* Layout. */
-  --fds-gutter: 1em;
+  --fds-gutter: var(--fds-space-s);
   --fds-reveal-height: clamp(220px, 28vw, 380px);
 }
 
 @media (width <= 768px) {
   :root {
-    --fds-gutter: 0.5em;
+    --fds-type-h1: 2rem;
+    --fds-type-h2: 1.8rem;
+    --fds-type-h3: 1.3rem;
+    --fds-type-h4: 1.1rem;
+    --fds-gutter: var(--fds-space-xs);
     --fds-reveal-height: 14em;
   }
 }

@@ -4,12 +4,12 @@
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  border-radius: var(--fds-radius-l);
+  border-radius: var(--fds-radius-m);
   background-color: var(--fds-surface);
 }
 
 .fds-person__photo.fds-person__photo--soft {
-  border-radius: var(--fds-radius-xl);
+  border-radius: var(--fds-radius-l);
 }
 
 .fds-person__photo.fds-person__photo--hard {
@@ -27,20 +27,19 @@
   column-gap: 0.4em;
   row-gap: 0;
   margin-top: 0.75em;
-  font-size: 0.85em;
-  line-height: 1.12;
+  font-size: var(--fds-type-caption);
+  line-height: var(--fds-type-caption-leading);
 }
 
 .fds-person__name {
   margin: 0;
-  font-size: 1em;
+  font-size: inherit;
   line-height: inherit;
-  font-weight: 700;
+  font-weight: var(--fds-weight-bold);
   color: var(--fds-text);
 }
 
 .fds-person__meta .fds-chip {
-  font-size: 0.8em;
   margin: 0.1em 0 0;
 }
 
@@ -48,9 +47,9 @@ p.fds-person__bio {
   margin-top: 0.5em;
   margin-bottom: 0;
   padding-right: 0.5em;
-  font-size: 0.8em;
-  line-height: 1.25;
-  font-weight: 400;
+  font-size: var(--fds-type-caption);
+  line-height: var(--fds-type-caption-leading);
+  font-weight: var(--fds-weight-regular);
   color: var(--fds-text);
 }
 
@@ -60,14 +59,6 @@ p.fds-person__bio {
     align-items: flex-start;
     row-gap: 0.25em;
   }
-
-  p.fds-person__bio {
-    font-size: 0.7em;
-  }
-}
-
-html[data-lang="en"] .fds-person__meta .fds-chip {
-  font-size: 0.72em;
 }
 
 html[data-lang="en"] p.fds-person__bio {
@@ -77,7 +68,7 @@ html[data-lang="en"] p.fds-person__bio {
 .fds-avatar {
   width: 0.9em;
   height: 0.9em;
-  border-radius: 50%;
+  border-radius: var(--fds-radius-pill);
   overflow: hidden;
   display: inline-block;
 }
@@ -99,10 +90,6 @@ html[data-lang="en"] p.fds-person__bio {
   align-items: flex-end;
   vertical-align: text-bottom;
   margin-left: 0.2em;
-}
-
-p.fds-display.fds-display--avatars {
-  margin-bottom: 0;
 }
 
 .fds-avatars--start {
@@ -143,16 +130,12 @@ p.fds-credits {
 }
 
 .fds-credits {
-  font-weight: 400;
-}
-
-.fds-credits strong:not(.fds-credits__label) {
-  font-weight: 800;
+  font-weight: var(--fds-weight-regular);
 }
 
 .fds-credits__role {
   color: var(--fds-text-muted);
-  font-weight: 400;
+  font-weight: var(--fds-weight-regular);
 }
 
 @media (width <= 768px) {
@@ -176,9 +159,5 @@ p.fds-credits {
 
   .fds-avatars--start {
     margin-top: 0;
-  }
-
-  .fds-space.fds-space--avatars {
-    height: calc(var(--fds-density) * 0.7em);
   }
 }

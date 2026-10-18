@@ -1,31 +1,6 @@
 p {
   margin-top: 0;
   margin-bottom: calc(var(--fds-density) * 0.4em);
-  
-  &.fds-display {
-    font-size: 3em;
-    line-height: 1;
-    font-weight: 600;
-
-    @media (width <= 768px) {
-      font-size: 2em;
-    }
-  }
-
-  &.fds-lead {
-    font-size: 1.5em;
-    line-height: 1.2;
-    font-weight: 500;
-
-    @media (width <= 768px) {
-      font-size: 1.2em;
-    }
-  }
-
-  /* A step down from lead for a longer run of text, e.g. the index outro. */
-  &.fds-lead--s {
-    font-size: 1.2em;
-  }
 }
 
 h1,
@@ -35,75 +10,109 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-weight: 400;
 }
 
 /*
- * Heading styles. The tag says what a heading is, the class says how it
- * looks; a bare h1/h2/h3 falls back to title/heading/subheading.
+ * The type ladder: H1–H4, text, caption. The tag says what a thing is,
+ * the class says how it looks; a bare h1–h4 looks like its level. A
+ * heading's bottom margin follows its look, a paragraph keeps its own
+ * whatever style it is set in.
  */
 h1,
-.fds-title {
-  font-size: 2em;
-  font-weight: 700;
-  line-height: 0.9;
-  margin-bottom: 0.4em;
-}
-
-/* The index intro: a smaller, lighter title that reads as lead text on mobile. */
-.fds-title--intro {
-  font-size: 1.6em;
-  font-weight: 500;
-}
-
-/* The index outro: on mobile it sits at display size, so it takes display weight. */
-@media (width <= 768px) {
-  .fds-title--outro {
-    font-weight: 600;
-  }
+.fds-h1 {
+  font-size: var(--fds-type-h1);
+  line-height: var(--fds-type-h1-leading);
+  font-weight: var(--fds-weight-bold);
 }
 
 h2,
-.fds-heading {
-  font-size: 2em;
-  font-weight: 700;
-  line-height: calc(var(--fds-density) / 1.2);
-  margin-bottom: 0.5em;
-}
-
-.fds-heading--light {
-  font-weight: 500;
+.fds-h2 {
+  font-size: var(--fds-type-h2);
+  line-height: var(--fds-type-h2-leading);
+  font-weight: var(--fds-weight-bold);
 }
 
 h3,
-.fds-subheading {
-  font-size: 1.5em;
-  line-height: calc(var(--fds-density) / 1.1);
-  margin-bottom: 0.3em;
-  font-weight: 700;
+.fds-h3 {
+  font-size: var(--fds-type-h3);
+  line-height: var(--fds-type-h3-leading);
+  font-weight: var(--fds-weight-bold);
 }
 
 h4,
-h5,
-h6 {
-  font-size: 1em;
-  font-weight: 700;
-  line-height: var(--fds-density);
-  margin-bottom: 0.5em;
+.fds-h4 {
+  font-size: var(--fds-type-h4);
+  line-height: var(--fds-type-h4-leading);
+  font-weight: var(--fds-weight-bold);
 }
 
-/* The two small sizes: secondary lines and captions. */
-.fds-small {
-  font-size: 0.85em;
+h5,
+h6,
+.fds-text {
+  font-size: var(--fds-type-text);
+  line-height: var(--fds-type-text-leading);
+}
+
+h5,
+h6 {
+  font-weight: var(--fds-weight-bold);
 }
 
 .fds-caption {
-  font-size: 0.7em;
+  font-size: var(--fds-type-caption);
+  line-height: var(--fds-type-caption-leading);
+}
+
+h1,
+:is(h1, h2, h3, h4).fds-h1,
+h2,
+:is(h1, h2, h3, h4).fds-h2 {
+  margin-bottom: 0.4em;
+}
+
+h3,
+:is(h1, h2, h3, h4).fds-h3 {
+  margin-bottom: 0.3em;
+}
+
+h4,
+:is(h1, h2, h3, h4).fds-h4,
+h5,
+h6 {
+  margin-bottom: 0.5em;
+}
+
+/* Weight is a modifier of any ladder style. */
+.fds-h1--regular,
+.fds-h2--regular,
+.fds-h3--regular,
+.fds-h4--regular,
+.fds-text--regular,
+.fds-caption--regular {
+  font-weight: var(--fds-weight-regular);
+}
+
+.fds-h1--medium,
+.fds-h2--medium,
+.fds-h3--medium,
+.fds-h4--medium,
+.fds-text--medium,
+.fds-caption--medium {
+  font-weight: var(--fds-weight-medium);
+}
+
+.fds-h1--bold,
+.fds-h2--bold,
+.fds-h3--bold,
+.fds-h4--bold,
+.fds-text--bold,
+.fds-caption--bold {
+  font-weight: var(--fds-weight-bold);
 }
 
 strong,
 b {
-  font-weight: 600;
+  font-weight: var(--fds-weight-bold);
 }
 
 ul,
@@ -137,8 +146,8 @@ ol {
 }
 
 blockquote {
-  font-size: 1.4em;
-  line-height: var(--fds-density);
+  font-size: var(--fds-type-h4);
+  line-height: var(--fds-type-h4-leading);
   margin: 0;
   padding-left: calc(var(--fds-density) * 0.75em);
   margin-bottom: calc(var(--fds-density) * 1em);
@@ -161,10 +170,9 @@ aside {
 }
 
 code {
-  font-size: 0.9em;
   font-family: inherit;
   letter-spacing: 0.02em;
-  font-weight: 400;
+  font-weight: var(--fds-weight-regular);
   padding: 0.1em 0.25em;
   border-radius: var(--fds-radius-xs);
   color: var(--fds-text-muted);
@@ -176,8 +184,8 @@ figure {
 
   & figcaption {
     margin-top: calc(var(--fds-density) * 0.25em);
-    font-size: 0.85em;
-    line-height: var(--fds-density);
+    font-size: var(--fds-type-caption);
+    line-height: var(--fds-type-caption-leading);
     opacity: 0.7;
   }
 }
@@ -202,18 +210,4 @@ video{
   aspect-ratio: 16 / 9;
   width: 100%;
   height: auto;
-}
-
-@media (width <= 768px) {
-  h3,
-  .fds-subheading {
-    line-height: 1;
-  }
-
-  .fds-title--intro {
-    margin-top: 0;
-    font-size: 1.2em;
-    line-height: 1.2;
-    font-weight: 500;
-  }
 }

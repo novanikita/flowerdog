@@ -229,7 +229,7 @@
 
     tokens.forEach(function (t) {
       var chip = document.createElement('span');
-      chip.className = 'fds-chip';
+      chip.className = 'fds-chip fds-chip--s';
       setI18n(chip, t, translateTag(t));
       row.appendChild(chip);
     });
@@ -261,7 +261,7 @@
     var titleRu = normalizeNdaTitle(title);
     var titleEn = normalizeNdaTitle(resolveTitleEn(number, title));
     var heading = document.createElement('h2');
-    heading.className = 'fds-subheading';
+    heading.className = 'fds-h3';
     setI18n(heading, titleRu, titleEn);
     fragment.appendChild(heading);
 
@@ -345,7 +345,7 @@
       // Insert one base spacer before content projects (except the very first).
       if (idx > 0) {
         var beforeSpacer = document.createElement('div');
-        beforeSpacer.className = 'fds-space';
+        beforeSpacer.className = 'fds-space fds-space--s';
         wrapEl.parentNode.insertBefore(beforeSpacer, wrapEl);
       }
 
@@ -360,7 +360,7 @@
         scan = scan.nextElementSibling;
       }
       var afterSpacer = document.createElement('div');
-      afterSpacer.className = 'fds-space';
+      afterSpacer.className = 'fds-space fds-space--s';
       if (nextWrap) {
         wrapEl.parentNode.insertBefore(afterSpacer, nextWrap);
       } else {

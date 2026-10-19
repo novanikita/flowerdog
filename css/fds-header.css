@@ -243,7 +243,7 @@ header.is-hidden {
     visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
-    transition: opacity var(--fds-duration-base) var(--fds-ease), transform var(--fds-duration-base) var(--fds-ease);
+    transition: opacity var(--fds-duration-fast) var(--fds-ease), transform var(--fds-duration-fast) var(--fds-ease);
   }
 
   .fds-header.is-menu-open .fds-header__left {
@@ -281,7 +281,7 @@ header.is-hidden {
 
   .fds-header.is-menu-open .fds-header__nav,
   .fds-header.is-menu-open .fds-lang {
-    animation: mobile-menu-items-in var(--fds-duration-base) var(--fds-ease-out) both;
+    animation: mobile-menu-items-in var(--fds-duration-fast) var(--fds-ease) both;
   }
 
   .fds-header.is-menu-open .fds-header__nav .fds-header__link,

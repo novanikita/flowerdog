@@ -88,7 +88,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--fds-duration-lazy) var(--fds-ease), visibility 0s linear var(--fds-duration-lazy);
+  transition: opacity var(--fds-duration-slow) var(--fds-ease), visibility 0s linear var(--fds-duration-slow);
   z-index: var(--fds-z-tip);
   border-radius: var(--fds-radius-s);
 }
@@ -150,7 +150,7 @@
     z-index: var(--fds-z-menu-top);
     border-radius: var(--fds-radius-s);
     transform: translateX(-50%);
-    transition: opacity var(--fds-duration-lazy) var(--fds-ease), visibility 0s linear var(--fds-duration-lazy);
+    transition: opacity var(--fds-duration-slow) var(--fds-ease), visibility 0s linear var(--fds-duration-slow);
   }
 
   .fds-tip--aside.is-visible {

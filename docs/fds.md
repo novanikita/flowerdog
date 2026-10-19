@@ -64,14 +64,14 @@ M — обложка проекта.
 
 **Плашки.** `fds-chip` (M), `fds-chip--s`; ряд — `fds-chips`.
 
-**Цвет.** Палитра `--fds-blue|orange|white` и оттенки прозрачностью; в
+**Цвет.** Палитра `--fds-blue|orange|white` и оттенки 50% и 10%; в
 компонентах только смысловые токены: `--fds-text`, `--fds-text-muted`,
 `--fds-accent`, `--fds-accent-muted`, `--fds-bg`, `--fds-surface`,
-`--fds-surface-accent`, `--fds-surface-faint`, `--fds-line`, `--fds-inverse-bg`,
+`--fds-surface-accent`, `--fds-line`, `--fds-inverse-bg`,
 `--fds-inverse-text`, `--fds-shadow`. Синий — чернила, оранжевый — только реакция
 и акцентная цитата.
 
-**Движение и слои.** `--fds-duration-*`, `--fds-ease*`, `--fds-z-*`.
+**Движение.** `--fds-duration-fast` 0.2s, `--fds-duration-slow` 0.3s, одна кривая `--fds-ease`. Слои `--fds-z-*`.
 
 ## База и ширины
 
@@ -96,6 +96,6 @@ M — обложка проекта.
 
 `css/fds.css` — вход, каскадные слои `tokens, base, layout, text, components,
 pages, utilities`. Один компонент — один файл: `fds-chip`, `fds-header`,
-`fds-footer`, `fds-card`, `fds-person`, `fds-step`, `fds-quote`, `fds-gallery`,
+`fds-footer`, `fds-card`, `fds-person`, `fds-panel`, `fds-quote`, `fds-gallery`,
 `fds-case`. `css/design-system.css` — только для страницы документации, префикс
 `ds-`. История изменений — в git и в разделе «История» на `/design-system`.

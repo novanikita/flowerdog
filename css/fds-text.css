@@ -176,7 +176,7 @@ code {
   padding: 0.1em 0.25em;
   border-radius: var(--fds-radius-xs);
   color: var(--fds-text-muted);
-  background: var(--fds-surface-faint);
+  background: var(--fds-surface);
 }
 
 figure {

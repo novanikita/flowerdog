@@ -60,24 +60,55 @@
     margin-top: calc(var(--fds-density) * 1.4em);
   }
 
-  /* Wraps shown as filled bars, like the spacers. */
-  .ds-wraps {
+  /* A small grey line that names the thing in code, for developers. */
+  .ds-note {
+    max-width: 36em;
+    font-size: var(--fds-type-caption);
+    color: var(--fds-text-muted);
+  }
+
+  /* Column widths shown on a miniature screen. */
+  .ds-screens {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11em, 1fr));
+    gap: 1.5em 1em;
     margin: 0 0 calc(var(--fds-density) * 1em);
   }
 
-  .ds-wraps > * + * {
-    margin-top: 0.5em;
+  .ds-screen {
+    margin: 0;
   }
 
-  .ds-wraps .fds-wrap {
-    padding: 0;
+  .ds-screen__frame {
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 16 / 10;
+    padding: 0.6em 0;
+    border: 1px solid var(--fds-blue-50);
+    border-radius: var(--fds-radius-xs);
   }
 
-  .ds-fill {
-    padding: 0.6em 0.8em;
+  .ds-screen__frame--left {
+    justify-content: flex-start;
+    padding-left: 0.3em;
+  }
+
+  .ds-screen__frame span {
+    display: block;
     border-radius: 2px;
     background: var(--fds-surface);
+  }
+
+  .ds-screen figcaption {
+    margin-top: 0.5em;
     font-size: var(--fds-type-caption);
+    color: var(--fds-text-muted);
+    opacity: 1;
+  }
+
+  .ds-screen figcaption b {
+    display: block;
+    color: var(--fds-text);
   }
 
   .ds-section > h3 {

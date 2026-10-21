@@ -57,7 +57,7 @@
               <div class="fds-space"></div>
               <div class="ds-sub" id="names">
                 <h3>Как устроены названия</h3>
-                <p class="ds-text">У каждой детали есть одно название, по которому её находят и дизайнеры, и разработчики: плашка, карточка проекта, цитата, текстовая плашка.</p>
+                <p class="ds-text">У каждой детали есть одно название, по которому её находят и дизайнеры, и разработчики: плашка, карточка проекта, цитата.</p>
                 <p class="ds-text">Варианты одной детали отличаются ровно одним признаком:</p>
                 <ul class="ds-rules">
                   <li><b>размером</b> — плашка бывает обычной (M) и маленькой (S);</li>
@@ -132,13 +132,12 @@
                   <thead><tr><th>Ступень</th><th>Жирность</th><th>Где на сайте</th></tr></thead>
                   <tbody>
                     <tr><td>H1</td><td>жирный</td><td>манифест на главной, почта в подвале, пункты открытого меню на телефоне</td></tr>
-                    <tr><td>H2</td><td>жирный</td><td>название кейса и вакансии, разделы «О нас», заголовок карточки проекта и текстовой плашки, финальная фраза на главной</td></tr>
+                    <tr><td>H2</td><td>жирный</td><td>название кейса и вакансии, разделы «О нас», заголовок карточки проекта, финальная фраза на главной</td></tr>
                     <tr><td></td><td>средний</td><td>первая фраза цитаты основателя</td></tr>
                     <tr><td>H3</td><td>жирный</td><td>подзаголовки кейсов и вакансий, пункты шапки</td></tr>
                     <tr><td></td><td>средний</td><td>лиды, вступление на главной, ссылка-призыв, кнопка «Ещё проекты»</td></tr>
                     <tr><td>H4</td><td>средний</td><td>текст цитаты основателя, «Как мы работаем» на главной</td></tr>
                     <tr><td>Текст</td><td>обычный</td><td>абзацы, подсказки, ссылки в подвале</td></tr>
-                    <tr><td></td><td>средний</td><td>этап и срок в текстовой плашке</td></tr>
                     <tr><td></td><td>жирный</td><td>выделение в тексте, имена в кредитах и цитатах</td></tr>
                     <tr><td>Подпись</td><td>обычный</td><td>о себе в карточке человека, роли, данные кейса, юридический блок, подписи к картинкам</td></tr>
                     <tr><td></td><td>жирный</td><td>имя в карточке человека</td></tr>
@@ -157,7 +156,7 @@
                 <p class="ds-text">Все расстояния — между блоками страницы, между карточками в сетке, по краям экрана — берутся из одной шкалы. Размер указан в базах.</p>
                 <div class="ds-scale">
                   <div class="ds-scale__item"><b>2XS</b><span class="ds-scale__bar" style="height: var(--fds-space-2xs)"></span><span class="ds-scale__note">0,25</span></div>
-                  <div class="ds-scale__item"><b>XS</b><span class="ds-scale__bar" style="height: var(--fds-space-xs)"></span><span class="ds-scale__note">0,5 · между текстовыми плашками и фото, край экрана на телефоне</span></div>
+                  <div class="ds-scale__item"><b>XS</b><span class="ds-scale__bar" style="height: var(--fds-space-xs)"></span><span class="ds-scale__note">0,5 · между фото, край экрана на телефоне</span></div>
                   <div class="ds-scale__item"><b>S</b><span class="ds-scale__bar" style="height: var(--fds-space-s)"></span><span class="ds-scale__note">1 · край экрана на компьютере, от заголовка до текста</span></div>
                   <div class="ds-scale__item"><b>M</b><span class="ds-scale__bar" style="height: var(--fds-space-m)"></span><span class="ds-scale__note">2 · обычный отступ; между колонками цитат</span></div>
                   <div class="ds-scale__item"><b>L</b><span class="ds-scale__bar" style="height: var(--fds-space-l)"></span><span class="ds-scale__note">3 · между блоками кейса, между рядами команды</span></div>
@@ -195,13 +194,17 @@
               <div class="fds-space"></div>
               <div class="ds-sub" id="grid">
                 <h3>Сетка</h3>
-                <p class="ds-text">Карточки проектов, фото команды и текстовые плашки раскладываются по сетке из четырёх колонок; бывает сетка из трёх и из двух. Карточка занимает одну колонку, две или всю ширину. Расстояние между карточками берётся из шкалы отступов. На телефоне четыре колонки становятся двумя, а три и две — одной.</p>
+                <p class="ds-text">Карточки проектов и фото команды раскладываются по сетке из четырёх колонок; бывает сетка из трёх и из двух. Карточка занимает одну колонку, две или всю ширину. Расстояние между карточками берётся из шкалы отступов. На телефоне четыре колонки становятся двумя, а три и две — одной. Поэтому на телефоне карточка в две колонки и карточка во всю ширину выглядят одинаково.</p>
                 <div class="ds-demo">
                   <div class="fds-grid fds-grid--gap-xs ds-grid-demo">
-                    <div class="fds-grid__item fds-grid__item--l">две колонки</div>
-                    <div class="fds-grid__item">одна</div>
-                    <div class="fds-grid__item">одна</div>
-                    <div class="fds-grid__item fds-grid__item--xl">вся ширина</div>
+                    <div class="fds-grid__item">1 колонка</div>
+                    <div class="fds-grid__item">1 колонка</div>
+                    <div class="fds-grid__item">1 колонка</div>
+                    <div class="fds-grid__item">1 колонка</div>
+                    <div class="fds-grid__item fds-grid__item--l">2 колонки</div>
+                    <div class="fds-grid__item">1 колонка</div>
+                    <div class="fds-grid__item">1 колонка</div>
+                    <div class="fds-grid__item fds-grid__item--xl">вся ширина, 4 колонки</div>
                   </div>
                 </div>
               </div>
@@ -221,9 +224,9 @@
                   <thead><tr><th>Скругление</th><th>Где на сайте</th></tr></thead>
                   <tbody>
                     <tr><td>XS</td><td>врезки в тексте, плотные галереи</td></tr>
-                    <tr><td>S</td><td>мелкие картинки в галерее, подсказка; на телефоне текстовая плашка и фото пространства</td></tr>
+                    <tr><td>S</td><td>мелкие картинки в галерее, подсказка; на телефоне фото пространства</td></tr>
                     <tr><td>M</td><td>обложка проекта, фото человека, крупные картинки галереи</td></tr>
-                    <tr><td>L</td><td>текстовая плашка, фото пространства, мягкая обложка</td></tr>
+                    <tr><td>L</td><td>фото пространства, мягкая обложка</td></tr>
                     <tr><td>таблетка</td><td>плашки, кнопка, аватары, круглая обложка</td></tr>
                   </tbody>
                 </table>
@@ -327,14 +330,16 @@
                       </a>
                     </div>
                     <div class="fds-grid__item">
-                      <a class="fds-card" href="toolpar.html">
+                      <a class="fds-card" href="toolpar.html" data-cover-images="images/projects-cover/toolpar-cover.avif|images/projects-cover/toolpar-cover-2.avif|images/projects-cover/toolpar-cover-3.avif">
                         <div class="fds-card__cover fds-card__cover--round" style="background-image: url('images/projects-cover/toolpar-cover.avif');"></div>
+                        <div class="fds-card__strip" aria-hidden="true"><span class="fds-card__strip-segment is-active"></span><span class="fds-card__strip-segment"></span><span class="fds-card__strip-segment"></span></div>
                         <div class="fds-card__meta"><h5 class="fds-card__title fds-h2">Toolpar</h5><span class="fds-chip">скоро</span></div>
                       </a>
                     </div>
                     <div class="fds-grid__item">
-                      <a class="fds-card" href="rangos.html">
+                      <a class="fds-card" href="rangos.html" data-cover-images="images/projects-cover/rangos-cover-1.avif|images/projects-cover/rangos-cover-2.avif|images/projects-cover/rangos-cover-3.avif">
                         <div class="fds-card__cover fds-card__cover--hard" style="background-image: url('images/projects-cover/rangos-cover-1.avif');"></div>
+                        <div class="fds-card__strip" aria-hidden="true"><span class="fds-card__strip-segment is-active"></span><span class="fds-card__strip-segment"></span><span class="fds-card__strip-segment"></span></div>
                         <div class="fds-card__meta"><h5 class="fds-card__title fds-h2">Rangos</h5></div>
                       </a>
                     </div>
@@ -355,28 +360,6 @@
                       <div class="fds-person__meta"><h5 class="fds-person__name">Макс Новохатский</h5><span class="fds-chip fds-chip--s">сооснователь</span></div>
                       <p class="fds-person__bio">В студии отвечаю за подбор команды и арт-дирекшн проектов.</p>
                     </div>
-                  </div>
-                </div>
-
-                <h4>Текстовая плашка</h4>
-                <p class="ds-text">Карточка на синей подложке с текстом: сверху этап и срок, иллюстрация, заголовок и описание. Сейчас в таких плашках этапы работы, по три в ряд.</p>
-                <div class="ds-demo">
-                  <div class="fds-grid fds-grid--3 fds-grid--gap-xs">
-                    <article class="fds-panel">
-                      <div class="fds-panel__header"><p class="fds-panel__label">Этап 1</p><p class="fds-panel__duration">2 недели</p></div>
-                      <h5 class="fds-panel__title fds-h2">Разработка концепции</h5>
-                      <p class="fds-panel__text"><span class="fds-panel__text-lead">Собираем референсы,</span> пробуем направления, показываем три пути.</p>
-                    </article>
-                    <article class="fds-panel">
-                      <div class="fds-panel__header"><p class="fds-panel__label">Этап 2</p><p class="fds-panel__duration">3 недели</p></div>
-                      <h5 class="fds-panel__title fds-h2">Перенос на носители</h5>
-                      <p class="fds-panel__text">Упаковка, сайт, соцсети, наружка.</p>
-                    </article>
-                    <article class="fds-panel">
-                      <div class="fds-panel__header"><p class="fds-panel__label">Этап 3</p><p class="fds-panel__duration">1 неделя</p></div>
-                      <h5 class="fds-panel__title fds-h2">Собираем брендбук</h5>
-                      <p class="fds-panel__text">Правила, файлы, передача команде.</p>
-                    </article>
                   </div>
                 </div>
 

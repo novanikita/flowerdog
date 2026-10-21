@@ -66,7 +66,9 @@ H1 и H2 — `fds-space--xl`, H3 — `fds-space--l`, H4 — `fds-space` (M). Т�
 `--mobile-s` сохраняется. Карточки, имена людей и лиды-абзацы под правило не
 попадают: это не заголовки разделов.
 
-**Скругления.** `--fds-radius-xs|s|m|l|pill` = 0.2 / 1 / 1.4 / 2 em / 100em.
+**Скругления.** `--fds-radius-s|m|l` = 1 / 1.4 / 2 em. Отдельно `--fds-radius-pill`
+(100em) — круглые концы только для маленьких элементов: плашки, кнопка,
+аватары, полоска обложек; из больших — только круглая обложка.
 M — обложка проекта.
 
 **Плашки.** `fds-chip` (M), `fds-chip--s`; ряд — `fds-chips`.
@@ -103,6 +105,6 @@ M — обложка проекта.
 
 `css/fds.css` — вход, каскадные слои `tokens, base, layout, text, components,
 pages, utilities`. Один компонент — один файл: `fds-chip`, `fds-header`,
-`fds-footer`, `fds-card`, `fds-person`, `fds-panel`, `fds-quote`, `fds-gallery`,
+`fds-footer`, `fds-card`, `fds-person`, `fds-quote`, `fds-gallery`,
 `fds-case`. `css/design-system.css` — только для страницы документации, префикс
 `ds-`. История изменений — в git и в разделе «История» на `/design-system`.

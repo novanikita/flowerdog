@@ -85,7 +85,7 @@
     aspect-ratio: 16 / 10;
     padding: 0.6em 0;
     border: 1px solid var(--fds-blue-50);
-    border-radius: var(--fds-radius-xs);
+    border-radius: var(--fds-radius-s);
   }
 
   .ds-screen__frame--left {
@@ -217,7 +217,7 @@
 
   .ds-demo .fds-space {
     background: var(--fds-surface);
-    border-radius: var(--fds-radius-xs);
+    border-radius: var(--fds-radius-s);
   }
 
   .ds-grid-demo > * {
@@ -227,7 +227,7 @@
     justify-content: center;
     background: var(--fds-surface);
     border: 1px solid var(--fds-bg);
-    border-radius: var(--fds-radius-xs);
+    border-radius: var(--fds-radius-s);
     font-size: 0.8em;
   }
 
@@ -259,7 +259,7 @@
     display: inline-block;
     width: 3em;
     height: 1.2em;
-    border-radius: var(--fds-radius-xs);
+    border-radius: var(--fds-radius-s);
     background: var(--fds-text);
     vertical-align: middle;
     transition: transform var(--ds-duration, 0.3s) var(--ds-ease, ease);

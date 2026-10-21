@@ -161,7 +161,7 @@ aside {
   padding-right: calc(var(--fds-density) * 1.5em);
   padding-bottom: calc(var(--fds-density) * 0.4em);
   padding-left: calc(var(--fds-density) * 0.5em);
-  border-radius: var(--fds-radius-xs);
+  border-radius: var(--fds-radius-s);
 
   code {
     background: none;
@@ -174,7 +174,7 @@ code {
   letter-spacing: 0.02em;
   font-weight: var(--fds-weight-regular);
   padding: 0.1em 0.25em;
-  border-radius: var(--fds-radius-xs);
+  border-radius: var(--fds-radius-s);
   color: var(--fds-text-muted);
   background: var(--fds-surface);
 }

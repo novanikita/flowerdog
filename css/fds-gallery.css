@@ -120,12 +120,12 @@ video.has-sound-toggle {
 
 /* Tight corners: every figure on mobile, --tight figures always. */
 .fds-gallery .fds-figure--tight {
-  border-radius: var(--fds-radius-xs);
+  border-radius: var(--fds-radius-s);
 }
 
 @media (width <= 768px) {
   .fds-gallery.fds-gallery--tight .fds-figure {
-    border-radius: var(--fds-radius-xs);
+    border-radius: var(--fds-radius-s);
   }
 }
 

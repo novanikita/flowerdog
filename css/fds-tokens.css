@@ -31,7 +31,6 @@
 
   /* Radius scale, in clothing sizes; M is the project card. Mobile changes
      live on the components that need them. */
-  --fds-radius-xs: 0.2em;
   --fds-radius-s: 1em;
   --fds-radius-m: 1.4em;
   --fds-radius-l: 2em;

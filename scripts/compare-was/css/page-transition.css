@@ -1,0 +1,86 @@
+html.is-page-enter-prep body {
+  opacity: 0;
+  transform: translateY(0.35em);
+}
+
+html.is-page-entering body {
+  animation: fd-page-enter 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html.is-page-leaving body {
+  animation: fd-page-leave 0.28s cubic-bezier(0.4, 0, 0.2, 1) both;
+  pointer-events: none;
+}
+
+@keyframes fd-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fd-page-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-0.25em);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.is-page-enter-prep body,
+  html.is-page-entering body,
+  html.is-page-leaving body {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: fd-vt-out 0.28s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: fd-vt-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fd-vt-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fd-vt-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}

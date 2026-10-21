@@ -1,0 +1,21 @@
+
+:root {
+  //main colors
+  --color-gray: rgb(240, 240, 240);
+  --color-blue: #0056d3;
+  --color-white: #ffffff;
+  --color-orange: #ff6900;
+
+  //opasity
+  --color-white-30: rgba(255, 255, 255, 0.3);
+  --color-white-70: rgba(255, 255, 255, 0.7);
+  --color-blue-10: rgba(0, 86, 211, 0.1);
+  --color-blue-50: rgba(0, 86, 211, 0.5);
+  --color-blue-05: rgba(0, 86, 211, 0.05);
+  --color-black-0: rgba(0, 86, 211, 0);
+}
+
+body {
+  color: var(--color-blue);
+  background-color: var(--color-white);
+}

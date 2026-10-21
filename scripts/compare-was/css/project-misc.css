@@ -1,0 +1,276 @@
+.project-gallery,
+ids-gallery,
+.ids__gallery {
+  display: none;
+}
+
+.ids__wrapper[data-client-tag="yandex"] .project-gallery,
+.ids__wrapper[data-client-tag="audit"] .project-gallery,
+.ids__wrapper[data-client-tag="sber500"] .project-gallery,
+.ids__wrapper[data-client-tag="sporos"] .project-gallery,
+.ids__wrapper[data-client-tag="vi"] .project-gallery,
+.ids__wrapper[data-client-tag="yamusic"] .project-gallery,
+.ids__wrapper[data-client-tag="bandlink"] .project-gallery {
+  display: block;
+}
+
+.ids__wrapper[data-client-tag="yandex"] ids-gallery,
+.ids__wrapper[data-client-tag="yandex"] .ids__gallery,
+.ids__wrapper[data-client-tag="audit"] ids-gallery,
+.ids__wrapper[data-client-tag="audit"] .ids__gallery,
+.ids__wrapper[data-client-tag="sber500"] ids-gallery,
+.ids__wrapper[data-client-tag="sber500"] .ids__gallery,
+.ids__wrapper[data-client-tag="sporos"] ids-gallery,
+.ids__wrapper[data-client-tag="sporos"] .ids__gallery,
+.ids__wrapper[data-client-tag="vi"] ids-gallery,
+.ids__wrapper[data-client-tag="vi"] .ids__gallery,
+.ids__wrapper[data-client-tag="yamusic"] ids-gallery,
+.ids__wrapper[data-client-tag="yamusic"] .ids__gallery,
+.ids__wrapper[data-client-tag="bandlink"] ids-gallery,
+.ids__wrapper[data-client-tag="bandlink"] .ids__gallery {
+  display: flex;
+}
+
+.project-gallery--rangos,
+.project-gallery--lavatop,
+.project-gallery--dodo,
+.project-gallery--kim-chips,
+.project-gallery--toolpar {
+  display: block;
+}
+
+.project-gallery--rangos ids-gallery,
+.project-gallery--rangos .ids__gallery,
+.project-gallery--lavatop ids-gallery,
+.project-gallery--lavatop .ids__gallery,
+.project-gallery--dodo ids-gallery,
+.project-gallery--dodo .ids__gallery,
+.project-gallery--kim-chips ids-gallery,
+.project-gallery--kim-chips .ids__gallery,
+.project-gallery--toolpar ids-gallery,
+.project-gallery--toolpar .ids__gallery {
+  display: flex;
+}
+
+.project-gallery--rangos figure img,
+.project-gallery--rangos figure video,
+.project-gallery--lavatop figure img,
+.project-gallery--lavatop figure video,
+.project-gallery--dodo figure img,
+.project-gallery--dodo figure video,
+.project-gallery--kim-chips figure img,
+.project-gallery--kim-chips figure video,
+.project-gallery--toolpar figure img,
+.project-gallery--toolpar figure video {
+  width: 100%;
+  display: block;
+}
+
+/* Kim Chips: while case text is hidden, stack galleries like Lavatop (gallery --gap) */
+.ids__wrapper.S:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) {
+  display: none;
+}
+
+.ids__wrapper.S:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .ids__wrapper.L:has(.project-gallery--kim-chips) {
+  margin-top: 1em;
+}
+
+.project-gallery--dodo ids-gallery figure.L.project-figure--soft-radius,
+.project-gallery--dodo .ids__gallery figure.L.project-figure--soft-radius {
+  border-radius: 0.6em;
+}
+
+@media screen and (max-width: 768px) {
+  .ids__wrapper.S:has(> [hidden][aria-hidden="true"]):not([data-client-tag]) + .ids__wrapper.L:has(.project-gallery--kim-chips) {
+    margin-top: 0.4em;
+  }
+
+  /* Text → image spacing in cases → S; after image stays L */
+  .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .ids__space.L:last-child,
+  .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .ids__space.M:last-child {
+    height: calc(var(--ids__density) * 0.7em);
+  }
+
+  /* Keep M after audit CTA */
+  .ids__wrapper:has(+ .ids__wrapper .project-gallery) > .about-how-we-work-cta + .ids__space.M {
+    height: calc(var(--ids__density) * 1.4em);
+  }
+
+  .project-gallery--dodo ids-gallery figure.XL,
+  .project-gallery--dodo .ids__gallery figure.XL {
+    border-radius: 0.4em;
+  }
+
+  .project-gallery--dodo ids-gallery figure.L,
+  .project-gallery--dodo ids-gallery figure:not(.L):not(.XL),
+  .project-gallery--dodo .ids__gallery figure.L,
+  .project-gallery--dodo .ids__gallery figure:not(.L):not(.XL) {
+    border-radius: 0.3em;
+  }
+
+  .project-gallery--dodo ids-gallery figure.L.project-figure--soft-radius,
+  .project-gallery--dodo .ids__gallery figure.L.project-figure--soft-radius {
+    border-radius: 0.25em;
+  }
+}
+
+figure.project-figure--bordered {
+  position: relative;
+}
+
+figure.project-figure--bordered::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ids__wrapper[data-client-tag="sporos"] figure.project-figure--logo {
+  margin-top: calc(var(--ids__density) * 4em);
+  margin-bottom: calc(var(--ids__density) * 4em);
+}
+
+.ids__wrapper[data-client-tag="sporos"] figure.project-figure--logo a {
+  display: flex;
+  justify-content: center;
+}
+
+.ids__wrapper[data-client-tag="sporos"] figure.project-figure--logo img {
+  width: 50%;
+  max-width: 50%;
+}
+
+.portreit {
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.portreit img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.portreit--zoom img {
+  transform: scale(2.2) translateY(-8%);
+  transform-origin: 50% 18%;
+}
+
+.portraits-inline {
+  display: inline-flex;
+  align-items: flex-end;
+  vertical-align: text-bottom;
+  margin-left: 0.2em;
+}
+
+.ids p.quote.quote--portraits {
+  margin-bottom: 0;
+}
+
+.portraits-inline--start {
+  margin-left: 0;
+}
+
+.portraits-inline .portreit + .portreit {
+  margin-left: -0.2em;
+}
+
+/* Same overlap, but taken on the right so a wrapped row starts flush left. */
+.portraits-inline--start .portreit + .portreit {
+  margin-left: 0;
+}
+
+.portraits-inline--start .portreit {
+  margin-right: -0.2em;
+}
+
+/* On desktop the two groups read as one row; on mobile they stack (see below). */
+.portraits-inline__row {
+  display: contents;
+}
+
+.ids p.project-team {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.project-team .portreit {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.1em;
+  vertical-align: -0.3em;
+}
+
+.project-team__member {
+  white-space: nowrap;
+}
+
+.project-team__member:not(:last-child) {
+  margin-right: 0.5em;
+}
+
+.project-team {
+  font-weight: 400;
+}
+
+.project-team .project-text-emphasis:not(.project-team__label) {
+  font-weight: 800;
+}
+
+.project-team__role {
+  color: var(--color-blue-50);
+  font-weight: 400;
+}
+
+.project-team__label {
+  font-weight: 400;
+}
+
+hr.default {
+  display: block;
+  margin: 0.5em auto;
+  border-style: inset;
+  border-width: 1px;
+}
+
+@media screen and (max-width: 768px) {
+  .portraits-inline {
+    display: flex;
+    margin-left: 0;
+    margin-top: 0.35em;
+    vertical-align: baseline;
+  }
+
+  .project-team__label {
+    display: block;
+    margin-bottom: 0.35em;
+  }
+
+  .portreit {
+    width: 1.3em;
+    height: 1.3em;
+  }
+
+  /* Index intro: portraits break into two rows, an XS step apart. */
+  .portraits-inline--start {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: calc(var(--ids__density) * 0.1em);
+    margin-top: 0;
+  }
+
+  .portraits-inline__row {
+    display: flex;
+  }
+
+  /* Gap between the intro text and the portraits is S on mobile (same value as .ids__space.S). */
+  .ids .ids__space.portraits-gap {
+    height: calc(var(--ids__density) * 0.7em);
+  }
+}

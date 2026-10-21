@@ -62,6 +62,7 @@ SWITCH = """
       }})();
     </script>
   </body>"""
+NO_FADE = "  <style>@view-transition { navigation: none; } html body { animation: none !important; opacity: 1 !important; transform: none !important; }</style>\n  "
 ON = "background:#fff;color:#0056d3"
 OFF = "color:#fff"
 
@@ -81,6 +82,10 @@ def rewrite(dst: pathlib.Path, side: str) -> None:
         if path.parent == dst and path.name in PAGES:
             if 'name="robots"' not in text and CHARSET in text:
                 text = text.replace(CHARSET, CHARSET + "\n" + NOINDEX, 1)
+            # Switching is for comparing styles, so pages change instantly:
+            # no fade between pages, no view transition.
+            text = re.sub(r'\s*<script src="js/page-transition(-prep)?\.js"></script>', '', text)
+            text = text.replace("</head>", NO_FADE + "</head>", 1)
             switch = SWITCH.format(page=path.name, was=ON if side == "was" else OFF, now=ON if side == "now" else OFF)
             text = text.replace("  </body>", switch, 1) if "  </body>" in text else text.replace("</body>", switch, 1)
         path.write_text(text, encoding="utf-8")

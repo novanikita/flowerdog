@@ -3,7 +3,7 @@
 
   var LOGO_MIN_EM = 2;
   var LOGO_SHRINK_DISTANCE = 260;
-  var MOBILE_MAX_WIDTH = 768;
+  var MOBILE_MAX_WIDTH = 1024; // the folded header, see css/fds-header.css
   var LOGO_MARGIN_TOP_START_EM = 0.05;
   var LOGO_MARGIN_TOP_END_EM = 0.2;
   var LOGO_MARGIN_BOTTOM_END_EM = 0.2;

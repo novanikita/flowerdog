@@ -15,17 +15,19 @@ Static site: HTML, CSS, JS, no bundler. `main` deploys to production
 
 ## Design system (FDS)
 
-- `main` runs FDS 1.0; its rules are in `docs/fds.md` and on
-  `/design-system`.
-- FDS 2.0 (type ladder, clothing sizes, tablets) lives on branch `fds-2`
-  and is not approved for the official site. The team looks at it in the
-  before/after copy at `/preview/sravni-a2b0-3fca-6957/` (built by
-  `scripts/make-compare-preview.py` from `scripts/compare-was/` and
-  `scripts/compare-now/`). Never merge `fds-2` into `main` on your own:
-  `main` carries a commit that put the site back to 1.0, so a merge needs
-  the owner's go and a revert of that commit.
+Read `docs/fds.md` before touching CSS or markup; the living version is
+`/design-system` (`design-system.html`). In short:
+
 - Only FDS classes and tokens (`fds-`, `--fds-`). No selectors for a page,
-  client, case or language; a difference is a modifier.
+  client, case or language; a difference is a modifier on one axis.
+- Sizes are clothing sizes `2xs xs s m l xl`; no modifier means M.
+- Text uses the ladder `fds-h1…fds-h4` (always medium), `fds-text` and
+  `fds-caption` (with `--regular|--medium|--bold`); components use the
+  `--fds-type-*` tokens.
+- Spacing before a heading follows its level (H1/H2 XL, H3 L, H4 M);
+  groups read together keep one spacing inside.
+- One layout border: `@media (width <= 768px)`.
+- New things go on `/design-system` first.
 
 ## Checking a change
 

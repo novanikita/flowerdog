@@ -1,6 +1,6 @@
 .fds-meta__date {
-  font-size: 0.7em;
-  font-weight: 400;
+  font-size: var(--fds-type-caption);
+  font-weight: var(--fds-weight-regular);
 }
 
 .fds-meta {
@@ -9,7 +9,7 @@
 }
 
 .fds-meta .fds-meta__item {
-  font-size: 0.7em;
+  font-size: var(--fds-type-caption);
   color: var(--fds-text);
   display: inline-flex;
   align-items: baseline;
@@ -43,7 +43,6 @@ p.fds-toc {
   }
 
   .fds-meta .fds-meta__item {
-    font-size: 0.6em;
     gap: 0.4em;
     margin: 0 0.4em 0 0;
   }
@@ -52,7 +51,7 @@ p.fds-toc {
 /* A single picture outside a gallery. */
 .fds-figure--framed {
   margin: 0;
-  border-radius: var(--fds-radius-l);
+  border-radius: var(--fds-radius-m);
   overflow: hidden;
 }
 

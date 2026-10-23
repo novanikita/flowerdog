@@ -33,8 +33,5 @@ python3 "$ROOT/scripts/build-clean-urls.py" "$SITE_DIR"
 echo "Building the secret footer preview…"
 python3 "$ROOT/scripts/make-footer-preview.py" "$SITE_DIR"
 
-echo "Building the secret before/after preview…"
-python3 "$ROOT/scripts/make-compare-preview.py" "$SITE_DIR"
-
 echo "Production build ready in: $SITE_DIR"
 echo "Draft pages are served only under /preview/<token>/ (excluded from site root)."

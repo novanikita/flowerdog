@@ -2,8 +2,8 @@
   'use strict';
 
   var STORAGE_KEY = 'fd-page-transition';
-  var ENTER_MS = 340;
-  var LEAVE_MS = 280;
+  var ENTER_MS = 300;
+  var LEAVE_MS = 300;
 
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

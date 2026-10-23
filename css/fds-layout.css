@@ -1,28 +1,38 @@
+/*
+ * Spacer: an empty div that sets the vertical rhythm between blocks.
+ * Without a modifier it is M; --mobile-s takes S on mobile.
+ */
 .fds-space {
-  height: calc(var(--fds-density) * 0.7em);
-
-  &.fds-space--xs {
-    height: calc(var(--fds-density) * 0.2em);
-  }
-  &.fds-space--m {
-    height: calc(var(--fds-density) * 1.4em);
-  }
-  &.fds-space--l {
-    height: calc(var(--fds-density) * 2.4em);
-  }
-  &.fds-space--xl {
-    height: calc(var(--fds-density) * 4em);
-  }
-
-  /* A different step on mobile, e.g. text to pictures in a case. */
-  @media (width <= 768px) {
-    &.fds-space--mobile-s {
-      height: calc(var(--fds-density) * 0.7em);
-    }
-  }
-  
+  height: var(--fds-space-m);
 }
 
+.fds-space--2xs {
+  height: var(--fds-space-2xs);
+}
+
+.fds-space--xs {
+  height: var(--fds-space-xs);
+}
+
+.fds-space--s {
+  height: var(--fds-space-s);
+}
+
+.fds-space--l {
+  height: var(--fds-space-l);
+}
+
+.fds-space--xl {
+  height: var(--fds-space-xl);
+}
+
+@media (width <= 768px) {
+  .fds-space--mobile-s {
+    height: var(--fds-space-s);
+  }
+}
+
+/* Wrap: a centred column. Without a modifier it is M (70%). */
 .fds-wrap {
   position: relative;
   width: 70%;
@@ -30,7 +40,7 @@
 
   @media (width <= 768px) {
     width: 100%;
-    padding: 0 calc(var(--fds-density) * 0.6em);
+    padding: 0 var(--fds-gutter);
   }
 
   &.fds-wrap--l {
@@ -40,24 +50,21 @@
 
   &.fds-wrap--s {
     width: 60%;
-    padding: 0 1em;
+    padding: 0 var(--fds-gutter);
 
     @media (width <= 768px) {
       width: 100%;
-      padding: 0 calc(var(--fds-density) * 0.6em);
-        }
+    }
   }
 
   &.fds-wrap--xs {
     width: 50%;
-    padding: 0 1em;
+    padding: 0 var(--fds-gutter);
 
     @media (width <= 768px) {
       width: 100%;
-      padding: 0 calc(var(--fds-density) * 0.6em);
     }
   }
-
 }
 
 html,
@@ -116,16 +123,77 @@ main {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* Gaps: any step of the spacing scale, both ways or one way. */
+.fds-grid--gap-2xs {
+  gap: var(--fds-space-2xs);
+}
+
+.fds-grid--gap-xs {
+  gap: var(--fds-space-xs);
+}
+
 .fds-grid--gap-s {
-  gap: 0.5em;
+  gap: var(--fds-space-s);
+}
+
+.fds-grid--gap-m {
+  gap: var(--fds-space-m);
 }
 
 .fds-grid--gap-l {
-  column-gap: 2em;
+  gap: var(--fds-space-l);
 }
 
-.fds-grid--rows {
-  row-gap: 3em;
+.fds-grid--gap-xl {
+  gap: var(--fds-space-xl);
+}
+
+.fds-grid--row-gap-2xs {
+  row-gap: var(--fds-space-2xs);
+}
+
+.fds-grid--row-gap-xs {
+  row-gap: var(--fds-space-xs);
+}
+
+.fds-grid--row-gap-s {
+  row-gap: var(--fds-space-s);
+}
+
+.fds-grid--row-gap-m {
+  row-gap: var(--fds-space-m);
+}
+
+.fds-grid--row-gap-l {
+  row-gap: var(--fds-space-l);
+}
+
+.fds-grid--row-gap-xl {
+  row-gap: var(--fds-space-xl);
+}
+
+.fds-grid--col-gap-2xs {
+  column-gap: var(--fds-space-2xs);
+}
+
+.fds-grid--col-gap-xs {
+  column-gap: var(--fds-space-xs);
+}
+
+.fds-grid--col-gap-s {
+  column-gap: var(--fds-space-s);
+}
+
+.fds-grid--col-gap-m {
+  column-gap: var(--fds-space-m);
+}
+
+.fds-grid--col-gap-l {
+  column-gap: var(--fds-space-l);
+}
+
+.fds-grid--col-gap-xl {
+  column-gap: var(--fds-space-xl);
 }
 
 .fds-grid--top {
@@ -151,7 +219,7 @@ main {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: var(--fds-radius-xl);
+  border-radius: var(--fds-radius-l);
   object-fit: cover;
 }
 
@@ -167,14 +235,6 @@ main {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .fds-grid--gap-l {
-    row-gap: 3em;
-  }
-
-  .fds-grid--rows {
-    row-gap: 2.5em;
-  }
-
   .fds-grid__item,
   .fds-grid__item--l,
   .fds-grid__item--xl {
@@ -187,7 +247,7 @@ main {
   }
 
   .fds-photo {
-    border-radius: var(--fds-radius-m);
+    border-radius: var(--fds-radius-s);
   }
 }
 
@@ -218,7 +278,7 @@ main {
   }
 
   .fds-wrap__text {
-    margin-bottom: 3em;
+    margin-bottom: var(--fds-space-l);
   }
 
   .fds-wrap,

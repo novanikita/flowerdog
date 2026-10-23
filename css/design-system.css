@@ -46,6 +46,71 @@
     margin-bottom: 0.6em;
   }
 
+  /* A subsection inside one of the three groups. */
+  .ds-sub {
+    scroll-margin-top: 5em;
+    margin-top: calc(var(--fds-density) * 2.5em);
+  }
+
+  .ds-sub > h3 {
+    margin-bottom: 0.6em;
+  }
+
+  .ds-sub > h4 {
+    margin-top: calc(var(--fds-density) * 1.4em);
+  }
+
+  /* A small grey line that names the thing in code, for developers. */
+  .ds-note {
+    max-width: 36em;
+    font-size: var(--fds-type-caption);
+    color: var(--fds-text-muted);
+  }
+
+  /* Column widths shown on a miniature screen. */
+  .ds-screens {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11em, 1fr));
+    gap: 1.5em 1em;
+    margin: 0 0 calc(var(--fds-density) * 1em);
+  }
+
+  .ds-screen {
+    margin: 0;
+  }
+
+  .ds-screen__frame {
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 16 / 10;
+    padding: 0.6em 0;
+    border: 1px solid var(--fds-blue-50);
+    border-radius: var(--fds-radius-s);
+  }
+
+  .ds-screen__frame--left {
+    justify-content: flex-start;
+    padding-left: 0.3em;
+  }
+
+  .ds-screen__frame span {
+    display: block;
+    border-radius: 2px;
+    background: var(--fds-surface);
+  }
+
+  .ds-screen figcaption {
+    margin-top: 0.5em;
+    font-size: var(--fds-type-caption);
+    color: var(--fds-text-muted);
+    opacity: 1;
+  }
+
+  .ds-screen figcaption b {
+    display: block;
+    color: var(--fds-text);
+  }
+
   .ds-section > h3 {
     margin-top: calc(var(--fds-density) * 1.4em);
   }
@@ -66,6 +131,7 @@
   /* Spec table: name, live sample, values. */
   .ds-table {
     width: 100%;
+    overflow-wrap: normal;
     border-collapse: collapse;
     margin: 0 0 calc(var(--fds-density) * 1em);
     font-size: 0.85em;
@@ -108,8 +174,8 @@
     margin: 0 0 calc(var(--fds-density) * 1em);
     padding: 1em 1.2em;
     overflow-x: auto;
-    border-radius: var(--fds-radius-m);
-    background: var(--fds-surface-faint);
+    border-radius: var(--fds-radius-s);
+    background: var(--fds-surface);
     color: var(--fds-text);
     font-size: 0.8em;
     line-height: 1.5;
@@ -125,7 +191,7 @@
   }
 
   .ds-swatch {
-    border-radius: var(--fds-radius-m);
+    border-radius: var(--fds-radius-s);
     border: 1px solid var(--fds-line);
     overflow: hidden;
     font-size: 0.8em;
@@ -151,7 +217,7 @@
 
   .ds-demo .fds-space {
     background: var(--fds-surface);
-    border-radius: var(--fds-radius-xs);
+    border-radius: var(--fds-radius-s);
   }
 
   .ds-grid-demo > * {
@@ -161,13 +227,13 @@
     justify-content: center;
     background: var(--fds-surface);
     border: 1px solid var(--fds-bg);
-    border-radius: var(--fds-radius-xs);
+    border-radius: var(--fds-radius-s);
     font-size: 0.8em;
   }
 
   .ds-demo--inverse {
     padding: 1.5em;
-    border-radius: var(--fds-radius-m);
+    border-radius: var(--fds-radius-s);
     background: var(--fds-inverse-bg);
     color: var(--fds-inverse-text);
   }
@@ -193,7 +259,7 @@
     display: inline-block;
     width: 3em;
     height: 1.2em;
-    border-radius: var(--fds-radius-xs);
+    border-radius: var(--fds-radius-s);
     background: var(--fds-text);
     vertical-align: middle;
     transition: transform var(--ds-duration, 0.3s) var(--ds-ease, ease);
@@ -219,6 +285,86 @@
     .ds-table {
       display: block;
       overflow-x: auto;
+    }
+  }
+}
+
+/* Doc pieces: the type ladder, the spacing bars, the tooltip in the flow. */
+@layer pages {
+  .ds-content code {
+    font-size: 0.9em;
+  }
+
+  .ds-ladder {
+    margin: 0 0 2em;
+  }
+
+  .ds-ladder__row {
+    display: grid;
+    grid-template-columns: 12em minmax(0, 1fr);
+    gap: 1.5em;
+    align-items: baseline;
+    padding: 0.8em 0;
+    border-top: 1px solid var(--fds-line);
+  }
+
+  .ds-ladder__meta {
+    font-size: var(--fds-type-caption);
+    color: var(--fds-text-muted);
+  }
+
+  .ds-ladder__meta b {
+    display: block;
+    margin-bottom: 0.2em;
+    font-size: var(--fds-type-text);
+    color: var(--fds-text);
+  }
+
+  .ds-ladder__samples > * {
+    margin: 0;
+  }
+
+  .ds-ladder__samples > * + * {
+    margin-top: 0.3em;
+  }
+
+  .ds-scale {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5em 2.5em;
+    margin: 1em 0 2em;
+  }
+
+  .ds-scale__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    max-width: 12em;
+    font-size: var(--fds-type-caption);
+  }
+
+  .ds-scale__bar {
+    width: 3rem;
+    background: var(--fds-surface);
+    border-radius: 2px;
+  }
+
+  .ds-scale__note {
+    color: var(--fds-text-muted);
+  }
+
+  /* The tooltip bubble without its positioning, so it can sit in the flow. */
+  .ds-tip-frame {
+    display: inline-block;
+    border-radius: var(--fds-radius-s);
+    background: var(--fds-inverse-bg);
+  }
+
+  @media (width <= 768px) {
+    .ds-ladder__row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.5em;
     }
   }
 }

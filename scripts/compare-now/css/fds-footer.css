@@ -62,7 +62,7 @@ html.is-sheet-moving [data-fds-footer] {
   display: inline-block;
   margin: 0;
   font-size: var(--fds-type-h1);
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
   line-height: var(--fds-type-h1-leading);
   letter-spacing: -0.01em;
   word-break: break-word;

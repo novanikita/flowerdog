@@ -22,28 +22,28 @@ h1,
 .fds-h1 {
   font-size: var(--fds-type-h1);
   line-height: var(--fds-type-h1-leading);
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
 }
 
 h2,
 .fds-h2 {
   font-size: var(--fds-type-h2);
   line-height: var(--fds-type-h2-leading);
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
 }
 
 h3,
 .fds-h3 {
   font-size: var(--fds-type-h3);
   line-height: var(--fds-type-h3-leading);
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
 }
 
 h4,
 .fds-h4 {
   font-size: var(--fds-type-h4);
   line-height: var(--fds-type-h4-leading);
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
 }
 
 h5,
@@ -82,29 +82,17 @@ h6 {
   margin-bottom: 0.5em;
 }
 
-/* Weight is a modifier of any ladder style. */
-.fds-h1--regular,
-.fds-h2--regular,
-.fds-h3--regular,
-.fds-h4--regular,
+/* Headings have one weight, medium. Text and caption take a weight modifier. */
 .fds-text--regular,
 .fds-caption--regular {
   font-weight: var(--fds-weight-regular);
 }
 
-.fds-h1--medium,
-.fds-h2--medium,
-.fds-h3--medium,
-.fds-h4--medium,
 .fds-text--medium,
 .fds-caption--medium {
   font-weight: var(--fds-weight-medium);
 }
 
-.fds-h1--bold,
-.fds-h2--bold,
-.fds-h3--bold,
-.fds-h4--bold,
 .fds-text--bold,
 .fds-caption--bold {
   font-weight: var(--fds-weight-bold);

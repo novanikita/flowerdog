@@ -108,7 +108,7 @@ header.is-hidden {
 .fds-header__right .fds-header__link,
 .fds-header__right .fds-lang__btn {
   font-size: var(--fds-type-h3);
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
   white-space: nowrap;
 }
 

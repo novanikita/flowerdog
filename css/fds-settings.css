@@ -31,18 +31,43 @@ body {
   line-height: var(--fds-density);
 }
 
-/*
- * Base size. Everything is in em/rem of it, so the page scales as a whole.
- * Phone layout: 14px at 320, growing as in 1.0 but held at 20px from 469px,
- * so a tablet in the phone layout gets no giant text. Desktop layout: 11px
- * at 768 to 22.5px at 1500 as in 1.0, but never below 14px, so tablets and
- * phones held sideways stay readable; from 959px on nothing changed.
- */
 html {
-  font-size: clamp(14px, calc(14px + 18 * (100vw - 320px) / 448), 20px);
+  --fds-font-min-mobile: 14;
+  --fds-font-max-mobile: 32;
 
-  @media (width > 768px) {
-    font-size: clamp(14px, calc(11px + 11.5 * (100vw - 768px) / 732), 22.5px);
+  --fds-font-min-desktop: 11;
+  --fds-font-max-desktop: 22.5;
+
+  --fds-viewport-min: 320;
+  --fds-breakpoint: 768;
+  --fds-viewport-max: 1500;
+
+  font-size: calc(var(--fds-font-min-mobile) * 1px);
+
+  @media (width >= 320px) {
+    font-size: calc(
+      var(--fds-font-min-mobile) * 1px +
+        (var(--fds-font-max-mobile) - var(--fds-font-min-mobile)) *
+        (
+          (100vw - var(--fds-viewport-min) * 1px) /
+            (var(--fds-breakpoint) - var(--fds-viewport-min))
+        )
+    );
+  }
+
+  @media (width >= 768px) {
+    font-size: calc(
+      var(--fds-font-min-desktop) * 1px +
+        (var(--fds-font-max-desktop) - var(--fds-font-min-desktop)) *
+        (
+          (100vw - var(--fds-breakpoint) * 1px) /
+            (var(--fds-viewport-max) - var(--fds-breakpoint))
+        )
+    );
+  }
+
+  @media (width >= 1500px) {
+    font-size: calc(var(--fds-font-max-desktop) * 1px);
   }
 }
 

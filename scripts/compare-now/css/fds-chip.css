@@ -1,0 +1,45 @@
+/*
+ * Chip: a small pill label in two sizes. Without a modifier a chip is M,
+ * --s is the small one. Rows of chips sit in .fds-chips. The bottom padding
+ * is larger because lowercase Sona sits low in its line box.
+ */
+.fds-chips {
+  display: inline-flex;
+  align-items: baseline;
+  vertical-align: baseline;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0;
+}
+
+.fds-chip {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--fds-surface);
+  color: var(--fds-text);
+  border-radius: var(--fds-radius-pill);
+  padding: 0.1em 0.7em 0.2em;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.fds-chip--s {
+  padding: 0.05em 0.6em 0.15em;
+  font-size: 0.7rem;
+}
+
+@media (width <= 768px) {
+  .fds-chips {
+    gap: 0.35em;
+  }
+
+  .fds-chip {
+    font-size: 1rem;
+    line-height: 1.15;
+  }
+
+  .fds-chip--s {
+    padding: 0.05em 0.55em 0.15em;
+    font-size: 0.9rem;
+  }
+}

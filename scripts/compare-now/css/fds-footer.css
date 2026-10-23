@@ -1,0 +1,278 @@
+/*
+ * No bottom padding: the page ends exactly at the bottom of
+ * .fds-footer__brand, so native scrolling stops on the flowerdog
+ * wordmark. The picture gallery is not part of the document at all — it
+ * is only uncovered when js/footer-reveal.js lifts the whole sheet (main
+ * + this footer) past that end.
+ *
+ * The shadow sits entirely below the footer's bottom edge (its y-offset
+ * plus negative spread outruns the blur, so nothing bleeds above), which
+ * is below the fold at rest and never counts toward scroll height. It
+ * only shows once the sheet is lifted — the paper's edge over the
+ * pictures. Without the reveal it would only ever surface in a native
+ * overscroll bounce, as a stray grey band, so it is scoped too.
+ */
+.fds-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: var(--fds-text);
+}
+
+html.has-footer-reveal .fds-footer {
+  box-shadow: 0 2em 2em -0.5em var(--fds-shadow);
+}
+
+html.is-sheet-moving main,
+html.is-sheet-moving [data-fds-footer] {
+  will-change: transform;
+}
+
+/*
+ * .fds-footer__top and .fds-footer__brand carry their own opaque
+ * background plus all of the padding that would otherwise live on
+ * .fds-footer (top/side padding) or as margin between them —
+ * deliberately, not for looks. The picture panel is pinned to the bottom
+ * of the viewport for the whole page, underneath everything; any
+ * transparent gap in the footer — outer padding, the space between the
+ * nav grid and the brand block — would leak those pictures through as it
+ * scrolls across that band (a background-color on a *child* never blocks
+ * what's behind an ancestor that has none of its own). Padding stays
+ * covered because it is inside the opaque element's own painted box;
+ * margin would not, since a margin is blank space nothing paints.
+ */
+.fds-footer__top {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  align-items: start;
+  padding: 7em var(--fds-gutter) 0;
+  background-color: var(--fds-bg);
+}
+
+.fds-footer__contact {
+  grid-column: 1 / span 2;
+  min-width: 0;
+}
+
+.fds-footer__email {
+  display: inline-block;
+  margin: 0;
+  font-size: var(--fds-type-h1);
+  font-weight: var(--fds-weight-bold);
+  line-height: var(--fds-type-h1-leading);
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+
+.fds-footer__contact-note {
+  margin: 0.45em 0 0;
+  max-width: 22em;
+  font-weight: var(--fds-weight-regular);
+  line-height: var(--fds-type-text-leading);
+  letter-spacing: -0.01em;
+}
+
+.fds-footer__contact-lead {
+  font-weight: var(--fds-weight-bold);
+}
+
+
+.fds-footer__nav {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15em;
+  min-width: 0;
+}
+
+.fds-footer__nav-link {
+  display: inline-block;
+  line-height: var(--fds-type-text-leading);
+}
+
+
+.fds-footer__legal {
+  grid-column: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35em;
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+
+.fds-footer__legal-item {
+  margin: 0 0 calc(var(--fds-density) * 0.4em);
+  max-width: none;
+  color: var(--fds-text-muted);
+  font-weight: var(--fds-weight-regular);
+}
+
+.fds-footer__legal-break {
+  display: none;
+}
+
+.fds-footer__brand {
+  position: relative;
+  width: 100%;
+  padding: 2em var(--fds-gutter) 1.2em;
+  background-color: var(--fds-bg);
+}
+
+.fds-footer__flower {
+  display: block;
+  width: 24%;
+  height: auto;
+  aspect-ratio: 383 / 280;
+  margin: 0 0 0.1em 8%;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.fds-footer__wordmark {
+  display: block;
+  width: 100%;
+  margin: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.fds-footer__wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/*
+ * The secret layer. Fixed behind the sheet — main and [data-fds-footer]
+ * sit one paint layer above it (css/fds-layout.css) and are opaque, so they
+ * cover it completely. js/footer-reveal.js uncovers it by translating
+ * them up past the end of the page — the pictures never move, the sheet
+ * slides off them.
+ *
+ * Never z-index: -1, however natural that looks here. On a real iPhone
+ * (iOS 26.6, Safari) a negative layer behind a translated sheet keeps a
+ * stale painting of it: the footer showed up a second time under its own
+ * wordmark, and after closing it stayed over the page until a reload.
+ * Neither the simulator nor WebKit on a Mac shows it; the device does,
+ * and z-index: 0 with the sheet above cures it.
+ *
+ * The panel spans the viewport so the stage has room to grow, but paints
+ * nothing itself, and is only visible while the sheet moves or the footer
+ * is near: elsewhere on the page there is nothing that could ever show
+ * through. Near the end it stays visible so that the browser's own bounce
+ * past the end of the page uncovers the pictures the same way a lift
+ * does. That bounce is the browser's alone: the page never switches it
+ * off (WebKit stops scrolling the page altogether when the root has
+ * overscroll-behavior: none and a non-passive wheel listener exists).
+ *
+ * The stage holds the pictures at the gallery height, pinned to the
+ * bottom. Pulled past fully open, the script scales it from its bottom
+ * edge, so the pictures fill the extra room instead of leaving a gap.
+ */
+.fds-reveal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--fds-z-reveal);
+  overflow: hidden;
+  /* Layout and paint only. Size containment would say nothing here — the
+     insets give this panel its size — and this is a corner where WebKit
+     has already been found surprising once. */
+  contain: layout paint;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+html.is-sheet-moving .fds-reveal,
+html.is-footer-near .fds-reveal {
+  visibility: visible;
+}
+
+.fds-reveal__stage {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: var(--fds-reveal-height);
+  overflow: hidden;
+  background-color: var(--fds-surface);
+  transform-origin: 50% 100%;
+}
+
+html.is-sheet-moving .fds-reveal__stage {
+  will-change: transform;
+}
+
+.fds-reveal__stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.fds-reveal__stage img.is-active {
+  opacity: 1;
+}
+
+@media (width <= 768px) {
+  .fds-footer {
+    margin: 0;
+    padding: 0;
+  }
+
+  .fds-footer__top {
+    grid-template-columns: 1fr;
+    gap: 2em;
+    padding: 4em var(--fds-gutter) 0;
+  }
+
+  .fds-footer__contact,
+  .fds-footer__nav,
+  .fds-footer__legal {
+    grid-column: auto;
+  }
+
+  .fds-footer__contact-note {
+    max-width: none;
+  }
+
+  .fds-footer__nav {
+    gap: 0.4em;
+  }
+
+  .fds-footer__legal {
+    text-align: left;
+  }
+
+  .fds-footer__legal-item {
+    max-width: none;
+  }
+
+  .fds-footer__legal-break {
+    display: block;
+  }
+
+  .fds-footer__brand {
+    padding: 1em var(--fds-gutter) 1.5em;
+  }
+
+  .fds-footer__flower {
+    width: 44%;
+    margin-left: auto;
+    margin-right: 6%;
+  }
+
+  .fds-footer__wordmark {
+    margin-bottom: 0;
+  }
+}

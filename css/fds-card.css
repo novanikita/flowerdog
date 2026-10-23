@@ -19,7 +19,7 @@
   min-height: 29em;
   background-size: cover;
   background-position: center;
-  border-radius: var(--fds-radius-m);
+  border-radius: var(--fds-radius-l);
   background-color: var(--fds-surface);
 }
 
@@ -28,7 +28,7 @@
 }
 
 .fds-card__cover.fds-card__cover--soft {
-  border-radius: var(--fds-radius-l);
+  border-radius: var(--fds-radius-xl);
 }
 
 .fds-card__cover.fds-card__cover--round {
@@ -74,20 +74,15 @@
   margin-top: 0.5em;
 }
 
-.fds-card__meta:has(.fds-chip) {
+.fds-card__meta:has(.fds-chip--soon) {
   align-items: center;
   gap: 0.4em;
 }
 
-/* The "soon" chip next to a card title. */
-.fds-card__meta .fds-chip {
-  align-self: center;
-  flex-shrink: 0;
-  margin-top: 0.2em;
-}
-
 .fds-card__title {
   color: var(--fds-text);
+  font-size: 2em;
+  line-height: 1.12;
   margin: 0;
   transition: none;
 }
@@ -97,8 +92,8 @@
   color: var(--fds-accent);
 }
 
-.fds-card:hover .fds-chip,
-.fds-card:focus-visible .fds-chip {
+.fds-card:hover .fds-chip--soon,
+.fds-card:focus-visible .fds-chip--soon {
   background-color: var(--fds-surface-accent);
   color: var(--fds-accent);
 }
@@ -117,9 +112,9 @@ a.fds-button:focus-visible {
   width: 100%;
   color: var(--fds-text);
   text-decoration: none;
-  font-size: var(--fds-type-h3);
-  line-height: var(--fds-type-h3-leading);
-  font-weight: var(--fds-weight-medium);
+  font-size: 1.5em;
+  line-height: 1.2;
+  font-weight: 500;
   padding: 2em;
   border-radius: var(--fds-radius-pill);
   background-color: var(--fds-surface);
@@ -135,15 +130,15 @@ a.fds-button:focus-visible {
 
 
 @media (width <= 768px) {
-  .fds-card__meta:has(.fds-chip) {
+  .fds-card__meta:has(.fds-chip--soon) {
     flex-wrap: wrap;
   }
 
-  .fds-card__meta:has(.fds-chip) .fds-card__title {
+  .fds-card__meta:has(.fds-chip--soon) .fds-card__title {
     flex-basis: 100%;
   }
 
-  .fds-card__meta .fds-chip {
+  .fds-card__meta .fds-chip--soon {
     flex-basis: auto;
     width: auto;
   }
@@ -170,6 +165,7 @@ a.fds-button:focus-visible {
   }
 
   .fds-card__title {
+    font-size: 1.8em;
     width: auto;
   }
 
@@ -183,5 +179,6 @@ a.fds-button:focus-visible {
   a.fds-button:active,
   a.fds-button:focus-visible {
     padding: 1.2em 0.9em;
+    font-size: 1.2em;
   }
 }

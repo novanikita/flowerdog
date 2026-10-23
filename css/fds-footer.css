@@ -61,9 +61,9 @@ html.is-sheet-moving [data-fds-footer] {
 .fds-footer__email {
   display: inline-block;
   margin: 0;
-  font-size: var(--fds-type-h1);
-  font-weight: var(--fds-weight-bold);
-  line-height: var(--fds-type-h1-leading);
+  font-size: calc(clamp(1.95rem, 2.75vw, 2.85rem) + 1em);
+  font-weight: 700;
+  line-height: 1.05;
   letter-spacing: -0.01em;
   word-break: break-word;
 }
@@ -72,13 +72,13 @@ html.is-sheet-moving [data-fds-footer] {
 .fds-footer__contact-note {
   margin: 0.45em 0 0;
   max-width: 22em;
-  font-weight: var(--fds-weight-regular);
-  line-height: var(--fds-type-text-leading);
+  font-weight: 400;
+  line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
 .fds-footer__contact-lead {
-  font-weight: var(--fds-weight-bold);
+  font-weight: 700;
 }
 
 
@@ -93,7 +93,7 @@ html.is-sheet-moving [data-fds-footer] {
 
 .fds-footer__nav-link {
   display: inline-block;
-  line-height: var(--fds-type-text-leading);
+  line-height: 1.35;
 }
 
 
@@ -112,7 +112,8 @@ html.is-sheet-moving [data-fds-footer] {
   margin: 0 0 calc(var(--fds-density) * 0.4em);
   max-width: none;
   color: var(--fds-text-muted);
-  font-weight: var(--fds-weight-regular);
+  font-weight: 400;
+  line-height: 1.35;
 }
 
 .fds-footer__legal-break {
@@ -242,8 +243,16 @@ html.is-sheet-moving .fds-reveal__stage {
     grid-column: auto;
   }
 
+  .fds-footer__email {
+    font-size: 2.3em;
+  }
+
   .fds-footer__contact-note {
     max-width: none;
+  }
+
+  .fds-footer__nav-link {
+    font-size: 1.1em;
   }
 
   .fds-footer__nav {

@@ -2,10 +2,13 @@
 """Publish a before/after copy of the site at a secret URL.
 
 /preview/<token>/was/ is the site as it was on 13 October 2026, before the
-design system (a snapshot of commit 20817d0 kept in scripts/compare-was/);
-/preview/<token>/now/ is the site as it is in this build. Every page in
-both copies gets a switch at the top that opens the same page in the other
-copy at the same scroll position, so the two can be compared page by page.
+design system (a snapshot of commit 20817d0 in scripts/compare-was/);
+/preview/<token>/now/ is the site on the new design system, FDS 2.0, which
+is not on the official site yet (a snapshot of branch fds-2 in
+scripts/compare-now/; refresh it from that branch when 2.0 changes). Every
+page in both copies gets a switch at the top that opens the same page in
+the other copy at the same scroll position, instantly (the page fade is
+off here), so the two can be compared page by page.
 
 Pictures and fonts are not copied: both copies load them from the site
 root. Pages, styles, scripts and partials are copied, so each copy looks
@@ -24,6 +27,7 @@ import sys
 TOKEN = "sravni-a2b0-3fca-6957"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 WAS = ROOT / "scripts" / "compare-was"
+NOW = ROOT / "scripts" / "compare-now"
 PAGES = [
     "index.html", "portfolio.html", "about.html", "dodo.html", "kim-chips.html",
     "lavatop.html", "rangos.html", "sporos.html", "toolpar.html", "yandex.html",
@@ -96,7 +100,7 @@ def main() -> None:
     out = site_dir / "preview" / TOKEN
     if out.exists():
         shutil.rmtree(out)
-    for side, src in (("was", WAS), ("now", ROOT)):
+    for side, src in (("was", WAS), ("now", NOW)):
         dst = out / side
         dst.mkdir(parents=True)
         copy_tree(src, dst)
@@ -106,7 +110,7 @@ def main() -> None:
         '<meta http-equiv="refresh" content="0; url=was/index.html"><a href="was/index.html">Было / стало</a>\n',
         encoding="utf-8",
     )
-    print(f"Compare preview: /preview/{TOKEN}/  (was = 13 October, now = this build)")
+    print(f"Compare preview: /preview/{TOKEN}/  (was = 13 October, now = the new design system)")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,163 @@
+.fds-person__photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: var(--fds-radius-m);
+  background-color: var(--fds-surface);
+}
+
+.fds-person__photo.fds-person__photo--soft {
+  border-radius: var(--fds-radius-l);
+}
+
+.fds-person__photo.fds-person__photo--hard {
+  border-radius: 0;
+}
+
+.fds-person__photo.fds-person__photo--round {
+  border-radius: var(--fds-radius-pill);
+}
+
+.fds-person__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 0.4em;
+  row-gap: 0;
+  margin-top: 0.75em;
+  font-size: var(--fds-type-caption);
+  line-height: var(--fds-type-caption-leading);
+}
+
+.fds-person__name {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: var(--fds-weight-bold);
+  color: var(--fds-text);
+}
+
+.fds-person__meta .fds-chip {
+  margin: 0.1em 0 0;
+}
+
+p.fds-person__bio {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  padding-right: 0.5em;
+  font-size: var(--fds-type-caption);
+  line-height: var(--fds-type-caption-leading);
+  font-weight: var(--fds-weight-regular);
+  color: var(--fds-text);
+}
+
+@media (width <= 768px) {
+  .fds-person__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 0.25em;
+  }
+}
+
+html[data-lang="en"] p.fds-person__bio {
+  hyphens: auto;
+}
+
+.fds-avatar {
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: var(--fds-radius-pill);
+  overflow: hidden;
+  display: inline-block;
+}
+
+.fds-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fds-avatar--zoom img {
+  transform: scale(2.2) translateY(-8%);
+  transform-origin: 50% 18%;
+}
+
+.fds-avatars {
+  display: inline-flex;
+  align-items: flex-end;
+  vertical-align: text-bottom;
+  margin-left: 0.2em;
+}
+
+.fds-avatars--start {
+  margin-left: 0;
+}
+
+.fds-avatars .fds-avatar + .fds-avatar {
+  margin-left: -0.2em;
+}
+
+/* Same overlap, but taken on the right so a wrapped row starts flush left. */
+.fds-avatars--start .fds-avatar + .fds-avatar {
+  margin-left: 0;
+}
+
+.fds-avatars--start .fds-avatar {
+  margin-right: -0.2em;
+}
+
+p.fds-credits {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.fds-credits .fds-avatar {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.1em;
+  vertical-align: -0.3em;
+}
+
+.fds-credits__member {
+  white-space: nowrap;
+}
+
+.fds-credits__member:not(:last-child) {
+  margin-right: 0.5em;
+}
+
+.fds-credits {
+  font-weight: var(--fds-weight-regular);
+}
+
+.fds-credits__role {
+  color: var(--fds-text-muted);
+  font-weight: var(--fds-weight-regular);
+}
+
+@media (width <= 768px) {
+  .fds-avatars {
+    display: flex;
+    margin-left: 0;
+    margin-top: 0.35em;
+    vertical-align: baseline;
+  }
+
+  .fds-credits__label {
+    display: block;
+    margin-bottom: 0.35em;
+  }
+
+  /* Small enough for all eleven index portraits to fit one row at 320px. */
+  .fds-avatar {
+    width: 1.1em;
+    height: 1.1em;
+  }
+
+  .fds-avatars--start {
+    margin-top: 0;
+  }
+}

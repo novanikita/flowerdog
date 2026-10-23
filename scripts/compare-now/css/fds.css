@@ -1,0 +1,18 @@
+@layer tokens, base, layout, text, components, pages, utilities;
+
+@import url("fds-tokens.css") layer(tokens);
+@import url("fds-normalize.css") layer(base);
+@import url("fds-settings.css") layer(base);
+@import url("fds-transition.css") layer(base);
+@import url("fds-layout.css") layer(layout);
+@import url("fds-text.css") layer(text);
+@import url("fds-link.css") layer(text);
+@import url("fds-chip.css") layer(components);
+@import url("fds-header.css") layer(components);
+@import url("fds-footer.css") layer(components);
+@import url("fds-card.css") layer(components);
+@import url("fds-person.css") layer(components);
+@import url("fds-quote.css") layer(components);
+@import url("fds-gallery.css") layer(components);
+@import url("fds-case.css") layer(pages);
+@import url("fds-utilities.css") layer(utilities);

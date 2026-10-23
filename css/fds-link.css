@@ -24,7 +24,7 @@ a:focus-visible {
 /* Anchor link: the arrow stays plain, the words carry a hairline. */
 .fds-link--anchor {
   text-decoration: none;
-  transition: opacity var(--fds-duration-fast) var(--fds-ease);
+  transition: opacity var(--fds-duration-base) var(--fds-ease);
 }
 
 .fds-link--anchor span:not(.fds-link__arrow) {
@@ -41,7 +41,7 @@ a:focus-visible {
 .fds-link__arrow {
   display: inline-block;
   text-decoration: none;
-  transition: transform var(--fds-duration-fast) var(--fds-ease);
+  transition: transform var(--fds-duration-base) var(--fds-ease);
 }
 
 .fds-link--anchor:hover .fds-link__arrow,

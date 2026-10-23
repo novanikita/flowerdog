@@ -4,11 +4,11 @@ html.is-page-enter-prep body {
 }
 
 html.is-page-entering body {
-  animation: fd-page-enter var(--fds-duration-slow) var(--fds-ease) both;
+  animation: fd-page-enter var(--fds-duration-enter) var(--fds-ease-out) both;
 }
 
 html.is-page-leaving body {
-  animation: fd-page-leave var(--fds-duration-slow) var(--fds-ease) both;
+  animation: fd-page-leave var(--fds-duration-slow) var(--fds-ease-in) both;
   pointer-events: none;
 }
 
@@ -51,11 +51,11 @@ html.is-page-leaving body {
 }
 
 ::view-transition-old(root) {
-  animation: fd-vt-out var(--fds-duration-slow) var(--fds-ease) both;
+  animation: fd-vt-out var(--fds-duration-slow) var(--fds-ease-in) both;
 }
 
 ::view-transition-new(root) {
-  animation: fd-vt-in var(--fds-duration-slow) var(--fds-ease) both;
+  animation: fd-vt-in var(--fds-duration-enter) var(--fds-ease-out) both;
 }
 
 @keyframes fd-vt-out {

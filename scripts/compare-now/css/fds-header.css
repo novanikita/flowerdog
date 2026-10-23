@@ -1,0 +1,334 @@
+header {
+  padding: 0 var(--fds-gutter);
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: var(--fds-z-header);
+  background: var(--fds-bg);
+}
+
+header.is-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: transform var(--fds-duration-slow) var(--fds-ease);
+}
+
+header.is-hidden {
+  transform: translateY(-110%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header.is-fixed {
+    transition: none;
+  }
+}
+
+.fds-header {
+  font-size: 1em;
+  font-weight: var(--fds-weight-bold);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.2em;
+  width: 100%;
+  max-width: 100%;
+}
+
+[data-fds-header] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  /* Reserve space before async partial injects (avoids empty strip / layout jump) */
+  min-height: 3.25em;
+}
+
+.fds-header__left {
+  display: flex;
+  align-items: flex-end;
+  gap: 1em;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.fds-header__left .fds-header__logo a {
+  display: block;
+  font-size: clamp(3.4em, 13.2vw, 10em);
+  line-height: 0.9;
+  white-space: nowrap;
+  margin-top: 0.05em;
+  margin-bottom: 0;
+  transition: none;
+}
+
+.fds-header__logo-image {
+  display: block;
+  width: auto;
+  height: 1em;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.fds-header:not(.is-menu-open) .fds-header__left .fds-header__logo a:hover .fds-header__logo-image,
+.fds-header:not(.is-menu-open) .fds-header__left .fds-header__logo a:focus-visible .fds-header__logo-image {
+  filter: brightness(0) saturate(100%) invert(58%) sepia(93%) saturate(3082%) hue-rotate(3deg) brightness(101%) contrast(102%);
+}
+
+.fds-header__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 2.5em;
+  margin-top: clamp(0.4em, 2.6vw, 2.5em);
+  min-width: max-content;
+  transition: none;
+}
+
+.fds-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.fds-header a {
+  color: var(--fds-text);
+  text-decoration: none;
+}
+
+.fds-header__right .fds-header__link,
+.fds-header__right .fds-lang__btn {
+  font-size: var(--fds-type-h3);
+  font-weight: var(--fds-weight-bold);
+  white-space: nowrap;
+}
+
+.fds-header__nav .fds-header__link:hover,
+.fds-header__nav .fds-header__link:focus-visible {
+  color: var(--fds-accent);
+}
+
+.fds-lang {
+  display: flex;
+  align-items: center;
+}
+
+.fds-header__burger {
+  display: none;
+}
+
+.fds-lang__btn {
+  min-width: 1.4em;
+  min-height: 1.4em;
+  background: transparent;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  color: var(--fds-text);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: none;
+}
+
+.fds-lang__btn.is-active {
+  color: var(--fds-text);
+  opacity: 1;
+}
+
+.fds-lang__btn:hover,
+.fds-lang__btn:focus-visible {
+  color: var(--fds-accent);
+}
+
+/*
+ * The header folds into the burger up to 1024px, its own border apart from
+ * the 768px layout one: below it the menu does not fit next to the logo.
+ * js/header-scroll.js uses the same number.
+ */
+@media (width <= 1024px) {
+  body.has-menu-open {
+    overflow: hidden;
+  }
+
+  header {
+    padding: var(--fds-gutter);
+  }
+
+  .fds-header {
+    align-items: flex-start;
+    gap: 0;
+    overflow-x: clip;
+  }
+
+  .fds-header__left {
+    width: calc(100% - 2.2em);
+    min-width: 0;
+    gap: 0;
+  }
+
+  /* !important: js/header-scroll.js writes the desktop logo size inline and
+     only resets it after a resize; the mobile size must win meanwhile. */
+  .fds-header__left .fds-header__logo a {
+    font-size: 3.5em !important;
+  }
+
+  header.is-fixed {
+    position: sticky;
+    top: 0;
+  }
+
+  .fds-header__right {
+    margin-top: 0 !important; /* same reason as the logo size above */
+    margin-left: auto;
+    min-width: 0;
+    display: block;
+  }
+
+  .fds-header__burger {
+    width: 2em;
+    height: 2em;
+    margin-top: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.45em;
+    cursor: pointer;
+    z-index: var(--fds-z-menu-top);
+    position: relative;
+  }
+
+  .fds-header__burger-line {
+    width: 2em;
+    height: 0.4em;
+    background: var(--fds-text);
+    display: block;
+  }
+
+  .fds-header__nav,
+  .fds-header .fds-lang {
+    display: none;
+  }
+
+  .fds-header.is-menu-open .fds-header__right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    z-index: var(--fds-z-menu);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: max(var(--fds-gutter), env(safe-area-inset-top)) var(--fds-gutter) max(var(--fds-gutter), env(safe-area-inset-bottom));
+    background: var(--fds-inverse-bg);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity var(--fds-duration-fast) var(--fds-ease), transform var(--fds-duration-fast) var(--fds-ease);
+  }
+
+  .fds-header.is-menu-open .fds-header__left {
+    position: fixed;
+    top: max(var(--fds-gutter), env(safe-area-inset-top));
+    left: var(--fds-gutter);
+    z-index: var(--fds-z-menu-top);
+  }
+
+  .fds-header.is-menu-open .fds-header__burger {
+    position: fixed;
+    top: max(var(--fds-gutter), env(safe-area-inset-top));
+    right: var(--fds-gutter);
+    z-index: calc(var(--fds-z-menu-top) + 1);
+    align-items: flex-end;
+  }
+
+  .fds-header.is-menu-open .fds-header__nav,
+  .fds-header.is-menu-open .fds-lang {
+    display: flex;
+    width: 100%;
+  }
+
+  .fds-header.is-menu-open .fds-header__nav {
+    margin-top: 6em;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8em;
+  }
+
+  .fds-header.is-menu-open .fds-lang {
+    align-items: flex-start;
+    gap: 0.2em;
+  }
+
+  .fds-header.is-menu-open .fds-header__nav,
+  .fds-header.is-menu-open .fds-lang {
+    animation: mobile-menu-items-in var(--fds-duration-fast) var(--fds-ease) both;
+  }
+
+  .fds-header.is-menu-open .fds-header__nav .fds-header__link,
+  .fds-header.is-menu-open .fds-lang__btn {
+    font-size: var(--fds-type-h1);
+  }
+
+  .fds-header.is-menu-open .fds-header__burger-line {
+    background: var(--fds-inverse-text);
+  }
+
+  .fds-header.is-menu-open .fds-header__logo a,
+  .fds-header.is-menu-open .fds-header__link,
+  .fds-header.is-menu-open .fds-header__link:hover,
+  .fds-header.is-menu-open .fds-header__link:visited,
+  .fds-header.is-menu-open .fds-lang__btn {
+    color: var(--fds-inverse-text);
+  }
+
+  .fds-header.is-menu-open .fds-header__logo-image {
+    filter: brightness(0) invert(1);
+  }
+
+  .fds-header.is-menu-open .fds-lang__btn {
+    background: transparent;
+    opacity: 0.7;
+  }
+
+  .fds-header.is-menu-open .fds-lang__btn.is-active {
+    opacity: 1;
+  }
+
+  .fds-lang__btn {
+    min-width: 1.1em;
+    min-height: 1.4em;
+    padding: 0.1em;
+  }
+
+  @keyframes mobile-menu-items-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5em);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+}

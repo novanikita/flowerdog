@@ -85,7 +85,7 @@
 
 @media (width <= 768px) {
   :root {
-    --fds-type-h1: 2.2rem;
+    --fds-type-h1: 2.3rem;
     --fds-type-h2: 1.8rem;
     --fds-type-h3: 1.3rem;
     --fds-type-h4: 1.1rem;

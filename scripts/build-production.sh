@@ -30,6 +30,9 @@ cp "$ROOT/deploy/beget/.htaccess" "$SITE_DIR/.htaccess"
 echo "Building clean URLs (/slug/ + .html redirects)…"
 python3 "$ROOT/scripts/build-clean-urls.py" "$SITE_DIR"
 
+echo "Bundling the design system CSS…"
+python3 "$ROOT/scripts/bundle-css.py" "$SITE_DIR"
+
 echo "Building the secret footer preview…"
 python3 "$ROOT/scripts/make-footer-preview.py" "$SITE_DIR"
 

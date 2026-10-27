@@ -48,10 +48,4 @@ p.fds-toc {
   }
 }
 
-/* A single picture outside a gallery. */
-.fds-figure--framed {
-  margin: 0;
-  border-radius: var(--fds-radius-m);
-  overflow: hidden;
-}
 

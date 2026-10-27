@@ -305,7 +305,6 @@
     var cur = startNode ? startNode.nextElementSibling : null;
     while (cur && !(cur.classList && cur.classList.contains('fds-meta'))) {
       if (
-        (cur.classList && cur.classList.contains('fds-gallery-wrap')) ||
         cur.querySelector('img, video, iframe')
       ) {
         return true;
@@ -320,7 +319,6 @@
     while (cur) {
       if (cur.matches && cur.matches('p.fds-meta__date')) return false;
       if (
-        (cur.classList && cur.classList.contains('fds-gallery-wrap')) ||
         cur.querySelector('img, video, iframe')
       ) {
         return true;
@@ -336,10 +334,6 @@
 
     wraps.forEach(function (wrapEl, idx) {
       var hasContent = detectProjectContent(wrapEl);
-      var metaEl = wrapEl.querySelector('p.fds-meta__item');
-      if (metaEl) {
-        metaEl.classList.add(hasContent ? 'fds-meta__item--content' : 'fds-meta__item--compact');
-      }
       if (!hasContent) return;
 
       // Insert one base spacer before content projects (except the very first).
@@ -411,7 +405,7 @@
     // Fallback:
     // dateEl is p.fds-meta__date with only date (e.g. "20.01.2025")
     // and number+title are in the next <p> as:
-    // <code class="fds-meta__number">№xx</code> ...text...
+    // <code data-fds-number>№xx</code> ...text...
     var raw = (dateEl && dateEl.textContent ? dateEl.textContent : '').trim();
     if (!raw) return false;
     if (raw.indexOf(',') !== -1) return false;
@@ -424,7 +418,7 @@
     var nextP = dateEl.nextElementSibling;
     if (!nextP || nextP.tagName !== 'P') return false;
 
-    var codeEl = nextP.querySelector('code.fds-meta__number');
+    var codeEl = nextP.querySelector('code[data-fds-number]');
     if (!codeEl) return false;
 
     var numberText = (codeEl.textContent || '').trim();
@@ -475,7 +469,7 @@
     items.forEach(function (p) {
       // 1) If date line is already in combined "№, date, country, tags..." format -> convert.
       if (transformCombinedFormat(p)) return;
-      // 2) Otherwise try split fallback: date-only + next <p> with code.fds-meta__number.
+      // 2) Otherwise try split fallback: date-only + next <p> with code[data-fds-number].
       transformSplitFormat(p);
     });
 

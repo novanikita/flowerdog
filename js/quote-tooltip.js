@@ -123,7 +123,7 @@
     if (placeAside && !isMobile) {
       var block =
         wordEl.closest('.fds-quote') ||
-        wordEl.closest('.fds-terms') ||
+        wordEl.closest('[data-fds-terms]') ||
         wordEl;
       var blockRect = block.getBoundingClientRect();
       top = blockRect.top - containerRect.top;
@@ -133,7 +133,7 @@
       // Absolute plaque centered in the quote block, nudged up so the trigger stays visible.
       var mobileBlock =
         wordEl.closest('.fds-quote') ||
-        wordEl.closest('.fds-terms') ||
+        wordEl.closest('[data-fds-terms]') ||
         wordEl;
       var mobileBlockRect = mobileBlock.getBoundingClientRect();
       var tooltipHeight = tooltip.offsetHeight || 0;
@@ -190,7 +190,7 @@
   });
 
   if (supportsHover) {
-    document.querySelectorAll('#interactive-quote, .fds-terms').forEach(function (root) {
+    document.querySelectorAll('#interactive-quote, [data-fds-terms]').forEach(function (root) {
       root.addEventListener('mouseleave', hideTooltip);
     });
   }

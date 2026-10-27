@@ -9,7 +9,7 @@
 
   function isGalleryMediaLink(link) {
     if (!link) return false;
-    if (link.closest('fds-gallery, .fds-gallery, .fds-gallery-wrap')) return true;
+    if (link.closest('fds-gallery, .fds-gallery')) return true;
 
     var href = link.getAttribute('href');
     if (!href) return false;

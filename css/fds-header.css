@@ -55,13 +55,15 @@ header.is-hidden {
   min-width: 0;
 }
 
+/* On cases js/header-scroll.js shrinks the logo while scrolling through the
+   --fds-logo-* properties; the mobile rules below simply win over them. */
 .fds-header__left .fds-header__logo a {
   display: block;
-  font-size: clamp(3.4em, 13.2vw, 10em);
+  font-size: var(--fds-logo-size, var(--fds-size-logo));
   line-height: 0.9;
   white-space: nowrap;
-  margin-top: 0.05em;
-  margin-bottom: 0;
+  margin-top: var(--fds-logo-top, 0.05em);
+  margin-bottom: var(--fds-logo-bottom, 0);
   transition: none;
 }
 
@@ -87,7 +89,7 @@ header.is-hidden {
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 2.5em;
-  margin-top: clamp(0.4em, 2.6vw, 2.5em);
+  margin-top: var(--fds-header-right-top, clamp(0.4em, 2.6vw, 2.5em));
   min-width: max-content;
   transition: none;
 }
@@ -175,10 +177,8 @@ header.is-hidden {
     gap: 0;
   }
 
-  /* !important: js/header-scroll.js writes the desktop logo size inline and
-     only resets it after a resize; the mobile size must win meanwhile. */
   .fds-header__left .fds-header__logo a {
-    font-size: 3.5em !important;
+    font-size: var(--fds-size-logo-folded);
   }
 
   header.is-fixed {
@@ -187,7 +187,7 @@ header.is-hidden {
   }
 
   .fds-header__right {
-    margin-top: 0 !important; /* same reason as the logo size above */
+    margin-top: 0;
     margin-left: auto;
     min-width: 0;
     display: block;

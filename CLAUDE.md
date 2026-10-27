@@ -31,6 +31,8 @@ Read `docs/fds.md` before touching CSS or markup; the living version is
 
 ## Checking a change
 
+`python3 scripts/fds-lint.py` must report 0 problems (it checks tokens,
+the modifier vocabulary, banned selectors and unknown classes).
 `scripts/screenshots/`: `node shoot.mjs <label>` before and after,
 `node compare.mjs <before> <after>`. Anything that changed and was not
 agreed is a bug. Draft pages live in `preview/<token>/`, rebuilt with

@@ -7,8 +7,10 @@
   }
 }
 
-/* A paragraph without its bottom margin; the spacer after it sets the rhythm. */
-.fds-flush {
+/* A paragraph or list without its bottom margin; the spacer after it sets
+   the rhythm. */
+.fds-flush,
+.fds-flush > li:last-child {
   margin-bottom: 0;
 }
 

@@ -54,17 +54,9 @@ a:focus-visible {
   transform: translateX(0.1em);
 }
 
-/* A paragraph that holds a call to action, after a spacer. It eats the
-   bottom margin of the paragraph or list before that spacer. */
+/* A paragraph that holds a call to action, after a spacer. The block
+   before that spacer takes fds-flush, so only the spacer sets the gap. */
 p.fds-cta {
-  margin-bottom: 0;
-}
-
-:is(p, ul):has(+ .fds-space + .fds-cta) {
-  margin-bottom: 0;
-}
-
-ul:has(+ .fds-space + .fds-cta) > li:last-child {
   margin-bottom: 0;
 }
 

@@ -92,7 +92,7 @@ html[data-lang="en"] p.fds-person__bio {
   margin-left: 0.2em;
 }
 
-.fds-avatars--start {
+.fds-avatars--left {
   margin-left: 0;
 }
 
@@ -101,11 +101,11 @@ html[data-lang="en"] p.fds-person__bio {
 }
 
 /* Same overlap, but taken on the right so a wrapped row starts flush left. */
-.fds-avatars--start .fds-avatar + .fds-avatar {
+.fds-avatars--left .fds-avatar + .fds-avatar {
   margin-left: 0;
 }
 
-.fds-avatars--start .fds-avatar {
+.fds-avatars--left .fds-avatar {
   margin-right: -0.2em;
 }
 
@@ -164,11 +164,11 @@ p.fds-credits {
     aspect-ratio: 1 / 1;
   }
 
-  .fds-avatars--start .fds-avatar:last-child {
+  .fds-avatars--left .fds-avatar:last-child {
     margin-right: 0;
   }
 
-  .fds-avatars--start {
+  .fds-avatars--left {
     margin-top: 0;
   }
 }

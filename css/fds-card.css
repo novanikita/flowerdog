@@ -65,18 +65,13 @@
 .fds-card__meta {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: 0.4em;
   margin-top: 0.5em;
   margin-bottom: 3em;
 }
 
 .fds-card__strip + .fds-card__meta {
   margin-top: 0.5em;
-}
-
-.fds-card__meta:has(.fds-chip) {
-  align-items: center;
-  gap: 0.4em;
 }
 
 /* The "soon" chip next to a card title. */
@@ -135,11 +130,12 @@ a.fds-button:focus-visible {
 
 
 @media (width <= 768px) {
-  .fds-card__meta:has(.fds-chip) {
+  /* On a phone the "soon" chip goes under the title. */
+  .fds-card__meta {
     flex-wrap: wrap;
   }
 
-  .fds-card__meta:has(.fds-chip) .fds-card__title {
+  .fds-card__meta .fds-card__title {
     flex-basis: 100%;
   }
 

@@ -23,11 +23,11 @@
     var logoLink = header.querySelector('.fds-header__left .fds-header__logo a');
     var rightBlock = header.querySelector('.fds-header__right');
     if (logoLink) {
-      logoLink.style.fontSize = '';
-      logoLink.style.marginTop = '';
-      logoLink.style.marginBottom = '';
+      logoLink.style.removeProperty('--fds-logo-size');
+      logoLink.style.removeProperty('--fds-logo-top');
+      logoLink.style.removeProperty('--fds-logo-bottom');
     }
-    if (rightBlock) rightBlock.style.marginTop = '';
+    if (rightBlock) rightBlock.style.removeProperty('--fds-header-right-top');
   }
 
   function syncHeaderLogoScale(header) {
@@ -51,9 +51,10 @@
     var progress = clamp01(window.scrollY / LOGO_SHRINK_DISTANCE);
     var currentPx = expandedPx - (expandedPx - minPx) * progress;
 
-    logoLink.style.fontSize = currentPx + 'px';
-    logoLink.style.marginTop = (LOGO_MARGIN_TOP_START_EM + (LOGO_MARGIN_TOP_END_EM - LOGO_MARGIN_TOP_START_EM) * progress) + 'em';
-    logoLink.style.marginBottom = (LOGO_MARGIN_BOTTOM_END_EM * progress) + 'em';
+    // Custom properties, not inline sizes, so the mobile rules still win.
+    logoLink.style.setProperty('--fds-logo-size', currentPx + 'px');
+    logoLink.style.setProperty('--fds-logo-top', (LOGO_MARGIN_TOP_START_EM + (LOGO_MARGIN_TOP_END_EM - LOGO_MARGIN_TOP_START_EM) * progress) + 'em');
+    logoLink.style.setProperty('--fds-logo-bottom', (LOGO_MARGIN_BOTTOM_END_EM * progress) + 'em');
 
     if (rightBlock) {
       if (!header.__rightMarginTopExpandedPx || header.__rightMarginTopExpandedPx < 0) {
@@ -65,7 +66,7 @@
       var centerMarginTopPx = Math.max(0, (headerHeight - rightHeight) / 2);
       var expandedMarginPx = header.__rightMarginTopExpandedPx;
       var currentRightMarginTopPx = expandedMarginPx * (1 - progress) + centerMarginTopPx * progress;
-      rightBlock.style.marginTop = currentRightMarginTopPx + 'px';
+      rightBlock.style.setProperty('--fds-header-right-top', currentRightMarginTopPx + 'px');
     }
   }
 

@@ -32,8 +32,15 @@
 | размер | `2xs xs s m l xl` (без модификатора M) | `fds-chip--s`, `fds-space--l` |
 | вес текста | `regular medium` (только текст и подпись) | `fds-text--medium` |
 | цвет | `accent` | `fds-quote--accent` |
-| форма | `hard soft round` | `fds-card__cover--round` |
-| только мобила | `mobile-` + размер | `fds-space--mobile-s` |
+| форма углов | `hard` (0), `tight` (S), без модификатора (M), `soft` (L), `round` | `fds-card__cover--round` |
+| картинка | `outline` (рамка), `contain` (вписать с полями), `zoom` (кадр крупнее) | `fds-figure--outline` |
+| выравнивание и место | `top`, `left`, `aside` | `fds-grid--top` |
+| вид ссылки | `cta`, `anchor` | `fds-link--cta` |
+| только мобила | `mobile-` + размер или число колонок | `fds-space--mobile-s`, `fds-grid--mobile-2` |
+| зазор сетки | `gap-`, `row-gap-`, `col-gap-` + размер | `fds-grid--gap-xs` |
+
+Других модификаторов нет: новое слово сначала добавляется в этот словарь (и в
+`scripts/fds-lint.py`). Зацепки для скриптов — атрибуты `data-*`, не классы.
 
 ## Токены (`css/fds-tokens.css`)
 
@@ -57,7 +64,7 @@
 **Отступы.** `--fds-space-2xs|xs|s|m|l|xl` = 0.25 / 0.5 / 1 / 2 / 3 / 5 rem.
 Спейсер `fds-space` (M), `fds-space--{размер}`, `fds-space--mobile-s`. Сетка:
 `fds-grid` (4 колонки), `--2`, `--3`, `--gap-{размер}`, `--row-gap-{размер}`,
-`--col-gap-{размер}`, `--keep`, `--top`; элемент `fds-grid__item`, `--l`, `--xl`.
+`--col-gap-{размер}`, `--mobile-2`, `--top`; элемент `fds-grid__item`, `--l`, `--xl`.
 Поле страницы `--fds-gutter`: S на десктопе, XS на мобиле.
 
 **Отступ перед заголовком** — по ступени заголовка (по виду, не по тегу):
@@ -99,14 +106,20 @@ M — обложка проекта.
 2. Значение прижми к ступени шкалы. Новая ступень — только по краю.
 3. Отличие оформи модификатором на одной оси, не правилом под место.
 4. Сначала добавь на `/design-system` с примером, потом используй на странице.
-5. Сравни скриншоты до и после: `scripts/screenshots/` (`node shoot.mjs <метка>`,
+5. Запусти проверку: `python3 scripts/fds-lint.py`. Она ругается на размеры,
+   цвета, жирность и скругления мимо токенов, на модификаторы вне словаря, на
+   `:has()`, `!important`, селекторы по странице или клиенту и на классы в
+   разметке, которых нет в стилях. Ноль проблем — обязательное условие.
+6. Сравни скриншоты до и после: `scripts/screenshots/` (`node shoot.mjs <метка>`,
    `node compare.mjs <а> <б>`). Всё, что изменилось и не было согласовано, —
    ошибка.
 
 ## Файлы
 
 `css/fds.css` — вход, каскадные слои `tokens, base, layout, text, components,
-pages, utilities`. Один компонент — один файл: `fds-chip`, `fds-header`,
+pages, utilities` (`pages` — только для страницы документации). При выкладке
+`scripts/bundle-css.py` склеивает все файлы в один `css/fds.css` с теми же
+слоями и ставит на страницах ссылку с меткой версии `?v=…`. Один компонент — один файл: `fds-chip`, `fds-header`,
 `fds-footer`, `fds-card`, `fds-person`, `fds-quote`, `fds-gallery`,
 `fds-case`. `css/design-system.css` — только для страницы документации, префикс
-`ds-`. История изменений — в git и в разделе «История» на `/design-system`.
+`ds-`. История изменений — в git.

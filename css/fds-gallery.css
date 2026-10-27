@@ -1,3 +1,9 @@
+/* A picture: rounded M and cropped to it, inside a gallery or on its own. */
+.fds-figure {
+    overflow: hidden;
+    border-radius: var(--fds-radius-m);
+}
+
 fds-gallery, .fds-gallery {
     display: flex;
     flex-direction: row;
@@ -10,12 +16,6 @@ fds-gallery, .fds-gallery {
 
     @media (width <= 768px) {
         --gap: 0.4em;
-    }
-
-    &.fds-gallery--review {
-        @media (width <= 768px) {
-        --columns: 1;
-        } 
     }
 
     .fds-figure {
@@ -129,11 +129,11 @@ video.has-sound-toggle {
   }
 }
 
-.fds-figure--bordered {
+.fds-figure--outline {
   position: relative;
 }
 
-.fds-figure--bordered::after {
+.fds-figure--outline::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -142,17 +142,17 @@ video.has-sound-toggle {
   pointer-events: none;
 }
 
-.fds-gallery .fds-figure--logo {
+.fds-gallery .fds-figure--contain {
   margin-top: calc(var(--fds-density) * 4em);
   margin-bottom: calc(var(--fds-density) * 4em);
 }
 
-.fds-gallery .fds-figure--logo a {
+.fds-gallery .fds-figure--contain a {
   display: flex;
   justify-content: center;
 }
 
-.fds-gallery .fds-figure--logo img {
+.fds-gallery .fds-figure--contain img {
   width: 50%;
   max-width: 50%;
 }

@@ -106,7 +106,7 @@ main {
 
 /*
  * Grid. Columns and gaps are modifiers; on mobile four columns become
- * two, three and two become one unless --keep says otherwise. Items span
+ * two, three and two become one unless --mobile-2 says otherwise. Items span
  * one column, --l two, --xl all four.
  */
 .fds-grid {
@@ -231,7 +231,7 @@ main {
   }
 
   .fds-grid:not(.fds-grid--2):not(.fds-grid--3),
-  .fds-grid--keep {
+  .fds-grid--mobile-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -258,7 +258,7 @@ main {
   box-sizing: border-box;
 }
 
-.fds-wrap__text--wide {
+.fds-wrap__text--l {
   width: 72%;
 }
 
@@ -273,7 +273,7 @@ main {
 
 @media (width <= 768px) {
   .fds-wrap__text,
-  .fds-wrap__text--wide {
+  .fds-wrap__text--l {
     width: 100%;
   }
 

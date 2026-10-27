@@ -65,6 +65,12 @@
   --fds-type-text-leading: 1.3;
   --fds-type-caption-leading: 1.25;
 
+  /* Component sizes: the two chips and the header logo. */
+  --fds-size-chip-m: 0.8rem;
+  --fds-size-chip-s: 0.7rem;
+  --fds-size-logo: clamp(3.4em, 13.2vw, 10em);
+  --fds-size-logo-folded: 3.5em; /* the header folded into the burger */
+
   /* Weights: two, named as in type. */
   --fds-weight-regular: 400;
   --fds-weight-medium: 500;
@@ -89,6 +95,8 @@
     --fds-type-h2: 1.8rem;
     --fds-type-h3: 1.3rem;
     --fds-type-h4: 1.1rem;
+    --fds-size-chip-m: 1rem;
+    --fds-size-chip-s: 0.9rem;
     --fds-gutter: var(--fds-space-xs);
     --fds-reveal-height: 14em;
   }

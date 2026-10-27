@@ -109,7 +109,7 @@
   white-space: pre-line;
 }
 
-.fds-tip--wide .fds-tip__text {
+.fds-tip--l .fds-tip__text {
   width: 28em;
   max-width: min(28em, 90vw);
 }
@@ -122,7 +122,7 @@
 }
 
 .fds-tip--aside .fds-tip__text,
-.fds-tip--aside.fds-tip--wide .fds-tip__text {
+.fds-tip--aside.fds-tip--l .fds-tip__text {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -136,7 +136,7 @@
     padding: 0.8em 0.9em 0.7em 0.9em;
   }
 
-  .fds-tip--wide .fds-tip__text {
+  .fds-tip--l .fds-tip__text {
     width: 24em;
     max-width: min(24em, 88vw);
   }
@@ -160,7 +160,7 @@
   }
 
   .fds-tip--aside .fds-tip__text,
-  .fds-tip--aside.fds-tip--wide .fds-tip__text {
+  .fds-tip--aside.fds-tip--l .fds-tip__text {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;

@@ -19,13 +19,13 @@
   color: var(--fds-text);
   border-radius: var(--fds-radius-pill);
   padding: 0.1em 0.7em 0.2em;
-  font-size: 0.8rem;
+  font-size: var(--fds-size-chip-m);
   line-height: 1.2;
 }
 
 .fds-chip--s {
   padding: 0.05em 0.6em 0.15em;
-  font-size: 0.7rem;
+  font-size: var(--fds-size-chip-s);
 }
 
 @media (width <= 768px) {
@@ -34,12 +34,10 @@
   }
 
   .fds-chip {
-    font-size: 1rem;
     line-height: 1.15;
   }
 
   .fds-chip--s {
     padding: 0.05em 0.55em 0.15em;
-    font-size: 0.9rem;
   }
 }

@@ -151,10 +151,21 @@ p.fds-credits {
     margin-bottom: 0.35em;
   }
 
-  /* Small enough for all eleven index portraits to fit one row at 320px. */
-  .fds-avatar {
-    width: 1.1em;
-    height: 1.1em;
+  /*
+   * In a row, a portrait is 1.1em of its line but shrinks when the row is
+   * wider than its column, so the row always ends at the column edge,
+   * whatever the line size or the number of people.
+   */
+  .fds-avatars .fds-avatar {
+    flex: 0 1 1.1em;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+  .fds-avatars--start .fds-avatar:last-child {
+    margin-right: 0;
   }
 
   .fds-avatars--start {

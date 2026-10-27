@@ -30,7 +30,7 @@
 | Ось | Значения | Пример |
 |---|---|---|
 | размер | `2xs xs s m l xl` (без модификатора M) | `fds-chip--s`, `fds-space--l` |
-| вес текста | `regular medium bold` (только текст и подпись) | `fds-text--bold` |
+| вес текста | `regular medium` (только текст и подпись) | `fds-text--medium` |
 | цвет | `accent` | `fds-quote--accent` |
 | форма | `hard soft round` | `fds-card__cover--round` |
 | только мобила | `mobile-` + размер | `fds-space--mobile-s` |
@@ -38,11 +38,11 @@
 ## Токены (`css/fds-tokens.css`)
 
 **Текст.** `--fds-type-h1…h4`, `--fds-type-text`, `--fds-type-caption`, интерлиньяжи
-`--fds-type-*-leading`, веса `--fds-weight-regular|medium|bold` (400/500/700).
+`--fds-type-*-leading`, веса `--fds-weight-regular|medium` (400/500); жирного (700) в системе нет.
 
 | Уровень | Десктоп | Мобила | Интерлиньяж | Класс |
 |---|---|---|---|---|
-| H1 | 3rem | 1.9rem | 1 | `fds-h1` |
+| H1 | 3rem | 2.2rem | 1 | `fds-h1` |
 | H2 | 2rem | 1.8rem | 1.05 | `fds-h2` |
 | H3 | 1.5rem | 1.3rem | 1.15 | `fds-h3` |
 | H4 | 1.25rem | 1.1rem | 1.2 | `fds-h4` |

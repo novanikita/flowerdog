@@ -22,7 +22,7 @@ Read `docs/fds.md` before touching CSS or markup; the living version is
   client, case or language; a difference is a modifier on one axis.
 - Sizes are clothing sizes `2xs xs s m l xl`; no modifier means M.
 - Text uses the ladder `fds-h1…fds-h4` (always medium), `fds-text` and
-  `fds-caption` (with `--regular|--medium|--bold`); components use the
+  `fds-caption` (with `--regular|--medium`; there is no bold); components use the
   `--fds-type-*` tokens.
 - Spacing before a heading follows its level (H1/H2 XL, H3 L, H4 M);
   groups read together keep one spacing inside.

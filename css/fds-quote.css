@@ -60,7 +60,7 @@
 
 .fds-quote__name {
   font-size: var(--fds-type-text);
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
 }
 
 .fds-quote__role {

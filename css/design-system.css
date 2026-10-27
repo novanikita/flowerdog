@@ -27,7 +27,7 @@
   }
 
   .ds-nav a.is-active {
-    font-weight: 700;
+    font-weight: var(--fds-weight-medium);
   }
 
   .ds-content {

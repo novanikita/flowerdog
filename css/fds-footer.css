@@ -78,7 +78,7 @@ html.is-sheet-moving [data-fds-footer] {
 }
 
 .fds-footer__contact-lead {
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
 }
 
 

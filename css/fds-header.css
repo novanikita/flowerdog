@@ -30,7 +30,7 @@ header.is-hidden {
 
 .fds-header {
   font-size: 1em;
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

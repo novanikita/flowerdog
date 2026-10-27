@@ -35,7 +35,7 @@
   margin: 0;
   font-size: inherit;
   line-height: inherit;
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
   color: var(--fds-text);
 }
 

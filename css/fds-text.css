@@ -55,7 +55,7 @@ h6,
 
 h5,
 h6 {
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
 }
 
 .fds-caption {
@@ -82,7 +82,8 @@ h6 {
   margin-bottom: 0.5em;
 }
 
-/* Headings have one weight, medium. Text and caption take a weight modifier. */
+/* Two weights only: regular and medium. Headings are medium; text and caption
+   are regular unless they take --medium. */
 .fds-text--regular,
 .fds-caption--regular {
   font-weight: var(--fds-weight-regular);
@@ -93,14 +94,9 @@ h6 {
   font-weight: var(--fds-weight-medium);
 }
 
-.fds-text--bold,
-.fds-caption--bold {
-  font-weight: var(--fds-weight-bold);
-}
-
 strong,
 b {
-  font-weight: var(--fds-weight-bold);
+  font-weight: var(--fds-weight-medium);
 }
 
 ul,

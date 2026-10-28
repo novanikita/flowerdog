@@ -1,0 +1,70 @@
+/*
+ * Row link: one entry of a list that leads to its own page (a vacancy, and
+ * anything listed the same way later). The whole row is the link. Rows sit
+ * in .fds-rows and are divided by a line; the title is H2, the text is
+ * text, chips and an arrow close the row. On hover the row turns accent,
+ * like the title of a project card.
+ */
+.fds-rows {
+  border-bottom: 1px solid var(--fds-line);
+}
+
+.fds-row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) auto auto;
+  grid-template-areas: "title text chips arrow";
+  column-gap: var(--fds-space-m);
+  align-items: baseline;
+  padding: var(--fds-space-m) 0;
+  border-top: 1px solid var(--fds-line);
+  color: var(--fds-text);
+  text-decoration: none;
+}
+
+.fds-row__title {
+  grid-area: title;
+  margin: 0;
+}
+
+.fds-row__text {
+  grid-area: text;
+  margin: 0;
+}
+
+.fds-row__chips {
+  grid-area: chips;
+}
+
+.fds-row__arrow {
+  grid-area: arrow;
+  font-size: var(--fds-type-h2);
+  line-height: 1;
+  transition: transform var(--fds-duration-fast) var(--fds-ease);
+}
+
+.fds-row:hover,
+.fds-row:focus-visible {
+  color: var(--fds-accent);
+}
+
+.fds-row:hover .fds-chip,
+.fds-row:focus-visible .fds-chip {
+  background-color: var(--fds-surface-accent);
+  color: var(--fds-accent);
+}
+
+.fds-row:hover .fds-row__arrow,
+.fds-row:focus-visible .fds-row__arrow {
+  transform: translateX(0.1em);
+}
+
+@media (width <= 768px) {
+  .fds-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "title arrow"
+      "chips chips"
+      "text text";
+    row-gap: var(--fds-space-xs);
+  }
+}

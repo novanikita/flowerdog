@@ -11,6 +11,7 @@
 @import url("fds-header.css") layer(components);
 @import url("fds-footer.css") layer(components);
 @import url("fds-card.css") layer(components);
+@import url("fds-row.css") layer(components);
 @import url("fds-person.css") layer(components);
 @import url("fds-quote.css") layer(components);
 @import url("fds-gallery.css") layer(components);

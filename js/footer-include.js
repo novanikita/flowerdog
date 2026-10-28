@@ -39,6 +39,7 @@
     '<a class="fds-footer__nav-link" href="portfolio.html" data-i18n data-ru="Проекты" data-en="Projects">Проекты</a>' +
     '<a class="fds-footer__nav-link" href="soon.html" data-i18n data-ru="Как мы работаем" data-en="How we work">Как мы работаем</a>' +
     '<a class="fds-footer__nav-link" href="about.html" data-i18n data-ru="О нас" data-en="About">О нас</a>' +
+    '<a class="fds-footer__nav-link" href="vacancies.html" data-i18n data-ru="Вакансии" data-en="Jobs">Вакансии</a>' +
     '<a class="fds-footer__nav-link" href="https://t.me/flowerdog_studio" target="_blank" rel="noopener" data-i18n data-ru="Канал студии" data-en="Studio channel">Канал студии</a>' +
     '</nav>' +
     '<div class="fds-footer__legal">' +

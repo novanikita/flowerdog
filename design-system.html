@@ -186,7 +186,7 @@
                 <div class="ds-screens">
                   <figure class="ds-screen"><div class="ds-screen__frame"><span style="width: 100%"></span></div><figcaption><b>L — 100%</b>сетки проектов, галереи</figcaption></figure>
                   <figure class="ds-screen"><div class="ds-screen__frame"><span style="width: 70%"></span></div><figcaption><b>M — 70%</b>обычная колонка</figcaption></figure>
-                  <figure class="ds-screen"><div class="ds-screen__frame"><span style="width: 60%"></span></div><figcaption><b>S — 60%</b>текст кейсов и вакансий</figcaption></figure>
+                  <figure class="ds-screen"><div class="ds-screen__frame"><span style="width: 60%"></span></div><figcaption><b>S — 60%</b>текст кейсов, вакансии и их список</figcaption></figure>
                   <figure class="ds-screen"><div class="ds-screen__frame"><span style="width: 50%"></span></div><figcaption><b>XS — 50%</b>узкий текст</figcaption></figure>
                   <figure class="ds-screen"><div class="ds-screen__frame ds-screen__frame--left"><span style="width: 50%"></span></div><figcaption><b>Текст слева — 50%</b>колонка текста на главной и «О нас»</figcaption></figure>
                   <figure class="ds-screen"><div class="ds-screen__frame ds-screen__frame--left"><span style="width: 72%"></span></div><figcaption><b>Широкий текст слева — 72%</b>вступление на главной</figcaption></figure>
@@ -296,6 +296,10 @@
                   </span></p>
                 </div>
 
+                <h4>Разделитель</h4>
+                <p class="ds-text">Тонкая линия на всю ширину колонки. Отделяет одну часть страницы от другой, когда заголовка мало: в аудите — вступление от результатов, в вакансиях — открытые от архива.</p>
+                <div class="ds-demo"><div class="fds-divider" role="separator" aria-hidden="true"></div></div>
+
                 <h4>Списки, врезки, цитаты в тексте</h4>
                 <p class="ds-text">Для длинных текстов в кейсах.</p>
                 <div class="ds-demo">
@@ -348,9 +352,9 @@
                 </div>
 
                 <h4>Строка-ссылка</h4>
-                <p class="ds-text">Строка списка, которая ведёт на свою страницу: слева название крупно (H2), справа стрелка. Вся строка — ссылка; строки разделены тонкой линией, при наведении строка становится оранжевой, как название карточки проекта. Сейчас так устроен список вакансий.</p>
+                <p class="ds-text">Строка списка, которая ведёт на свою страницу: слева название крупно (H2), справа стрелка. Вся строка — ссылка, при наведении она становится оранжевой, как название карточки проекта. Строки идут друг под другом без линий. Сейчас так устроен список вакансий.</p>
                 <div class="ds-demo">
-                  <nav class="fds-rows" aria-label="Пример">
+                  <nav aria-label="Пример">
                     <a class="fds-row" href="vacancy-art-director.html">
                       <h5 class="fds-row__title fds-h2">Арт-директор</h5>
                       <span class="fds-row__arrow" aria-hidden="true">→</span>
@@ -449,7 +453,7 @@
                     <tr><td>Кейс</td><td>теги → название (H2) → описание → галереи и тексты чередуются → команда проекта</td></tr>
                     <tr><td>О нас</td><td>две цитаты основателей → разделы «Клиенты», «Команда», «Пространство» с заголовком H2 → сетка людей</td></tr>
                     <tr><td>Проекты</td><td>сетка всех карточек проектов</td></tr>
-                    <tr><td>Вакансии</td><td>«Вакансии» (H1) → строки-ссылки на открытые вакансии → «Архив» (H3) → строки-ссылки на закрытые</td></tr>
+                    <tr><td>Вакансии</td><td>узкая колонка: «Вакансии» (H1) → строки-ссылки на открытые вакансии → разделитель → «Архив» (H3) → строки-ссылки на закрытые</td></tr>
                     <tr><td>Вакансия</td><td>название (H2) → разделы с подзаголовками H3 и списками</td></tr>
                   </tbody>
                 </table>

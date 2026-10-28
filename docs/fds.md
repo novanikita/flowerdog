@@ -82,6 +82,8 @@ M — обложка проекта.
 
 **Плашки.** `fds-chip` (M), `fds-chip--s`; ряд — `fds-chips`.
 
+**Разделитель.** `fds-divider` — линия на всю колонку между частями страницы.
+
 **Цвет.** Палитра `--fds-blue|orange|white` и оттенки 50% и 10%; в
 компонентах только смысловые токены: `--fds-text`, `--fds-text-muted`,
 `--fds-accent`, `--fds-accent-muted`, `--fds-bg`, `--fds-surface`,

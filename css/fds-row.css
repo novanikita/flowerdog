@@ -1,21 +1,15 @@
 /*
  * Row link: one entry of a list that leads to its own page (a vacancy, and
  * anything listed the same way later). The whole row is the link: the title
- * in H2 on the left, an arrow on the right. Rows sit in .fds-rows and are
- * divided by a line. On hover the row turns accent, like the title of a
- * project card.
+ * in H2 on the left, an arrow on the right. On hover the row turns accent,
+ * like the title of a project card.
  */
-.fds-rows {
-  border-bottom: 1px solid var(--fds-line);
-}
-
 .fds-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   column-gap: var(--fds-space-m);
-  padding: var(--fds-space-m) 0;
-  border-top: 1px solid var(--fds-line);
+  padding: var(--fds-space-xs) 0;
   color: var(--fds-text);
   text-decoration: none;
 }

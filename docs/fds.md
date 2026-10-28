@@ -31,7 +31,7 @@
 |---|---|---|
 | размер | `2xs xs s m l xl` (без модификатора M) | `fds-chip--s`, `fds-space--l` |
 | вес текста | `regular medium` (только текст и подпись) | `fds-text--medium` |
-| цвет | `accent` | `fds-quote--accent` |
+| цвет | `accent`, `muted` (бледнее) | `fds-quote--accent`, `fds-row--muted` |
 | форма углов | `hard` (0), `tight` (S), без модификатора (M), `soft` (L), `round` | `fds-card__cover--round` |
 | картинка | `outline` (рамка), `contain` (вписать с полями), `zoom` (кадр крупнее) | `fds-figure--outline` |
 | выравнивание и место | `top`, `left`, `aside` | `fds-grid--top` |

@@ -1,8 +1,8 @@
 /*
  * Row link: one entry of a list that leads to its own page (a vacancy, and
  * anything listed the same way later). The whole row is the link: the title
- * in H2 on the left, an arrow on the right. On hover the row turns accent,
- * like the title of a project card.
+ * in H3 on the left, an arrow on the right. On hover the row turns accent,
+ * like the title of a project card; --muted rows (an archive) are paler.
  */
 .fds-row {
   display: flex;
@@ -19,9 +19,13 @@
 }
 
 .fds-row__arrow {
-  font-size: var(--fds-type-h2);
+  font-size: var(--fds-type-h3);
   line-height: 1;
   transition: transform var(--fds-duration-fast) var(--fds-ease);
+}
+
+.fds-row--muted {
+  color: var(--fds-text-muted);
 }
 
 .fds-row:hover,

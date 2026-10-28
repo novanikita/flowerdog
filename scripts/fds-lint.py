@@ -31,7 +31,7 @@ TOKENS = {"fds-tokens.css", "fds-settings.css"}
 SIZES = {"2xs", "xs", "s", "m", "l", "xl", "2xl", "3xs", "2", "3"}
 VOCABULARY = SIZES | {
     "regular", "medium",                    # weight
-    "accent",                               # colour
+    "accent", "muted",                      # colour
     "hard", "tight", "soft", "round",       # shape
     "outline", "contain", "zoom",           # picture
     "top", "left", "aside",                 # alignment and placement

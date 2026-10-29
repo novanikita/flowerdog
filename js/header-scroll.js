@@ -90,7 +90,11 @@
     header.__rightMarginTopExpandedPx = -1;
     syncHeaderLogoScale(header);
 
+    // The header changes state only after the page has travelled this far in
+    // one direction, so small back-and-forth scrolls don't make it twitch.
+    var TRAVEL_PX = 40;
     var lastScrollY = window.scrollY || 0;
+    var travel = 0;
 
     function isFooterVisible() {
       var footer = document.querySelector('.fds-footer');
@@ -106,16 +110,26 @@
         return;
       }
 
-      var y = window.scrollY || 0;
-      var goingUp = y < lastScrollY - 1;
+      // Rubber-band overscroll past either end is not a scroll direction.
+      var maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      var y = Math.min(Math.max(window.scrollY || 0, 0), maxY);
+      var delta = y - lastScrollY;
       lastScrollY = y;
+      if (delta && (delta > 0) !== (travel > 0)) travel = 0;
+      travel += delta;
 
-      if (isFooterVisible() && !goingUp) {
-        header.classList.add('is-hidden');
+      // Near the top the header is in its place, even on a short page where
+      // the footer is in view right away.
+      if (y < header.offsetHeight || !isFooterVisible()) {
+        header.classList.remove('is-hidden');
         return;
       }
 
-      header.classList.remove('is-hidden');
+      if (travel > TRAVEL_PX) {
+        header.classList.add('is-hidden');
+      } else if (travel < -TRAVEL_PX) {
+        header.classList.remove('is-hidden');
+      }
     }
 
     function onScroll() {
